@@ -1,0 +1,80 @@
+
+
+
+==================================================================================
+==  DEBUG START 2021.10.29 - 16:48:18  ===========================================
+==================================================================================
+
+
+----ERROR----
+The value of a PCAN-Hardware handle is invalid
+
+Traceback (most recent call last):
+  File "/home/khc/github/canopen_linux/test/elmo.py", line 45, in __init__
+    self.network.connect(bustype='pcan', channel='PCAN_USBBUS1', bitrate=125000)
+  File "/home/khc/github/canopen/canopen/network.py", line 112, in connect
+    self.bus = can.interface.Bus(*args, **kwargs)
+  File "/home/khc/.local/lib/python3.6/site-packages/can/interface.py", line 127, in __new__
+    return cls(channel, *args, **kwargs)
+  File "/home/khc/.local/lib/python3.6/site-packages/can/interfaces/pcan/pcan.py", line 198, in __init__
+    raise PcanError(self._get_formatted_error(result))
+can.interfaces.pcan.pcan.PcanError: The value of a PCAN-Hardware handle is invalid
+
+
+
+
+==================================================================================
+==  DEBUG START 2021.10.29 - 19:09:47  ===========================================
+==================================================================================
+
+
+----ERROR----
+The value of a PCAN-Hardware handle is invalid
+
+Traceback (most recent call last):
+  File "/home/khc/github/canopen_linux/test/elmo.py", line 47, in decorated
+    func(self)
+  File "/home/khc/github/canopen_linux/test/elmo.py", line 67, in _connect_network
+    self.network.connect(bustype='pcan', channel='PCAN_USBBUS1', bitrate=125000)
+  File "/home/khc/github/canopen/canopen/network.py", line 112, in connect
+    self.bus = can.interface.Bus(*args, **kwargs)
+  File "/home/khc/.local/lib/python3.6/site-packages/can/interface.py", line 127, in __new__
+    return cls(channel, *args, **kwargs)
+  File "/home/khc/.local/lib/python3.6/site-packages/can/interfaces/pcan/pcan.py", line 198, in __init__
+    raise PcanError(self._get_formatted_error(result))
+can.interfaces.pcan.pcan.PcanError: The value of a PCAN-Hardware handle is invalid
+
+
+
+
+==================================================================================
+==  DEBUG START 2021.10.29 - 19:58:27  ===========================================
+==================================================================================
+
+
+
+
+==================================================================================
+==  DEBUG START 2021.10.29 - 20:00:13  ===========================================
+==================================================================================
+
+
+
+
+==================================================================================
+==  DEBUG START 2021.10.29 - 20:00:27  ===========================================
+==================================================================================
+
+test dict class CtrlPDO['target_position']: 1
+test dict class CtrlPDO['target_velocity']: 2
+test dict class CtrlPDO['target_torque']: 3
+
+
+
+==================================================================================
+==  DEBUG START 2021.10.29 - 20:00:41  ===========================================
+==================================================================================
+
+test dict class CtrlPDO()['target_position']: 1
+test dict class CtrlPDO()['target_velocity']: 2
+test dict class CtrlPDO()['target_torque']: 3

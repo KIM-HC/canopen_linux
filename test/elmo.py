@@ -1,65 +1,127 @@
 import os.path
 from platform import node
 from re import T
+import re
 import time
+import can
 import canopen
+from canopen.node import remote
+from canopen.profiles.p402 import BaseNode402, OperationMode
+import traceback
 
+class OPMode():
+
+    NO_MODE =              -1
+    PROFILED_POSITION =     1
+    PROFILED_VELOCITY =     3
+    PROFILED_TORQUE =       4
+    HOMING =                6
+    INTERPOLATED_POSITION = 7
+
+class CtrlWord():
+    FAULT_RESET =  0b10000000
+    SWITCH_ON =    0b10000001
+    SHUTDOWN =          0b110
+    SWITCH_ON =         0b111
+    DISABLE_OPERATION = 0b111
+    ENABLE_OPERATION = 0b1111
+
+class CtrlPDO(dict):
+    def __init__(self):
+        self['controlword'] =        1
+        self['modes_of_operation'] = 1
+        self['target_velocity'] =    2
+        self['target_torque'] =      2
+        self['target_position'] =    3
 
 class TestElmo():
-    def __init__(self):
+    def __init__(self, node_list):
         ## -----------------------------------------------------------------
         ## node id for testing
-        test_id = 4
+        self.node_list = node_list
+        self.sleep_ = 0.1
+        self.start_time = time.time()
+        self.cannot_test = False
 
         ## -----------------------------------------------------------------
         ## for debug
-        self.db_ = open('debug.txt', 'a')
+        self.db_ = open('../debug/debug'+time.strftime('_%Y_%m_%d', time.localtime())+'.txt', 'a')
         ptime_ = time.strftime('==  DEBUG START %Y.%m.%d - %X', time.localtime())
         two_bar = ''
         for _ in range(len(ptime_)+4):
             two_bar = two_bar + '='
-        self.dprint('\n\n\n' + two_bar + two_bar)
-        self.dprint(ptime_ + '  ==' + two_bar)
-        self.dprint(two_bar + two_bar + '\n')
+        self._dprint('\n\n\n' + two_bar + two_bar)
+        self._dprint(ptime_ + '  ==' + two_bar)
+        self._dprint(two_bar + two_bar + '\n')
 
         ## -----------------------------------------------------------------
         ## path for eds file of elmo
-        EDS_PATH = os.path.join(os.path.dirname(__file__), 'elmo.eds')
+        self.EDS_PATH = '../eds_file/elmo.eds'  ## os.path.join(os.path.dirname(__file__), 'elmo.eds')
+        self._dprint("test dict class CtrlPDO()['target_position']: {0}".format(CtrlPDO()['target_position']))
+        self._dprint("test dict class CtrlPDO()['target_velocity']: {0}".format(CtrlPDO()['target_velocity']))
+        self._dprint("test dict class CtrlPDO()['target_torque']: {0}".format(CtrlPDO()['target_torque']))
 
         ## -----------------------------------------------------------------
         ## one network per one CAN Bus
         self.network = canopen.Network()
 
+        self._connect_network()
+
+    ## catches errors and writes it in debug file
+    def _try_except_decorator(func):
+        def decorated(self):
+            try:
+                func(self)
+
+            except canopen.SdoCommunicationError as e:
+                self.cannot_test = True
+                self.dprint('\n----ERROR SdoCommunicationError----\n{0}\n\n{1}'.format(e, traceback.format_exc()))
+
+            except canopen.SdoAbortedError as e:
+                self.cannot_test = True
+                self.dprint('\n----ERROR SdoAbortedError----\n{0}\n\n{1}'.format(e, traceback.format_exc()))
+
+            except Exception as e:
+                self.cannot_test = True
+                self.dprint('\n----ERROR----\n{0}\n\n{1}'.format(e, traceback.format_exc()))
+        return decorated
+
+    @_try_except_decorator
+    def _connect_network(self):
         ## -----------------------------------------------------------------
         ## connect to CAN Bus (PEAK PCAN-USB(125kbps) or IXXAT)
         ## command pcaninfo will show channel(bus channel) name
         self.network.connect(bustype='pcan', channel='PCAN_USBBUS1', bitrate=125000)
 
-        # ## -----------------------------------------------------------------
-        # ## clean and reconnect
-        # self.network.bus.flush_tx_buffer()
-        # self.network.bus.stop_all_periodic_tasks()
-        # # self.network.bus.shutdown()
-        # self.network.clear()
-        # self.network.update()
-        # self.network.disconnect()
-        # self.network.connect(bustype='pcan', channel='PCAN_USBBUS1', bitrate=125000)
-
         ## -----------------------------------------------------------------
         ## attempt to read SDO from nodes 1 - 127
         ## add found node
         self.network.scanner.search()
-        time.sleep(0.05)
+        time.sleep(self.sleep_)
+        self._change_status(status='INITIALISING')
+        self._dprint()
         for node_id in self.network.scanner.nodes:
-            self.dprint("Found node %d!" % node_id)
-            # local_node_ = canopen.LocalNode(node_id=node_id, object_dictionary=EDS_PATH)
-            # self.network.add_node(local_node_)
-            self.network.add_node(node=node_id, object_dictionary=EDS_PATH)
+            self._dprint('Found node {0}'.format(node_id))
+            if node_id in self.node_list:
+                self._dprint('Adding node {0}'.format(node_id))
+                node_made_ = canopen.RemoteNode(node_id=node_id, object_dictionary=self.EDS_PATH)
+                # node_made_ = BaseNode402(node_id=node_id, object_dictionary=self.EDS_PATH)
+                self.network.add_node(node_made_)
+
+                ## dont know if it works or not
+                self.network[node_id].nmt.state = 'INITIALISING'
+                all_codes = [emcy.code for emcy in self.network[node_id].emcy.log]
+                active_codes = [emcy.code for emcy in self.network[node_id].emcy.active]
+                for code_ in all_codes:
+                    self._dprint('emcy: {0}'.format(code_))
+                for code_ in active_codes:
+                    self._dprint('emcy: {0}'.format(code_))
+                self.network[node_id].emcy.reset()
 
         ## -----------------------------------------------------------------
         ## check bus state
-        self.dprint('state: {0}'.format(self.network.bus.state))
-        self.dprint('bus channel_info: {0}'.format(self.network.bus.channel_info))
+        self._dprint('\nstate: {0}'.format(self.network.bus.state))
+        self._dprint('bus channel_info: {0}'.format(self.network.bus.channel_info))
 
         ## -----------------------------------------------------------------
         ## send out time message
@@ -68,305 +130,542 @@ class TestElmo():
         ## -----------------------------------------------------------------
         ## receive message
         msg = self.network.bus.recv(timeout=1.0)
-        self.dprint('msg: {0}'.format(msg))
-
-        # ## -----------------------------------------------------------------
-        # ## send nmt start to all nodes
-        # self.network.send_message(0x0, [0x1, 0])
+        self._dprint('\nmsg: {0}'.format(msg))
 
         ## -----------------------------------------------------------------
-        ## node with test_id id is needed from now on
-        if (test_id not in self.network):
-            self.dprint("testing node id is not in network. EXITING...")
-            self.network.disconnect()
-            return
+        ## node with node_list id is needed from now on
+        for id_ in self.node_list:
+            if (id_ not in self.network):
+                self._dprint('\n----\ntest node {0} is not in network\n----'.format(id_))
+                self.network.disconnect()
+                self.cannot_test = True
+                return
 
         ## -----------------------------------------------------------------
-        ## set SDO value
-        self.dprint('master state: ' + self.network.nmt.state)
-        self.dprint('node state: ' + self.network[test_id].nmt.state)
-        self.network.nmt.state = 'INITIALISING'
-        self.network[test_id].nmt.state = 'INITIALISING'
-        time.sleep(0.5)
-        self.network.nmt.state = 'PRE-OPERATIONAL'
-        self.network[test_id].nmt.state = 'PRE-OPERATIONAL'
-        time.sleep(0.5)
-
-        self.network[test_id].sdo['Producer Heartbeat Time'].raw = 1000
-        ## Communication Cycle Period: what is it?
-        self.network[test_id].sdo['Communication Cycle Period'].raw = 0
-
-
-        # ## -----------------------------------------------------------------
-        # ## transmit sync every 100 ms
-        # self.network.sync.start(0.1)
-
-        # ## -----------------------------------------------------------------
-        # ## configure state machine by searching for TPDO that has statusword
-        # self.network[test_id].setup_402_state_machine() # not tested
-
-        ## -----------------------------------------------------------------
-        ## read current PDO & SDO configuration
-        self.network[test_id].tpdo.read()
-        self.network[test_id].rpdo.read()
-        self.dprint("\n===========\nInformation")
-        self.dprint("error_code: {0}".format(self.network[test_id].sdo['error_code'].raw))
-        self.dprint("statusword: {0}".format(bin(self.network[test_id].sdo['statusword'].raw)))
-        self.dprint("controlword: {0}".format(bin(self.network[test_id].sdo['controlword'].raw)))
-        self.dprint("CAN Open Node ID: {0}".format(self.network[test_id].sdo['CAN Open Node ID'].raw))
-        self.dprint("modes_of_operation: {0}".format(self.network[test_id].sdo['modes_of_operation'].raw))
-        self.dprint("Producer Heartbeat Time: {0}".format(self.network[test_id].sdo['Producer Heartbeat Time'].raw))
-        self.dprint("Communication Cycle Period: {0}".format(self.network[test_id].sdo['Communication Cycle Period'].raw))
-        self.dprint("target_position: {0}".format(self.network[test_id].sdo['target_position'].raw))
-        self.dprint("profile_acceleration: {0}".format(self.network[test_id].sdo['profile_acceleration'].raw))
-        self.dprint("profile_deceleration: {0}".format(self.network[test_id].sdo['profile_deceleration'].raw))
-
-        self.dprint('\n- option setting')
-        self.dprint("quick_stop_option_code: {0}".format(self.network[test_id].sdo['quick_stop_option_code'].raw))
-        self.dprint("shutdown_option_code: {0}".format(self.network[test_id].sdo['shutdown_option_code'].raw))
-        self.dprint("disable_operation_option_code: {0}".format(self.network[test_id].sdo['disable_operation_option_code'].raw))
-        self.dprint("halt_option_code: {0}".format(self.network[test_id].sdo['halt_option_code'].raw))
-        self.dprint("fault_reaction_option_code: {0}".format(self.network[test_id].sdo['fault_reaction_option_code'].raw))
-
-        self.dprint('\n- position control')
-        self.dprint("profile_velocity: {0}".format(self.network[test_id].sdo['profile_velocity'].raw))
-        self.dprint("position_demand_value: {0}".format(self.network[test_id].sdo['position_demand_value'].raw))
-        self.dprint("position_actual_internal_value: {0}".format(self.network[test_id].sdo['position_actual_internal_value'].raw))
-        self.dprint("position_actual_value: {0}".format(self.network[test_id].sdo['position_actual_value'].raw))
-        self.dprint("following_error_window: {0}".format(self.network[test_id].sdo['following_error_window'].raw))
-        self.dprint("following_error_time_out: {0}".format(self.network[test_id].sdo['following_error_time_out'].raw))
-        self.dprint("position_window: {0}".format(self.network[test_id].sdo['position_window'].raw))
-        self.dprint("position_window_time: {0}".format(self.network[test_id].sdo['position_window_time'].raw))
-        self.dprint("Position Demand Internal Value: {0}".format(self.network[test_id].sdo['Position Demand Internal Value'].raw))
-
-        self.dprint('\n- torque control')
-        self.dprint("target_torque: {0}".format(self.network[test_id].sdo['target_torque'].raw))
-        self.dprint("max_torque: {0}".format(self.network[test_id].sdo['max_torque'].raw))
-        self.dprint("max_current: {0}".format(self.network[test_id].sdo['max_current'].raw))
-        self.dprint("torque_actual_value: {0}".format(self.network[test_id].sdo['torque_actual_value'].raw))
-
-
-        error_log = self.network[test_id].sdo[0x1003]
-        for error in error_log.values():
-            self.dprint("Error {0} was found in the log".format(hex(error.raw)))
-
-        self.dprint("\n=======\nTPDO[1]")
-        self.dprint("Num Entry: {0}".format(self.network[test_id].sdo['Transmit PDO Mapping Parameter 0'][0].raw))
-        self.dprint("Status Word: {0}".format(bin(self.network[test_id].sdo['Transmit PDO Mapping Parameter 0'][1].raw)))
-        self.dprint("Mapping Entry 2: {0}".format(self.network[test_id].sdo['Transmit PDO Mapping Parameter 0'][2].raw))
-        self.dprint("COB ID: {0}".format(self.network[test_id].sdo['Transmit PDO Communication Parameter 0'][1].raw))
-        self.dprint("Transmission Type: {0}".format(self.network[test_id].sdo['Transmit PDO Communication Parameter 0'][2].raw))
-        self.dprint("Inhibit Time: {0}".format(self.network[test_id].sdo['Transmit PDO Communication Parameter 0'][3].raw))
-        self.dprint("Event Timer: {0}".format(self.network[test_id].sdo['Transmit PDO Communication Parameter 0'][5].raw))
-
-        self.dprint("\n=======\nRPDO[1]")
-        self.dprint("Num Entry: {0}".format(self.network[test_id].sdo['Receive PDO Mapping Parameter 0'][0].raw))
-        self.dprint("Mapping Entry 1: {0}".format(self.network[test_id].sdo['Receive PDO Mapping Parameter 0'][1].raw))
-        self.dprint("COB ID: {0}".format(self.network[test_id].sdo['Receive PDO Communication Parameter 0'][0].raw))
-        self.dprint("Transmission Type: {0}".format(self.network[test_id].sdo['Receive PDO Communication Parameter 0'][0].raw))
-
-        # ## -----------------------------------------------------------------
-        # ## read position data
-        # self.dprint("\nchecking position reading . . .")
-        # for _ in range(100):
-        #     self.dprint("position_actual_value: {0}".format(self.network[test_id].sdo['position_actual_value'].raw))
-        #     self.dprint("velocity_actual_value: {0}".format(self.network[test_id].sdo['velocity_actual_value'].raw))
-        #     time.sleep(0.1)
+        ## read
+        self.network.sync.transmit()
+        for node_id_ in self.network:
+            self.network[node_id_].tpdo.read()
+            self.network[node_id_].rpdo.read()
 
         ## -----------------------------------------------------------------
         ## change TPDO configuration
-        self.network[test_id].tpdo[1].clear()
-        self.network[test_id].tpdo[1].add_variable('position_actual_value')
-        self.network[test_id].tpdo[1].add_variable('velocity_actual_value')
-        self.network[test_id].tpdo[1].trans_type = 254
-        self.network[test_id].tpdo[1].event_timer = 100
-        self.network[test_id].tpdo[1].inhibit_time = 5
-        self.network[test_id].tpdo[1].enabled = True
+        ## trans_type: 1=sync    255=254=asynchronous
+        for node_id_ in self.network:
+            id_ = 1
+            trans_type_ = 1
+            self.network[node_id_].tpdo[id_].clear()
+            self.network[node_id_].tpdo[id_].add_variable('statusword')
+            self.network[node_id_].tpdo[id_].trans_type = trans_type_
+            self.network[node_id_].tpdo[id_].event_timer = 10
+            self.network[node_id_].tpdo[id_].inhibit_time = 0
+            self.network[node_id_].tpdo[id_].enabled = True
 
-        self.network[test_id].tpdo[2].clear()
-        self.network[test_id].tpdo[2].add_variable('statusword')
-        self.network[test_id].tpdo[2].add_variable('torque_actual_value')
-        self.network[test_id].tpdo[2].trans_type = 254
-        self.network[test_id].tpdo[2].event_timer = 100
-        self.network[test_id].tpdo[2].inhibit_time = 5
-        self.network[test_id].tpdo[2].enabled = True
+            id_ = 2
+            self.network[node_id_].tpdo[id_].clear()
+            self.network[node_id_].tpdo[id_].add_variable('position_actual_value')
+            self.network[node_id_].tpdo[id_].add_variable('position_actual_internal_value')
+            self.network[node_id_].tpdo[id_].trans_type = trans_type_
+            self.network[node_id_].tpdo[id_].event_timer = 10
+            self.network[node_id_].tpdo[id_].inhibit_time = 0
+            self.network[node_id_].tpdo[id_].enabled = True
 
-        self.network[test_id].tpdo.save()
+            id_ = 3
+            self.network[node_id_].tpdo[id_].clear()
+            self.network[node_id_].tpdo[id_].add_variable('velocity_actual_value')
+            self.network[node_id_].tpdo[id_].add_variable('torque_actual_value')
+            self.network[node_id_].tpdo[id_].trans_type = trans_type_
+            self.network[node_id_].tpdo[id_].event_timer = 10
+            self.network[node_id_].tpdo[id_].inhibit_time = 0
+            self.network[node_id_].tpdo[id_].enabled = True
+
+            self.network[node_id_].tpdo.save()
+
+        ## -----------------------------------------------------------------
+        ## set SDO value
+        self._change_status(status='STOPPED')
+        self._change_status(status='RESET')
+        self._change_status(status='RESET COMMUNICATION')
+        self._change_status(status='INITIALISING')
+        self._change_status(status='PRE-OPERATIONAL')
+
+        for node_id_ in self.network:
+            self.network[node_id_].sdo['Producer Heartbeat Time'].raw = 1000
+            self.network[node_id_].sdo['Communication Cycle Period'].raw = 0  ## what is it?
 
         ## -----------------------------------------------------------------
         ## change RPDO configuration
-        self.network[test_id].rpdo[1].clear()
-        self.network[test_id].rpdo[1].add_variable('modes_of_operation')
-        self.network[test_id].rpdo[1].trans_type = 254 ## seems it doesnt work
-        self.network[test_id].rpdo[1].enabled = True
+        for node_id_ in self.network:
+            id_ = 1
+            self.network[node_id_].rpdo[id_].clear()
+            self.network[node_id_].rpdo[id_].add_variable('controlword')
+            self.network[node_id_].rpdo[id_].add_variable('modes_of_operation')
+            self.network[node_id_].rpdo[id_].enabled = True
 
-        self.network[test_id].rpdo[2].clear()
-        control_target = 'target_position'
-        # control_target = 'target_velocity'
-        # control_target = 'target_torque'
-        self.network[test_id].rpdo[2].add_variable(control_target)
-        self.network[test_id].rpdo[2].trans_type = 254 ## seems it doesnt work
-        self.network[test_id].rpdo[2].enabled = True
+            id_ = 2
+            self.network[node_id_].rpdo[id_].clear()
+            self.network[node_id_].rpdo[id_].add_variable('target_velocity')
+            self.network[node_id_].rpdo[id_].add_variable('target_torque')
+            self.network[node_id_].rpdo[id_].enabled = True
 
-        self.network[test_id].rpdo.save()
+            id_ = 3
+            self.network[node_id_].rpdo[id_].clear()
+            self.network[node_id_].rpdo[id_].add_variable('target_position')
+            self.network[node_id_].rpdo[id_].enabled = True
 
-        ## -----------------------------------------------------------------
-        ## change network nmt state
-        self.network.nmt.state = 'PRE-OPERATIONAL'
-        self.network[test_id].nmt.state = 'PRE-OPERATIONAL'
-        time.sleep(0.1)
-        self.network.nmt.state = 'OPERATIONAL'
-        self.network[test_id].nmt.state = 'OPERATIONAL'
-        time.sleep(0.1)
-        self.print_status()
+            self.network[node_id_].rpdo.save()
 
         ## -----------------------------------------------------------------
-        ## control test
-        test_ctrl = 0b110 ## Shutdown command
-        self.network[test_id].sdo['controlword'].raw = test_ctrl
-        time.sleep(1)
-        self.dprint('========================')
-        self.dprint('SHUTDOWN COMMAND')
-        self.dprint("statusword: {0}".format(bin(self.network[test_id].sdo['statusword'].raw)))
-        self.dprint("controlword: {0}".format(bin(self.network[test_id].sdo['controlword'].raw)))
-
-        test_ctrl = 0b111 ## Switch On command
-        self.network[test_id].sdo['controlword'].raw = test_ctrl
-        time.sleep(1)
-        self.dprint('========================')
-        self.dprint('SWITCH ON COMMAND')
-        self.dprint("statusword: {0}".format(bin(self.network[test_id].sdo['statusword'].raw)))
-        self.dprint("controlword: {0}".format(bin(self.network[test_id].sdo['controlword'].raw)))
-
-        test_ctrl = 0b1111 ## Enable Operation command
-        self.network[test_id].sdo['controlword'].raw = test_ctrl
-        time.sleep(1)
-        self.dprint('========================')
-        self.dprint('ENABLE OPERATION COMMAND')
-        self.dprint("statusword: {0}".format(bin(self.network[test_id].sdo['statusword'].raw)))
-        self.dprint("controlword: {0}".format(bin(self.network[test_id].sdo['controlword'].raw)))
-
+        ## fault reset
+        self._rpdo_controlword(CtrlWord.FAULT_RESET)
+        self._rpdo_controlword(CtrlWord.SWITCH_ON)
 
         ## -----------------------------------------------------------------
-        ## operation mode (402.pdf)
-        ## -1:no mode / 1:profile position / 3:profiled velocity
-        ## 4:torque profiled / 6:homing / 7:interpolated position
-        self.network[test_id].sdo['modes_of_operation'].raw = 1
+        ## check error
+        for node_id_ in self.network:
+            error_log = self.network[node_id_].sdo[0x1003]  ## Predefined Error Field
+            for error in error_log.values():
+                self._dprint("Error {0} was found in the log".format(hex(error.raw)))
 
         ## -----------------------------------------------------------------
-        ## Profile Position Mode (402.pdf p.34)
-        ## bit0-3: 1 (Enable Operation command)
-        ## bit4: New set-point
-        ## bit5: Change set immediately
-        ## bit6: abs/rel
-        ## bit8: Halt
-        test_ctrl = 0b000001111 ## Profile Position Mode
-        self.network[test_id].sdo['controlword'].raw = test_ctrl
-        time.sleep(1)
-        self.dprint('========================')
-        self.dprint('PROFILE POSITION MODE')
-        self.dprint("statusword: {0}".format(bin(self.network[test_id].sdo['statusword'].raw)))
-        self.dprint("controlword: {0}".format(bin(self.network[test_id].sdo['controlword'].raw)))
-        self.dprint("modes_of_operation: {0}".format(self.network[test_id].sdo['modes_of_operation'].raw))
+        ## read current PDO & SDO configuration
+        for node_id_ in self.network:
+            self._dprint("\n===========\nInformation")
+            self._dprint("CAN Open Node ID: {0}".format(self.network[node_id_].sdo['CAN Open Node ID'].raw))
+            self._dprint("error_code: {0}".format(self.network[node_id_].sdo['error_code'].raw))
+            self._dprint("statusword: {0}".format(bin(self.network[node_id_].sdo['statusword'].raw)))
+            self._dprint("controlword: {0}".format(bin(self.network[node_id_].sdo['controlword'].raw)))
+            self._dprint("modes_of_operation: {0}".format(self.network[node_id_].sdo['modes_of_operation'].raw))
+            self._dprint("Producer Heartbeat Time: {0}".format(self.network[node_id_].sdo['Producer Heartbeat Time'].raw))
+            self._dprint("Communication Cycle Period: {0}".format(self.network[node_id_].sdo['Communication Cycle Period'].raw))
 
-        self.dprint('========================')
+            self._dprint('\n- control')
+            self._dprint("profile_velocity: {0}".format(self.network[node_id_].sdo['profile_velocity'].raw))
+            self._dprint("position_demand_value: {0}".format(self.network[node_id_].sdo['position_demand_value'].raw))
+            self._dprint("position_actual_internal_value: {0}".format(self.network[node_id_].sdo['position_actual_internal_value'].raw))
+            self._dprint("position_actual_value: {0}".format(self.network[node_id_].sdo['position_actual_value'].raw))
 
-        ## -----------------------------------------------------------------
-        ## start periodic transmission of message in a background thread.
-        self.network[test_id].rpdo[1].start(0.1)
-        self.network[test_id].rpdo[2].start(0.1)
+    ##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##
 
-        ## -----------------------------------------------------------------
-        ## transmit message once
-        # self.network[test_id].rpdo[control_target].raw = 1
-        self.network[test_id].tpdo[1].transmit()
-        self.network[test_id].tpdo[2].transmit()
-        self.network[test_id].rpdo[1].transmit()
-        self.network[test_id].rpdo[2].transmit()
-
-        ## -----------------------------------------------------------------
-        ## update periodic message with new data
-        self.network[test_id].rpdo[1].update()
-        self.network[test_id].rpdo[2].update()
-
-        ## -----------------------------------------------------------------
-        ## Read values and save to a file
-        tt_ = time.time()
-        for _ in range(5):
-            self.network[test_id].tpdo[1].wait_for_reception(timeout=1) ## seems like it is not receiveing?
-            # self.network[test_id].tpdo[2].wait_for_reception(timeout=3)
-            pos_ = self.network[test_id].tpdo['position_actual_value'].raw
-            vel_ = self.network[test_id].tpdo['velocity_actual_value'].raw
-            tor_ = self.network[test_id].tpdo['torque_actual_value'].raw
-            statusword_ = self.network[test_id].tpdo['statusword'].raw
-            test = 'time: %-6.3f'%(time.time() - tt_) + 'pos: %-11d'%pos_ + 'vel: %-8d'%vel_ + 'tor: %-8d'%tor_  + 'statusword: %s'%bin(statusword_) 
-            self.dprint(test)
-            # pos_ = self.network[test_id].sdo['position_actual_value'].raw
-            # vel_ = self.network[test_id].sdo['velocity_actual_value'].raw
-            # tor_ = self.network[test_id].sdo['torque_actual_value'].raw
-            # statusword_ = self.network[test_id].sdo['statusword'].raw
-            # test = 'read sdo... pos: %-11d'%pos_ + 'vel: %-8d'%vel_ + 'tor: %-8d'%tor_  + 'statusword: %s'%bin(statusword_) 
-            # self.dprint(test)
-
-            tt_ = time.time()
-
-        ## -----------------------------------------------------------------
-        ## Using a callback to asynchronously receive values
-        ## Do not do any blocking operations here!
-        def print_speed(message):
-            str_ = '%s received' % message.name + ' '
-            for var in message:
-                str_ = str_ + ' %s = %d ' % (var.name, var.raw)
-            self.dprint(str_)
-
-        self.network[test_id].tpdo[1].add_callback(print_speed)
-        self.network[test_id].tpdo[2].add_callback(print_speed)
-        self.dprint("callback added")
-        time.sleep(3)
-
-        ## -----------------------------------------------------------------
-        ## stop transmission of RPDO[1]
-        self.network[test_id].rpdo[1].stop()
-        self.network[test_id].rpdo[2].stop()
-        self.network[test_id].sdo['modes_of_operation'].raw = -1
-
-        test_ctrl = 0b111 ## Disable Operation command
-        self.network[test_id].sdo['controlword'].raw = test_ctrl
-        time.sleep(1)
-        self.dprint('========================')
-        self.dprint('DISABLE OPERATION COMMAND')
-        self.dprint("statusword: {0}".format(bin(self.network[test_id].sdo['statusword'].raw)))
-        self.dprint("controlword: {0}".format(bin(self.network[test_id].sdo['controlword'].raw)))
-
-        test_ctrl = 0b110 ## Shutdown command
-        self.network[test_id].sdo['controlword'].raw = test_ctrl
-        time.sleep(1)
-        self.dprint('========================')
-        self.dprint('SHUTDOWN COMMAND')
-        self.dprint("statusword: {0}".format(bin(self.network[test_id].sdo['statusword'].raw)))
-        self.dprint("controlword: {0}".format(bin(self.network[test_id].sdo['controlword'].raw)))
-
-        self.dprint('========================')
-
-
-        ## -----------------------------------------------------------------
-        ## disconnect after use
-        self.network.nmt.state = 'PRE-OPERATIONAL'
-        self.network[test_id].nmt.state = 'PRE-OPERATIONAL'
-        time.sleep(0.1)
-        self.print_status()
-
-        self.network.disconnect()
-        self.dprint('Successfully disconnected!')
-
-    def dprint(self, str):
+    def _dprint(self, str=''):
         print(str)
         self.db_.write(str + '\n')
 
-    def print_status(self):
-        self.dprint('master state: {0}'.format(self.network.nmt.state))
+    def _print_status(self, sleep_time=0.1):
+        time.sleep(sleep_time)
+        self._dprint('master state: {0}'.format(self.network.nmt.state))
         for node_id in self.network:
-            self.dprint('node {0} state: {1}'.format(node_id, self.network[node_id].nmt.state))
+            self._dprint('node {0} state: {1}'.format(node_id, self.network[node_id].nmt.state))
+
+    def _change_status(self, test_set=None, status='PRE-OPERATIONAL', sleep_time=0.5):
+        self._dprint('\nstate command: {0}'.format(status))
+        self.network.nmt.state = status
+        if test_set == None:
+            for node_id in self.network:
+                self.network[node_id].nmt.state = status
+        else:
+            for node_id in test_set:
+                self.network[node_id].nmt.state = status
+        self._print_status(sleep_time=sleep_time)
+
+    def _control_command(self, node_id, control_method, value, print_this=""):
+        if (print_this != ""): self._dprint(print_this)
+        self.network[node_id].rpdo[control_method].raw = value
+        self.network[node_id].rpdo[CtrlPDO()[control_method]].transmit()
+
+    def _rpdo_controlword(self, controlword, node_id = None, command='===UNKNOWN COMMAND==='):
+        if controlword is 0b10000000:
+            self._dprint('\nFAULT RESET COMMAND: 0b10000000')
+        elif controlword is 0b10000001:
+            self._dprint('\nSWITCH ON COMMAND: 0b10000001')
+        elif controlword is 0b110:
+            self._dprint('\nSHUTDOWN COMMAND: 0b110')
+        elif controlword is 0b111:
+            self._dprint('\n[SWITCH ON or DISABLE OPERATION] COMMAND: 0b111')
+        elif controlword is 0b1111:
+            self._dprint('\n[ENABLE OPERATION or OPERATION] COMMAND: 0b1111')
+        elif controlword is 0b11111:
+            self._dprint('\nOPERATION COMMAND: 0b11111')
+        else:
+            self._dprint('{0}: {1}'.format(command, controlword))
+
+        if node_id is None:
+            for node_id_ in self.network:
+                self.network[node_id_].rpdo['controlword'].raw = controlword
+                self.network[node_id_].rpdo[1].transmit()
+            time.sleep(self.sleep_)
+            self.network.sync.transmit()
+            for node_id_ in self.network:
+                self._dprint('node_id: {0}'.format(node_id_))
+                self._dprint("statusword: {0}".format(bin(self.network[node_id_].tpdo['statusword'].raw)))
+                self._dprint("controlword: {0}".format(bin(self.network[node_id_].rpdo['controlword'].raw)))
+                # self._check_statusword(bin(self.network[node_id].tpdo['statusword'].raw))
+        else:
+            self.network[node_id].rpdo['controlword'].raw = controlword
+            self.network[node_id].rpdo[1].transmit()
+            time.sleep(self.sleep_)
+            self.network.sync.transmit()
+            self._dprint('node_id: {0}'.format(node_id))
+            self._dprint("statusword: {0}".format(bin(self.network[node_id].tpdo['statusword'].raw)))
+            self._dprint("controlword: {0}".format(bin(self.network[node_id].rpdo['controlword'].raw)))
+            # self._check_statusword(bin(self.network[node_id].tpdo['statusword'].raw))
+
+    def _check_statusword(self, statusword):
+        if type(statusword) is int:
+            statusword = bin(statusword)
+        if (statusword[:2] != '0b'):
+            self._dprint('cannot check statusword: {0}'.format(statusword))
+            return
+        statusword = statusword[2:]
+        try:
+            self._dprint('     Ready to switch on: {0}'.format(statusword[-1]))
+            self._dprint('            Switched on: {0}'.format(statusword[-2]))
+            self._dprint('      Operation enabled: {0}'.format(statusword[-3]))
+            self._dprint('                  Fault: {0}'.format(statusword[-4]))
+            self._dprint('        Voltage enabled: {0}'.format(statusword[-5]))
+            self._dprint('             Quick stop: {0}'.format(statusword[-6]))
+            self._dprint('     Switch on disabled: {0}'.format(statusword[-7]))
+            self._dprint('                Warning: {0}'.format(statusword[-8]))
+            self._dprint('  Manufacturer specific: {0}'.format(statusword[-9]))
+            self._dprint('                 Remote: {0}'.format(statusword[-10]))
+            self._dprint('         Target reached: {0}'.format(statusword[-11]))
+            self._dprint('  Internal limit active: {0}'.format(statusword[-12]))
+            self._dprint('Operation mode specific: {0}'.format(statusword[-13]))
+            self._dprint('Operation mode specific: {0}'.format(statusword[-14]))
+            self._dprint('  Manufacturer specific: {0}'.format(statusword[-15]))
+            self._dprint('  Manufacturer specific: {0}\n'.format(statusword[-16]))
+        except:
+            self._dprint('')
+
+    def _check_controlword(self, controlword):
+        if type(controlword) is int:
+            controlword = bin(controlword)
+        if (controlword[:2] != '0b'):
+            self._dprint('cannot check controlword: {0}'.format(controlword))
+            return
+        controlword = controlword[2:]
+        try:
+            self._dprint('              Switch on: {0}'.format(controlword[-1]))
+            self._dprint('         Enable voltage: {0}'.format(controlword[-2]))
+            self._dprint('             Quick stop: {0}'.format(controlword[-3]))
+            self._dprint('       Enable operation: {0}'.format(controlword[-4]))
+            self._dprint('Operation mode specific: {0}'.format(controlword[-5]))
+            self._dprint('Operation mode specific: {0}'.format(controlword[-6]))
+            self._dprint('Operation mode specific: {0}'.format(controlword[-7]))
+            self._dprint('            Fault reset: {0}'.format(controlword[-8]))
+            self._dprint('                  Hault: {0}'.format(controlword[-9]))
+            self._dprint('               Reserved: {0}'.format(controlword[-10]))
+            self._dprint('               Reserved: {0}\n'.format(controlword[-11]))
+        except:
+            self._dprint('')
+
+    def _print_value(self, sec=5.0, iter=20):
+        t_sleep_ = sec / iter
+        for _ in range(iter):
+            time.sleep(t_sleep_)
+            self.network.sync.transmit()
+            for node_id_ in self.node_list:
+                # self.network[node_id_].tpdo[2].wait_for_reception(timeout=1)
+                poin_ = self.network[node_id_].tpdo['position_actual_internal_value'].raw
+                pos_ = self.network[node_id_].tpdo['position_actual_value'].raw
+                vel_ = self.network[node_id_].tpdo['velocity_actual_value'].raw
+                tor_ = self.network[node_id_].tpdo['torque_actual_value'].raw
+                statusword_ = self.network[node_id_].tpdo['statusword'].raw
+                test = 'id:{0} '.format(node_id_) + 't:%-6.2f'%(self.start_time - time.time()) + ' pos:%-8d'%pos_ + 'poin:%-8d'%poin_ + 'vel:%-7d'%vel_ + 'tor:%-6d'%tor_  + 'status:%s'%bin(statusword_) 
+                self._dprint(test)
+            self._dprint('')
+
+    def _disconnect_device(self):
+        self.network.disconnect()
+        self._dprint('Successfully disconnected!')
+        self._dprint('========================')
+
+    def _stop_operation(self):
+        ## -----------------------------------------------------------------
+        ## stop operation
+        for node_id_ in self.node_list:
+            self.network[node_id_].rpdo['modes_of_operation'].raw = -1
+            self.network[node_id_].rpdo[1].transmit()
+        time.sleep(self.sleep_)
+
+        for node_id_ in self.node_list:
+            self._rpdo_controlword(controlword=CtrlWord.DISABLE_OPERATION, node_id=node_id_)
+            self._rpdo_controlword(controlword=CtrlWord.SHUTDOWN, node_id=node_id_)
+
+        ## -----------------------------------------------------------------
+        ## disconnect after use
+        self._change_status(status='PRE-OPERATIONAL')
+        self._change_status(status='RESET COMMUNICATION')
+        self._change_status(status='RESET')
+
+    def _check_test_availability(self, test_set, operation_mode):
+        if self.cannot_test:
+            self._dprint('\n----\nTEST CANNOT BE PERFORMED\n----')
+            return [False, None]
+        for id_ in test_set:
+            if id_ not in self.network:
+                self._dprint('\n----\ntest node {0} is not in network\n----'.format(id_))
+                self._disconnect_device()
+                return [False, None]
+        if operation_mode == OPMode.INTERPOLATED_POSITION:
+            control_target = 'target_position'
+        elif operation_mode == OPMode.PROFILED_POSITION:
+            control_target = 'target_position'
+        elif operation_mode == OPMode.PROFILED_VELOCITY:
+            control_target = 'target_velocity'
+        elif operation_mode == OPMode.PROFILED_TORQUE:
+            control_target = 'target_torque'
+        elif operation_mode == OPMode.HOMING:
+            control_target = None
+        else:
+            self._dprint('\n----\nOPERATION MODE ERROR\n----')
+            self._disconnect_device()
+            return [False, None]
+        return [True, control_target]
+
+    def _start_operation_mode(self, test_set, operation_mode):
+        ## -----------------------------------------------------------------
+        ## change network nmt state
+        self._change_status(test_set=test_set, status='PRE-OPERATIONAL')
+        self._change_status(test_set=test_set, status='OPERATIONAL')
+
+        ## -----------------------------------------------------------------
+        ## change operation mode
+        for node_id_ in test_set:
+            self.network[node_id_].rpdo['modes_of_operation'].raw = operation_mode
+            self.network[node_id_].rpdo[1].transmit()
+
+        ## -----------------------------------------------------------------
+        ## change drive mode
+        for node_id_ in test_set:
+            self._rpdo_controlword(controlword=CtrlWord.SHUTDOWN, node_id=node_id_) ## Shutdown command
+            self._rpdo_controlword(controlword=CtrlWord.SWITCH_ON, node_id=node_id_) ## Switch On command
+            self._rpdo_controlword(controlword=CtrlWord.ENABLE_OPERATION, node_id=node_id_) ## Enable Operation command
+
+
+    ##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##
+
+    @_try_except_decorator
+    def test_single_elmo(self, test_id, operation_mode, value):
+        able_,control_target = self._check_test_availability([test_id], operation_mode)
+        if able_ == False:
+            return
+
+        self._start_operation_mode(test_set=[test_id], operation_mode=operation_mode)
+        # self._rpdo_controlword(controlword=0b000011111, node_id=test_id, command='OPERATION COMMAND') ## Operation command
+        iter_ = 15
+        sec_=3.0
+
+        self._control_command(test_id, control_target, value)
+        self._print_value(sec=sec_, iter=iter_)
+
+        self._control_command(test_id, control_target, -value, "\nchanging command")
+        self._print_value(sec=sec_, iter=iter_)
+
+        self._control_command(test_id, control_target, value, "\nchanging command")
+        self._print_value(sec=sec_, iter=iter_)
+
+        self._control_command(test_id, control_target, -value, "\nchanging command")
+        self._print_value(sec=sec_, iter=iter_)
+
+        self._control_command(test_id, control_target, 0)
+        self._stop_operation()
+        self._disconnect_device()
+
+    @_try_except_decorator
+    def test_dual_elmo(self, t1, t2, operation_mode, value):
+        test_set = [t1, t2]
+        able_,control_target = self._check_test_availability(test_set, operation_mode)
+        if able_ == False:
+            return
+
+        self._start_operation_mode(test_set=test_set, operation_mode=operation_mode)
+        iter_ = 15
+        sec_=3.0
+
+        self._control_command(t1, control_target, 0)
+        self._control_command(t2, control_target, value)
+        self._print_value(sec=sec_, iter=iter_)
+
+        self._control_command(t1, control_target, 0, "\nchanging command")
+        self._control_command(t2, control_target, -value)
+        self._print_value(sec=sec_, iter=iter_)
+
+        self._control_command(t1, control_target, value, "\nchanging command")
+        self._control_command(t2, control_target, 0)
+        self._print_value(sec=sec_, iter=iter_)
+
+        self._control_command(t1, control_target, -value, "\nchanging command")
+        self._control_command(t2, control_target, 0)
+        self._print_value(sec=sec_, iter=iter_)
+
+        self._control_command(t1, control_target, value, "\nchanging command")
+        self._control_command(t2, control_target, -value)
+        self._print_value(sec=sec_, iter=iter_)
+
+        self._control_command(t1, control_target, -value, "\nchanging command")
+        self._control_command(t2, control_target, value)
+        self._print_value(sec=sec_, iter=iter_)
+
+        self._control_command(t1, control_target, 0)
+        self._control_command(t2, control_target, 0)
+        self._stop_operation()
+        self._disconnect_device()
+
+    @_try_except_decorator
+    def test_multiple_elmo(self, test_set, operation_mode, value):
+        able_,control_target = self._check_test_availability(test_set, operation_mode)
+        if able_ == False:
+            return
+
+        self._start_operation_mode(test_set=test_set, operation_mode=operation_mode)
+        iter_ = 15
+        sec_=3.0
+
+        for node_id_ in test_set:
+            self._control_command(node_id_, control_target, value)
+        self._print_value(sec=sec_, iter=iter_)
+
+        self._dprint('\nchanging command')
+        for node_id_ in test_set:
+            self._control_command(node_id_, control_target, -value)
+        self._print_value(sec=sec_, iter=iter_)
+
+        self._dprint('\nchanging command')
+        for node_id_ in test_set:
+            self._control_command(node_id_, control_target, value)
+        self._print_value(sec=sec_, iter=iter_)
+
+        self._dprint('\nchanging command')
+        for node_id_ in test_set:
+            self._control_command(node_id_, control_target, -value)
+        self._print_value(sec=sec_, iter=iter_)
+
+        for node_id_ in test_set:
+            self._control_command(node_id_, control_target, 0)
+        self._stop_operation()
+        self._disconnect_device()
+
+    @_try_except_decorator
+    def test_odd_and_even_elmo(self, test_set, operation_mode, value):
+        able_,control_target = self._check_test_availability(test_set, operation_mode)
+        if able_ == False:
+            return
+
+        self._start_operation_mode(test_set=test_set, operation_mode=operation_mode)
+        value_ = [value, 0]
+        iter_ = 10
+        sec_ = 5.0
+
+        for node_id_ in test_set:
+            self._control_command(node_id_, control_target, value_[node_id_%2])
+        self._print_value(sec=sec_, iter=iter_)
+
+        self._dprint('\nchanging command')
+        for node_id_ in test_set:
+            self._control_command(node_id_, control_target, value_[(node_id_+1)%2])
+        self._print_value(sec=sec_, iter=iter_)
+
+        self._dprint('\nchanging command')
+        for node_id_ in test_set:
+            self._control_command(node_id_, control_target, value_[node_id_%2])
+        self._print_value(sec=sec_, iter=iter_)
+
+        self._dprint('\nchanging command')
+        for node_id_ in test_set:
+            self._control_command(node_id_, control_target, value_[(node_id_+1)%2])
+        self._print_value(sec=sec_, iter=iter_)
+
+        for node_id_ in test_set:
+            self._control_command(node_id_, control_target, 0)
+        self._stop_operation()
+        self._disconnect_device()
+
+    @_try_except_decorator
+    def test_control_zero(self, test_set, operation_mode, value):
+        able_,control_target = self._check_test_availability(test_set, operation_mode)
+        if able_ == False:
+            return
+
+        self._start_operation_mode(test_set=test_set, operation_mode=operation_mode)
+        value_ = [value, -value]
+        iter_ = 10
+        sec_ = 5.0
+
+        for _ in range(3):
+            self._dprint('\nchanging command')
+            for node_id_ in test_set:
+                self._control_command(node_id_, control_target, value_[node_id_%2])
+            self._print_value(sec=sec_, iter=iter_)
+
+            self._dprint('\nZERO COMMAND')
+            for node_id_ in test_set:
+                self._control_command(node_id_, control_target, 0)
+            self._print_value(sec=sec_, iter=iter_)
+
+        self._stop_operation()
+        self._disconnect_device()
+
+    @_try_except_decorator
+    def test_homing(self, test_set):
+        operation_mode = 6
+        able_,control_target = self._check_test_availability(test_set, operation_mode)
+        if able_ == False:
+            return
+
+        self._start_operation_mode(test_set=test_set, operation_mode=operation_mode)
+
+        for node_id_ in test_set:
+            self._rpdo_controlword(controlword=0b11111, node_id=node_id_, command='HOMING COMMAND') ## Operation command
+
+        ## check homing
+        homing_completed = False
+        homing_error_found = False
+        while homing_completed == False:
+            homing_completed = True
+            self.network.sync.transmit()
+            for node_id_ in test_set:
+                statusword = self.network[node_id_].tpdo['statusword'].raw
+                statusword = statusword[2:]
+                if len(statusword) > 12:
+                    homing_attained = bool(int(statusword[-13]))
+                    self._dprint('Node id: {0} Homing attained: {1}'.format(node_id_, statusword[-13]))
+                    if homing_attained == False:
+                        homing_completed = False
+                    if len(statusword) > 13:
+                        homing_error = bool(int(statusword[-14]))
+                        if homing_error:
+                            homing_error_found = True
+                        self._dprint('Node id: {0} Homing error: {1}'.format(node_id_, statusword[-14]))
+            if homing_error_found:
+                self._dprint('error occured in homing')
+            time.sleep(self.sleep_)
+
+        self._stop_operation()
+        self._disconnect_device()
+
+    @_try_except_decorator
+    def test_key(self, operation_mode):
+
+        pass
 
 if __name__ == "__main__":
-    TestElmo()
+    ## operation mode for elmo(402.pdf)
+    ## NO_MODE, PROFILED_POSITION, PROFILED_VELOCITY, PROFILED_TORQUE, HOMING, INTERPOLATED_POSITION
+    ## Torque value : 150
+    ## Velocity value : 3000
+
+    # node_id = 1
+    # TestElmo(node_list=[node_id]).test_single_elmo(test_id=node_id, operation_mode=OPMode.PROFILED_TORQUE, value=300)
+
+    # TestElmo(node_list=[4,6]).test_dual_elmo(t1=4, t2=6, operation_mode=OPMode.PROFILED_VELOCITY, value=3000)
+
+    # node_set = [1,2]
+    node_set = [1,2,3,4,5,6,7,8]
+    # TestElmo(node_list=node_set).test_multiple_elmo(test_set=node_set, operation_mode=OPMode.PROFILED_TORQUE, value=150)
+
+    TestElmo(node_list=node_set).test_odd_and_even_elmo(test_set=node_set, operation_mode=OPMode.PROFILED_TORQUE, value=150)
+
+    # TestElmo(node_list=node_set).test_control_zero(test_set=node_set, operation_mode=OPMode.PROFILED_TORQUE, value=150)
+
+
