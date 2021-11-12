@@ -146,6 +146,43 @@ class TestElmo():
             self.network[node_id_].rpdo.read()
 
         ## -----------------------------------------------------------------
+        ## set SDO value
+        self._change_status(status='STOPPED')
+        self._change_status(status='RESET')
+        self._change_status(status='RESET COMMUNICATION')
+        self._change_status(status='INITIALISING')
+        self._change_status(status='PRE-OPERATIONAL')
+
+        for node_id_ in self.network:
+            self.network[node_id_].sdo['Producer Heartbeat Time'].raw = 1000
+            self.network[node_id_].sdo['Communication Cycle Period'].raw = 0  ## what is it?
+
+        ## -----------------------------------------------------------------
+        ## check error
+        for node_id_ in self.network:
+            error_log = self.network[node_id_].sdo[0x1003]  ## Predefined Error Field
+            for error in error_log.values():
+                self._dprint("Error {0} was found in the log".format(hex(error.raw)))
+
+        ## -----------------------------------------------------------------
+        ## read current PDO & SDO configuration
+        for node_id_ in self.network:
+            self._dprint("\n===========\nInformation")
+            self._dprint("CAN Open Node ID: {0}".format(self.network[node_id_].sdo['CAN Open Node ID'].raw))
+            self._dprint("error_code: {0}".format(self.network[node_id_].sdo['error_code'].raw))
+            self._dprint("statusword: {0}".format(bin(self.network[node_id_].sdo['statusword'].raw)))
+            self._dprint("controlword: {0}".format(bin(self.network[node_id_].sdo['controlword'].raw)))
+            self._dprint("modes_of_operation: {0}".format(self.network[node_id_].sdo['modes_of_operation'].raw))
+            self._dprint("Producer Heartbeat Time: {0}".format(self.network[node_id_].sdo['Producer Heartbeat Time'].raw))
+            self._dprint("Communication Cycle Period: {0}".format(self.network[node_id_].sdo['Communication Cycle Period'].raw))
+
+            self._dprint('\n- control')
+            self._dprint("profile_velocity: {0}".format(self.network[node_id_].sdo['profile_velocity'].raw))
+            self._dprint("position_demand_value: {0}".format(self.network[node_id_].sdo['position_demand_value'].raw))
+            self._dprint("position_actual_internal_value: {0}".format(self.network[node_id_].sdo['position_actual_internal_value'].raw))
+            self._dprint("position_actual_value: {0}".format(self.network[node_id_].sdo['position_actual_value'].raw))
+
+        ## -----------------------------------------------------------------
         ## change TPDO configuration
         ## trans_type: 1=sync    255=254=asynchronous
         for node_id_ in self.network:
@@ -180,25 +217,6 @@ class TestElmo():
             self.network[node_id_].tpdo.save()
 
         ## -----------------------------------------------------------------
-        ## read
-        self.network.sync.transmit()
-        for node_id_ in self.network:
-            self.network[node_id_].tpdo.read()
-            self.network[node_id_].rpdo.read()
-
-        ## -----------------------------------------------------------------
-        ## set SDO value
-        self._change_status(status='STOPPED')
-        self._change_status(status='RESET')
-        self._change_status(status='RESET COMMUNICATION')
-        self._change_status(status='INITIALISING')
-        self._change_status(status='PRE-OPERATIONAL')
-
-        for node_id_ in self.network:
-            self.network[node_id_].sdo['Producer Heartbeat Time'].raw = 1000
-            self.network[node_id_].sdo['Communication Cycle Period'].raw = 0  ## what is it?
-
-        ## -----------------------------------------------------------------
         ## change RPDO configuration
         for node_id_ in self.network:
             id_ = 1
@@ -225,33 +243,7 @@ class TestElmo():
         self._rpdo_controlword(CtrlWord.FAULT_RESET)
         self._rpdo_controlword(CtrlWord.SWITCH_ON)
 
-        ## -----------------------------------------------------------------
-        ## check error
-        for node_id_ in self.network:
-            error_log = self.network[node_id_].sdo[0x1003]  ## Predefined Error Field
-            for error in error_log.values():
-                self._dprint("Error {0} was found in the log".format(hex(error.raw)))
-
-        ## -----------------------------------------------------------------
-        ## read current PDO & SDO configuration
-        for node_id_ in self.network:
-            self._dprint("\n===========\nInformation")
-            self._dprint("CAN Open Node ID: {0}".format(self.network[node_id_].sdo['CAN Open Node ID'].raw))
-            self._dprint("error_code: {0}".format(self.network[node_id_].sdo['error_code'].raw))
-            self._dprint("statusword: {0}".format(bin(self.network[node_id_].sdo['statusword'].raw)))
-            self._dprint("controlword: {0}".format(bin(self.network[node_id_].sdo['controlword'].raw)))
-            self._dprint("modes_of_operation: {0}".format(self.network[node_id_].sdo['modes_of_operation'].raw))
-            self._dprint("Producer Heartbeat Time: {0}".format(self.network[node_id_].sdo['Producer Heartbeat Time'].raw))
-            self._dprint("Communication Cycle Period: {0}".format(self.network[node_id_].sdo['Communication Cycle Period'].raw))
-
-            self._dprint('\n- control')
-            self._dprint("profile_velocity: {0}".format(self.network[node_id_].sdo['profile_velocity'].raw))
-            self._dprint("position_demand_value: {0}".format(self.network[node_id_].sdo['position_demand_value'].raw))
-            self._dprint("position_actual_internal_value: {0}".format(self.network[node_id_].sdo['position_actual_internal_value'].raw))
-            self._dprint("position_actual_value: {0}".format(self.network[node_id_].sdo['position_actual_value'].raw))
-
     ##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##
-
     def _dprint(self, str=''):
         print(str)
         self.db_.write(str + '\n')
@@ -668,11 +660,11 @@ if __name__ == "__main__":
 
     # node_set = [1,2]
     node_set = [1,2,3,4,5,6,7,8]
-    # TestElmo(node_list=node_set).test_multiple_elmo(test_set=node_set, operation_mode=OPMode.PROFILED_TORQUE, value=100)
-    TestElmo(node_list=node_set).test_multiple_elmo(test_set=node_set, operation_mode=OPMode.PROFILED_VELOCITY, value=4000)
+    TestElmo(node_list=node_set).test_multiple_elmo(test_set=node_set, operation_mode=OPMode.PROFILED_TORQUE, value=100)
+    # TestElmo(node_list=node_set).test_multiple_elmo(test_set=node_set, operation_mode=OPMode.PROFILED_VELOCITY, value=1000)
 
     # TestElmo(node_list=node_set).test_odd_and_even_elmo(test_set=node_set, operation_mode=OPMode.PROFILED_TORQUE, value=100)
-    # TestElmo(node_list=node_set).test_odd_and_even_elmo(test_set=node_set, operation_mode=OPMode.PROFILED_VELOCITY, value=5000)
+    # TestElmo(node_list=node_set).test_odd_and_even_elmo(test_set=node_set, operation_mode=OPMode.PROFILED_VELOCITY, value=3000)
 
     # TestElmo(node_list=node_set).test_control_zero(test_set=node_set, operation_mode=OPMode.PROFILED_TORQUE, value=150)
 
