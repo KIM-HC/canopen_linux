@@ -72,15 +72,15 @@ class TestElmo():
 
             except canopen.SdoCommunicationError as e:
                 self.cannot_test = True
-                self.dprint('\n----ERROR SdoCommunicationError----\n{0}\n\n{1}'.format(e, traceback.format_exc()))
+                self._dprint('\n----ERROR SdoCommunicationError----\n{0}\n\n{1}'.format(e, traceback.format_exc()))
 
             except canopen.SdoAbortedError as e:
                 self.cannot_test = True
-                self.dprint('\n----ERROR SdoAbortedError----\n{0}\n\n{1}'.format(e, traceback.format_exc()))
+                self._dprint('\n----ERROR SdoAbortedError----\n{0}\n\n{1}'.format(e, traceback.format_exc()))
 
             except Exception as e:
                 self.cannot_test = True
-                self.dprint('\n----ERROR----\n{0}\n\n{1}'.format(e, traceback.format_exc()))
+                self._dprint('\n----ERROR----\n{0}\n\n{1}'.format(e, traceback.format_exc()))
         return decorated
 
     @_try_except_decorator
@@ -668,7 +668,8 @@ if __name__ == "__main__":
 
     # node_set = [1,2]
     node_set = [1,2,3,4,5,6,7,8]
-    TestElmo(node_list=node_set).test_multiple_elmo(test_set=node_set, operation_mode=OPMode.PROFILED_TORQUE, value=100)
+    # TestElmo(node_list=node_set).test_multiple_elmo(test_set=node_set, operation_mode=OPMode.PROFILED_TORQUE, value=100)
+    TestElmo(node_list=node_set).test_multiple_elmo(test_set=node_set, operation_mode=OPMode.PROFILED_VELOCITY, value=4000)
 
     # TestElmo(node_list=node_set).test_odd_and_even_elmo(test_set=node_set, operation_mode=OPMode.PROFILED_TORQUE, value=100)
     # TestElmo(node_list=node_set).test_odd_and_even_elmo(test_set=node_set, operation_mode=OPMode.PROFILED_VELOCITY, value=5000)
