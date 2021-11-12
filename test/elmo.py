@@ -57,9 +57,6 @@ class TestElmo():
         ## -----------------------------------------------------------------
         ## path for eds file of elmo
         self.EDS_PATH = '../eds_file/elmo.eds'  ## os.path.join(os.path.dirname(__file__), 'elmo.eds')
-        self._dprint("test dict class CtrlPDO()['target_position']: {0}".format(CtrlPDO()['target_position']))
-        self._dprint("test dict class CtrlPDO()['target_velocity']: {0}".format(CtrlPDO()['target_velocity']))
-        self._dprint("test dict class CtrlPDO()['target_torque']: {0}".format(CtrlPDO()['target_torque']))
 
         ## -----------------------------------------------------------------
         ## one network per one CAN Bus
@@ -69,9 +66,9 @@ class TestElmo():
 
     ## catches errors and writes it in debug file
     def _try_except_decorator(func):
-        def decorated(self):
+        def decorated(self, *args, **kwargs):
             try:
-                func(self)
+                func(self, *args, **kwargs)
 
             except canopen.SdoCommunicationError as e:
                 self.cannot_test = True
@@ -152,8 +149,9 @@ class TestElmo():
         ## change TPDO configuration
         ## trans_type: 1=sync    255=254=asynchronous
         for node_id_ in self.network:
-            id_ = 1
             trans_type_ = 1
+
+            id_ = 1
             self.network[node_id_].tpdo[id_].clear()
             self.network[node_id_].tpdo[id_].add_variable('statusword')
             self.network[node_id_].tpdo[id_].trans_type = trans_type_
@@ -180,6 +178,13 @@ class TestElmo():
             self.network[node_id_].tpdo[id_].enabled = True
 
             self.network[node_id_].tpdo.save()
+
+        ## -----------------------------------------------------------------
+        ## read
+        self.network.sync.transmit()
+        for node_id_ in self.network:
+            self.network[node_id_].tpdo.read()
+            self.network[node_id_].rpdo.read()
 
         ## -----------------------------------------------------------------
         ## set SDO value
@@ -270,6 +275,8 @@ class TestElmo():
 
     def _control_command(self, node_id, control_method, value, print_this=""):
         if (print_this != ""): self._dprint(print_this)
+        if (node_id in [7,8] and control_method is "target_velocity"):
+            value = value * 4
         self.network[node_id].rpdo[control_method].raw = value
         self.network[node_id].rpdo[CtrlPDO()[control_method]].transmit()
 
@@ -365,7 +372,6 @@ class TestElmo():
             time.sleep(t_sleep_)
             self.network.sync.transmit()
             for node_id_ in self.node_list:
-                # self.network[node_id_].tpdo[2].wait_for_reception(timeout=1)
                 poin_ = self.network[node_id_].tpdo['position_actual_internal_value'].raw
                 pos_ = self.network[node_id_].tpdo['position_actual_value'].raw
                 vel_ = self.network[node_id_].tpdo['velocity_actual_value'].raw
@@ -662,9 +668,10 @@ if __name__ == "__main__":
 
     # node_set = [1,2]
     node_set = [1,2,3,4,5,6,7,8]
-    # TestElmo(node_list=node_set).test_multiple_elmo(test_set=node_set, operation_mode=OPMode.PROFILED_TORQUE, value=150)
+    TestElmo(node_list=node_set).test_multiple_elmo(test_set=node_set, operation_mode=OPMode.PROFILED_TORQUE, value=100)
 
-    TestElmo(node_list=node_set).test_odd_and_even_elmo(test_set=node_set, operation_mode=OPMode.PROFILED_TORQUE, value=150)
+    # TestElmo(node_list=node_set).test_odd_and_even_elmo(test_set=node_set, operation_mode=OPMode.PROFILED_TORQUE, value=100)
+    # TestElmo(node_list=node_set).test_odd_and_even_elmo(test_set=node_set, operation_mode=OPMode.PROFILED_VELOCITY, value=5000)
 
     # TestElmo(node_list=node_set).test_control_zero(test_set=node_set, operation_mode=OPMode.PROFILED_TORQUE, value=150)
 
