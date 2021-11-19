@@ -176,6 +176,13 @@ class TestElmo():
             self._dprint("Producer Heartbeat Time: {0}".format(self.network[node_id_].sdo['Producer Heartbeat Time'].raw))
             self._dprint("Communication Cycle Period: {0}".format(self.network[node_id_].sdo['Communication Cycle Period'].raw))
 
+            self._dprint('\n- homing')
+            self._dprint("home_offset: {0}".format(self.network[node_id_].sdo['home_offset'].raw))
+            self._dprint("homing_method: {0}".format(self.network[node_id_].sdo['homing_method'].raw))
+            self._dprint("homing_speeds search switch: {0}".format(self.network[node_id_].sdo['homing_speeds'][1].raw))
+            self._dprint("homing_speeds search zero: {0}".format(self.network[node_id_].sdo['homing_speeds'][2].raw))
+            self._dprint("homing_acceleration: {0}".format(self.network[node_id_].sdo['homing_acceleration'].raw))
+
             self._dprint('\n- control')
             self._dprint("profile_velocity: {0}".format(self.network[node_id_].sdo['profile_velocity'].raw))
             self._dprint("position_demand_value: {0}".format(self.network[node_id_].sdo['position_demand_value'].raw))
@@ -421,11 +428,22 @@ class TestElmo():
             return [False, None]
         return [True, control_target]
 
-    def _start_operation_mode(self, test_set, operation_mode):
+    def _switch_on_mode(self, test_set):
         ## -----------------------------------------------------------------
         ## change network nmt state
         self._change_status(test_set=test_set, status='PRE-OPERATIONAL')
         self._change_status(test_set=test_set, status='OPERATIONAL')
+
+        ## -----------------------------------------------------------------
+        ## change drive mode
+        for node_id_ in test_set:
+            self._rpdo_controlword(controlword=CtrlWord.SHUTDOWN, node_id=node_id_) ## Shutdown command
+            self._rpdo_controlword(controlword=CtrlWord.SWITCH_ON, node_id=node_id_) ## Switch On command
+
+    def _start_operation_mode(self, test_set, operation_mode):
+        ## -----------------------------------------------------------------
+        ## change drive mode to switch on mode
+        self._switch_on_mode(test_set)
 
         ## -----------------------------------------------------------------
         ## change operation mode
@@ -436,8 +454,6 @@ class TestElmo():
         ## -----------------------------------------------------------------
         ## change drive mode
         for node_id_ in test_set:
-            self._rpdo_controlword(controlword=CtrlWord.SHUTDOWN, node_id=node_id_) ## Shutdown command
-            self._rpdo_controlword(controlword=CtrlWord.SWITCH_ON, node_id=node_id_) ## Switch On command
             self._rpdo_controlword(controlword=CtrlWord.ENABLE_OPERATION, node_id=node_id_) ## Enable Operation command
 
 
@@ -451,20 +467,19 @@ class TestElmo():
 
         self._start_operation_mode(test_set=[test_id], operation_mode=operation_mode)
         # self._rpdo_controlword(controlword=0b000011111, node_id=test_id, command='OPERATION COMMAND') ## Operation command
-        iter_ = 15
-        sec_=3.0
+        sec_=5.0
 
         self._control_command(test_id, control_target, value)
-        self._print_value(sec=sec_, iter=iter_)
+        self._print_value(sec=sec_, iter=sec_*2)
 
         self._control_command(test_id, control_target, -value, "\nchanging command")
-        self._print_value(sec=sec_, iter=iter_)
+        self._print_value(sec=sec_, iter=sec_*2)
 
         self._control_command(test_id, control_target, value, "\nchanging command")
-        self._print_value(sec=sec_, iter=iter_)
+        self._print_value(sec=sec_, iter=sec_*2)
 
         self._control_command(test_id, control_target, -value, "\nchanging command")
-        self._print_value(sec=sec_, iter=iter_)
+        self._print_value(sec=sec_, iter=sec_*2)
 
         self._control_command(test_id, control_target, 0)
         self._stop_operation()
@@ -478,32 +493,31 @@ class TestElmo():
             return
 
         self._start_operation_mode(test_set=test_set, operation_mode=operation_mode)
-        iter_ = 15
-        sec_=3.0
+        sec_=5.0
 
         self._control_command(t1, control_target, 0)
         self._control_command(t2, control_target, value)
-        self._print_value(sec=sec_, iter=iter_)
+        self._print_value(sec=sec_, iter=sec_*2)
 
         self._control_command(t1, control_target, 0, "\nchanging command")
         self._control_command(t2, control_target, -value)
-        self._print_value(sec=sec_, iter=iter_)
+        self._print_value(sec=sec_, iter=sec_*2)
 
         self._control_command(t1, control_target, value, "\nchanging command")
         self._control_command(t2, control_target, 0)
-        self._print_value(sec=sec_, iter=iter_)
+        self._print_value(sec=sec_, iter=sec_*2)
 
         self._control_command(t1, control_target, -value, "\nchanging command")
         self._control_command(t2, control_target, 0)
-        self._print_value(sec=sec_, iter=iter_)
+        self._print_value(sec=sec_, iter=sec_*2)
 
         self._control_command(t1, control_target, value, "\nchanging command")
         self._control_command(t2, control_target, -value)
-        self._print_value(sec=sec_, iter=iter_)
+        self._print_value(sec=sec_, iter=sec_*2)
 
         self._control_command(t1, control_target, -value, "\nchanging command")
         self._control_command(t2, control_target, value)
-        self._print_value(sec=sec_, iter=iter_)
+        self._print_value(sec=sec_, iter=sec_*2)
 
         self._control_command(t1, control_target, 0)
         self._control_command(t2, control_target, 0)
@@ -517,27 +531,26 @@ class TestElmo():
             return
 
         self._start_operation_mode(test_set=test_set, operation_mode=operation_mode)
-        iter_ = 15
-        sec_=3.0
+        sec_=5.0
 
         for node_id_ in test_set:
             self._control_command(node_id_, control_target, value)
-        self._print_value(sec=sec_, iter=iter_)
+        self._print_value(sec=sec_, iter=sec_*2)
 
         self._dprint('\nchanging command')
         for node_id_ in test_set:
             self._control_command(node_id_, control_target, -value)
-        self._print_value(sec=sec_, iter=iter_)
+        self._print_value(sec=sec_, iter=sec_*2)
 
         self._dprint('\nchanging command')
         for node_id_ in test_set:
             self._control_command(node_id_, control_target, value)
-        self._print_value(sec=sec_, iter=iter_)
+        self._print_value(sec=sec_, iter=sec_*2)
 
         self._dprint('\nchanging command')
         for node_id_ in test_set:
             self._control_command(node_id_, control_target, -value)
-        self._print_value(sec=sec_, iter=iter_)
+        self._print_value(sec=sec_, iter=sec_*2)
 
         for node_id_ in test_set:
             self._control_command(node_id_, control_target, 0)
@@ -552,27 +565,26 @@ class TestElmo():
 
         self._start_operation_mode(test_set=test_set, operation_mode=operation_mode)
         value_ = [value, 0]
-        iter_ = 10
         sec_ = 5.0
 
         for node_id_ in test_set:
             self._control_command(node_id_, control_target, value_[node_id_%2])
-        self._print_value(sec=sec_, iter=iter_)
+        self._print_value(sec=sec_, iter=sec_*2)
 
         self._dprint('\nchanging command')
         for node_id_ in test_set:
             self._control_command(node_id_, control_target, value_[(node_id_+1)%2])
-        self._print_value(sec=sec_, iter=iter_)
+        self._print_value(sec=sec_, iter=sec_*2)
 
         self._dprint('\nchanging command')
         for node_id_ in test_set:
             self._control_command(node_id_, control_target, value_[node_id_%2])
-        self._print_value(sec=sec_, iter=iter_)
+        self._print_value(sec=sec_, iter=sec_*2)
 
         self._dprint('\nchanging command')
         for node_id_ in test_set:
             self._control_command(node_id_, control_target, value_[(node_id_+1)%2])
-        self._print_value(sec=sec_, iter=iter_)
+        self._print_value(sec=sec_, iter=sec_*2)
 
         for node_id_ in test_set:
             self._control_command(node_id_, control_target, 0)
@@ -587,27 +599,26 @@ class TestElmo():
 
         self._start_operation_mode(test_set=test_set, operation_mode=operation_mode)
         value_ = [value, -value]
-        iter_ = 10
         sec_ = 5.0
 
         for _ in range(3):
             self._dprint('\nchanging command')
             for node_id_ in test_set:
                 self._control_command(node_id_, control_target, value_[node_id_%2])
-            self._print_value(sec=sec_, iter=iter_)
+            self._print_value(sec=sec_, iter=sec_*2)
 
             self._dprint('\nZERO COMMAND')
             for node_id_ in test_set:
                 self._control_command(node_id_, control_target, 0)
-            self._print_value(sec=sec_, iter=iter_)
+            self._print_value(sec=sec_, iter=sec_*2)
 
         self._stop_operation()
         self._disconnect_device()
 
     @_try_except_decorator
     def test_homing(self, test_set):
-        operation_mode = 6
-        able_,control_target = self._check_test_availability(test_set, operation_mode)
+        operation_mode = OPMode.HOMING
+        able_, _ = self._check_test_availability(test_set, operation_mode)
         if able_ == False:
             return
 
@@ -647,25 +658,42 @@ class TestElmo():
 
         pass
 
+    @_try_except_decorator
+    def set_free_wheel(self, test_set):
+        able_, _ = self._check_test_availability(test_set, OPMode.HOMING)
+        if able_ == False:
+            return
+
+        self._switch_on_mode(test_set)
+        sec_ = 60.0
+        self._print_value(sec=sec_, iter=sec_*2)
+        self._stop_operation()
+        self._disconnect_device()
+
 if __name__ == "__main__":
     ## operation mode for elmo(402.pdf)
     ## NO_MODE, PROFILED_POSITION, PROFILED_VELOCITY, PROFILED_TORQUE, HOMING, INTERPOLATED_POSITION
     ## Torque value : 150
     ## Velocity value : 3000
 
-    # node_id = 1
-    # TestElmo(node_list=[node_id]).test_single_elmo(test_id=node_id, operation_mode=OPMode.PROFILED_TORQUE, value=300)
-
-    # TestElmo(node_list=[4,6]).test_dual_elmo(t1=4, t2=6, operation_mode=OPMode.PROFILED_VELOCITY, value=3000)
-
+    # node_set = [1]
     # node_set = [1,2]
     node_set = [1,2,3,4,5,6,7,8]
-    TestElmo(node_list=node_set).test_multiple_elmo(test_set=node_set, operation_mode=OPMode.PROFILED_TORQUE, value=100)
-    # TestElmo(node_list=node_set).test_multiple_elmo(test_set=node_set, operation_mode=OPMode.PROFILED_VELOCITY, value=1000)
 
-    # TestElmo(node_list=node_set).test_odd_and_even_elmo(test_set=node_set, operation_mode=OPMode.PROFILED_TORQUE, value=100)
-    # TestElmo(node_list=node_set).test_odd_and_even_elmo(test_set=node_set, operation_mode=OPMode.PROFILED_VELOCITY, value=3000)
+    tt_ = TestElmo(node_list=node_set)
 
-    # TestElmo(node_list=node_set).test_control_zero(test_set=node_set, operation_mode=OPMode.PROFILED_TORQUE, value=150)
+    # tt_.test_single_elmo(test_id=node_set[0], operation_mode=OPMode.PROFILED_TORQUE, value=300)
 
+    # tt_.test_dual_elmo(t1=4, t2=6, operation_mode=OPMode.PROFILED_VELOCITY, value=3000)
 
+    # tt_.test_multiple_elmo(test_set=node_set, operation_mode=OPMode.PROFILED_TORQUE, value=100)
+    # tt_.test_multiple_elmo(test_set=node_set, operation_mode=OPMode.PROFILED_VELOCITY, value=1000)
+
+    # tt_.test_odd_and_even_elmo(test_set=node_set, operation_mode=OPMode.PROFILED_TORQUE, value=100)
+    # tt_.test_odd_and_even_elmo(test_set=node_set, operation_mode=OPMode.PROFILED_VELOCITY, value=1000)
+
+    # tt_.test_control_zero(test_set=node_set, operation_mode=OPMode.PROFILED_TORQUE, value=150)
+
+    tt_.set_free_wheel(test_set=node_set)
+
+    # tt_.test_homing(test_set=[2,4,6,8])
