@@ -160,10 +160,8 @@ class TestElmo():
 
         for node_id_ in self.network:
             if (node_id_ % 2 == 0):
-                # ## Homing on the negative limit switch and index pulse
-                # self.network[node_id_].sdo['homing_method'].raw = 1
                 ## Homing on the positive home switch and index pulse
-                self.network[node_id_].sdo['homing_method'].raw = 23
+                self.network[node_id_].sdo['homing_method'].raw = 20
                 self.network[node_id_].sdo['homing_speeds'][1].raw = 1200
                 self.network[node_id_].sdo['homing_speeds'][2].raw = 1000
                 if (node_id_ == 8):
@@ -730,6 +728,6 @@ if __name__ == "__main__":
     # tt_.test_control_zero(test_set=node_set, operation_mode=OPMode.PROFILED_TORQUE, value=150)
 
     # tt_.set_free_wheel(test_set=node_set)
-    # tt_.test_homing(test_set=[2,4,6,8], play_time=12)
+    tt_.test_homing(test_set=[2,4,6,8], play_time=10)
     # tt_.set_free_wheel(test_set=node_set, play_time=60.0)
-    # tt_.finish_work()
+    tt_.finish_work()
