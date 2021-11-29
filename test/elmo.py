@@ -39,7 +39,7 @@ class TestElmo():
         ## -----------------------------------------------------------------
         ## node id for testing
         self.node_list = node_list
-        self.sleep_ = 0.1
+        self.sleep_ = 0.05
         self.start_time = time.time()
         self.cannot_test = False
 
@@ -69,6 +69,11 @@ class TestElmo():
         def decorated(self, *args, **kwargs):
             try:
                 func(self, *args, **kwargs)
+
+            except KeyboardInterrupt:
+                self._dprint('KeyboardInterrupt!! stopping device...')
+                self._stop_operation()
+                self._disconnect_device()
 
             except canopen.SdoCommunicationError as e:
                 self.cannot_test = True
@@ -154,6 +159,22 @@ class TestElmo():
         self._change_status(status='PRE-OPERATIONAL')
 
         for node_id_ in self.network:
+            if (node_id_ % 2 == 0):
+                # ## Homing on the negative limit switch and index pulse
+                # self.network[node_id_].sdo['homing_method'].raw = 1
+                ## Homing on the positive home switch and index pulse
+                self.network[node_id_].sdo['homing_method'].raw = 23
+                self.network[node_id_].sdo['homing_speeds'][1].raw = 1200
+                self.network[node_id_].sdo['homing_speeds'][2].raw = 1000
+                if (node_id_ == 8):
+                    self.network[node_id_].sdo['homing_speeds'][1].raw = 1200 * 4
+                    self.network[node_id_].sdo['homing_speeds'][2].raw = 1000 * 4
+                self.network[node_id_].sdo['homing_acceleration'].raw = self.network[node_id_].sdo['profile_acceleration'].raw
+            else:
+                self.network[node_id_].sdo['homing_method'].raw = 35
+                self.network[node_id_].sdo['homing_speeds'][1].raw = 1
+                self.network[node_id_].sdo['homing_speeds'][2].raw = 1
+                self.network[node_id_].sdo['homing_acceleration'].raw = 1
             self.network[node_id_].sdo['Producer Heartbeat Time'].raw = 1000
             self.network[node_id_].sdo['Communication Cycle Period'].raw = 0  ## what is it?
 
@@ -188,6 +209,8 @@ class TestElmo():
             self._dprint("position_demand_value: {0}".format(self.network[node_id_].sdo['position_demand_value'].raw))
             self._dprint("position_actual_internal_value: {0}".format(self.network[node_id_].sdo['position_actual_internal_value'].raw))
             self._dprint("position_actual_value: {0}".format(self.network[node_id_].sdo['position_actual_value'].raw))
+            self._dprint("profile_acceleration: {0}".format(self.network[node_id_].sdo['profile_acceleration'].raw))
+            self._dprint("profile_deceleration: {0}".format(self.network[node_id_].sdo['profile_deceleration'].raw))
 
         ## -----------------------------------------------------------------
         ## change TPDO configuration
@@ -198,6 +221,8 @@ class TestElmo():
             id_ = 1
             self.network[node_id_].tpdo[id_].clear()
             self.network[node_id_].tpdo[id_].add_variable('statusword')
+            self.network[node_id_].tpdo[id_].add_variable('modes_of_operation')
+            self.network[node_id_].tpdo[id_].add_variable('digital_inputs')
             self.network[node_id_].tpdo[id_].trans_type = trans_type_
             self.network[node_id_].tpdo[id_].event_timer = 10
             self.network[node_id_].tpdo[id_].inhibit_time = 0
@@ -324,22 +349,22 @@ class TestElmo():
             return
         statusword = statusword[2:]
         try:
-            self._dprint('     Ready to switch on: {0}'.format(statusword[-1]))
-            self._dprint('            Switched on: {0}'.format(statusword[-2]))
-            self._dprint('      Operation enabled: {0}'.format(statusword[-3]))
-            self._dprint('                  Fault: {0}'.format(statusword[-4]))
-            self._dprint('        Voltage enabled: {0}'.format(statusword[-5]))
-            self._dprint('             Quick stop: {0}'.format(statusword[-6]))
-            self._dprint('     Switch on disabled: {0}'.format(statusword[-7]))
-            self._dprint('                Warning: {0}'.format(statusword[-8]))
-            self._dprint('  Manufacturer specific: {0}'.format(statusword[-9]))
-            self._dprint('                 Remote: {0}'.format(statusword[-10]))
-            self._dprint('         Target reached: {0}'.format(statusword[-11]))
-            self._dprint('  Internal limit active: {0}'.format(statusword[-12]))
-            self._dprint('Operation mode specific: {0}'.format(statusword[-13]))
-            self._dprint('Operation mode specific: {0}'.format(statusword[-14]))
-            self._dprint('  Manufacturer specific: {0}'.format(statusword[-15]))
-            self._dprint('  Manufacturer specific: {0}\n'.format(statusword[-16]))
+            self._dprint('    Ready to switch on [0]: {0}'.format(statusword[-1]))
+            self._dprint('           Switched on [1]: {0}'.format(statusword[-2]))
+            self._dprint('     Operation enabled [2]: {0}'.format(statusword[-3]))
+            self._dprint('                 Fault [3]: {0}'.format(statusword[-4]))
+            self._dprint('       Voltage enabled [4]: {0}'.format(statusword[-5]))
+            self._dprint('            Quick stop [5]: {0}'.format(statusword[-6]))
+            self._dprint('    Switch on disabled [6]: {0}'.format(statusword[-7]))
+            self._dprint('               Warning [7]: {0}'.format(statusword[-8]))
+            self._dprint(' Manufacturer specific [8]: {0}'.format(statusword[-9]))
+            self._dprint('                Remote [9]: {0}'.format(statusword[-10]))
+            self._dprint('       Target reached [10]: {0}'.format(statusword[-11]))
+            self._dprint('Internal limit active [11]: {0}'.format(statusword[-12]))
+            self._dprint('     Op mode specific [12]: {0}'.format(statusword[-13]))
+            self._dprint('     Op mode specific [13]: {0}'.format(statusword[-14]))
+            self._dprint('Manufacturer specific [14]: {0}'.format(statusword[-15]))
+            self._dprint('Manufacturer specific [15]: {0}\n'.format(statusword[-16]))
         except:
             self._dprint('')
 
@@ -351,32 +376,34 @@ class TestElmo():
             return
         controlword = controlword[2:]
         try:
-            self._dprint('              Switch on: {0}'.format(controlword[-1]))
-            self._dprint('         Enable voltage: {0}'.format(controlword[-2]))
-            self._dprint('             Quick stop: {0}'.format(controlword[-3]))
-            self._dprint('       Enable operation: {0}'.format(controlword[-4]))
-            self._dprint('Operation mode specific: {0}'.format(controlword[-5]))
-            self._dprint('Operation mode specific: {0}'.format(controlword[-6]))
-            self._dprint('Operation mode specific: {0}'.format(controlword[-7]))
-            self._dprint('            Fault reset: {0}'.format(controlword[-8]))
-            self._dprint('                  Hault: {0}'.format(controlword[-9]))
-            self._dprint('               Reserved: {0}'.format(controlword[-10]))
-            self._dprint('               Reserved: {0}\n'.format(controlword[-11]))
+            self._dprint('             Switch on [0]: {0}'.format(controlword[-1]))
+            self._dprint('        Enable voltage [1]: {0}'.format(controlword[-2]))
+            self._dprint('            Quick stop [2]: {0}'.format(controlword[-3]))
+            self._dprint('      Enable operation [3]: {0}'.format(controlword[-4]))
+            self._dprint('      Op mode specific [4]: {0}'.format(controlword[-5]))
+            self._dprint('      Op mode specific [5]: {0}'.format(controlword[-6]))
+            self._dprint('      Op mode specific [6]: {0}'.format(controlword[-7]))
+            self._dprint('           Fault reset [7]: {0}'.format(controlword[-8]))
+            self._dprint('                 Hault [8]: {0}'.format(controlword[-9]))
+            self._dprint('              Reserved [9]: {0}'.format(controlword[-10]))
+            self._dprint('             Reserved [10]: {0}\n'.format(controlword[-11]))
         except:
             self._dprint('')
 
     def _print_value(self, sec=5.0, iter=20):
         t_sleep_ = sec / iter
-        for _ in range(iter):
+        for _ in range(int(iter)):
             time.sleep(t_sleep_)
             self.network.sync.transmit()
             for node_id_ in self.node_list:
-                poin_ = self.network[node_id_].tpdo['position_actual_internal_value'].raw
-                pos_ = self.network[node_id_].tpdo['position_actual_value'].raw
-                vel_ = self.network[node_id_].tpdo['velocity_actual_value'].raw
-                tor_ = self.network[node_id_].tpdo['torque_actual_value'].raw
-                statusword_ = self.network[node_id_].tpdo['statusword'].raw
-                test = 'id:{0} '.format(node_id_) + 't:%-6.2f'%(self.start_time - time.time()) + ' pos:%-8d'%pos_ + 'poin:%-8d'%poin_ + 'vel:%-7d'%vel_ + 'tor:%-6d'%tor_  + 'status:%s'%bin(statusword_) 
+                time_and_id_ = 'id:{0} '.format(node_id_) + 't:%-6.2f'%(self.start_time - time.time())
+                poin_ = 'poin:%-8d'%self.network[node_id_].tpdo['position_actual_internal_value'].raw
+                pos_ = ' pos:%-8d'%self.network[node_id_].tpdo['position_actual_value'].raw
+                vel_ = 'vel:%-7d'%self.network[node_id_].tpdo['velocity_actual_value'].raw
+                tor_ = 'tor:%-6d'%self.network[node_id_].tpdo['torque_actual_value'].raw
+                statusword_ = ' status:%s'%bin(self.network[node_id_].tpdo['statusword'].raw) 
+                di_ = '\tDI:%s'%bin(self.network[node_id_].tpdo['digital_inputs'].raw) 
+                test = time_and_id_ + pos_ + vel_ + tor_ + statusword_ + di_
                 self._dprint(test)
             self._dprint('')
 
@@ -422,6 +449,8 @@ class TestElmo():
             control_target = 'target_torque'
         elif operation_mode == OPMode.HOMING:
             control_target = None
+        elif operation_mode == OPMode.NO_MODE:
+            control_target = None
         else:
             self._dprint('\n----\nOPERATION MODE ERROR\n----')
             self._disconnect_device()
@@ -450,7 +479,8 @@ class TestElmo():
         for node_id_ in test_set:
             self.network[node_id_].rpdo['modes_of_operation'].raw = operation_mode
             self.network[node_id_].rpdo[1].transmit()
-
+            self._dprint('operation mode: {0}'.format(self.network[node_id_].rpdo['modes_of_operation'].raw))
+        time.sleep(self.sleep_)
         ## -----------------------------------------------------------------
         ## change drive mode
         for node_id_ in test_set:
@@ -616,7 +646,7 @@ class TestElmo():
         self._disconnect_device()
 
     @_try_except_decorator
-    def test_homing(self, test_set):
+    def test_homing(self, test_set, play_time=15.0):
         operation_mode = OPMode.HOMING
         able_, _ = self._check_test_availability(test_set, operation_mode)
         if able_ == False:
@@ -627,31 +657,33 @@ class TestElmo():
         for node_id_ in test_set:
             self._rpdo_controlword(controlword=0b11111, node_id=node_id_, command='HOMING COMMAND') ## Operation command
 
-        ## check homing
-        homing_completed = False
-        homing_error_found = False
-        while homing_completed == False:
-            homing_completed = True
-            self.network.sync.transmit()
-            for node_id_ in test_set:
-                statusword = self.network[node_id_].tpdo['statusword'].raw
-                statusword = statusword[2:]
-                if len(statusword) > 12:
-                    homing_attained = bool(int(statusword[-13]))
-                    self._dprint('Node id: {0} Homing attained: {1}'.format(node_id_, statusword[-13]))
-                    if homing_attained == False:
-                        homing_completed = False
-                    if len(statusword) > 13:
-                        homing_error = bool(int(statusword[-14]))
-                        if homing_error:
-                            homing_error_found = True
-                        self._dprint('Node id: {0} Homing error: {1}'.format(node_id_, statusword[-14]))
-            if homing_error_found:
-                self._dprint('error occured in homing')
-            time.sleep(self.sleep_)
+        # ## check homing
+        # homing_completed = False
+        # homing_error_found = False
+        # while homing_completed == False:
+        #     homing_completed = True
+        #     self.network.sync.transmit()
+        #     for node_id_ in test_set:
+        #         statusword = self.network[node_id_].tpdo['statusword'].raw
+        #         statusword = statusword[2:]
+        #         if len(statusword) > 12:
+        #             homing_attained = bool(int(statusword[-13]))
+        #             self._dprint('Node id: {0} Homing attained: {1}'.format(node_id_, statusword[-13]))
+        #             if homing_attained == False:
+        #                 homing_completed = False
+        #             if len(statusword) > 13:
+        #                 homing_error = bool(int(statusword[-14]))
+        #                 if homing_error:
+        #                     homing_error_found = True
+        #                 self._dprint('Node id: {0} Homing error: {1}'.format(node_id_, statusword[-14]))
+        #     if homing_error_found:
+        #         self._dprint('error occured in homing')
+        #     time.sleep(self.sleep_)
+
+        self._print_value(sec=play_time, iter=play_time*2)
 
         self._stop_operation()
-        self._disconnect_device()
+        # self._disconnect_device()
 
     @_try_except_decorator
     def test_key(self, operation_mode):
@@ -659,15 +691,18 @@ class TestElmo():
         pass
 
     @_try_except_decorator
-    def set_free_wheel(self, test_set):
-        able_, _ = self._check_test_availability(test_set, OPMode.HOMING)
+    def set_free_wheel(self, test_set, play_time=30.0):
+        able_, _ = self._check_test_availability(test_set, OPMode.NO_MODE)
         if able_ == False:
             return
 
         self._switch_on_mode(test_set)
-        sec_ = 60.0
-        self._print_value(sec=sec_, iter=sec_*2)
+        self._print_value(sec=play_time, iter=play_time*2)
         self._stop_operation()
+        # self._disconnect_device()
+
+    @_try_except_decorator
+    def finish_work(self):
         self._disconnect_device()
 
 if __name__ == "__main__":
@@ -686,14 +721,15 @@ if __name__ == "__main__":
 
     # tt_.test_dual_elmo(t1=4, t2=6, operation_mode=OPMode.PROFILED_VELOCITY, value=3000)
 
-    # tt_.test_multiple_elmo(test_set=node_set, operation_mode=OPMode.PROFILED_TORQUE, value=100)
+    # tt_.test_multiple_elmo(test_set=node_set, operation_mode=OPMode.PROFILED_TORQUE, value=70)
     # tt_.test_multiple_elmo(test_set=node_set, operation_mode=OPMode.PROFILED_VELOCITY, value=1000)
 
-    # tt_.test_odd_and_even_elmo(test_set=node_set, operation_mode=OPMode.PROFILED_TORQUE, value=100)
+    # tt_.test_odd_and_even_elmo(test_set=node_set, operation_mode=OPMode.PROFILED_TORQUE, value=70)
     # tt_.test_odd_and_even_elmo(test_set=node_set, operation_mode=OPMode.PROFILED_VELOCITY, value=1000)
 
     # tt_.test_control_zero(test_set=node_set, operation_mode=OPMode.PROFILED_TORQUE, value=150)
 
-    tt_.set_free_wheel(test_set=node_set)
-
-    # tt_.test_homing(test_set=[2,4,6,8])
+    # tt_.set_free_wheel(test_set=node_set)
+    # tt_.test_homing(test_set=[2,4,6,8], play_time=12)
+    # tt_.set_free_wheel(test_set=node_set, play_time=60.0)
+    # tt_.finish_work()
