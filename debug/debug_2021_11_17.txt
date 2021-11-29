@@ -1,0 +1,3210 @@
+
+
+
+==================================================================================
+==  DEBUG START 2021.11.17 - 21:43:50  ===========================================
+==================================================================================
+
+
+state command: INITIALISING
+master state: INITIALISING
+
+Found node 1
+Adding node 1
+Found node 2
+Adding node 2
+Found node 3
+Adding node 3
+Found node 4
+Adding node 4
+Found node 5
+Adding node 5
+Found node 6
+Adding node 6
+Found node 7
+Adding node 7
+Found node 8
+Adding node 8
+
+state: BusState.ACTIVE
+bus channel_info: PCAN_USBBUS1
+
+msg: Timestamp: 1637153618.216216        ID: 0703    S                DLC:  1    00
+
+state command: STOPPED
+master state: STOPPED
+node 1 state: STOPPED
+node 2 state: STOPPED
+node 3 state: STOPPED
+node 4 state: STOPPED
+node 5 state: STOPPED
+node 6 state: STOPPED
+node 7 state: STOPPED
+node 8 state: STOPPED
+
+state command: RESET
+master state: INITIALISING
+node 1 state: PRE-OPERATIONAL
+node 2 state: PRE-OPERATIONAL
+node 3 state: PRE-OPERATIONAL
+node 4 state: PRE-OPERATIONAL
+node 5 state: PRE-OPERATIONAL
+node 6 state: PRE-OPERATIONAL
+node 7 state: PRE-OPERATIONAL
+node 8 state: PRE-OPERATIONAL
+
+state command: RESET COMMUNICATION
+master state: INITIALISING
+node 1 state: PRE-OPERATIONAL
+node 2 state: PRE-OPERATIONAL
+node 3 state: PRE-OPERATIONAL
+node 4 state: PRE-OPERATIONAL
+node 5 state: PRE-OPERATIONAL
+node 6 state: PRE-OPERATIONAL
+node 7 state: PRE-OPERATIONAL
+node 8 state: PRE-OPERATIONAL
+
+state command: INITIALISING
+master state: INITIALISING
+node 1 state: PRE-OPERATIONAL
+node 2 state: PRE-OPERATIONAL
+node 3 state: PRE-OPERATIONAL
+node 4 state: PRE-OPERATIONAL
+node 5 state: PRE-OPERATIONAL
+node 6 state: PRE-OPERATIONAL
+node 7 state: PRE-OPERATIONAL
+node 8 state: PRE-OPERATIONAL
+
+state command: PRE-OPERATIONAL
+master state: PRE-OPERATIONAL
+node 1 state: PRE-OPERATIONAL
+node 2 state: PRE-OPERATIONAL
+node 3 state: PRE-OPERATIONAL
+node 4 state: PRE-OPERATIONAL
+node 5 state: PRE-OPERATIONAL
+node 6 state: PRE-OPERATIONAL
+node 7 state: PRE-OPERATIONAL
+node 8 state: PRE-OPERATIONAL
+
+===========
+Information
+CAN Open Node ID: 1
+error_code: 0
+statusword: 0b1001000000
+controlword: 0b0
+modes_of_operation: -1
+Producer Heartbeat Time: 1000
+Communication Cycle Period: 0
+
+- control
+profile_velocity: 10000
+position_demand_value: 0
+position_actual_internal_value: 0
+position_actual_value: 0
+
+===========
+Information
+CAN Open Node ID: 2
+error_code: 0
+statusword: 0b1001000000
+controlword: 0b0
+modes_of_operation: -1
+Producer Heartbeat Time: 1000
+Communication Cycle Period: 0
+
+- control
+profile_velocity: 136532
+position_demand_value: 0
+position_actual_internal_value: 0
+position_actual_value: 0
+
+===========
+Information
+CAN Open Node ID: 3
+error_code: 0
+statusword: 0b1001000000
+controlword: 0b0
+modes_of_operation: -1
+Producer Heartbeat Time: 1000
+Communication Cycle Period: 0
+
+- control
+profile_velocity: 10000
+position_demand_value: 0
+position_actual_internal_value: 0
+position_actual_value: 0
+
+===========
+Information
+CAN Open Node ID: 4
+error_code: 0
+statusword: 0b1001000000
+controlword: 0b0
+modes_of_operation: -1
+Producer Heartbeat Time: 1000
+Communication Cycle Period: 0
+
+- control
+profile_velocity: 10000
+position_demand_value: 0
+position_actual_internal_value: 0
+position_actual_value: 0
+
+===========
+Information
+CAN Open Node ID: 5
+error_code: 0
+statusword: 0b1001000000
+controlword: 0b0
+modes_of_operation: -1
+Producer Heartbeat Time: 1000
+Communication Cycle Period: 0
+
+- control
+profile_velocity: 10000
+position_demand_value: 0
+position_actual_internal_value: 0
+position_actual_value: 0
+
+===========
+Information
+CAN Open Node ID: 6
+error_code: 0
+statusword: 0b1001000000
+controlword: 0b0
+modes_of_operation: -1
+Producer Heartbeat Time: 1000
+Communication Cycle Period: 0
+
+- control
+profile_velocity: 10000
+position_demand_value: 0
+position_actual_internal_value: 0
+position_actual_value: 0
+
+===========
+Information
+CAN Open Node ID: 7
+error_code: 0
+statusword: 0b1001000000
+controlword: 0b0
+modes_of_operation: -1
+Producer Heartbeat Time: 1000
+Communication Cycle Period: 0
+
+- control
+profile_velocity: 9040
+position_demand_value: 0
+position_actual_internal_value: 0
+position_actual_value: 0
+
+===========
+Information
+CAN Open Node ID: 8
+error_code: 0
+statusword: 0b1001000000
+controlword: 0b0
+modes_of_operation: -1
+Producer Heartbeat Time: 1000
+Communication Cycle Period: 0
+
+- control
+profile_velocity: 40000
+position_demand_value: 0
+position_actual_internal_value: 0
+position_actual_value: 0
+
+FAULT RESET COMMAND: 0b10000000
+node_id: 1
+statusword: 0b0
+controlword: 0b10000000
+node_id: 2
+statusword: 0b0
+controlword: 0b10000000
+node_id: 3
+statusword: 0b0
+controlword: 0b10000000
+node_id: 4
+statusword: 0b0
+controlword: 0b10000000
+node_id: 5
+statusword: 0b0
+controlword: 0b10000000
+node_id: 6
+statusword: 0b0
+controlword: 0b10000000
+node_id: 7
+statusword: 0b0
+controlword: 0b10000000
+node_id: 8
+statusword: 0b0
+controlword: 0b10000000
+
+[SWITCH ON or DISABLE OPERATION] COMMAND: 0b111
+node_id: 1
+statusword: 0b0
+controlword: 0b111
+node_id: 2
+statusword: 0b0
+controlword: 0b111
+node_id: 3
+statusword: 0b0
+controlword: 0b111
+node_id: 4
+statusword: 0b0
+controlword: 0b111
+node_id: 5
+statusword: 0b0
+controlword: 0b111
+node_id: 6
+statusword: 0b0
+controlword: 0b111
+node_id: 7
+statusword: 0b0
+controlword: 0b111
+node_id: 8
+statusword: 0b0
+controlword: 0b111
+
+state command: PRE-OPERATIONAL
+master state: PRE-OPERATIONAL
+node 1 state: PRE-OPERATIONAL
+node 2 state: PRE-OPERATIONAL
+node 3 state: PRE-OPERATIONAL
+node 4 state: PRE-OPERATIONAL
+node 5 state: PRE-OPERATIONAL
+node 6 state: PRE-OPERATIONAL
+node 7 state: PRE-OPERATIONAL
+node 8 state: PRE-OPERATIONAL
+
+state command: OPERATIONAL
+master state: OPERATIONAL
+node 1 state: OPERATIONAL
+node 2 state: OPERATIONAL
+node 3 state: OPERATIONAL
+node 4 state: OPERATIONAL
+node 5 state: OPERATIONAL
+node 6 state: OPERATIONAL
+node 7 state: OPERATIONAL
+node 8 state: OPERATIONAL
+
+SHUTDOWN COMMAND: 0b110
+node_id: 1
+statusword: 0b0
+controlword: 0b110
+
+[SWITCH ON or DISABLE OPERATION] COMMAND: 0b111
+node_id: 1
+statusword: 0b11000110001
+controlword: 0b111
+
+[ENABLE OPERATION or OPERATION] COMMAND: 0b1111
+node_id: 1
+statusword: 0b11000110011
+controlword: 0b1111
+
+SHUTDOWN COMMAND: 0b110
+node_id: 2
+statusword: 0b11011000000
+controlword: 0b110
+
+[SWITCH ON or DISABLE OPERATION] COMMAND: 0b111
+node_id: 2
+statusword: 0b11000110001
+controlword: 0b111
+
+[ENABLE OPERATION or OPERATION] COMMAND: 0b1111
+node_id: 2
+statusword: 0b11000110011
+controlword: 0b1111
+
+SHUTDOWN COMMAND: 0b110
+node_id: 3
+statusword: 0b11011000000
+controlword: 0b110
+
+[SWITCH ON or DISABLE OPERATION] COMMAND: 0b111
+node_id: 3
+statusword: 0b11000110001
+controlword: 0b111
+
+[ENABLE OPERATION or OPERATION] COMMAND: 0b1111
+node_id: 3
+statusword: 0b11000110011
+controlword: 0b1111
+
+SHUTDOWN COMMAND: 0b110
+node_id: 4
+statusword: 0b11011000000
+controlword: 0b110
+
+[SWITCH ON or DISABLE OPERATION] COMMAND: 0b111
+node_id: 4
+statusword: 0b11000110001
+controlword: 0b111
+
+[ENABLE OPERATION or OPERATION] COMMAND: 0b1111
+node_id: 4
+statusword: 0b11000110011
+controlword: 0b1111
+
+SHUTDOWN COMMAND: 0b110
+node_id: 5
+statusword: 0b11011000000
+controlword: 0b110
+
+[SWITCH ON or DISABLE OPERATION] COMMAND: 0b111
+node_id: 5
+statusword: 0b11000110001
+controlword: 0b111
+
+[ENABLE OPERATION or OPERATION] COMMAND: 0b1111
+node_id: 5
+statusword: 0b11000110011
+controlword: 0b1111
+
+SHUTDOWN COMMAND: 0b110
+node_id: 6
+statusword: 0b11011000000
+controlword: 0b110
+
+[SWITCH ON or DISABLE OPERATION] COMMAND: 0b111
+node_id: 6
+statusword: 0b11000110001
+controlword: 0b111
+
+[ENABLE OPERATION or OPERATION] COMMAND: 0b1111
+node_id: 6
+statusword: 0b11000110011
+controlword: 0b1111
+
+SHUTDOWN COMMAND: 0b110
+node_id: 7
+statusword: 0b11011000000
+controlword: 0b110
+
+[SWITCH ON or DISABLE OPERATION] COMMAND: 0b111
+node_id: 7
+statusword: 0b11000110001
+controlword: 0b111
+
+[ENABLE OPERATION or OPERATION] COMMAND: 0b1111
+node_id: 7
+statusword: 0b11000110011
+controlword: 0b1111
+
+SHUTDOWN COMMAND: 0b110
+node_id: 8
+statusword: 0b11011000000
+controlword: 0b110
+
+[SWITCH ON or DISABLE OPERATION] COMMAND: 0b111
+node_id: 8
+statusword: 0b11000110001
+controlword: 0b111
+
+[ENABLE OPERATION or OPERATION] COMMAND: 0b1111
+node_id: 8
+statusword: 0b11000110011
+controlword: 0b1111
+id:1 t:-11.66 pos:0       poin:0       vel:0      tor:2     status:0b11000110111
+id:2 t:-11.66 pos:0       poin:0       vel:0      tor:7     status:0b11000110111
+id:3 t:-11.66 pos:0       poin:0       vel:0      tor:0     status:0b11000110111
+id:4 t:-11.66 pos:0       poin:0       vel:0      tor:-2    status:0b11000110111
+id:5 t:-11.66 pos:0       poin:0       vel:0      tor:0     status:0b11000110111
+id:6 t:-11.66 pos:0       poin:0       vel:0      tor:0     status:0b11000110111
+id:7 t:-11.66 pos:0       poin:0       vel:0      tor:-5    status:0b11000110111
+id:8 t:-11.66 pos:0       poin:0       vel:0      tor:-2    status:0b11000110111
+
+id:1 t:-11.86 pos:438     poin:438     vel:0      tor:98    status:0b11000110111
+id:2 t:-11.86 pos:721     poin:721     vel:8190   tor:98    status:0b11000110111
+id:3 t:-11.86 pos:539     poin:539     vel:0      tor:103   status:0b11000110111
+id:4 t:-11.86 pos:0       poin:0       vel:0      tor:98    status:0b11000110111
+id:5 t:-11.86 pos:238     poin:238     vel:0      tor:98    status:0b11000110111
+id:6 t:-11.86 pos:388     poin:388     vel:0      tor:98    status:0b11000110111
+id:7 t:-11.86 pos:534     poin:534     vel:0      tor:101   status:0b11000110111
+id:8 t:-11.86 pos:885     poin:885     vel:0      tor:103   status:0b11000110111
+
+id:1 t:-12.06 pos:1951    poin:1951    vel:0      tor:96    status:0b11000110111
+id:2 t:-12.06 pos:3210    poin:3210    vel:16238  tor:96    status:0b11000110111
+id:3 t:-12.06 pos:2148    poin:2148    vel:0      tor:96    status:0b11000110111
+id:4 t:-12.06 pos:0       poin:0       vel:0      tor:101   status:0b11000110111
+id:5 t:-12.06 pos:1364    poin:1364    vel:0      tor:91    status:0b11000110111
+id:6 t:-12.06 pos:2240    poin:2240    vel:0      tor:101   status:0b11000110111
+id:7 t:-12.06 pos:3138    poin:3138    vel:0      tor:103   status:0b11000110111
+id:8 t:-12.06 pos:5188    poin:5188    vel:0      tor:98    status:0b11000110111
+
+id:1 t:-12.26 pos:4238    poin:4238    vel:0      tor:101   status:0b11000110111
+id:2 t:-12.26 pos:6963    poin:6963    vel:20768  tor:101   status:0b11000110111
+id:3 t:-12.26 pos:4564    poin:4564    vel:0      tor:105   status:0b11000110111
+id:4 t:-12.27 pos:0       poin:0       vel:0      tor:110   status:0b11000110111
+id:5 t:-12.27 pos:2854    poin:2854    vel:0      tor:101   status:0b11000110111
+id:6 t:-12.27 pos:4666    poin:4666    vel:0      tor:101   status:0b11000110111
+id:7 t:-12.27 pos:7888    poin:7888    vel:0      tor:103   status:0b11000110111
+id:8 t:-12.27 pos:13056   poin:13056   vel:0      tor:103   status:0b11000110111
+
+id:1 t:-12.47 pos:7144    poin:7144    vel:0      tor:98    status:0b11000110111
+id:2 t:-12.47 pos:11729   poin:11729   vel:24790  tor:108   status:0b11000110111
+id:3 t:-12.47 pos:7591    poin:7591    vel:0      tor:110   status:0b11000110111
+id:4 t:-12.47 pos:0       poin:0       vel:0      tor:101   status:0b11000110111
+id:5 t:-12.47 pos:4764    poin:4764    vel:0      tor:103   status:0b11000110111
+id:6 t:-12.47 pos:7648    poin:7648    vel:0      tor:98    status:0b11000110111
+id:7 t:-12.47 pos:13404   poin:13404   vel:0      tor:98    status:0b11000110111
+id:8 t:-12.47 pos:22107   poin:22107   vel:0      tor:101   status:0b11000110111
+
+id:1 t:-12.67 pos:10547   poin:10547   vel:0      tor:101   status:0b11000110111
+id:2 t:-12.67 pos:17303   poin:17303   vel:29742  tor:101   status:0b11000110111
+id:3 t:-12.67 pos:11064   poin:11064   vel:0      tor:103   status:0b11000110111
+id:4 t:-12.67 pos:0       poin:0       vel:0      tor:96    status:0b11000110111
+id:5 t:-12.67 pos:7012    poin:7012    vel:0      tor:101   status:0b11000110111
+id:6 t:-12.67 pos:11295   poin:11295   vel:0      tor:105   status:0b11000110111
+id:7 t:-12.67 pos:21383   poin:21383   vel:0      tor:101   status:0b11000110111
+id:8 t:-12.67 pos:35235   poin:35235   vel:0      tor:94    status:0b11000110111
+
+id:1 t:-12.87 pos:14362   poin:14362   vel:0      tor:91    status:0b11000110111
+id:2 t:-12.87 pos:23549   poin:23549   vel:32785  tor:101   status:0b11000110111
+id:3 t:-12.87 pos:14866   poin:14866   vel:0      tor:105   status:0b11000110111
+id:4 t:-12.87 pos:0       poin:0       vel:0      tor:101   status:0b11000110111
+id:5 t:-12.87 pos:9425    poin:9425    vel:0      tor:98    status:0b11000110111
+id:6 t:-12.87 pos:15113   poin:15113   vel:0      tor:96    status:0b11000110111
+id:7 t:-12.87 pos:30296   poin:30296   vel:0      tor:101   status:0b11000110111
+id:8 t:-12.87 pos:49919   poin:49919   vel:0      tor:108   status:0b11000110111
+
+id:1 t:-13.08 pos:18491   poin:18491   vel:0      tor:103   status:0b11000110111
+id:2 t:-13.08 pos:30307   poin:30307   vel:33898  tor:91    status:0b11000110111
+id:3 t:-13.08 pos:18922   poin:18922   vel:0      tor:91    status:0b11000110111
+id:4 t:-13.08 pos:0       poin:0       vel:0      tor:98    status:0b11000110111
+id:5 t:-13.08 pos:12039   poin:12039   vel:0      tor:96    status:0b11000110111
+id:6 t:-13.08 pos:19294   poin:19294   vel:0      tor:94    status:0b11000110111
+id:7 t:-13.08 pos:40169   poin:40169   vel:0      tor:101   status:0b11000110111
+id:8 t:-13.08 pos:66175   poin:66175   vel:0      tor:98    status:0b11000110111
+
+id:1 t:-13.28 pos:22836   poin:22836   vel:0      tor:96    status:0b11000110111
+id:2 t:-13.28 pos:37410   poin:37410   vel:35471  tor:91    status:0b11000110111
+id:3 t:-13.28 pos:23176   poin:23176   vel:0      tor:98    status:0b11000110111
+id:4 t:-13.28 pos:0       poin:0       vel:0      tor:113   status:0b11000110111
+id:5 t:-13.28 pos:14753   poin:14753   vel:0      tor:96    status:0b11000110111
+id:6 t:-13.28 pos:23511   poin:23511   vel:0      tor:113   status:0b11000110111
+id:7 t:-13.28 pos:50635   poin:50635   vel:0      tor:101   status:0b11000110111
+id:8 t:-13.28 pos:83455   poin:83455   vel:0      tor:103   status:0b11000110111
+
+id:1 t:-13.48 pos:27348   poin:27348   vel:0      tor:103   status:0b11000110111
+id:2 t:-13.48 pos:44811   poin:44811   vel:36523  tor:120   status:0b11000110111
+id:3 t:-13.48 pos:27583   poin:27583   vel:0      tor:103   status:0b11000110111
+id:4 t:-13.48 pos:0       poin:0       vel:0      tor:103   status:0b11000110111
+id:5 t:-13.48 pos:17614   poin:17614   vel:0      tor:98    status:0b11000110111
+id:6 t:-13.48 pos:28052   poin:28052   vel:0      tor:91    status:0b11000110111
+id:7 t:-13.48 pos:61731   poin:61731   vel:0      tor:103   status:0b11000110111
+id:8 t:-13.48 pos:101687  poin:101687  vel:0      tor:103   status:0b11000110111
+
+id:1 t:-13.68 pos:31983   poin:31983   vel:0      tor:113   status:0b11000110111
+id:2 t:-13.69 pos:52407   poin:52407   vel:38072  tor:87    status:0b11000110111
+id:3 t:-13.69 pos:32104   poin:32104   vel:0      tor:101   status:0b11000110111
+id:4 t:-13.69 pos:0       poin:0       vel:0      tor:105   status:0b11000110111
+id:5 t:-13.69 pos:20474   poin:20474   vel:0      tor:96    status:0b11000110111
+id:6 t:-13.69 pos:32570   poin:32570   vel:0      tor:101   status:0b11000110111
+id:7 t:-13.69 pos:73058   poin:73058   vel:0      tor:96    status:0b11000110111
+id:8 t:-13.69 pos:120353  poin:120353  vel:0      tor:96    status:0b11000110111
+
+id:1 t:-13.89 pos:36703   poin:36703   vel:0      tor:108   status:0b11000110111
+id:2 t:-13.89 pos:60133   poin:60133   vel:39613  tor:96    status:0b11000110111
+id:3 t:-13.89 pos:36703   poin:36703   vel:0      tor:101   status:0b11000110111
+id:4 t:-13.89 pos:0       poin:0       vel:0      tor:96    status:0b11000110111
+id:5 t:-13.89 pos:23410   poin:23410   vel:0      tor:108   status:0b11000110111
+id:6 t:-13.89 pos:37275   poin:37275   vel:0      tor:101   status:0b11000110111
+id:7 t:-13.89 pos:84922   poin:84922   vel:0      tor:96    status:0b11000110111
+id:8 t:-13.89 pos:139901  poin:139901  vel:0      tor:94    status:0b11000110111
+
+id:1 t:-14.09 pos:41491   poin:41491   vel:0      tor:105   status:0b11000110111
+id:2 t:-14.09 pos:67972   poin:67972   vel:39073  tor:87    status:0b11000110111
+id:3 t:-14.09 pos:41383   poin:41383   vel:0      tor:105   status:0b11000110111
+id:4 t:-14.09 pos:0       poin:0       vel:0      tor:122   status:0b11000110111
+id:5 t:-14.09 pos:26451   poin:26451   vel:0      tor:94    status:0b11000110111
+id:6 t:-14.09 pos:41993   poin:41993   vel:0      tor:103   status:0b11000110111
+id:7 t:-14.09 pos:96836   poin:96836   vel:0      tor:103   status:0b11000110111
+id:8 t:-14.09 pos:159497  poin:159497  vel:0      tor:98    status:0b11000110111
+
+id:1 t:-14.29 pos:46309   poin:46309   vel:0      tor:98    status:0b11000110111
+id:2 t:-14.29 pos:75847   poin:75847   vel:39063  tor:98    status:0b11000110111
+id:3 t:-14.30 pos:46088   poin:46088   vel:0      tor:94    status:0b11000110111
+id:4 t:-14.30 pos:0       poin:0       vel:0      tor:98    status:0b11000110111
+id:5 t:-14.30 pos:29434   poin:29434   vel:0      tor:101   status:0b11000110111
+id:6 t:-14.30 pos:46808   poin:46808   vel:0      tor:94    status:0b11000110111
+id:7 t:-14.30 pos:109046  poin:109046  vel:0      tor:105   status:0b11000110111
+id:8 t:-14.30 pos:179625  poin:179625  vel:0      tor:101   status:0b11000110111
+
+id:1 t:-14.50 pos:51187   poin:51187   vel:0      tor:96    status:0b11000110111
+id:2 t:-14.50 pos:83808   poin:83808   vel:38428  tor:87    status:0b11000110111
+id:3 t:-14.50 pos:50843   poin:50843   vel:0      tor:103   status:0b11000110111
+id:4 t:-14.50 pos:0       poin:0       vel:0      tor:103   status:0b11000110111
+id:5 t:-14.50 pos:32580   poin:32580   vel:0      tor:105   status:0b11000110111
+id:6 t:-14.50 pos:51700   poin:51700   vel:0      tor:103   status:0b11000110111
+id:7 t:-14.50 pos:121561  poin:121561  vel:0      tor:105   status:0b11000110111
+id:8 t:-14.50 pos:200233  poin:200233  vel:0      tor:105   status:0b11000110111
+
+
+changing command
+id:1 t:-14.70 pos:55948   poin:55948   vel:0      tor:0     status:0b1000011000
+id:2 t:-14.70 pos:91622   poin:91622   vel:33708  tor:0     status:0b1000011000
+id:3 t:-14.70 pos:55505   poin:55505   vel:0      tor:0     status:0b1000011000
+id:4 t:-14.70 pos:0       poin:0       vel:0      tor:0     status:0b1000011000
+id:5 t:-14.70 pos:35539   poin:35539   vel:0      tor:0     status:0b1000011000
+id:6 t:-14.70 pos:56450   poin:56450   vel:0      tor:0     status:0b1000011000
+id:7 t:-14.70 pos:133542  poin:133542  vel:0      tor:0     status:0b1000011000
+id:8 t:-14.70 pos:219986  poin:219986  vel:0      tor:0     status:0b1000011000
+
+id:1 t:-14.91 pos:59056   poin:59056   vel:0      tor:0     status:0b1000011000
+id:2 t:-14.91 pos:96746   poin:96746   vel:17778  tor:0     status:0b1000011000
+id:3 t:-14.91 pos:58549   poin:58549   vel:0      tor:0     status:0b1000011000
+id:4 t:-14.91 pos:0       poin:0       vel:0      tor:0     status:0b1000011000
+id:5 t:-14.91 pos:36897   poin:36897   vel:0      tor:0     status:0b1000011000
+id:6 t:-14.91 pos:58698   poin:58698   vel:0      tor:0     status:0b1000011000
+id:7 t:-14.91 pos:139534  poin:139534  vel:0      tor:0     status:0b1000011000
+id:8 t:-14.91 pos:229877  poin:229877  vel:0      tor:0     status:0b1000011000
+
+id:1 t:-15.11 pos:60355   poin:60355   vel:0      tor:0     status:0b1000011000
+id:2 t:-15.11 pos:98893   poin:98893   vel:4733   tor:0     status:0b1000011000
+id:3 t:-15.11 pos:59831   poin:59831   vel:0      tor:0     status:0b1000011000
+id:4 t:-15.11 pos:0       poin:0       vel:0      tor:0     status:0b1000011000
+id:5 t:-15.11 pos:36946   poin:36946   vel:0      tor:0     status:0b1000011000
+id:6 t:-15.11 pos:58786   poin:58786   vel:0      tor:0     status:0b1000011000
+id:7 t:-15.11 pos:139764  poin:139764  vel:0      tor:0     status:0b1000011000
+id:8 t:-15.11 pos:230259  poin:230259  vel:0      tor:0     status:0b1000011000
+
+id:1 t:-15.31 pos:60520   poin:60520   vel:0      tor:0     status:0b1000011000
+id:2 t:-15.31 pos:99163   poin:99163   vel:0      tor:0     status:0b1000011000
+id:3 t:-15.31 pos:59977   poin:59977   vel:0      tor:0     status:0b1000011000
+id:4 t:-15.31 pos:0       poin:0       vel:0      tor:0     status:0b1000011000
+id:5 t:-15.31 pos:36946   poin:36946   vel:0      tor:0     status:0b1000011000
+id:6 t:-15.31 pos:58786   poin:58786   vel:0      tor:0     status:0b1000011000
+id:7 t:-15.31 pos:139764  poin:139764  vel:0      tor:0     status:0b1000011000
+id:8 t:-15.31 pos:230259  poin:230259  vel:0      tor:0     status:0b1000011000
+
+id:1 t:-15.52 pos:60521   poin:60521   vel:0      tor:0     status:0b1000011000
+id:2 t:-15.52 pos:99163   poin:99163   vel:0      tor:0     status:0b1000011000
+id:3 t:-15.52 pos:59977   poin:59977   vel:0      tor:0     status:0b1000011000
+id:4 t:-15.52 pos:0       poin:0       vel:0      tor:0     status:0b1000011000
+id:5 t:-15.52 pos:36946   poin:36946   vel:0      tor:0     status:0b1000011000
+id:6 t:-15.52 pos:58786   poin:58786   vel:0      tor:0     status:0b1000011000
+id:7 t:-15.52 pos:139764  poin:139764  vel:0      tor:0     status:0b1000011000
+id:8 t:-15.52 pos:230259  poin:230259  vel:0      tor:0     status:0b1000011000
+
+id:1 t:-15.72 pos:60521   poin:60521   vel:0      tor:0     status:0b1000011000
+id:2 t:-15.72 pos:99163   poin:99163   vel:0      tor:0     status:0b1000011000
+id:3 t:-15.72 pos:59977   poin:59977   vel:0      tor:0     status:0b1000011000
+id:4 t:-15.72 pos:0       poin:0       vel:0      tor:0     status:0b1000011000
+id:5 t:-15.72 pos:36946   poin:36946   vel:0      tor:0     status:0b1000011000
+id:6 t:-15.72 pos:58786   poin:58786   vel:0      tor:0     status:0b1000011000
+id:7 t:-15.72 pos:139764  poin:139764  vel:0      tor:0     status:0b1000011000
+id:8 t:-15.72 pos:230258  poin:230258  vel:0      tor:0     status:0b1000011000
+
+id:1 t:-15.92 pos:60521   poin:60521   vel:0      tor:0     status:0b1000011000
+id:2 t:-15.92 pos:99163   poin:99163   vel:0      tor:0     status:0b1000011000
+id:3 t:-15.92 pos:59977   poin:59977   vel:0      tor:0     status:0b1000011000
+id:4 t:-15.92 pos:0       poin:0       vel:0      tor:0     status:0b1000011000
+id:5 t:-15.92 pos:36946   poin:36946   vel:0      tor:0     status:0b1000011000
+id:6 t:-15.92 pos:58786   poin:58786   vel:0      tor:0     status:0b1000011000
+id:7 t:-15.92 pos:139764  poin:139764  vel:0      tor:0     status:0b1000011000
+id:8 t:-15.92 pos:230258  poin:230258  vel:0      tor:0     status:0b1000011000
+
+id:1 t:-16.12 pos:60521   poin:60521   vel:0      tor:0     status:0b1000011000
+id:2 t:-16.13 pos:99163   poin:99163   vel:0      tor:0     status:0b1000011000
+id:3 t:-16.13 pos:59977   poin:59977   vel:0      tor:0     status:0b1000011000
+id:4 t:-16.13 pos:0       poin:0       vel:0      tor:0     status:0b1000011000
+id:5 t:-16.13 pos:36946   poin:36946   vel:0      tor:0     status:0b1000011000
+id:6 t:-16.13 pos:58786   poin:58786   vel:0      tor:0     status:0b1000011000
+id:7 t:-16.13 pos:139764  poin:139764  vel:0      tor:0     status:0b1000011000
+id:8 t:-16.13 pos:230258  poin:230258  vel:0      tor:0     status:0b1000011000
+
+id:1 t:-16.33 pos:60521   poin:60521   vel:0      tor:0     status:0b1000011000
+id:2 t:-16.33 pos:99163   poin:99163   vel:0      tor:0     status:0b1000011000
+id:3 t:-16.33 pos:59977   poin:59977   vel:0      tor:0     status:0b1000011000
+id:4 t:-16.33 pos:0       poin:0       vel:0      tor:0     status:0b1000011000
+id:5 t:-16.33 pos:36946   poin:36946   vel:0      tor:0     status:0b1000011000
+id:6 t:-16.33 pos:58786   poin:58786   vel:0      tor:0     status:0b1000011000
+id:7 t:-16.33 pos:139764  poin:139764  vel:0      tor:0     status:0b1000011000
+id:8 t:-16.33 pos:230258  poin:230258  vel:0      tor:0     status:0b1000011000
+
+id:1 t:-16.53 pos:60521   poin:60521   vel:0      tor:0     status:0b1000011000
+id:2 t:-16.53 pos:99163   poin:99163   vel:0      tor:0     status:0b1000011000
+id:3 t:-16.53 pos:59977   poin:59977   vel:0      tor:0     status:0b1000011000
+id:4 t:-16.53 pos:0       poin:0       vel:0      tor:0     status:0b1000011000
+id:5 t:-16.53 pos:36946   poin:36946   vel:0      tor:0     status:0b1000011000
+id:6 t:-16.53 pos:58786   poin:58786   vel:0      tor:0     status:0b1000011000
+id:7 t:-16.53 pos:139764  poin:139764  vel:0      tor:0     status:0b1000011000
+id:8 t:-16.53 pos:230258  poin:230258  vel:0      tor:0     status:0b1000011000
+
+id:1 t:-16.73 pos:60521   poin:60521   vel:0      tor:0     status:0b1000011000
+id:2 t:-16.73 pos:99163   poin:99163   vel:0      tor:0     status:0b1000011000
+id:3 t:-16.73 pos:59977   poin:59977   vel:0      tor:0     status:0b1000011000
+id:4 t:-16.74 pos:0       poin:0       vel:0      tor:0     status:0b1000011000
+id:5 t:-16.74 pos:36946   poin:36946   vel:0      tor:0     status:0b1000011000
+id:6 t:-16.74 pos:58786   poin:58786   vel:0      tor:0     status:0b1000011000
+id:7 t:-16.74 pos:139764  poin:139764  vel:0      tor:0     status:0b1000011000
+id:8 t:-16.74 pos:230258  poin:230258  vel:0      tor:0     status:0b1000011000
+
+id:1 t:-16.94 pos:60521   poin:60521   vel:0      tor:0     status:0b1000011000
+id:2 t:-16.94 pos:99163   poin:99163   vel:0      tor:0     status:0b1000011000
+id:3 t:-16.94 pos:59977   poin:59977   vel:0      tor:0     status:0b1000011000
+id:4 t:-16.94 pos:0       poin:0       vel:0      tor:0     status:0b1000011000
+id:5 t:-16.94 pos:36946   poin:36946   vel:0      tor:0     status:0b1000011000
+id:6 t:-16.94 pos:58786   poin:58786   vel:0      tor:0     status:0b1000011000
+id:7 t:-16.94 pos:139764  poin:139764  vel:0      tor:0     status:0b1000011000
+id:8 t:-16.94 pos:230258  poin:230258  vel:0      tor:0     status:0b1000011000
+
+id:1 t:-17.14 pos:60521   poin:60521   vel:0      tor:0     status:0b1000011000
+id:2 t:-17.14 pos:99163   poin:99163   vel:0      tor:0     status:0b1000011000
+id:3 t:-17.14 pos:59977   poin:59977   vel:0      tor:0     status:0b1000011000
+id:4 t:-17.14 pos:0       poin:0       vel:0      tor:0     status:0b1000011000
+id:5 t:-17.14 pos:36946   poin:36946   vel:0      tor:0     status:0b1000011000
+id:6 t:-17.14 pos:58786   poin:58786   vel:0      tor:0     status:0b1000011000
+id:7 t:-17.14 pos:139764  poin:139764  vel:0      tor:0     status:0b1000011000
+id:8 t:-17.14 pos:230258  poin:230258  vel:0      tor:0     status:0b1000011000
+
+id:1 t:-17.34 pos:60521   poin:60521   vel:0      tor:0     status:0b1000011000
+id:2 t:-17.34 pos:99163   poin:99163   vel:0      tor:0     status:0b1000011000
+id:3 t:-17.34 pos:59977   poin:59977   vel:0      tor:0     status:0b1000011000
+id:4 t:-17.34 pos:0       poin:0       vel:0      tor:0     status:0b1000011000
+id:5 t:-17.35 pos:36946   poin:36946   vel:0      tor:0     status:0b1000011000
+id:6 t:-17.35 pos:58786   poin:58786   vel:0      tor:0     status:0b1000011000
+id:7 t:-17.35 pos:139764  poin:139764  vel:0      tor:0     status:0b1000011000
+id:8 t:-17.35 pos:230258  poin:230258  vel:0      tor:0     status:0b1000011000
+
+id:1 t:-17.55 pos:60521   poin:60521   vel:0      tor:0     status:0b1000011000
+id:2 t:-17.55 pos:99163   poin:99163   vel:0      tor:0     status:0b1000011000
+id:3 t:-17.55 pos:59977   poin:59977   vel:0      tor:0     status:0b1000011000
+id:4 t:-17.55 pos:0       poin:0       vel:0      tor:0     status:0b1000011000
+id:5 t:-17.55 pos:36946   poin:36946   vel:0      tor:0     status:0b1000011000
+id:6 t:-17.55 pos:58786   poin:58786   vel:0      tor:0     status:0b1000011000
+id:7 t:-17.55 pos:139764  poin:139764  vel:0      tor:0     status:0b1000011000
+id:8 t:-17.55 pos:230258  poin:230258  vel:0      tor:0     status:0b1000011000
+
+
+changing command
+id:1 t:-17.75 pos:60521   poin:60521   vel:0      tor:0     status:0b1000011000
+id:2 t:-17.75 pos:99163   poin:99163   vel:0      tor:0     status:0b1000011000
+id:3 t:-17.75 pos:59977   poin:59977   vel:0      tor:0     status:0b1000011000
+id:4 t:-17.75 pos:0       poin:0       vel:0      tor:0     status:0b1000011000
+id:5 t:-17.75 pos:36946   poin:36946   vel:0      tor:0     status:0b1000011000
+id:6 t:-17.75 pos:58786   poin:58786   vel:0      tor:0     status:0b1000011000
+id:7 t:-17.75 pos:139764  poin:139764  vel:0      tor:0     status:0b1000011000
+id:8 t:-17.75 pos:230258  poin:230258  vel:0      tor:0     status:0b1000011000
+
+id:1 t:-17.96 pos:60521   poin:60521   vel:0      tor:0     status:0b1000011000
+id:2 t:-17.96 pos:99163   poin:99163   vel:0      tor:0     status:0b1000011000
+id:3 t:-17.96 pos:59977   poin:59977   vel:0      tor:0     status:0b1000011000
+id:4 t:-17.96 pos:0       poin:0       vel:0      tor:0     status:0b1000011000
+id:5 t:-17.96 pos:36946   poin:36946   vel:0      tor:0     status:0b1000011000
+id:6 t:-17.96 pos:58786   poin:58786   vel:0      tor:0     status:0b1000011000
+id:7 t:-17.96 pos:139764  poin:139764  vel:0      tor:0     status:0b1000011000
+id:8 t:-17.96 pos:230258  poin:230258  vel:0      tor:0     status:0b1000011000
+
+id:1 t:-18.16 pos:60521   poin:60521   vel:0      tor:0     status:0b1000011000
+id:2 t:-18.16 pos:99163   poin:99163   vel:0      tor:0     status:0b1000011000
+id:3 t:-18.16 pos:59977   poin:59977   vel:0      tor:0     status:0b1000011000
+id:4 t:-18.16 pos:0       poin:0       vel:0      tor:0     status:0b1000011000
+id:5 t:-18.16 pos:36946   poin:36946   vel:0      tor:0     status:0b1000011000
+id:6 t:-18.16 pos:58786   poin:58786   vel:0      tor:0     status:0b1000011000
+id:7 t:-18.16 pos:139764  poin:139764  vel:0      tor:0     status:0b1000011000
+id:8 t:-18.16 pos:230258  poin:230258  vel:0      tor:0     status:0b1000011000
+
+id:1 t:-18.36 pos:60521   poin:60521   vel:0      tor:0     status:0b1000011000
+id:2 t:-18.36 pos:99163   poin:99163   vel:0      tor:0     status:0b1000011000
+id:3 t:-18.36 pos:59977   poin:59977   vel:0      tor:0     status:0b1000011000
+id:4 t:-18.36 pos:0       poin:0       vel:0      tor:0     status:0b1000011000
+id:5 t:-18.36 pos:36946   poin:36946   vel:0      tor:0     status:0b1000011000
+id:6 t:-18.36 pos:58786   poin:58786   vel:0      tor:0     status:0b1000011000
+id:7 t:-18.36 pos:139764  poin:139764  vel:0      tor:0     status:0b1000011000
+id:8 t:-18.36 pos:230258  poin:230258  vel:0      tor:0     status:0b1000011000
+
+id:1 t:-18.56 pos:60521   poin:60521   vel:0      tor:0     status:0b1000011000
+id:2 t:-18.56 pos:99163   poin:99163   vel:0      tor:0     status:0b1000011000
+id:3 t:-18.57 pos:59977   poin:59977   vel:0      tor:0     status:0b1000011000
+id:4 t:-18.57 pos:0       poin:0       vel:0      tor:0     status:0b1000011000
+id:5 t:-18.57 pos:36946   poin:36946   vel:0      tor:0     status:0b1000011000
+id:6 t:-18.57 pos:58786   poin:58786   vel:0      tor:0     status:0b1000011000
+id:7 t:-18.57 pos:139764  poin:139764  vel:0      tor:0     status:0b1000011000
+id:8 t:-18.57 pos:230258  poin:230258  vel:0      tor:0     status:0b1000011000
+
+id:1 t:-18.77 pos:60521   poin:60521   vel:0      tor:0     status:0b1000011000
+id:2 t:-18.77 pos:99163   poin:99163   vel:0      tor:0     status:0b1000011000
+id:3 t:-18.77 pos:59977   poin:59977   vel:0      tor:0     status:0b1000011000
+id:4 t:-18.77 pos:0       poin:0       vel:0      tor:0     status:0b1000011000
+id:5 t:-18.77 pos:36946   poin:36946   vel:0      tor:0     status:0b1000011000
+id:6 t:-18.77 pos:58786   poin:58786   vel:0      tor:0     status:0b1000011000
+id:7 t:-18.77 pos:139764  poin:139764  vel:0      tor:0     status:0b1000011000
+id:8 t:-18.77 pos:230258  poin:230258  vel:0      tor:0     status:0b1000011000
+
+id:1 t:-18.97 pos:60521   poin:60521   vel:0      tor:0     status:0b1000011000
+id:2 t:-18.97 pos:99163   poin:99163   vel:0      tor:0     status:0b1000011000
+id:3 t:-18.97 pos:59977   poin:59977   vel:0      tor:0     status:0b1000011000
+id:4 t:-18.97 pos:0       poin:0       vel:0      tor:0     status:0b1000011000
+id:5 t:-18.97 pos:36946   poin:36946   vel:0      tor:0     status:0b1000011000
+id:6 t:-18.97 pos:58786   poin:58786   vel:0      tor:0     status:0b1000011000
+id:7 t:-18.97 pos:139764  poin:139764  vel:0      tor:0     status:0b1000011000
+id:8 t:-18.97 pos:230258  poin:230258  vel:0      tor:0     status:0b1000011000
+
+id:1 t:-19.17 pos:60521   poin:60521   vel:0      tor:0     status:0b1000011000
+id:2 t:-19.17 pos:99163   poin:99163   vel:0      tor:0     status:0b1000011000
+id:3 t:-19.18 pos:59977   poin:59977   vel:0      tor:0     status:0b1000011000
+id:4 t:-19.18 pos:0       poin:0       vel:0      tor:0     status:0b1000011000
+id:5 t:-19.18 pos:36946   poin:36946   vel:0      tor:0     status:0b1000011000
+id:6 t:-19.18 pos:58786   poin:58786   vel:0      tor:0     status:0b1000011000
+id:7 t:-19.18 pos:139764  poin:139764  vel:0      tor:0     status:0b1000011000
+id:8 t:-19.18 pos:230258  poin:230258  vel:0      tor:0     status:0b1000011000
+
+id:1 t:-19.38 pos:60521   poin:60521   vel:0      tor:0     status:0b1000011000
+id:2 t:-19.38 pos:99163   poin:99163   vel:0      tor:0     status:0b1000011000
+id:3 t:-19.38 pos:59977   poin:59977   vel:0      tor:0     status:0b1000011000
+id:4 t:-19.38 pos:0       poin:0       vel:0      tor:0     status:0b1000011000
+id:5 t:-19.38 pos:36946   poin:36946   vel:0      tor:0     status:0b1000011000
+id:6 t:-19.38 pos:58786   poin:58786   vel:0      tor:0     status:0b1000011000
+id:7 t:-19.38 pos:139764  poin:139764  vel:0      tor:0     status:0b1000011000
+id:8 t:-19.38 pos:230258  poin:230258  vel:0      tor:0     status:0b1000011000
+
+id:1 t:-19.58 pos:60521   poin:60521   vel:0      tor:0     status:0b1000011000
+id:2 t:-19.58 pos:99163   poin:99163   vel:0      tor:0     status:0b1000011000
+id:3 t:-19.58 pos:59977   poin:59977   vel:0      tor:0     status:0b1000011000
+id:4 t:-19.58 pos:0       poin:0       vel:0      tor:0     status:0b1000011000
+id:5 t:-19.58 pos:36946   poin:36946   vel:0      tor:0     status:0b1000011000
+id:6 t:-19.58 pos:58786   poin:58786   vel:0      tor:0     status:0b1000011000
+id:7 t:-19.58 pos:139764  poin:139764  vel:0      tor:0     status:0b1000011000
+id:8 t:-19.58 pos:230258  poin:230258  vel:0      tor:0     status:0b1000011000
+
+id:1 t:-19.78 pos:60521   poin:60521   vel:0      tor:0     status:0b1000011000
+id:2 t:-19.78 pos:99163   poin:99163   vel:0      tor:0     status:0b1000011000
+id:3 t:-19.78 pos:59977   poin:59977   vel:0      tor:0     status:0b1000011000
+id:4 t:-19.78 pos:0       poin:0       vel:0      tor:0     status:0b1000011000
+id:5 t:-19.78 pos:36946   poin:36946   vel:0      tor:0     status:0b1000011000
+id:6 t:-19.78 pos:58786   poin:58786   vel:0      tor:0     status:0b1000011000
+id:7 t:-19.79 pos:139764  poin:139764  vel:0      tor:0     status:0b1000011000
+id:8 t:-19.79 pos:230258  poin:230258  vel:0      tor:0     status:0b1000011000
+
+id:1 t:-19.99 pos:60521   poin:60521   vel:0      tor:0     status:0b1000011000
+id:2 t:-19.99 pos:99163   poin:99163   vel:0      tor:0     status:0b1000011000
+id:3 t:-19.99 pos:59977   poin:59977   vel:0      tor:0     status:0b1000011000
+id:4 t:-19.99 pos:0       poin:0       vel:0      tor:0     status:0b1000011000
+id:5 t:-19.99 pos:36946   poin:36946   vel:0      tor:0     status:0b1000011000
+id:6 t:-19.99 pos:58786   poin:58786   vel:0      tor:0     status:0b1000011000
+id:7 t:-19.99 pos:139764  poin:139764  vel:0      tor:0     status:0b1000011000
+id:8 t:-19.99 pos:230258  poin:230258  vel:0      tor:0     status:0b1000011000
+
+id:1 t:-20.19 pos:60521   poin:60521   vel:0      tor:0     status:0b1000011000
+id:2 t:-20.19 pos:99163   poin:99163   vel:0      tor:0     status:0b1000011000
+id:3 t:-20.19 pos:59977   poin:59977   vel:0      tor:0     status:0b1000011000
+id:4 t:-20.19 pos:0       poin:0       vel:0      tor:0     status:0b1000011000
+id:5 t:-20.19 pos:36946   poin:36946   vel:0      tor:0     status:0b1000011000
+id:6 t:-20.19 pos:58786   poin:58786   vel:0      tor:0     status:0b1000011000
+id:7 t:-20.19 pos:139764  poin:139764  vel:0      tor:0     status:0b1000011000
+id:8 t:-20.19 pos:230258  poin:230258  vel:0      tor:0     status:0b1000011000
+
+id:1 t:-20.39 pos:60521   poin:60521   vel:0      tor:0     status:0b1000011000
+id:2 t:-20.39 pos:99163   poin:99163   vel:0      tor:0     status:0b1000011000
+id:3 t:-20.39 pos:59977   poin:59977   vel:0      tor:0     status:0b1000011000
+id:4 t:-20.39 pos:0       poin:0       vel:0      tor:0     status:0b1000011000
+id:5 t:-20.39 pos:36946   poin:36946   vel:0      tor:0     status:0b1000011000
+id:6 t:-20.39 pos:58786   poin:58786   vel:0      tor:0     status:0b1000011000
+id:7 t:-20.39 pos:139764  poin:139764  vel:0      tor:0     status:0b1000011000
+id:8 t:-20.39 pos:230258  poin:230258  vel:0      tor:0     status:0b1000011000
+
+id:1 t:-20.60 pos:60521   poin:60521   vel:0      tor:0     status:0b1000011000
+id:2 t:-20.60 pos:99163   poin:99163   vel:0      tor:0     status:0b1000011000
+id:3 t:-20.60 pos:59977   poin:59977   vel:0      tor:0     status:0b1000011000
+id:4 t:-20.60 pos:0       poin:0       vel:0      tor:0     status:0b1000011000
+id:5 t:-20.60 pos:36946   poin:36946   vel:0      tor:0     status:0b1000011000
+id:6 t:-20.60 pos:58786   poin:58786   vel:0      tor:0     status:0b1000011000
+id:7 t:-20.60 pos:139764  poin:139764  vel:0      tor:0     status:0b1000011000
+id:8 t:-20.60 pos:230258  poin:230258  vel:0      tor:0     status:0b1000011000
+
+
+changing command
+id:1 t:-20.80 pos:60521   poin:60521   vel:0      tor:0     status:0b1000011000
+id:2 t:-20.80 pos:99163   poin:99163   vel:0      tor:0     status:0b1000011000
+id:3 t:-20.80 pos:59977   poin:59977   vel:0      tor:0     status:0b1000011000
+id:4 t:-20.80 pos:0       poin:0       vel:0      tor:0     status:0b1000011000
+id:5 t:-20.80 pos:36946   poin:36946   vel:0      tor:0     status:0b1000011000
+id:6 t:-20.80 pos:58786   poin:58786   vel:0      tor:0     status:0b1000011000
+id:7 t:-20.80 pos:139764  poin:139764  vel:0      tor:0     status:0b1000011000
+id:8 t:-20.80 pos:230258  poin:230258  vel:0      tor:0     status:0b1000011000
+
+id:1 t:-21.00 pos:60521   poin:60521   vel:0      tor:0     status:0b1000011000
+id:2 t:-21.00 pos:99163   poin:99163   vel:0      tor:0     status:0b1000011000
+id:3 t:-21.00 pos:59977   poin:59977   vel:0      tor:0     status:0b1000011000
+id:4 t:-21.00 pos:0       poin:0       vel:0      tor:0     status:0b1000011000
+id:5 t:-21.00 pos:36946   poin:36946   vel:0      tor:0     status:0b1000011000
+id:6 t:-21.00 pos:58786   poin:58786   vel:0      tor:0     status:0b1000011000
+id:7 t:-21.00 pos:139764  poin:139764  vel:0      tor:0     status:0b1000011000
+id:8 t:-21.00 pos:230258  poin:230258  vel:0      tor:0     status:0b1000011000
+
+id:1 t:-21.21 pos:60521   poin:60521   vel:0      tor:0     status:0b1000011000
+id:2 t:-21.21 pos:99163   poin:99163   vel:0      tor:0     status:0b1000011000
+id:3 t:-21.21 pos:59977   poin:59977   vel:0      tor:0     status:0b1000011000
+id:4 t:-21.21 pos:0       poin:0       vel:0      tor:0     status:0b1000011000
+id:5 t:-21.21 pos:36946   poin:36946   vel:0      tor:0     status:0b1000011000
+id:6 t:-21.21 pos:58786   poin:58786   vel:0      tor:0     status:0b1000011000
+id:7 t:-21.21 pos:139764  poin:139764  vel:0      tor:0     status:0b1000011000
+id:8 t:-21.21 pos:230258  poin:230258  vel:0      tor:0     status:0b1000011000
+
+id:1 t:-21.41 pos:60521   poin:60521   vel:0      tor:0     status:0b1000011000
+id:2 t:-21.41 pos:99163   poin:99163   vel:0      tor:0     status:0b1000011000
+id:3 t:-21.41 pos:59977   poin:59977   vel:0      tor:0     status:0b1000011000
+id:4 t:-21.41 pos:0       poin:0       vel:0      tor:0     status:0b1000011000
+id:5 t:-21.41 pos:36946   poin:36946   vel:0      tor:0     status:0b1000011000
+id:6 t:-21.41 pos:58786   poin:58786   vel:0      tor:0     status:0b1000011000
+id:7 t:-21.41 pos:139764  poin:139764  vel:0      tor:0     status:0b1000011000
+id:8 t:-21.41 pos:230258  poin:230258  vel:0      tor:0     status:0b1000011000
+
+id:1 t:-21.61 pos:60521   poin:60521   vel:0      tor:0     status:0b1000011000
+id:2 t:-21.61 pos:99163   poin:99163   vel:0      tor:0     status:0b1000011000
+id:3 t:-21.61 pos:59977   poin:59977   vel:0      tor:0     status:0b1000011000
+id:4 t:-21.61 pos:0       poin:0       vel:0      tor:0     status:0b1000011000
+id:5 t:-21.61 pos:36946   poin:36946   vel:0      tor:0     status:0b1000011000
+id:6 t:-21.61 pos:58786   poin:58786   vel:0      tor:0     status:0b1000011000
+id:7 t:-21.61 pos:139764  poin:139764  vel:0      tor:0     status:0b1000011000
+id:8 t:-21.61 pos:230258  poin:230258  vel:0      tor:0     status:0b1000011000
+
+id:1 t:-21.81 pos:60521   poin:60521   vel:0      tor:0     status:0b1000011000
+id:2 t:-21.81 pos:99163   poin:99163   vel:0      tor:0     status:0b1000011000
+id:3 t:-21.81 pos:59977   poin:59977   vel:0      tor:0     status:0b1000011000
+id:4 t:-21.82 pos:0       poin:0       vel:0      tor:0     status:0b1000011000
+id:5 t:-21.82 pos:36946   poin:36946   vel:0      tor:0     status:0b1000011000
+id:6 t:-21.82 pos:58786   poin:58786   vel:0      tor:0     status:0b1000011000
+id:7 t:-21.82 pos:139764  poin:139764  vel:0      tor:0     status:0b1000011000
+id:8 t:-21.82 pos:230258  poin:230258  vel:0      tor:0     status:0b1000011000
+
+id:1 t:-22.02 pos:60521   poin:60521   vel:0      tor:0     status:0b1000011000
+id:2 t:-22.02 pos:99163   poin:99163   vel:0      tor:0     status:0b1000011000
+id:3 t:-22.02 pos:59977   poin:59977   vel:0      tor:0     status:0b1000011000
+id:4 t:-22.02 pos:0       poin:0       vel:0      tor:0     status:0b1000011000
+id:5 t:-22.03 pos:36946   poin:36946   vel:0      tor:0     status:0b1000011000
+id:6 t:-22.03 pos:58786   poin:58786   vel:0      tor:0     status:0b1000011000
+id:7 t:-22.03 pos:139764  poin:139764  vel:0      tor:0     status:0b1000011000
+id:8 t:-22.03 pos:230258  poin:230258  vel:0      tor:0     status:0b1000011000
+
+id:1 t:-22.23 pos:60521   poin:60521   vel:0      tor:0     status:0b1000011000
+id:2 t:-22.23 pos:99163   poin:99163   vel:0      tor:0     status:0b1000011000
+id:3 t:-22.23 pos:59977   poin:59977   vel:0      tor:0     status:0b1000011000
+id:4 t:-22.23 pos:0       poin:0       vel:0      tor:0     status:0b1000011000
+id:5 t:-22.23 pos:36946   poin:36946   vel:0      tor:0     status:0b1000011000
+id:6 t:-22.23 pos:58786   poin:58786   vel:0      tor:0     status:0b1000011000
+id:7 t:-22.23 pos:139764  poin:139764  vel:0      tor:0     status:0b1000011000
+id:8 t:-22.23 pos:230258  poin:230258  vel:0      tor:0     status:0b1000011000
+
+id:1 t:-22.43 pos:60521   poin:60521   vel:0      tor:0     status:0b1000011000
+id:2 t:-22.43 pos:99163   poin:99163   vel:0      tor:0     status:0b1000011000
+id:3 t:-22.43 pos:59977   poin:59977   vel:0      tor:0     status:0b1000011000
+id:4 t:-22.43 pos:0       poin:0       vel:0      tor:0     status:0b1000011000
+id:5 t:-22.43 pos:36946   poin:36946   vel:0      tor:0     status:0b1000011000
+id:6 t:-22.43 pos:58786   poin:58786   vel:0      tor:0     status:0b1000011000
+id:7 t:-22.43 pos:139764  poin:139764  vel:0      tor:0     status:0b1000011000
+id:8 t:-22.43 pos:230258  poin:230258  vel:0      tor:0     status:0b1000011000
+
+id:1 t:-22.63 pos:60521   poin:60521   vel:0      tor:0     status:0b1000011000
+id:2 t:-22.63 pos:99163   poin:99163   vel:0      tor:0     status:0b1000011000
+id:3 t:-22.63 pos:59977   poin:59977   vel:0      tor:0     status:0b1000011000
+id:4 t:-22.63 pos:0       poin:0       vel:0      tor:0     status:0b1000011000
+id:5 t:-22.63 pos:36946   poin:36946   vel:0      tor:0     status:0b1000011000
+id:6 t:-22.63 pos:58786   poin:58786   vel:0      tor:0     status:0b1000011000
+id:7 t:-22.64 pos:139764  poin:139764  vel:0      tor:0     status:0b1000011000
+id:8 t:-22.64 pos:230258  poin:230258  vel:0      tor:0     status:0b1000011000
+
+id:1 t:-22.84 pos:60521   poin:60521   vel:0      tor:0     status:0b1000011000
+id:2 t:-22.84 pos:99163   poin:99163   vel:0      tor:0     status:0b1000011000
+id:3 t:-22.84 pos:59977   poin:59977   vel:0      tor:0     status:0b1000011000
+id:4 t:-22.84 pos:0       poin:0       vel:0      tor:0     status:0b1000011000
+id:5 t:-22.84 pos:36946   poin:36946   vel:0      tor:0     status:0b1000011000
+id:6 t:-22.84 pos:58786   poin:58786   vel:0      tor:0     status:0b1000011000
+id:7 t:-22.84 pos:139764  poin:139764  vel:0      tor:0     status:0b1000011000
+id:8 t:-22.84 pos:230258  poin:230258  vel:0      tor:0     status:0b1000011000
+
+id:1 t:-23.04 pos:60521   poin:60521   vel:0      tor:0     status:0b1000011000
+id:2 t:-23.04 pos:99163   poin:99163   vel:0      tor:0     status:0b1000011000
+id:3 t:-23.04 pos:59977   poin:59977   vel:0      tor:0     status:0b1000011000
+id:4 t:-23.04 pos:0       poin:0       vel:0      tor:0     status:0b1000011000
+id:5 t:-23.04 pos:36946   poin:36946   vel:0      tor:0     status:0b1000011000
+id:6 t:-23.04 pos:58786   poin:58786   vel:0      tor:0     status:0b1000011000
+id:7 t:-23.04 pos:139764  poin:139764  vel:0      tor:0     status:0b1000011000
+id:8 t:-23.04 pos:230258  poin:230258  vel:0      tor:0     status:0b1000011000
+
+id:1 t:-23.24 pos:60521   poin:60521   vel:0      tor:0     status:0b1000011000
+id:2 t:-23.24 pos:99163   poin:99163   vel:0      tor:0     status:0b1000011000
+id:3 t:-23.24 pos:59977   poin:59977   vel:0      tor:0     status:0b1000011000
+id:4 t:-23.24 pos:0       poin:0       vel:0      tor:0     status:0b1000011000
+id:5 t:-23.24 pos:36946   poin:36946   vel:0      tor:0     status:0b1000011000
+id:6 t:-23.24 pos:58786   poin:58786   vel:0      tor:0     status:0b1000011000
+id:7 t:-23.24 pos:139764  poin:139764  vel:0      tor:0     status:0b1000011000
+id:8 t:-23.24 pos:230258  poin:230258  vel:0      tor:0     status:0b1000011000
+
+id:1 t:-23.45 pos:60521   poin:60521   vel:0      tor:0     status:0b1000011000
+id:2 t:-23.45 pos:99163   poin:99163   vel:0      tor:0     status:0b1000011000
+id:3 t:-23.45 pos:59977   poin:59977   vel:0      tor:0     status:0b1000011000
+id:4 t:-23.45 pos:0       poin:0       vel:0      tor:0     status:0b1000011000
+id:5 t:-23.45 pos:36946   poin:36946   vel:0      tor:0     status:0b1000011000
+id:6 t:-23.45 pos:58786   poin:58786   vel:0      tor:0     status:0b1000011000
+id:7 t:-23.45 pos:139764  poin:139764  vel:0      tor:0     status:0b1000011000
+id:8 t:-23.45 pos:230258  poin:230258  vel:0      tor:0     status:0b1000011000
+
+id:1 t:-23.65 pos:60521   poin:60521   vel:0      tor:0     status:0b1000011000
+id:2 t:-23.65 pos:99163   poin:99163   vel:0      tor:0     status:0b1000011000
+id:3 t:-23.65 pos:59977   poin:59977   vel:0      tor:0     status:0b1000011000
+id:4 t:-23.65 pos:0       poin:0       vel:0      tor:0     status:0b1000011000
+id:5 t:-23.65 pos:36946   poin:36946   vel:0      tor:0     status:0b1000011000
+id:6 t:-23.65 pos:58786   poin:58786   vel:0      tor:0     status:0b1000011000
+id:7 t:-23.65 pos:139764  poin:139764  vel:0      tor:0     status:0b1000011000
+id:8 t:-23.65 pos:230258  poin:230258  vel:0      tor:0     status:0b1000011000
+
+
+[SWITCH ON or DISABLE OPERATION] COMMAND: 0b111
+node_id: 1
+statusword: 0b1000011000
+controlword: 0b111
+
+SHUTDOWN COMMAND: 0b110
+node_id: 1
+statusword: 0b1010011000
+controlword: 0b110
+
+[SWITCH ON or DISABLE OPERATION] COMMAND: 0b111
+node_id: 2
+statusword: 0b1010011000
+controlword: 0b111
+
+SHUTDOWN COMMAND: 0b110
+node_id: 2
+statusword: 0b1010011000
+controlword: 0b110
+
+[SWITCH ON or DISABLE OPERATION] COMMAND: 0b111
+node_id: 3
+statusword: 0b1010011000
+controlword: 0b111
+
+SHUTDOWN COMMAND: 0b110
+node_id: 3
+statusword: 0b1010011000
+controlword: 0b110
+
+[SWITCH ON or DISABLE OPERATION] COMMAND: 0b111
+node_id: 4
+statusword: 0b1010011000
+controlword: 0b111
+
+SHUTDOWN COMMAND: 0b110
+node_id: 4
+statusword: 0b1010011000
+controlword: 0b110
+
+[SWITCH ON or DISABLE OPERATION] COMMAND: 0b111
+node_id: 5
+statusword: 0b1010011000
+controlword: 0b111
+
+SHUTDOWN COMMAND: 0b110
+node_id: 5
+statusword: 0b1010011000
+controlword: 0b110
+
+[SWITCH ON or DISABLE OPERATION] COMMAND: 0b111
+node_id: 6
+statusword: 0b1010011000
+controlword: 0b111
+
+SHUTDOWN COMMAND: 0b110
+node_id: 6
+statusword: 0b1010011000
+controlword: 0b110
+
+[SWITCH ON or DISABLE OPERATION] COMMAND: 0b111
+node_id: 7
+statusword: 0b1010011000
+controlword: 0b111
+
+SHUTDOWN COMMAND: 0b110
+node_id: 7
+statusword: 0b1010011000
+controlword: 0b110
+
+[SWITCH ON or DISABLE OPERATION] COMMAND: 0b111
+node_id: 8
+statusword: 0b1010011000
+controlword: 0b111
+
+SHUTDOWN COMMAND: 0b110
+node_id: 8
+statusword: 0b1010011000
+controlword: 0b110
+
+state command: PRE-OPERATIONAL
+master state: PRE-OPERATIONAL
+node 1 state: PRE-OPERATIONAL
+node 2 state: PRE-OPERATIONAL
+node 3 state: PRE-OPERATIONAL
+node 4 state: PRE-OPERATIONAL
+node 5 state: PRE-OPERATIONAL
+node 6 state: PRE-OPERATIONAL
+node 7 state: PRE-OPERATIONAL
+node 8 state: PRE-OPERATIONAL
+
+state command: RESET COMMUNICATION
+master state: INITIALISING
+node 1 state: PRE-OPERATIONAL
+node 2 state: PRE-OPERATIONAL
+node 3 state: PRE-OPERATIONAL
+node 4 state: PRE-OPERATIONAL
+node 5 state: PRE-OPERATIONAL
+node 6 state: PRE-OPERATIONAL
+node 7 state: PRE-OPERATIONAL
+node 8 state: PRE-OPERATIONAL
+
+state command: RESET
+master state: INITIALISING
+node 1 state: PRE-OPERATIONAL
+node 2 state: PRE-OPERATIONAL
+node 3 state: PRE-OPERATIONAL
+node 4 state: PRE-OPERATIONAL
+node 5 state: PRE-OPERATIONAL
+node 6 state: PRE-OPERATIONAL
+node 7 state: PRE-OPERATIONAL
+node 8 state: PRE-OPERATIONAL
+Successfully disconnected!
+========================
+
+
+
+==================================================================================
+==  DEBUG START 2021.11.17 - 21:45:24  ===========================================
+==================================================================================
+
+
+state command: INITIALISING
+master state: INITIALISING
+
+Found node 1
+Adding node 1
+Found node 2
+Adding node 2
+Found node 3
+Adding node 3
+Found node 4
+Adding node 4
+Found node 5
+Adding node 5
+Found node 6
+Adding node 6
+Found node 7
+Adding node 7
+Found node 8
+Adding node 8
+
+state: BusState.ACTIVE
+bus channel_info: PCAN_USBBUS1
+
+msg: Timestamp: 1637153236.570570        ID: 0704    S                DLC:  1    00
+
+state command: STOPPED
+master state: STOPPED
+node 1 state: STOPPED
+node 2 state: STOPPED
+node 3 state: STOPPED
+node 4 state: STOPPED
+node 5 state: STOPPED
+node 6 state: STOPPED
+node 7 state: STOPPED
+node 8 state: STOPPED
+
+state command: RESET
+master state: INITIALISING
+node 1 state: PRE-OPERATIONAL
+node 2 state: PRE-OPERATIONAL
+node 3 state: PRE-OPERATIONAL
+node 4 state: PRE-OPERATIONAL
+node 5 state: PRE-OPERATIONAL
+node 6 state: PRE-OPERATIONAL
+node 7 state: PRE-OPERATIONAL
+node 8 state: PRE-OPERATIONAL
+
+state command: RESET COMMUNICATION
+master state: INITIALISING
+node 1 state: PRE-OPERATIONAL
+node 2 state: PRE-OPERATIONAL
+node 3 state: PRE-OPERATIONAL
+node 4 state: PRE-OPERATIONAL
+node 5 state: PRE-OPERATIONAL
+node 6 state: PRE-OPERATIONAL
+node 7 state: PRE-OPERATIONAL
+node 8 state: PRE-OPERATIONAL
+
+state command: INITIALISING
+master state: INITIALISING
+node 1 state: PRE-OPERATIONAL
+node 2 state: PRE-OPERATIONAL
+node 3 state: PRE-OPERATIONAL
+node 4 state: PRE-OPERATIONAL
+node 5 state: PRE-OPERATIONAL
+node 6 state: PRE-OPERATIONAL
+node 7 state: PRE-OPERATIONAL
+node 8 state: PRE-OPERATIONAL
+
+state command: PRE-OPERATIONAL
+master state: PRE-OPERATIONAL
+node 1 state: PRE-OPERATIONAL
+node 2 state: PRE-OPERATIONAL
+node 3 state: PRE-OPERATIONAL
+node 4 state: PRE-OPERATIONAL
+node 5 state: PRE-OPERATIONAL
+node 6 state: PRE-OPERATIONAL
+node 7 state: PRE-OPERATIONAL
+node 8 state: PRE-OPERATIONAL
+
+===========
+Information
+CAN Open Node ID: 1
+error_code: 0
+statusword: 0b1001000000
+controlword: 0b0
+modes_of_operation: -1
+Producer Heartbeat Time: 1000
+Communication Cycle Period: 0
+
+- control
+profile_velocity: 10000
+position_demand_value: 0
+position_actual_internal_value: 0
+position_actual_value: 0
+
+===========
+Information
+CAN Open Node ID: 2
+error_code: 0
+statusword: 0b1001000000
+controlword: 0b0
+modes_of_operation: -1
+Producer Heartbeat Time: 1000
+Communication Cycle Period: 0
+
+- control
+profile_velocity: 136532
+position_demand_value: 0
+position_actual_internal_value: 1
+position_actual_value: 1
+
+===========
+Information
+CAN Open Node ID: 3
+error_code: 0
+statusword: 0b1001000000
+controlword: 0b0
+modes_of_operation: -1
+Producer Heartbeat Time: 1000
+Communication Cycle Period: 0
+
+- control
+profile_velocity: 10000
+position_demand_value: 0
+position_actual_internal_value: 0
+position_actual_value: 0
+
+===========
+Information
+CAN Open Node ID: 4
+error_code: 0
+statusword: 0b1001000000
+controlword: 0b0
+modes_of_operation: -1
+Producer Heartbeat Time: 1000
+Communication Cycle Period: 0
+
+- control
+profile_velocity: 10000
+position_demand_value: 0
+position_actual_internal_value: 0
+position_actual_value: 0
+
+===========
+Information
+CAN Open Node ID: 5
+error_code: 0
+statusword: 0b1001000000
+controlword: 0b0
+modes_of_operation: -1
+Producer Heartbeat Time: 1000
+Communication Cycle Period: 0
+
+- control
+profile_velocity: 10000
+position_demand_value: 0
+position_actual_internal_value: 0
+position_actual_value: 0
+
+===========
+Information
+CAN Open Node ID: 6
+error_code: 0
+statusword: 0b1001000000
+controlword: 0b0
+modes_of_operation: -1
+Producer Heartbeat Time: 1000
+Communication Cycle Period: 0
+
+- control
+profile_velocity: 10000
+position_demand_value: 0
+position_actual_internal_value: 0
+position_actual_value: 0
+
+===========
+Information
+CAN Open Node ID: 7
+error_code: 0
+statusword: 0b1001000000
+controlword: 0b0
+modes_of_operation: -1
+Producer Heartbeat Time: 1000
+Communication Cycle Period: 0
+
+- control
+profile_velocity: 9040
+position_demand_value: 0
+position_actual_internal_value: 0
+position_actual_value: 0
+
+===========
+Information
+CAN Open Node ID: 8
+error_code: 0
+statusword: 0b1001000000
+controlword: 0b0
+modes_of_operation: -1
+Producer Heartbeat Time: 1000
+Communication Cycle Period: 0
+
+- control
+profile_velocity: 40000
+position_demand_value: 0
+position_actual_internal_value: 0
+position_actual_value: 0
+
+FAULT RESET COMMAND: 0b10000000
+node_id: 1
+statusword: 0b0
+controlword: 0b10000000
+node_id: 2
+statusword: 0b0
+controlword: 0b10000000
+node_id: 3
+statusword: 0b0
+controlword: 0b10000000
+node_id: 4
+statusword: 0b0
+controlword: 0b10000000
+node_id: 5
+statusword: 0b0
+controlword: 0b10000000
+node_id: 6
+statusword: 0b0
+controlword: 0b10000000
+node_id: 7
+statusword: 0b0
+controlword: 0b10000000
+node_id: 8
+statusword: 0b0
+controlword: 0b10000000
+
+[SWITCH ON or DISABLE OPERATION] COMMAND: 0b111
+node_id: 1
+statusword: 0b0
+controlword: 0b111
+node_id: 2
+statusword: 0b0
+controlword: 0b111
+node_id: 3
+statusword: 0b0
+controlword: 0b111
+node_id: 4
+statusword: 0b0
+controlword: 0b111
+node_id: 5
+statusword: 0b0
+controlword: 0b111
+node_id: 6
+statusword: 0b0
+controlword: 0b111
+node_id: 7
+statusword: 0b0
+controlword: 0b111
+node_id: 8
+statusword: 0b0
+controlword: 0b111
+
+state command: PRE-OPERATIONAL
+master state: PRE-OPERATIONAL
+node 1 state: PRE-OPERATIONAL
+node 2 state: PRE-OPERATIONAL
+node 3 state: PRE-OPERATIONAL
+node 4 state: PRE-OPERATIONAL
+node 5 state: PRE-OPERATIONAL
+node 6 state: PRE-OPERATIONAL
+node 7 state: PRE-OPERATIONAL
+node 8 state: PRE-OPERATIONAL
+
+state command: OPERATIONAL
+master state: OPERATIONAL
+node 1 state: OPERATIONAL
+node 2 state: OPERATIONAL
+node 3 state: OPERATIONAL
+node 4 state: OPERATIONAL
+node 5 state: OPERATIONAL
+node 6 state: OPERATIONAL
+node 7 state: OPERATIONAL
+node 8 state: OPERATIONAL
+
+SHUTDOWN COMMAND: 0b110
+node_id: 1
+statusword: 0b0
+controlword: 0b110
+
+[SWITCH ON or DISABLE OPERATION] COMMAND: 0b111
+node_id: 1
+statusword: 0b11000110001
+controlword: 0b111
+
+[ENABLE OPERATION or OPERATION] COMMAND: 0b1111
+node_id: 1
+statusword: 0b11000110011
+controlword: 0b1111
+
+SHUTDOWN COMMAND: 0b110
+node_id: 2
+statusword: 0b11011000000
+controlword: 0b110
+
+[SWITCH ON or DISABLE OPERATION] COMMAND: 0b111
+node_id: 2
+statusword: 0b11000110001
+controlword: 0b111
+
+[ENABLE OPERATION or OPERATION] COMMAND: 0b1111
+node_id: 2
+statusword: 0b11000110011
+controlword: 0b1111
+
+SHUTDOWN COMMAND: 0b110
+node_id: 3
+statusword: 0b11011000000
+controlword: 0b110
+
+[SWITCH ON or DISABLE OPERATION] COMMAND: 0b111
+node_id: 3
+statusword: 0b11000110001
+controlword: 0b111
+
+[ENABLE OPERATION or OPERATION] COMMAND: 0b1111
+node_id: 3
+statusword: 0b11000110011
+controlword: 0b1111
+
+SHUTDOWN COMMAND: 0b110
+node_id: 4
+statusword: 0b11011000000
+controlword: 0b110
+
+[SWITCH ON or DISABLE OPERATION] COMMAND: 0b111
+node_id: 4
+statusword: 0b11000110001
+controlword: 0b111
+
+[ENABLE OPERATION or OPERATION] COMMAND: 0b1111
+node_id: 4
+statusword: 0b11000110011
+controlword: 0b1111
+
+SHUTDOWN COMMAND: 0b110
+node_id: 5
+statusword: 0b11011000000
+controlword: 0b110
+
+[SWITCH ON or DISABLE OPERATION] COMMAND: 0b111
+node_id: 5
+statusword: 0b11000110001
+controlword: 0b111
+
+[ENABLE OPERATION or OPERATION] COMMAND: 0b1111
+node_id: 5
+statusword: 0b11000110011
+controlword: 0b1111
+
+SHUTDOWN COMMAND: 0b110
+node_id: 6
+statusword: 0b11011000000
+controlword: 0b110
+
+[SWITCH ON or DISABLE OPERATION] COMMAND: 0b111
+node_id: 6
+statusword: 0b11000110001
+controlword: 0b111
+
+[ENABLE OPERATION or OPERATION] COMMAND: 0b1111
+node_id: 6
+statusword: 0b11000110011
+controlword: 0b1111
+
+SHUTDOWN COMMAND: 0b110
+node_id: 7
+statusword: 0b11011000000
+controlword: 0b110
+
+[SWITCH ON or DISABLE OPERATION] COMMAND: 0b111
+node_id: 7
+statusword: 0b11000110001
+controlword: 0b111
+
+[ENABLE OPERATION or OPERATION] COMMAND: 0b1111
+node_id: 7
+statusword: 0b11000110011
+controlword: 0b1111
+
+SHUTDOWN COMMAND: 0b110
+node_id: 8
+statusword: 0b11011000000
+controlword: 0b110
+
+[SWITCH ON or DISABLE OPERATION] COMMAND: 0b111
+node_id: 8
+statusword: 0b11000110001
+controlword: 0b111
+
+[ENABLE OPERATION or OPERATION] COMMAND: 0b1111
+node_id: 8
+statusword: 0b11000110011
+controlword: 0b1111
+id:1 t:-11.11 pos:0       poin:0       vel:0      tor:-2    status:0b11000110111
+id:2 t:-11.11 pos:0       poin:0       vel:0      tor:-7    status:0b11000110111
+id:3 t:-11.12 pos:0       poin:0       vel:0      tor:-5    status:0b11000110111
+id:4 t:-11.12 pos:0       poin:0       vel:0      tor:9     status:0b11000110111
+id:5 t:-11.12 pos:0       poin:0       vel:0      tor:5     status:0b11000110111
+id:6 t:-11.12 pos:0       poin:0       vel:0      tor:-2    status:0b11000110111
+id:7 t:-11.12 pos:0       poin:0       vel:0      tor:5     status:0b11000110111
+id:8 t:-11.12 pos:0       poin:0       vel:0      tor:-9    status:0b11000110111
+
+id:1 t:-11.32 pos:575     poin:575     vel:0      tor:98    status:0b11000110111
+id:2 t:-11.32 pos:895     poin:895     vel:9590   tor:98    status:0b11000110111
+id:3 t:-11.32 pos:552     poin:552     vel:0      tor:96    status:0b11000110111
+id:4 t:-11.32 pos:900     poin:900     vel:0      tor:101   status:0b11000110111
+id:5 t:-11.32 pos:4       poin:4       vel:0      tor:101   status:0b11000110111
+id:6 t:-11.32 pos:7       poin:7       vel:0      tor:101   status:0b11000110111
+id:7 t:-11.32 pos:871     poin:871     vel:0      tor:101   status:0b11000110111
+id:8 t:-11.32 pos:1440    poin:1440    vel:0      tor:96    status:0b11000110111
+
+id:1 t:-11.52 pos:2157    poin:2157    vel:0      tor:101   status:0b11000110111
+id:2 t:-11.52 pos:3468    poin:3468    vel:16069  tor:108   status:0b11000110111
+id:3 t:-11.52 pos:2165    poin:2165    vel:0      tor:101   status:0b11000110111
+id:4 t:-11.52 pos:3553    poin:3553    vel:0      tor:98    status:0b11000110111
+id:5 t:-11.52 pos:4       poin:4       vel:0      tor:103   status:0b11000110111
+id:6 t:-11.52 pos:7       poin:7       vel:0      tor:101   status:0b11000110111
+id:7 t:-11.52 pos:4809    poin:4809    vel:0      tor:96    status:0b11000110111
+id:8 t:-11.52 pos:7940    poin:7940    vel:0      tor:103   status:0b11000110111
+
+id:1 t:-11.72 pos:4482    poin:4482    vel:0      tor:101   status:0b11000110111
+id:2 t:-11.72 pos:7275    poin:7275    vel:20947  tor:98    status:0b11000110111
+id:3 t:-11.72 pos:4587    poin:4587    vel:0      tor:96    status:0b11000110111
+id:4 t:-11.73 pos:7544    poin:7544    vel:0      tor:96    status:0b11000110111
+id:5 t:-11.73 pos:5       poin:5       vel:0      tor:101   status:0b11000110111
+id:6 t:-11.73 pos:8       poin:8       vel:0      tor:96    status:0b11000110111
+id:7 t:-11.73 pos:10208   poin:10208   vel:0      tor:101   status:0b11000110111
+id:8 t:-11.73 pos:16783   poin:16783   vel:0      tor:98    status:0b11000110111
+
+id:1 t:-11.93 pos:7432    poin:7432    vel:0      tor:98    status:0b11000110111
+id:2 t:-11.93 pos:12096   poin:12096   vel:25822  tor:96    status:0b11000110111
+id:3 t:-11.93 pos:7621    poin:7621    vel:0      tor:108   status:0b11000110111
+id:4 t:-11.93 pos:12541   poin:12541   vel:0      tor:98    status:0b11000110111
+id:5 t:-11.93 pos:5       poin:5       vel:0      tor:96    status:0b11000110111
+id:6 t:-11.93 pos:8       poin:8       vel:0      tor:103   status:0b11000110111
+id:7 t:-11.93 pos:17780   poin:17780   vel:0      tor:108   status:0b11000110111
+id:8 t:-11.93 pos:29244   poin:29244   vel:0      tor:94    status:0b11000110111
+
+id:1 t:-12.13 pos:10835   poin:10835   vel:0      tor:96    status:0b11000110111
+id:2 t:-12.13 pos:17672   poin:17672   vel:29093  tor:103   status:0b11000110111
+id:3 t:-12.13 pos:11121   poin:11121   vel:0      tor:94    status:0b11000110111
+id:4 t:-12.13 pos:18303   poin:18303   vel:0      tor:105   status:0b11000110111
+id:5 t:-12.13 pos:6       poin:6       vel:0      tor:98    status:0b11000110111
+id:6 t:-12.13 pos:9       poin:9       vel:0      tor:98    status:0b11000110111
+id:7 t:-12.13 pos:26970   poin:26970   vel:0      tor:103   status:0b11000110111
+id:8 t:-12.13 pos:44418   poin:44418   vel:0      tor:103   status:0b11000110111
+
+id:1 t:-12.33 pos:14653   poin:14653   vel:0      tor:96    status:0b11000110111
+id:2 t:-12.33 pos:23926   poin:23926   vel:31904  tor:96    status:0b11000110111
+id:3 t:-12.33 pos:14995   poin:14995   vel:0      tor:101   status:0b11000110111
+id:4 t:-12.33 pos:24681   poin:24681   vel:0      tor:103   status:0b11000110111
+id:5 t:-12.33 pos:6       poin:6       vel:0      tor:98    status:0b11000110111
+id:6 t:-12.34 pos:10      poin:10      vel:0      tor:101   status:0b11000110111
+id:7 t:-12.34 pos:37018   poin:37018   vel:0      tor:105   status:0b11000110111
+id:8 t:-12.34 pos:60928   poin:60928   vel:0      tor:103   status:0b11000110111
+
+id:1 t:-12.54 pos:18762   poin:18762   vel:0      tor:110   status:0b11000110111
+id:2 t:-12.54 pos:30644   poin:30644   vel:34345  tor:101   status:0b11000110111
+id:3 t:-12.54 pos:19136   poin:19136   vel:0      tor:101   status:0b11000110111
+id:4 t:-12.54 pos:31506   poin:31506   vel:0      tor:96    status:0b11000110111
+id:5 t:-12.54 pos:6       poin:6       vel:0      tor:96    status:0b11000110111
+id:6 t:-12.54 pos:10      poin:10      vel:0      tor:96    status:0b11000110111
+id:7 t:-12.54 pos:48006   poin:48006   vel:0      tor:103   status:0b11000110111
+id:8 t:-12.54 pos:79094   poin:79094   vel:0      tor:101   status:0b11000110111
+
+id:1 t:-12.74 pos:23082   poin:23082   vel:0      tor:98    status:0b11000110111
+id:2 t:-12.74 pos:37719   poin:37719   vel:35916  tor:89    status:0b11000110111
+id:3 t:-12.74 pos:23499   poin:23499   vel:0      tor:103   status:0b11000110111
+id:4 t:-12.74 pos:38690   poin:38690   vel:0      tor:110   status:0b11000110111
+id:5 t:-12.74 pos:6       poin:6       vel:0      tor:103   status:0b11000110111
+id:6 t:-12.74 pos:11      poin:11      vel:0      tor:98    status:0b11000110111
+id:7 t:-12.74 pos:59354   poin:59354   vel:0      tor:103   status:0b11000110111
+id:8 t:-12.74 pos:97720   poin:97720   vel:0      tor:113   status:0b11000110111
+
+id:1 t:-12.94 pos:27581   poin:27581   vel:0      tor:103   status:0b11000110111
+id:2 t:-12.94 pos:45065   poin:45065   vel:36968  tor:103   status:0b11000110111
+id:3 t:-12.94 pos:28035   poin:28035   vel:0      tor:98    status:0b11000110111
+id:4 t:-12.94 pos:46162   poin:46162   vel:0      tor:117   status:0b11000110111
+id:5 t:-12.94 pos:7       poin:7       vel:0      tor:98    status:0b11000110111
+id:6 t:-12.94 pos:11      poin:11      vel:0      tor:101   status:0b11000110111
+id:7 t:-12.94 pos:71128   poin:71128   vel:0      tor:98    status:0b11000110111
+id:8 t:-12.94 pos:117111  poin:117111  vel:0      tor:101   status:0b11000110111
+
+id:1 t:-13.14 pos:32221   poin:32221   vel:0      tor:105   status:0b11000110111
+id:2 t:-13.15 pos:52632   poin:52632   vel:37473  tor:89    status:0b1000110111
+id:3 t:-13.15 pos:32692   poin:32692   vel:0      tor:94    status:0b11000110111
+id:4 t:-13.15 pos:53828   poin:53828   vel:0      tor:96    status:0b11000110111
+id:5 t:-13.15 pos:7       poin:7       vel:0      tor:101   status:0b11000110111
+id:6 t:-13.15 pos:11      poin:11      vel:0      tor:98    status:0b11000110111
+id:7 t:-13.15 pos:83377   poin:83377   vel:0      tor:94    status:0b11000110111
+id:8 t:-13.15 pos:137301  poin:137301  vel:0      tor:96    status:0b11000110111
+
+id:1 t:-13.35 pos:36970   poin:36970   vel:0      tor:89    status:0b11000110111
+id:2 t:-13.35 pos:60389   poin:60389   vel:38249  tor:94    status:0b11000110111
+id:3 t:-13.35 pos:37436   poin:37436   vel:0      tor:89    status:0b11000110111
+id:4 t:-13.35 pos:61638   poin:61638   vel:0      tor:80    status:0b11000110111
+id:5 t:-13.35 pos:7       poin:7       vel:0      tor:98    status:0b11000110111
+id:6 t:-13.35 pos:12      poin:12      vel:0      tor:98    status:0b11000110111
+id:7 t:-13.35 pos:95685   poin:95685   vel:0      tor:101   status:0b11000110111
+id:8 t:-13.35 pos:157545  poin:157545  vel:0      tor:103   status:0b11000110111
+
+id:1 t:-13.55 pos:41784   poin:41784   vel:0      tor:98    status:0b11000110111
+id:2 t:-13.55 pos:68267   poin:68267   vel:38951  tor:101   status:0b11000110111
+id:3 t:-13.55 pos:42243   poin:42243   vel:0      tor:105   status:0b11000110111
+id:4 t:-13.55 pos:69553   poin:69553   vel:0      tor:96    status:0b11000110111
+id:5 t:-13.55 pos:7       poin:7       vel:0      tor:96    status:0b11000110111
+id:6 t:-13.55 pos:12      poin:12      vel:0      tor:98    status:0b11000110111
+id:7 t:-13.55 pos:108236  poin:108236  vel:0      tor:103   status:0b11000110111
+id:8 t:-13.55 pos:178251  poin:178251  vel:0      tor:103   status:0b11000110111
+
+id:1 t:-13.75 pos:46619   poin:46619   vel:0      tor:0     status:0b1000011000
+id:2 t:-13.75 pos:76198   poin:76198   vel:36439  tor:0     status:0b1000011000
+id:3 t:-13.75 pos:47086   poin:47086   vel:0      tor:0     status:0b1000011000
+id:4 t:-13.76 pos:77539   poin:77539   vel:0      tor:0     status:0b1000011000
+id:5 t:-13.76 pos:8       poin:8       vel:0      tor:0     status:0b1000011000
+id:6 t:-13.76 pos:13      poin:13      vel:0      tor:0     status:0b1000011000
+id:7 t:-13.76 pos:120882  poin:120882  vel:0      tor:0     status:0b1000011000
+id:8 t:-13.76 pos:199111  poin:199111  vel:0      tor:0     status:0b1000011000
+
+id:1 t:-13.96 pos:49997   poin:49997   vel:0      tor:0     status:0b1000011000
+id:2 t:-13.96 pos:81772   poin:81772   vel:19680  tor:0     status:0b1000011000
+id:3 t:-13.96 pos:50495   poin:50495   vel:0      tor:0     status:0b1000011000
+id:4 t:-13.96 pos:83162   poin:83162   vel:0      tor:0     status:0b1000011000
+id:5 t:-13.96 pos:8       poin:8       vel:0      tor:0     status:0b1000011000
+id:6 t:-13.96 pos:13      poin:13      vel:0      tor:0     status:0b1000011000
+id:7 t:-13.96 pos:127577  poin:127577  vel:0      tor:0     status:0b1000011000
+id:8 t:-13.96 pos:210168  poin:210168  vel:0      tor:0     status:0b1000011000
+
+
+changing command
+id:1 t:-14.16 pos:51527   poin:51527   vel:0      tor:0     status:0b1000011000
+id:2 t:-14.16 pos:84299   poin:84299   vel:7138   tor:0     status:0b1000011000
+id:3 t:-14.16 pos:52118   poin:52118   vel:0      tor:0     status:0b1000011000
+id:4 t:-14.16 pos:85833   poin:85833   vel:0      tor:0     status:0b1000011000
+id:5 t:-14.16 pos:8       poin:8       vel:0      tor:0     status:0b1000011000
+id:6 t:-14.16 pos:13      poin:13      vel:0      tor:0     status:0b1000011000
+id:7 t:-14.16 pos:128143  poin:128143  vel:0      tor:0     status:0b1000011000
+id:8 t:-14.16 pos:211086  poin:211086  vel:0      tor:0     status:0b1000011000
+
+id:1 t:-14.37 pos:51743   poin:51743   vel:0      tor:0     status:0b1000011000
+id:2 t:-14.37 pos:84654   poin:84654   vel:0      tor:0     status:0b1000011000
+id:3 t:-14.37 pos:52426   poin:52426   vel:0      tor:0     status:0b1000011000
+id:4 t:-14.37 pos:86344   poin:86344   vel:0      tor:0     status:0b1000011000
+id:5 t:-14.37 pos:8       poin:8       vel:0      tor:0     status:0b1000011000
+id:6 t:-14.37 pos:13      poin:13      vel:0      tor:0     status:0b1000011000
+id:7 t:-14.37 pos:128143  poin:128143  vel:0      tor:0     status:0b1000011000
+id:8 t:-14.37 pos:211086  poin:211086  vel:0      tor:0     status:0b1000011000
+
+id:1 t:-14.57 pos:51743   poin:51743   vel:0      tor:0     status:0b1000011000
+id:2 t:-14.57 pos:84654   poin:84654   vel:0      tor:0     status:0b1000011000
+id:3 t:-14.57 pos:52426   poin:52426   vel:0      tor:0     status:0b1000011000
+id:4 t:-14.57 pos:86344   poin:86344   vel:0      tor:0     status:0b1000011000
+id:5 t:-14.57 pos:8       poin:8       vel:0      tor:0     status:0b1000011000
+id:6 t:-14.57 pos:13      poin:13      vel:0      tor:0     status:0b1000011000
+id:7 t:-14.57 pos:128143  poin:128143  vel:0      tor:0     status:0b1000011000
+id:8 t:-14.57 pos:211086  poin:211086  vel:0      tor:0     status:0b1000011000
+
+id:1 t:-14.77 pos:51743   poin:51743   vel:0      tor:0     status:0b1000011000
+id:2 t:-14.77 pos:84654   poin:84654   vel:0      tor:0     status:0b1000011000
+id:3 t:-14.77 pos:52426   poin:52426   vel:0      tor:0     status:0b1000011000
+id:4 t:-14.77 pos:86344   poin:86344   vel:0      tor:0     status:0b1000011000
+id:5 t:-14.77 pos:8       poin:8       vel:0      tor:0     status:0b1000011000
+id:6 t:-14.77 pos:13      poin:13      vel:0      tor:0     status:0b1000011000
+id:7 t:-14.77 pos:128143  poin:128143  vel:0      tor:0     status:0b1000011000
+id:8 t:-14.77 pos:211086  poin:211086  vel:0      tor:0     status:0b1000011000
+
+id:1 t:-14.97 pos:51743   poin:51743   vel:0      tor:0     status:0b1000011000
+id:2 t:-14.97 pos:84654   poin:84654   vel:0      tor:0     status:0b1000011000
+id:3 t:-14.98 pos:52426   poin:52426   vel:0      tor:0     status:0b1000011000
+id:4 t:-14.98 pos:86344   poin:86344   vel:0      tor:0     status:0b1000011000
+id:5 t:-14.98 pos:8       poin:8       vel:0      tor:0     status:0b1000011000
+id:6 t:-14.98 pos:13      poin:13      vel:0      tor:0     status:0b1000011000
+id:7 t:-14.98 pos:128143  poin:128143  vel:0      tor:0     status:0b1000011000
+id:8 t:-14.98 pos:211086  poin:211086  vel:0      tor:0     status:0b1000011000
+
+id:1 t:-15.18 pos:51743   poin:51743   vel:0      tor:0     status:0b1000011000
+id:2 t:-15.18 pos:84654   poin:84654   vel:0      tor:0     status:0b1000011000
+id:3 t:-15.18 pos:52426   poin:52426   vel:0      tor:0     status:0b1000011000
+id:4 t:-15.18 pos:86344   poin:86344   vel:0      tor:0     status:0b1000011000
+id:5 t:-15.18 pos:8       poin:8       vel:0      tor:0     status:0b1000011000
+id:6 t:-15.18 pos:13      poin:13      vel:0      tor:0     status:0b1000011000
+id:7 t:-15.18 pos:128143  poin:128143  vel:0      tor:0     status:0b1000011000
+id:8 t:-15.18 pos:211086  poin:211086  vel:0      tor:0     status:0b1000011000
+
+id:1 t:-15.38 pos:51743   poin:51743   vel:0      tor:0     status:0b1000011000
+id:2 t:-15.38 pos:84654   poin:84654   vel:0      tor:0     status:0b1000011000
+id:3 t:-15.38 pos:52426   poin:52426   vel:0      tor:0     status:0b1000011000
+id:4 t:-15.38 pos:86344   poin:86344   vel:0      tor:0     status:0b1000011000
+id:5 t:-15.38 pos:8       poin:8       vel:0      tor:0     status:0b1000011000
+id:6 t:-15.38 pos:13      poin:13      vel:0      tor:0     status:0b1000011000
+id:7 t:-15.38 pos:128143  poin:128143  vel:0      tor:0     status:0b1000011000
+id:8 t:-15.38 pos:211086  poin:211086  vel:0      tor:0     status:0b1000011000
+
+id:1 t:-15.58 pos:51743   poin:51743   vel:0      tor:0     status:0b1000011000
+id:2 t:-15.58 pos:84654   poin:84654   vel:0      tor:0     status:0b1000011000
+id:3 t:-15.58 pos:52426   poin:52426   vel:0      tor:0     status:0b1000011000
+id:4 t:-15.58 pos:86344   poin:86344   vel:0      tor:0     status:0b1000011000
+id:5 t:-15.58 pos:8       poin:8       vel:0      tor:0     status:0b1000011000
+id:6 t:-15.59 pos:13      poin:13      vel:0      tor:0     status:0b1000011000
+id:7 t:-15.59 pos:128143  poin:128143  vel:0      tor:0     status:0b1000011000
+id:8 t:-15.59 pos:211086  poin:211086  vel:0      tor:0     status:0b1000011000
+
+id:1 t:-15.79 pos:51743   poin:51743   vel:0      tor:0     status:0b1000011000
+id:2 t:-15.79 pos:84654   poin:84654   vel:0      tor:0     status:0b1000011000
+id:3 t:-15.79 pos:52426   poin:52426   vel:0      tor:0     status:0b1000011000
+id:4 t:-15.79 pos:86344   poin:86344   vel:0      tor:0     status:0b1000011000
+id:5 t:-15.79 pos:8       poin:8       vel:0      tor:0     status:0b1000011000
+id:6 t:-15.79 pos:13      poin:13      vel:0      tor:0     status:0b1000011000
+id:7 t:-15.79 pos:128143  poin:128143  vel:0      tor:0     status:0b1000011000
+id:8 t:-15.79 pos:211086  poin:211086  vel:0      tor:0     status:0b1000011000
+
+id:1 t:-15.99 pos:51743   poin:51743   vel:0      tor:0     status:0b1000011000
+id:2 t:-15.99 pos:84654   poin:84654   vel:0      tor:0     status:0b1000011000
+id:3 t:-15.99 pos:52426   poin:52426   vel:0      tor:0     status:0b1000011000
+id:4 t:-15.99 pos:86344   poin:86344   vel:0      tor:0     status:0b1000011000
+id:5 t:-15.99 pos:8       poin:8       vel:0      tor:0     status:0b1000011000
+id:6 t:-15.99 pos:13      poin:13      vel:0      tor:0     status:0b1000011000
+id:7 t:-15.99 pos:128143  poin:128143  vel:0      tor:0     status:0b1000011000
+id:8 t:-15.99 pos:211086  poin:211086  vel:0      tor:0     status:0b1000011000
+
+id:1 t:-16.19 pos:51743   poin:51743   vel:0      tor:0     status:0b1000011000
+id:2 t:-16.19 pos:84654   poin:84654   vel:0      tor:0     status:0b1000011000
+id:3 t:-16.19 pos:52426   poin:52426   vel:0      tor:0     status:0b1000011000
+id:4 t:-16.19 pos:86344   poin:86344   vel:0      tor:0     status:0b1000011000
+id:5 t:-16.19 pos:8       poin:8       vel:0      tor:0     status:0b1000011000
+id:6 t:-16.19 pos:13      poin:13      vel:0      tor:0     status:0b1000011000
+id:7 t:-16.19 pos:128143  poin:128143  vel:0      tor:0     status:0b1000011000
+id:8 t:-16.19 pos:211086  poin:211086  vel:0      tor:0     status:0b1000011000
+
+id:1 t:-16.40 pos:51743   poin:51743   vel:0      tor:0     status:0b1000011000
+id:2 t:-16.40 pos:84654   poin:84654   vel:0      tor:0     status:0b1000011000
+id:3 t:-16.40 pos:52426   poin:52426   vel:0      tor:0     status:0b1000011000
+id:4 t:-16.40 pos:86344   poin:86344   vel:0      tor:0     status:0b1000011000
+id:5 t:-16.40 pos:8       poin:8       vel:0      tor:0     status:0b1000011000
+id:6 t:-16.40 pos:13      poin:13      vel:0      tor:0     status:0b1000011000
+id:7 t:-16.40 pos:128143  poin:128143  vel:0      tor:0     status:0b1000011000
+id:8 t:-16.40 pos:211086  poin:211086  vel:0      tor:0     status:0b1000011000
+
+id:1 t:-16.60 pos:51743   poin:51743   vel:0      tor:0     status:0b1000011000
+id:2 t:-16.60 pos:84654   poin:84654   vel:0      tor:0     status:0b1000011000
+id:3 t:-16.60 pos:52426   poin:52426   vel:0      tor:0     status:0b1000011000
+id:4 t:-16.60 pos:86344   poin:86344   vel:0      tor:0     status:0b1000011000
+id:5 t:-16.60 pos:8       poin:8       vel:0      tor:0     status:0b1000011000
+id:6 t:-16.60 pos:13      poin:13      vel:0      tor:0     status:0b1000011000
+id:7 t:-16.60 pos:128143  poin:128143  vel:0      tor:0     status:0b1000011000
+id:8 t:-16.60 pos:211086  poin:211086  vel:0      tor:0     status:0b1000011000
+
+id:1 t:-16.80 pos:51743   poin:51743   vel:0      tor:0     status:0b1000011000
+id:2 t:-16.80 pos:84654   poin:84654   vel:0      tor:0     status:0b1000011000
+id:3 t:-16.80 pos:52426   poin:52426   vel:0      tor:0     status:0b1000011000
+id:4 t:-16.80 pos:86344   poin:86344   vel:0      tor:0     status:0b1000011000
+id:5 t:-16.80 pos:8       poin:8       vel:0      tor:0     status:0b1000011000
+id:6 t:-16.80 pos:13      poin:13      vel:0      tor:0     status:0b1000011000
+id:7 t:-16.80 pos:128143  poin:128143  vel:0      tor:0     status:0b1000011000
+id:8 t:-16.80 pos:211086  poin:211086  vel:0      tor:0     status:0b1000011000
+
+id:1 t:-17.01 pos:51743   poin:51743   vel:0      tor:0     status:0b1000011000
+id:2 t:-17.01 pos:84654   poin:84654   vel:0      tor:0     status:0b1000011000
+id:3 t:-17.01 pos:52426   poin:52426   vel:0      tor:0     status:0b1000011000
+id:4 t:-17.01 pos:86344   poin:86344   vel:0      tor:0     status:0b1000011000
+id:5 t:-17.01 pos:8       poin:8       vel:0      tor:0     status:0b1000011000
+id:6 t:-17.01 pos:13      poin:13      vel:0      tor:0     status:0b1000011000
+id:7 t:-17.01 pos:128143  poin:128143  vel:0      tor:0     status:0b1000011000
+id:8 t:-17.01 pos:211086  poin:211086  vel:0      tor:0     status:0b1000011000
+
+
+changing command
+id:1 t:-17.21 pos:51743   poin:51743   vel:0      tor:0     status:0b1000011000
+id:2 t:-17.21 pos:84654   poin:84654   vel:0      tor:0     status:0b1000011000
+id:3 t:-17.21 pos:52426   poin:52426   vel:0      tor:0     status:0b1000011000
+id:4 t:-17.21 pos:86344   poin:86344   vel:0      tor:0     status:0b1000011000
+id:5 t:-17.21 pos:8       poin:8       vel:0      tor:0     status:0b1000011000
+id:6 t:-17.21 pos:13      poin:13      vel:0      tor:0     status:0b1000011000
+id:7 t:-17.21 pos:128143  poin:128143  vel:0      tor:0     status:0b1000011000
+id:8 t:-17.21 pos:211086  poin:211086  vel:0      tor:0     status:0b1000011000
+
+id:1 t:-17.41 pos:51743   poin:51743   vel:0      tor:0     status:0b1000011000
+id:2 t:-17.41 pos:84654   poin:84654   vel:0      tor:0     status:0b1000011000
+id:3 t:-17.41 pos:52426   poin:52426   vel:0      tor:0     status:0b1000011000
+id:4 t:-17.41 pos:86344   poin:86344   vel:0      tor:0     status:0b1000011000
+id:5 t:-17.41 pos:8       poin:8       vel:0      tor:0     status:0b1000011000
+id:6 t:-17.41 pos:13      poin:13      vel:0      tor:0     status:0b1000011000
+id:7 t:-17.41 pos:128143  poin:128143  vel:0      tor:0     status:0b1000011000
+id:8 t:-17.42 pos:211086  poin:211086  vel:0      tor:0     status:0b1000011000
+
+id:1 t:-17.62 pos:51743   poin:51743   vel:0      tor:0     status:0b1000011000
+id:2 t:-17.62 pos:84654   poin:84654   vel:0      tor:0     status:0b1000011000
+id:3 t:-17.62 pos:52426   poin:52426   vel:0      tor:0     status:0b1000011000
+id:4 t:-17.62 pos:86344   poin:86344   vel:0      tor:0     status:0b1000011000
+id:5 t:-17.62 pos:8       poin:8       vel:0      tor:0     status:0b1000011000
+id:6 t:-17.62 pos:13      poin:13      vel:0      tor:0     status:0b1000011000
+id:7 t:-17.62 pos:128143  poin:128143  vel:0      tor:0     status:0b1000011000
+id:8 t:-17.62 pos:211086  poin:211086  vel:0      tor:0     status:0b1000011000
+
+id:1 t:-17.82 pos:51743   poin:51743   vel:0      tor:0     status:0b1000011000
+id:2 t:-17.82 pos:84654   poin:84654   vel:0      tor:0     status:0b1000011000
+id:3 t:-17.82 pos:52426   poin:52426   vel:0      tor:0     status:0b1000011000
+id:4 t:-17.82 pos:86344   poin:86344   vel:0      tor:0     status:0b1000011000
+id:5 t:-17.82 pos:8       poin:8       vel:0      tor:0     status:0b1000011000
+id:6 t:-17.82 pos:13      poin:13      vel:0      tor:0     status:0b1000011000
+id:7 t:-17.82 pos:128143  poin:128143  vel:0      tor:0     status:0b1000011000
+id:8 t:-17.82 pos:211086  poin:211086  vel:0      tor:0     status:0b1000011000
+
+id:1 t:-18.02 pos:51743   poin:51743   vel:0      tor:0     status:0b1000011000
+id:2 t:-18.02 pos:84654   poin:84654   vel:0      tor:0     status:0b1000011000
+id:3 t:-18.02 pos:52426   poin:52426   vel:0      tor:0     status:0b1000011000
+id:4 t:-18.02 pos:86344   poin:86344   vel:0      tor:0     status:0b1000011000
+id:5 t:-18.02 pos:8       poin:8       vel:0      tor:0     status:0b1000011000
+id:6 t:-18.02 pos:13      poin:13      vel:0      tor:0     status:0b1000011000
+id:7 t:-18.02 pos:128143  poin:128143  vel:0      tor:0     status:0b1000011000
+id:8 t:-18.02 pos:211086  poin:211086  vel:0      tor:0     status:0b1000011000
+
+id:1 t:-18.23 pos:51743   poin:51743   vel:0      tor:0     status:0b1000011000
+id:2 t:-18.23 pos:84654   poin:84654   vel:0      tor:0     status:0b1000011000
+id:3 t:-18.23 pos:52426   poin:52426   vel:0      tor:0     status:0b1000011000
+id:4 t:-18.23 pos:86344   poin:86344   vel:0      tor:0     status:0b1000011000
+id:5 t:-18.23 pos:8       poin:8       vel:0      tor:0     status:0b1000011000
+id:6 t:-18.23 pos:13      poin:13      vel:0      tor:0     status:0b1000011000
+id:7 t:-18.23 pos:128143  poin:128143  vel:0      tor:0     status:0b1000011000
+id:8 t:-18.23 pos:211086  poin:211086  vel:0      tor:0     status:0b1000011000
+
+id:1 t:-18.43 pos:51743   poin:51743   vel:0      tor:0     status:0b1000011000
+id:2 t:-18.43 pos:84654   poin:84654   vel:0      tor:0     status:0b1000011000
+id:3 t:-18.43 pos:52426   poin:52426   vel:0      tor:0     status:0b1000011000
+id:4 t:-18.43 pos:86344   poin:86344   vel:0      tor:0     status:0b1000011000
+id:5 t:-18.43 pos:8       poin:8       vel:0      tor:0     status:0b1000011000
+id:6 t:-18.43 pos:13      poin:13      vel:0      tor:0     status:0b1000011000
+id:7 t:-18.43 pos:128143  poin:128143  vel:0      tor:0     status:0b1000011000
+id:8 t:-18.43 pos:211086  poin:211086  vel:0      tor:0     status:0b1000011000
+
+id:1 t:-18.63 pos:51743   poin:51743   vel:0      tor:0     status:0b1000011000
+id:2 t:-18.63 pos:84654   poin:84654   vel:0      tor:0     status:0b1000011000
+id:3 t:-18.63 pos:52426   poin:52426   vel:0      tor:0     status:0b1000011000
+id:4 t:-18.63 pos:86344   poin:86344   vel:0      tor:0     status:0b1000011000
+id:5 t:-18.63 pos:8       poin:8       vel:0      tor:0     status:0b1000011000
+id:6 t:-18.63 pos:13      poin:13      vel:0      tor:0     status:0b1000011000
+id:7 t:-18.63 pos:128143  poin:128143  vel:0      tor:0     status:0b1000011000
+id:8 t:-18.63 pos:211086  poin:211086  vel:0      tor:0     status:0b1000011000
+
+id:1 t:-18.83 pos:51743   poin:51743   vel:0      tor:0     status:0b1000011000
+id:2 t:-18.83 pos:84654   poin:84654   vel:0      tor:0     status:0b1000011000
+id:3 t:-18.83 pos:52426   poin:52426   vel:0      tor:0     status:0b1000011000
+id:4 t:-18.84 pos:86344   poin:86344   vel:0      tor:0     status:0b1000011000
+id:5 t:-18.84 pos:8       poin:8       vel:0      tor:0     status:0b1000011000
+id:6 t:-18.84 pos:13      poin:13      vel:0      tor:0     status:0b1000011000
+id:7 t:-18.84 pos:128143  poin:128143  vel:0      tor:0     status:0b1000011000
+id:8 t:-18.84 pos:211086  poin:211086  vel:0      tor:0     status:0b1000011000
+
+id:1 t:-19.04 pos:51743   poin:51743   vel:0      tor:0     status:0b1000011000
+id:2 t:-19.04 pos:84654   poin:84654   vel:0      tor:0     status:0b1000011000
+id:3 t:-19.04 pos:52426   poin:52426   vel:0      tor:0     status:0b1000011000
+id:4 t:-19.04 pos:86344   poin:86344   vel:0      tor:0     status:0b1000011000
+id:5 t:-19.04 pos:8       poin:8       vel:0      tor:0     status:0b1000011000
+id:6 t:-19.04 pos:13      poin:13      vel:0      tor:0     status:0b1000011000
+id:7 t:-19.04 pos:128143  poin:128143  vel:0      tor:0     status:0b1000011000
+id:8 t:-19.04 pos:211086  poin:211086  vel:0      tor:0     status:0b1000011000
+
+id:1 t:-19.24 pos:51743   poin:51743   vel:0      tor:0     status:0b1000011000
+id:2 t:-19.24 pos:84654   poin:84654   vel:0      tor:0     status:0b1000011000
+id:3 t:-19.24 pos:52426   poin:52426   vel:0      tor:0     status:0b1000011000
+id:4 t:-19.24 pos:86344   poin:86344   vel:0      tor:0     status:0b1000011000
+id:5 t:-19.24 pos:8       poin:8       vel:0      tor:0     status:0b1000011000
+id:6 t:-19.24 pos:13      poin:13      vel:0      tor:0     status:0b1000011000
+id:7 t:-19.24 pos:128143  poin:128143  vel:0      tor:0     status:0b1000011000
+id:8 t:-19.24 pos:211086  poin:211086  vel:0      tor:0     status:0b1000011000
+
+id:1 t:-19.44 pos:51743   poin:51743   vel:0      tor:0     status:0b1000011000
+id:2 t:-19.44 pos:84654   poin:84654   vel:0      tor:0     status:0b1000011000
+id:3 t:-19.45 pos:52426   poin:52426   vel:0      tor:0     status:0b1000011000
+id:4 t:-19.45 pos:86344   poin:86344   vel:0      tor:0     status:0b1000011000
+id:5 t:-19.45 pos:8       poin:8       vel:0      tor:0     status:0b1000011000
+id:6 t:-19.45 pos:13      poin:13      vel:0      tor:0     status:0b1000011000
+id:7 t:-19.45 pos:128144  poin:128144  vel:0      tor:0     status:0b1000011000
+id:8 t:-19.45 pos:211086  poin:211086  vel:0      tor:0     status:0b1000011000
+
+id:1 t:-19.65 pos:51743   poin:51743   vel:0      tor:0     status:0b1000011000
+id:2 t:-19.65 pos:84654   poin:84654   vel:0      tor:0     status:0b1000011000
+id:3 t:-19.65 pos:52426   poin:52426   vel:0      tor:0     status:0b1000011000
+id:4 t:-19.65 pos:86344   poin:86344   vel:0      tor:0     status:0b1000011000
+id:5 t:-19.65 pos:8       poin:8       vel:0      tor:0     status:0b1000011000
+id:6 t:-19.65 pos:13      poin:13      vel:0      tor:0     status:0b1000011000
+id:7 t:-19.65 pos:128144  poin:128144  vel:0      tor:0     status:0b1000011000
+id:8 t:-19.65 pos:211086  poin:211086  vel:0      tor:0     status:0b1000011000
+
+id:1 t:-19.85 pos:51743   poin:51743   vel:0      tor:0     status:0b1000011000
+id:2 t:-19.85 pos:84654   poin:84654   vel:0      tor:0     status:0b1000011000
+id:3 t:-19.85 pos:52426   poin:52426   vel:0      tor:0     status:0b1000011000
+id:4 t:-19.85 pos:86344   poin:86344   vel:0      tor:0     status:0b1000011000
+id:5 t:-19.85 pos:8       poin:8       vel:0      tor:0     status:0b1000011000
+id:6 t:-19.85 pos:13      poin:13      vel:0      tor:0     status:0b1000011000
+id:7 t:-19.85 pos:128144  poin:128144  vel:0      tor:0     status:0b1000011000
+id:8 t:-19.85 pos:211086  poin:211086  vel:0      tor:0     status:0b1000011000
+
+id:1 t:-20.05 pos:51743   poin:51743   vel:0      tor:0     status:0b1000011000
+id:2 t:-20.05 pos:84654   poin:84654   vel:0      tor:0     status:0b1000011000
+id:3 t:-20.05 pos:52426   poin:52426   vel:0      tor:0     status:0b1000011000
+id:4 t:-20.05 pos:86344   poin:86344   vel:0      tor:0     status:0b1000011000
+id:5 t:-20.05 pos:8       poin:8       vel:0      tor:0     status:0b1000011000
+id:6 t:-20.05 pos:13      poin:13      vel:0      tor:0     status:0b1000011000
+id:7 t:-20.06 pos:128144  poin:128144  vel:0      tor:0     status:0b1000011000
+id:8 t:-20.06 pos:211086  poin:211086  vel:0      tor:0     status:0b1000011000
+
+
+changing command
+id:1 t:-20.26 pos:51743   poin:51743   vel:0      tor:0     status:0b1000011000
+id:2 t:-20.26 pos:84654   poin:84654   vel:0      tor:0     status:0b1000011000
+id:3 t:-20.26 pos:52426   poin:52426   vel:0      tor:0     status:0b1000011000
+id:4 t:-20.26 pos:86344   poin:86344   vel:0      tor:0     status:0b1000011000
+id:5 t:-20.26 pos:8       poin:8       vel:0      tor:0     status:0b1000011000
+id:6 t:-20.26 pos:13      poin:13      vel:0      tor:0     status:0b1000011000
+id:7 t:-20.26 pos:128144  poin:128144  vel:0      tor:0     status:0b1000011000
+id:8 t:-20.26 pos:211086  poin:211086  vel:0      tor:0     status:0b1000011000
+
+id:1 t:-20.46 pos:51743   poin:51743   vel:0      tor:0     status:0b1000011000
+id:2 t:-20.46 pos:84654   poin:84654   vel:0      tor:0     status:0b1000011000
+id:3 t:-20.46 pos:52426   poin:52426   vel:0      tor:0     status:0b1000011000
+id:4 t:-20.46 pos:86344   poin:86344   vel:0      tor:0     status:0b1000011000
+id:5 t:-20.46 pos:8       poin:8       vel:0      tor:0     status:0b1000011000
+id:6 t:-20.46 pos:13      poin:13      vel:0      tor:0     status:0b1000011000
+id:7 t:-20.46 pos:128144  poin:128144  vel:0      tor:0     status:0b1000011000
+id:8 t:-20.46 pos:211086  poin:211086  vel:0      tor:0     status:0b1000011000
+
+id:1 t:-20.66 pos:51743   poin:51743   vel:0      tor:0     status:0b1000011000
+id:2 t:-20.66 pos:84654   poin:84654   vel:0      tor:0     status:0b1000011000
+id:3 t:-20.66 pos:52426   poin:52426   vel:0      tor:0     status:0b1000011000
+id:4 t:-20.66 pos:86344   poin:86344   vel:0      tor:0     status:0b1000011000
+id:5 t:-20.67 pos:8       poin:8       vel:0      tor:0     status:0b1000011000
+id:6 t:-20.67 pos:13      poin:13      vel:0      tor:0     status:0b1000011000
+id:7 t:-20.67 pos:128144  poin:128144  vel:0      tor:0     status:0b1000011000
+id:8 t:-20.67 pos:211086  poin:211086  vel:0      tor:0     status:0b1000011000
+
+id:1 t:-20.87 pos:51743   poin:51743   vel:0      tor:0     status:0b1000011000
+id:2 t:-20.87 pos:84654   poin:84654   vel:0      tor:0     status:0b1000011000
+id:3 t:-20.87 pos:52426   poin:52426   vel:0      tor:0     status:0b1000011000
+id:4 t:-20.87 pos:86344   poin:86344   vel:0      tor:0     status:0b1000011000
+id:5 t:-20.87 pos:8       poin:8       vel:0      tor:0     status:0b1000011000
+id:6 t:-20.87 pos:13      poin:13      vel:0      tor:0     status:0b1000011000
+id:7 t:-20.87 pos:128144  poin:128144  vel:0      tor:0     status:0b1000011000
+id:8 t:-20.87 pos:211086  poin:211086  vel:0      tor:0     status:0b1000011000
+
+id:1 t:-21.07 pos:51743   poin:51743   vel:0      tor:0     status:0b1000011000
+id:2 t:-21.07 pos:84654   poin:84654   vel:0      tor:0     status:0b1000011000
+id:3 t:-21.07 pos:52426   poin:52426   vel:0      tor:0     status:0b1000011000
+id:4 t:-21.07 pos:86344   poin:86344   vel:0      tor:0     status:0b1000011000
+id:5 t:-21.07 pos:8       poin:8       vel:0      tor:0     status:0b1000011000
+id:6 t:-21.07 pos:13      poin:13      vel:0      tor:0     status:0b1000011000
+id:7 t:-21.07 pos:128144  poin:128144  vel:0      tor:0     status:0b1000011000
+id:8 t:-21.07 pos:211086  poin:211086  vel:0      tor:0     status:0b1000011000
+
+id:1 t:-21.27 pos:51743   poin:51743   vel:0      tor:0     status:0b1000011000
+id:2 t:-21.27 pos:84654   poin:84654   vel:0      tor:0     status:0b1000011000
+id:3 t:-21.27 pos:52426   poin:52426   vel:0      tor:0     status:0b1000011000
+id:4 t:-21.27 pos:86344   poin:86344   vel:0      tor:0     status:0b1000011000
+id:5 t:-21.27 pos:8       poin:8       vel:0      tor:0     status:0b1000011000
+id:6 t:-21.28 pos:13      poin:13      vel:0      tor:0     status:0b1000011000
+id:7 t:-21.28 pos:128144  poin:128144  vel:0      tor:0     status:0b1000011000
+id:8 t:-21.28 pos:211086  poin:211086  vel:0      tor:0     status:0b1000011000
+
+id:1 t:-21.48 pos:51743   poin:51743   vel:0      tor:0     status:0b1000011000
+id:2 t:-21.48 pos:84654   poin:84654   vel:0      tor:0     status:0b1000011000
+id:3 t:-21.48 pos:52426   poin:52426   vel:0      tor:0     status:0b1000011000
+id:4 t:-21.48 pos:86344   poin:86344   vel:0      tor:0     status:0b1000011000
+id:5 t:-21.48 pos:8       poin:8       vel:0      tor:0     status:0b1000011000
+id:6 t:-21.48 pos:13      poin:13      vel:0      tor:0     status:0b1000011000
+id:7 t:-21.48 pos:128144  poin:128144  vel:0      tor:0     status:0b1000011000
+id:8 t:-21.48 pos:211086  poin:211086  vel:0      tor:0     status:0b1000011000
+
+id:1 t:-21.68 pos:51743   poin:51743   vel:0      tor:0     status:0b1000011000
+id:2 t:-21.68 pos:84654   poin:84654   vel:0      tor:0     status:0b1000011000
+id:3 t:-21.68 pos:52426   poin:52426   vel:0      tor:0     status:0b1000011000
+id:4 t:-21.68 pos:86344   poin:86344   vel:0      tor:0     status:0b1000011000
+id:5 t:-21.68 pos:8       poin:8       vel:0      tor:0     status:0b1000011000
+id:6 t:-21.68 pos:13      poin:13      vel:0      tor:0     status:0b1000011000
+id:7 t:-21.68 pos:128144  poin:128144  vel:0      tor:0     status:0b1000011000
+id:8 t:-21.68 pos:211086  poin:211086  vel:0      tor:0     status:0b1000011000
+
+id:1 t:-21.88 pos:51743   poin:51743   vel:0      tor:0     status:0b1000011000
+id:2 t:-21.88 pos:84654   poin:84654   vel:0      tor:0     status:0b1000011000
+id:3 t:-21.88 pos:52426   poin:52426   vel:0      tor:0     status:0b1000011000
+id:4 t:-21.88 pos:86344   poin:86344   vel:0      tor:0     status:0b1000011000
+id:5 t:-21.88 pos:8       poin:8       vel:0      tor:0     status:0b1000011000
+id:6 t:-21.88 pos:13      poin:13      vel:0      tor:0     status:0b1000011000
+id:7 t:-21.89 pos:128144  poin:128144  vel:0      tor:0     status:0b1000011000
+id:8 t:-21.89 pos:211086  poin:211086  vel:0      tor:0     status:0b1000011000
+
+id:1 t:-22.09 pos:51743   poin:51743   vel:0      tor:0     status:0b1000011000
+id:2 t:-22.09 pos:84654   poin:84654   vel:0      tor:0     status:0b1000011000
+id:3 t:-22.09 pos:52426   poin:52426   vel:0      tor:0     status:0b1000011000
+id:4 t:-22.09 pos:86344   poin:86344   vel:0      tor:0     status:0b1000011000
+id:5 t:-22.09 pos:8       poin:8       vel:0      tor:0     status:0b1000011000
+id:6 t:-22.09 pos:13      poin:13      vel:0      tor:0     status:0b1000011000
+id:7 t:-22.09 pos:128144  poin:128144  vel:0      tor:0     status:0b1000011000
+id:8 t:-22.09 pos:211086  poin:211086  vel:0      tor:0     status:0b1000011000
+
+id:1 t:-22.29 pos:51743   poin:51743   vel:0      tor:0     status:0b1000011000
+id:2 t:-22.29 pos:84654   poin:84654   vel:0      tor:0     status:0b1000011000
+id:3 t:-22.29 pos:52426   poin:52426   vel:0      tor:0     status:0b1000011000
+id:4 t:-22.29 pos:86344   poin:86344   vel:0      tor:0     status:0b1000011000
+id:5 t:-22.29 pos:8       poin:8       vel:0      tor:0     status:0b1000011000
+id:6 t:-22.29 pos:13      poin:13      vel:0      tor:0     status:0b1000011000
+id:7 t:-22.29 pos:128144  poin:128144  vel:0      tor:0     status:0b1000011000
+id:8 t:-22.29 pos:211086  poin:211086  vel:0      tor:0     status:0b1000011000
+
+id:1 t:-22.49 pos:51743   poin:51743   vel:0      tor:0     status:0b1000011000
+id:2 t:-22.49 pos:84654   poin:84654   vel:0      tor:0     status:0b1000011000
+id:3 t:-22.49 pos:52426   poin:52426   vel:0      tor:0     status:0b1000011000
+id:4 t:-22.49 pos:86344   poin:86344   vel:0      tor:0     status:0b1000011000
+id:5 t:-22.49 pos:8       poin:8       vel:0      tor:0     status:0b1000011000
+id:6 t:-22.49 pos:13      poin:13      vel:0      tor:0     status:0b1000011000
+id:7 t:-22.49 pos:128144  poin:128144  vel:0      tor:0     status:0b1000011000
+id:8 t:-22.49 pos:211086  poin:211086  vel:0      tor:0     status:0b1000011000
+
+id:1 t:-22.70 pos:51743   poin:51743   vel:0      tor:0     status:0b1000011000
+id:2 t:-22.70 pos:84654   poin:84654   vel:0      tor:0     status:0b1000011000
+id:3 t:-22.70 pos:52426   poin:52426   vel:0      tor:0     status:0b1000011000
+id:4 t:-22.70 pos:86344   poin:86344   vel:0      tor:0     status:0b1000011000
+id:5 t:-22.70 pos:8       poin:8       vel:0      tor:0     status:0b1000011000
+id:6 t:-22.70 pos:13      poin:13      vel:0      tor:0     status:0b1000011000
+id:7 t:-22.70 pos:128144  poin:128144  vel:0      tor:0     status:0b1000011000
+id:8 t:-22.70 pos:211086  poin:211086  vel:0      tor:0     status:0b1000011000
+
+id:1 t:-22.90 pos:51743   poin:51743   vel:0      tor:0     status:0b1000011000
+id:2 t:-22.90 pos:84654   poin:84654   vel:0      tor:0     status:0b1000011000
+id:3 t:-22.90 pos:52426   poin:52426   vel:0      tor:0     status:0b1000011000
+id:4 t:-22.90 pos:86344   poin:86344   vel:0      tor:0     status:0b1000011000
+id:5 t:-22.90 pos:8       poin:8       vel:0      tor:0     status:0b1000011000
+id:6 t:-22.90 pos:13      poin:13      vel:0      tor:0     status:0b1000011000
+id:7 t:-22.90 pos:128144  poin:128144  vel:0      tor:0     status:0b1000011000
+id:8 t:-22.90 pos:211086  poin:211086  vel:0      tor:0     status:0b1000011000
+
+id:1 t:-23.10 pos:51743   poin:51743   vel:0      tor:0     status:0b1000011000
+id:2 t:-23.10 pos:84654   poin:84654   vel:0      tor:0     status:0b1000011000
+id:3 t:-23.10 pos:52426   poin:52426   vel:0      tor:0     status:0b1000011000
+id:4 t:-23.10 pos:86344   poin:86344   vel:0      tor:0     status:0b1000011000
+id:5 t:-23.10 pos:8       poin:8       vel:0      tor:0     status:0b1000011000
+id:6 t:-23.10 pos:13      poin:13      vel:0      tor:0     status:0b1000011000
+id:7 t:-23.10 pos:128144  poin:128144  vel:0      tor:0     status:0b1000011000
+id:8 t:-23.10 pos:211086  poin:211086  vel:0      tor:0     status:0b1000011000
+
+
+[SWITCH ON or DISABLE OPERATION] COMMAND: 0b111
+node_id: 1
+statusword: 0b1000011000
+controlword: 0b111
+
+SHUTDOWN COMMAND: 0b110
+node_id: 1
+statusword: 0b1010011000
+controlword: 0b110
+
+[SWITCH ON or DISABLE OPERATION] COMMAND: 0b111
+node_id: 2
+statusword: 0b1010011000
+controlword: 0b111
+
+SHUTDOWN COMMAND: 0b110
+node_id: 2
+statusword: 0b1010011000
+controlword: 0b110
+
+[SWITCH ON or DISABLE OPERATION] COMMAND: 0b111
+node_id: 3
+statusword: 0b1010011000
+controlword: 0b111
+
+SHUTDOWN COMMAND: 0b110
+node_id: 3
+statusword: 0b1010011000
+controlword: 0b110
+
+[SWITCH ON or DISABLE OPERATION] COMMAND: 0b111
+node_id: 4
+statusword: 0b1010011000
+controlword: 0b111
+
+SHUTDOWN COMMAND: 0b110
+node_id: 4
+statusword: 0b1010011000
+controlword: 0b110
+
+[SWITCH ON or DISABLE OPERATION] COMMAND: 0b111
+node_id: 5
+statusword: 0b1010011000
+controlword: 0b111
+
+SHUTDOWN COMMAND: 0b110
+node_id: 5
+statusword: 0b1010011000
+controlword: 0b110
+
+[SWITCH ON or DISABLE OPERATION] COMMAND: 0b111
+node_id: 6
+statusword: 0b1010011000
+controlword: 0b111
+
+SHUTDOWN COMMAND: 0b110
+node_id: 6
+statusword: 0b1010011000
+controlword: 0b110
+
+[SWITCH ON or DISABLE OPERATION] COMMAND: 0b111
+node_id: 7
+statusword: 0b1010011000
+controlword: 0b111
+
+SHUTDOWN COMMAND: 0b110
+node_id: 7
+statusword: 0b1010011000
+controlword: 0b110
+
+[SWITCH ON or DISABLE OPERATION] COMMAND: 0b111
+node_id: 8
+statusword: 0b1010011000
+controlword: 0b111
+
+SHUTDOWN COMMAND: 0b110
+node_id: 8
+statusword: 0b1010011000
+controlword: 0b110
+
+state command: PRE-OPERATIONAL
+master state: PRE-OPERATIONAL
+node 1 state: PRE-OPERATIONAL
+node 2 state: PRE-OPERATIONAL
+node 3 state: PRE-OPERATIONAL
+node 4 state: PRE-OPERATIONAL
+node 5 state: PRE-OPERATIONAL
+node 6 state: PRE-OPERATIONAL
+node 7 state: PRE-OPERATIONAL
+node 8 state: PRE-OPERATIONAL
+
+state command: RESET COMMUNICATION
+master state: INITIALISING
+node 1 state: PRE-OPERATIONAL
+node 2 state: PRE-OPERATIONAL
+node 3 state: PRE-OPERATIONAL
+node 4 state: PRE-OPERATIONAL
+node 5 state: PRE-OPERATIONAL
+node 6 state: PRE-OPERATIONAL
+node 7 state: PRE-OPERATIONAL
+node 8 state: PRE-OPERATIONAL
+
+state command: RESET
+master state: INITIALISING
+node 1 state: PRE-OPERATIONAL
+node 2 state: PRE-OPERATIONAL
+node 3 state: PRE-OPERATIONAL
+node 4 state: PRE-OPERATIONAL
+node 5 state: PRE-OPERATIONAL
+node 6 state: PRE-OPERATIONAL
+node 7 state: PRE-OPERATIONAL
+node 8 state: PRE-OPERATIONAL
+Successfully disconnected!
+========================
+
+
+
+==================================================================================
+==  DEBUG START 2021.11.17 - 21:47:14  ===========================================
+==================================================================================
+
+
+state command: INITIALISING
+master state: INITIALISING
+
+Found node 1
+Adding node 1
+Found node 2
+Adding node 2
+Found node 3
+Adding node 3
+Found node 4
+Adding node 4
+Found node 5
+Adding node 5
+Found node 6
+Adding node 6
+Found node 7
+Adding node 7
+Found node 8
+Adding node 8
+
+state: BusState.ACTIVE
+bus channel_info: PCAN_USBBUS1
+
+msg: Timestamp: 1637153265.442442        ID: 0704    S                DLC:  1    00
+
+state command: STOPPED
+master state: STOPPED
+node 1 state: STOPPED
+node 2 state: STOPPED
+node 3 state: STOPPED
+node 4 state: STOPPED
+node 5 state: STOPPED
+node 6 state: STOPPED
+node 7 state: STOPPED
+node 8 state: STOPPED
+
+state command: RESET
+master state: INITIALISING
+node 1 state: PRE-OPERATIONAL
+node 2 state: PRE-OPERATIONAL
+node 3 state: PRE-OPERATIONAL
+node 4 state: PRE-OPERATIONAL
+node 5 state: PRE-OPERATIONAL
+node 6 state: PRE-OPERATIONAL
+node 7 state: PRE-OPERATIONAL
+node 8 state: PRE-OPERATIONAL
+
+state command: RESET COMMUNICATION
+master state: INITIALISING
+node 1 state: PRE-OPERATIONAL
+node 2 state: PRE-OPERATIONAL
+node 3 state: PRE-OPERATIONAL
+node 4 state: PRE-OPERATIONAL
+node 5 state: PRE-OPERATIONAL
+node 6 state: PRE-OPERATIONAL
+node 7 state: PRE-OPERATIONAL
+node 8 state: PRE-OPERATIONAL
+
+state command: INITIALISING
+master state: INITIALISING
+node 1 state: PRE-OPERATIONAL
+node 2 state: PRE-OPERATIONAL
+node 3 state: PRE-OPERATIONAL
+node 4 state: PRE-OPERATIONAL
+node 5 state: PRE-OPERATIONAL
+node 6 state: PRE-OPERATIONAL
+node 7 state: PRE-OPERATIONAL
+node 8 state: PRE-OPERATIONAL
+
+state command: PRE-OPERATIONAL
+master state: PRE-OPERATIONAL
+node 1 state: PRE-OPERATIONAL
+node 2 state: PRE-OPERATIONAL
+node 3 state: PRE-OPERATIONAL
+node 4 state: PRE-OPERATIONAL
+node 5 state: PRE-OPERATIONAL
+node 6 state: PRE-OPERATIONAL
+node 7 state: PRE-OPERATIONAL
+node 8 state: PRE-OPERATIONAL
+
+===========
+Information
+CAN Open Node ID: 1
+error_code: 0
+statusword: 0b1001000000
+controlword: 0b0
+modes_of_operation: -1
+Producer Heartbeat Time: 1000
+Communication Cycle Period: 0
+
+- control
+profile_velocity: 10000
+position_demand_value: 0
+position_actual_internal_value: 0
+position_actual_value: 0
+
+===========
+Information
+CAN Open Node ID: 2
+error_code: 0
+statusword: 0b1001000000
+controlword: 0b0
+modes_of_operation: -1
+Producer Heartbeat Time: 1000
+Communication Cycle Period: 0
+
+- control
+profile_velocity: 136532
+position_demand_value: 0
+position_actual_internal_value: 0
+position_actual_value: 0
+
+===========
+Information
+CAN Open Node ID: 3
+error_code: 0
+statusword: 0b1001000000
+controlword: 0b0
+modes_of_operation: -1
+Producer Heartbeat Time: 1000
+Communication Cycle Period: 0
+
+- control
+profile_velocity: 10000
+position_demand_value: 0
+position_actual_internal_value: 0
+position_actual_value: 0
+
+===========
+Information
+CAN Open Node ID: 4
+error_code: 0
+statusword: 0b1001000000
+controlword: 0b0
+modes_of_operation: -1
+Producer Heartbeat Time: 1000
+Communication Cycle Period: 0
+
+- control
+profile_velocity: 10000
+position_demand_value: 0
+position_actual_internal_value: 0
+position_actual_value: 0
+
+===========
+Information
+CAN Open Node ID: 5
+error_code: 0
+statusword: 0b1001000000
+controlword: 0b0
+modes_of_operation: -1
+Producer Heartbeat Time: 1000
+Communication Cycle Period: 0
+
+- control
+profile_velocity: 10000
+position_demand_value: 0
+position_actual_internal_value: 0
+position_actual_value: 0
+
+===========
+Information
+CAN Open Node ID: 6
+error_code: 0
+statusword: 0b1001000000
+controlword: 0b0
+modes_of_operation: -1
+Producer Heartbeat Time: 1000
+Communication Cycle Period: 0
+
+- control
+profile_velocity: 10000
+position_demand_value: 0
+position_actual_internal_value: 0
+position_actual_value: 0
+
+===========
+Information
+CAN Open Node ID: 7
+error_code: 0
+statusword: 0b1001000000
+controlword: 0b0
+modes_of_operation: -1
+Producer Heartbeat Time: 1000
+Communication Cycle Period: 0
+
+- control
+profile_velocity: 9040
+position_demand_value: 0
+position_actual_internal_value: 0
+position_actual_value: 0
+
+===========
+Information
+CAN Open Node ID: 8
+error_code: 0
+statusword: 0b1001000000
+controlword: 0b0
+modes_of_operation: -1
+Producer Heartbeat Time: 1000
+Communication Cycle Period: 0
+
+- control
+profile_velocity: 40000
+position_demand_value: 0
+position_actual_internal_value: 0
+position_actual_value: 0
+
+FAULT RESET COMMAND: 0b10000000
+node_id: 1
+statusword: 0b0
+controlword: 0b10000000
+node_id: 2
+statusword: 0b0
+controlword: 0b10000000
+node_id: 3
+statusword: 0b0
+controlword: 0b10000000
+node_id: 4
+statusword: 0b0
+controlword: 0b10000000
+node_id: 5
+statusword: 0b0
+controlword: 0b10000000
+node_id: 6
+statusword: 0b0
+controlword: 0b10000000
+node_id: 7
+statusword: 0b0
+controlword: 0b10000000
+node_id: 8
+statusword: 0b0
+controlword: 0b10000000
+
+[SWITCH ON or DISABLE OPERATION] COMMAND: 0b111
+node_id: 1
+statusword: 0b0
+controlword: 0b111
+node_id: 2
+statusword: 0b0
+controlword: 0b111
+node_id: 3
+statusword: 0b0
+controlword: 0b111
+node_id: 4
+statusword: 0b0
+controlword: 0b111
+node_id: 5
+statusword: 0b0
+controlword: 0b111
+node_id: 6
+statusword: 0b0
+controlword: 0b111
+node_id: 7
+statusword: 0b0
+controlword: 0b111
+node_id: 8
+statusword: 0b0
+controlword: 0b111
+
+state command: PRE-OPERATIONAL
+master state: PRE-OPERATIONAL
+node 1 state: PRE-OPERATIONAL
+node 2 state: PRE-OPERATIONAL
+node 3 state: PRE-OPERATIONAL
+node 4 state: PRE-OPERATIONAL
+node 5 state: PRE-OPERATIONAL
+node 6 state: PRE-OPERATIONAL
+node 7 state: PRE-OPERATIONAL
+node 8 state: PRE-OPERATIONAL
+
+state command: OPERATIONAL
+master state: OPERATIONAL
+node 1 state: OPERATIONAL
+node 2 state: OPERATIONAL
+node 3 state: OPERATIONAL
+node 4 state: OPERATIONAL
+node 5 state: OPERATIONAL
+node 6 state: OPERATIONAL
+node 7 state: OPERATIONAL
+node 8 state: OPERATIONAL
+
+SHUTDOWN COMMAND: 0b110
+node_id: 1
+statusword: 0b0
+controlword: 0b110
+
+[SWITCH ON or DISABLE OPERATION] COMMAND: 0b111
+node_id: 1
+statusword: 0b11000110001
+controlword: 0b111
+
+[ENABLE OPERATION or OPERATION] COMMAND: 0b1111
+node_id: 1
+statusword: 0b11000110011
+controlword: 0b1111
+
+SHUTDOWN COMMAND: 0b110
+node_id: 2
+statusword: 0b11011000000
+controlword: 0b110
+
+[SWITCH ON or DISABLE OPERATION] COMMAND: 0b111
+node_id: 2
+statusword: 0b11000110001
+controlword: 0b111
+
+[ENABLE OPERATION or OPERATION] COMMAND: 0b1111
+node_id: 2
+statusword: 0b11000110011
+controlword: 0b1111
+
+SHUTDOWN COMMAND: 0b110
+node_id: 3
+statusword: 0b11011000000
+controlword: 0b110
+
+[SWITCH ON or DISABLE OPERATION] COMMAND: 0b111
+node_id: 3
+statusword: 0b11000110001
+controlword: 0b111
+
+[ENABLE OPERATION or OPERATION] COMMAND: 0b1111
+node_id: 3
+statusword: 0b11000110011
+controlword: 0b1111
+
+SHUTDOWN COMMAND: 0b110
+node_id: 4
+statusword: 0b11011000000
+controlword: 0b110
+
+[SWITCH ON or DISABLE OPERATION] COMMAND: 0b111
+node_id: 4
+statusword: 0b11000110001
+controlword: 0b111
+
+[ENABLE OPERATION or OPERATION] COMMAND: 0b1111
+node_id: 4
+statusword: 0b11000110011
+controlword: 0b1111
+
+SHUTDOWN COMMAND: 0b110
+node_id: 5
+statusword: 0b11011000000
+controlword: 0b110
+
+[SWITCH ON or DISABLE OPERATION] COMMAND: 0b111
+node_id: 5
+statusword: 0b11000110001
+controlword: 0b111
+
+[ENABLE OPERATION or OPERATION] COMMAND: 0b1111
+node_id: 5
+statusword: 0b11000110011
+controlword: 0b1111
+
+SHUTDOWN COMMAND: 0b110
+node_id: 6
+statusword: 0b11011000000
+controlword: 0b110
+
+[SWITCH ON or DISABLE OPERATION] COMMAND: 0b111
+node_id: 6
+statusword: 0b11000110001
+controlword: 0b111
+
+[ENABLE OPERATION or OPERATION] COMMAND: 0b1111
+node_id: 6
+statusword: 0b11000110011
+controlword: 0b1111
+
+SHUTDOWN COMMAND: 0b110
+node_id: 7
+statusword: 0b11011000000
+controlword: 0b110
+
+[SWITCH ON or DISABLE OPERATION] COMMAND: 0b111
+node_id: 7
+statusword: 0b11000110001
+controlword: 0b111
+
+[ENABLE OPERATION or OPERATION] COMMAND: 0b1111
+node_id: 7
+statusword: 0b11000110011
+controlword: 0b1111
+
+SHUTDOWN COMMAND: 0b110
+node_id: 8
+statusword: 0b11011000000
+controlword: 0b110
+
+[SWITCH ON or DISABLE OPERATION] COMMAND: 0b111
+node_id: 8
+statusword: 0b11000110001
+controlword: 0b111
+
+[ENABLE OPERATION or OPERATION] COMMAND: 0b1111
+node_id: 8
+statusword: 0b11000110011
+controlword: 0b1111
+id:1 t:-11.14 pos:0       poin:0       vel:0      tor:-2    status:0b11000110111
+id:2 t:-11.14 pos:0       poin:0       vel:0      tor:-2    status:0b11000110111
+id:3 t:-11.14 pos:0       poin:0       vel:0      tor:-5    status:0b11000110111
+id:4 t:-11.14 pos:0       poin:0       vel:0      tor:-9    status:0b11000110111
+id:5 t:-11.14 pos:0       poin:0       vel:0      tor:-7    status:0b11000110111
+id:6 t:-11.14 pos:0       poin:0       vel:0      tor:5     status:0b11000110111
+id:7 t:-11.14 pos:0       poin:0       vel:0      tor:0     status:0b11000110111
+id:8 t:-11.14 pos:0       poin:0       vel:0      tor:0     status:0b11000110111
+
+id:1 t:-11.35 pos:379     poin:379     vel:0      tor:91    status:0b11000110111
+id:2 t:-11.35 pos:547     poin:547     vel:5917   tor:96    status:0b11000110111
+id:3 t:-11.35 pos:571     poin:571     vel:0      tor:98    status:0b11000110111
+id:4 t:-11.35 pos:933     poin:933     vel:0      tor:101   status:0b11000110111
+id:5 t:-11.35 pos:0       poin:0       vel:0      tor:98    status:0b11000110111
+id:6 t:-11.35 pos:0       poin:0       vel:0      tor:105   status:0b11000110111
+id:7 t:-11.35 pos:1123    poin:1123    vel:0      tor:94    status:0b11000110111
+id:8 t:-11.35 pos:1847    poin:1847    vel:0      tor:101   status:0b11000110111
+
+id:1 t:-11.55 pos:1528    poin:1528    vel:0      tor:96    status:0b11000110111
+id:2 t:-11.55 pos:2433    poin:2433    vel:12775  tor:94    status:0b11000110111
+id:3 t:-11.55 pos:2206    poin:2206    vel:0      tor:96    status:0b11000110111
+id:4 t:-11.55 pos:3623    poin:3623    vel:0      tor:101   status:0b11000110111
+id:5 t:-11.55 pos:0       poin:0       vel:0      tor:96    status:0b11000110111
+id:6 t:-11.55 pos:0       poin:0       vel:0      tor:103   status:0b11000110111
+id:7 t:-11.55 pos:4371    poin:4371    vel:0      tor:103   status:0b11000110111
+id:8 t:-11.55 pos:7174    poin:7174    vel:0      tor:103   status:0b11000110111
+
+id:1 t:-11.75 pos:3549    poin:3549    vel:0      tor:103   status:0b11000110111
+id:2 t:-11.75 pos:5748    poin:5748    vel:19375  tor:98    status:0b11000110111
+id:3 t:-11.75 pos:4621    poin:4621    vel:0      tor:101   status:0b11000110111
+id:4 t:-11.75 pos:7596    poin:7596    vel:0      tor:103   status:0b11000110111
+id:5 t:-11.75 pos:0       poin:0       vel:0      tor:103   status:0b11000110111
+id:6 t:-11.75 pos:0       poin:0       vel:0      tor:103   status:0b11000110111
+id:7 t:-11.75 pos:10763   poin:10763   vel:0      tor:96    status:0b11000110111
+id:8 t:-11.75 pos:17679   poin:17679   vel:0      tor:98    status:0b11000110111
+
+id:1 t:-11.95 pos:6302    poin:6302    vel:0      tor:103   status:0b11000110111
+id:2 t:-11.96 pos:10257   poin:10257   vel:24183  tor:91    status:0b11000110111
+id:3 t:-11.96 pos:7637    poin:7637    vel:0      tor:115   status:0b11000110111
+id:4 t:-11.96 pos:12565   poin:12565   vel:0      tor:101   status:0b11000110111
+id:5 t:-11.96 pos:1       poin:1       vel:0      tor:98    status:0b11000110111
+id:6 t:-11.96 pos:1       poin:1       vel:0      tor:96    status:0b11000110111
+id:7 t:-11.96 pos:18504   poin:18504   vel:0      tor:103   status:0b11000110111
+id:8 t:-11.96 pos:30482   poin:30482   vel:0      tor:94    status:0b11000110111
+
+id:1 t:-12.16 pos:9567    poin:9567    vel:0      tor:103   status:0b11000110111
+id:2 t:-12.16 pos:15596   poin:15596   vel:28651  tor:105   status:0b1000110111
+id:3 t:-12.16 pos:11115   poin:11115   vel:0      tor:94    status:0b11000110111
+id:4 t:-12.16 pos:18292   poin:18292   vel:0      tor:105   status:0b11000110111
+id:5 t:-12.16 pos:1       poin:1       vel:0      tor:101   status:0b11000110111
+id:6 t:-12.16 pos:1       poin:1       vel:0      tor:101   status:0b11000110111
+id:7 t:-12.16 pos:27172   poin:27172   vel:0      tor:101   status:0b11000110111
+id:8 t:-12.16 pos:44695   poin:44695   vel:0      tor:105   status:0b11000110111
+
+id:1 t:-12.36 pos:13259   poin:13259   vel:0      tor:105   status:0b11000110111
+id:2 t:-12.36 pos:21647   poin:21647   vel:30481  tor:87    status:0b11000110111
+id:3 t:-12.36 pos:14960   poin:14960   vel:0      tor:98    status:0b11000110111
+id:4 t:-12.36 pos:24622   poin:24622   vel:0      tor:105   status:0b11000110111
+id:5 t:-12.36 pos:1       poin:1       vel:0      tor:101   status:0b11000110111
+id:6 t:-12.36 pos:2       poin:2       vel:0      tor:98    status:0b11000110111
+id:7 t:-12.36 pos:37105   poin:37105   vel:0      tor:101   status:0b11000110111
+id:8 t:-12.36 pos:61110   poin:61110   vel:0      tor:101   status:0b11000110111
+
+id:1 t:-12.56 pos:17321   poin:17321   vel:0      tor:94    status:0b11000110111
+id:2 t:-12.56 pos:28304   poin:28304   vel:33868  tor:89    status:0b11000110111
+id:3 t:-12.56 pos:19083   poin:19083   vel:0      tor:89    status:0b11000110111
+id:4 t:-12.56 pos:31414   poin:31414   vel:0      tor:94    status:0b11000110111
+id:5 t:-12.57 pos:2       poin:2       vel:0      tor:101   status:0b11000110111
+id:6 t:-12.57 pos:3       poin:3       vel:0      tor:103   status:0b11000110111
+id:7 t:-12.57 pos:47480   poin:47480   vel:0      tor:103   status:0b11000110111
+id:8 t:-12.57 pos:78140   poin:78140   vel:0      tor:108   status:0b11000110111
+
+id:1 t:-12.77 pos:21678   poin:21678   vel:0      tor:108   status:0b11000110111
+id:2 t:-12.77 pos:35408   poin:35408   vel:34991  tor:94    status:0b11000110111
+id:3 t:-12.77 pos:23423   poin:23423   vel:0      tor:101   status:0b11000110111
+id:4 t:-12.77 pos:38555   poin:38555   vel:0      tor:103   status:0b11000110111
+id:5 t:-12.77 pos:2       poin:2       vel:0      tor:96    status:0b11000110111
+id:6 t:-12.77 pos:4       poin:4       vel:0      tor:94    status:0b11000110111
+id:7 t:-12.77 pos:58541   poin:58541   vel:0      tor:110   status:0b11000110111
+id:8 t:-12.77 pos:96421   poin:96421   vel:0      tor:96    status:0b11000110111
+
+id:1 t:-12.97 pos:26248   poin:26248   vel:0      tor:94    status:0b11000110111
+id:2 t:-12.97 pos:42837   poin:42837   vel:36447  tor:103   status:0b11000110111
+id:3 t:-12.97 pos:27928   poin:27928   vel:0      tor:103   status:0b11000110111
+id:4 t:-12.97 pos:45975   poin:45975   vel:0      tor:98    status:0b11000110111
+id:5 t:-12.97 pos:3       poin:3       vel:0      tor:94    status:0b11000110111
+id:6 t:-12.97 pos:4       poin:4       vel:0      tor:98    status:0b11000110111
+id:7 t:-12.97 pos:69801   poin:69801   vel:0      tor:96    status:0b11000110111
+id:8 t:-12.97 pos:114912  poin:114912  vel:0      tor:98    status:0b11000110111
+
+id:1 t:-13.17 pos:30939   poin:30939   vel:0      tor:108   status:0b11000110111
+id:2 t:-13.17 pos:50491   poin:50491   vel:37991  tor:91    status:0b11000110111
+id:3 t:-13.17 pos:32548   poin:32548   vel:0      tor:108   status:0b11000110111
+id:4 t:-13.17 pos:53587   poin:53587   vel:0      tor:108   status:0b11000110111
+id:5 t:-13.17 pos:3       poin:3       vel:0      tor:98    status:0b11000110111
+id:6 t:-13.17 pos:5       poin:5       vel:0      tor:103   status:0b11000110111
+id:7 t:-13.17 pos:81321   poin:81321   vel:0      tor:96    status:0b11000110111
+id:8 t:-13.17 pos:133899  poin:133899  vel:0      tor:91    status:0b11000110111
+
+id:1 t:-13.38 pos:35718   poin:35718   vel:0      tor:103   status:0b11000110111
+id:2 t:-13.38 pos:58298   poin:58298   vel:38460  tor:117   status:0b11000110111
+id:3 t:-13.38 pos:37257   poin:37257   vel:0      tor:113   status:0b11000110111
+id:4 t:-13.38 pos:61340   poin:61340   vel:0      tor:98    status:0b11000110111
+id:5 t:-13.38 pos:4       poin:4       vel:0      tor:101   status:0b11000110111
+id:6 t:-13.38 pos:6       poin:6       vel:0      tor:96    status:0b11000110111
+id:7 t:-13.38 pos:93150   poin:93150   vel:0      tor:101   status:0b11000110111
+id:8 t:-13.38 pos:153386  poin:153386  vel:0      tor:98    status:0b11000110111
+
+id:1 t:-13.58 pos:40561   poin:40561   vel:0      tor:108   status:0b1000110111
+id:2 t:-13.58 pos:66225   poin:66225   vel:38935  tor:89    status:0b11000110111
+id:3 t:-13.58 pos:42041   poin:42041   vel:0      tor:98    status:0b11000110111
+id:4 t:-13.58 pos:69213   poin:69213   vel:0      tor:96    status:0b11000110111
+id:5 t:-13.58 pos:4       poin:4       vel:0      tor:103   status:0b11000110111
+id:6 t:-13.58 pos:7       poin:7       vel:0      tor:96    status:0b11000110111
+id:7 t:-13.58 pos:104949  poin:104949  vel:0      tor:105   status:0b11000110111
+id:8 t:-13.58 pos:172799  poin:172799  vel:0      tor:103   status:0b11000110111
+
+id:1 t:-13.78 pos:45452   poin:45452   vel:0      tor:94    status:0b11000110111
+id:2 t:-13.78 pos:74221   poin:74221   vel:38940  tor:94    status:0b11000110111
+id:3 t:-13.78 pos:46870   poin:46870   vel:0      tor:94    status:0b11000110111
+id:4 t:-13.78 pos:77171   poin:77171   vel:0      tor:105   status:0b11000110111
+id:5 t:-13.78 pos:5       poin:5       vel:0      tor:101   status:0b11000110111
+id:6 t:-13.78 pos:8       poin:8       vel:0      tor:108   status:0b11000110111
+id:7 t:-13.79 pos:116937  poin:116937  vel:0      tor:98    status:0b11000110111
+id:8 t:-13.79 pos:192598  poin:192598  vel:0      tor:101   status:0b11000110111
+
+id:1 t:-13.99 pos:49479   poin:49479   vel:0      tor:0     status:0b1000011000
+id:2 t:-13.99 pos:80861   poin:80861   vel:24764  tor:0     status:0b1000011000
+id:3 t:-13.99 pos:50868   poin:50868   vel:0      tor:0     status:0b1000011000
+id:4 t:-13.99 pos:83768   poin:83768   vel:0      tor:0     status:0b1000011000
+id:5 t:-13.99 pos:5       poin:5       vel:0      tor:0     status:0b1000011000
+id:6 t:-13.99 pos:8       poin:8       vel:0      tor:0     status:0b1000011000
+id:7 t:-13.99 pos:125359  poin:125359  vel:0      tor:0     status:0b1000011000
+id:8 t:-13.99 pos:206461  poin:206461  vel:0      tor:0     status:0b1000011000
+
+
+changing command
+id:1 t:-14.19 pos:51509   poin:51509   vel:0      tor:0     status:0b1000011000
+id:2 t:-14.19 pos:84215   poin:84215   vel:9394   tor:0     status:0b1000011000
+id:3 t:-14.19 pos:52918   poin:52918   vel:0      tor:0     status:0b1000011000
+id:4 t:-14.19 pos:87145   poin:87145   vel:0      tor:0     status:0b1000011000
+id:5 t:-14.19 pos:5       poin:5       vel:0      tor:0     status:0b1000011000
+id:6 t:-14.19 pos:8       poin:8       vel:0      tor:0     status:0b1000011000
+id:7 t:-14.19 pos:126812  poin:126812  vel:0      tor:0     status:0b1000011000
+id:8 t:-14.19 pos:208853  poin:208853  vel:0      tor:0     status:0b1000011000
+
+id:1 t:-14.39 pos:51950   poin:51950   vel:0      tor:0     status:0b1000011000
+id:2 t:-14.40 pos:84952   poin:84952   vel:0      tor:0     status:0b1000011000
+id:3 t:-14.40 pos:53551   poin:53551   vel:0      tor:0     status:0b1000011000
+id:4 t:-14.40 pos:88189   poin:88189   vel:0      tor:0     status:0b1000011000
+id:5 t:-14.40 pos:5       poin:5       vel:0      tor:0     status:0b1000011000
+id:6 t:-14.40 pos:8       poin:8       vel:0      tor:0     status:0b1000011000
+id:7 t:-14.40 pos:126812  poin:126812  vel:0      tor:0     status:0b1000011000
+id:8 t:-14.40 pos:208853  poin:208853  vel:0      tor:0     status:0b1000011000
+
+id:1 t:-14.60 pos:51950   poin:51950   vel:0      tor:0     status:0b1000011000
+id:2 t:-14.60 pos:84952   poin:84952   vel:0      tor:0     status:0b1000011000
+id:3 t:-14.60 pos:53557   poin:53557   vel:0      tor:0     status:0b1000011000
+id:4 t:-14.60 pos:88198   poin:88198   vel:0      tor:0     status:0b1000011000
+id:5 t:-14.60 pos:5       poin:5       vel:0      tor:0     status:0b1000011000
+id:6 t:-14.60 pos:8       poin:8       vel:0      tor:0     status:0b1000011000
+id:7 t:-14.60 pos:126812  poin:126812  vel:0      tor:0     status:0b1000011000
+id:8 t:-14.60 pos:208853  poin:208853  vel:0      tor:0     status:0b1000011000
+
+id:1 t:-14.80 pos:51950   poin:51950   vel:0      tor:0     status:0b1000011000
+id:2 t:-14.80 pos:84952   poin:84952   vel:0      tor:0     status:0b1000011000
+id:3 t:-14.80 pos:53557   poin:53557   vel:0      tor:0     status:0b1000011000
+id:4 t:-14.80 pos:88198   poin:88198   vel:0      tor:0     status:0b1000011000
+id:5 t:-14.80 pos:5       poin:5       vel:0      tor:0     status:0b1000011000
+id:6 t:-14.80 pos:8       poin:8       vel:0      tor:0     status:0b1000011000
+id:7 t:-14.80 pos:126812  poin:126812  vel:0      tor:0     status:0b1000011000
+id:8 t:-14.80 pos:208853  poin:208853  vel:0      tor:0     status:0b1000011000
+
+id:1 t:-15.00 pos:51950   poin:51950   vel:0      tor:0     status:0b1000011000
+id:2 t:-15.01 pos:84952   poin:84952   vel:0      tor:0     status:0b1000011000
+id:3 t:-15.01 pos:53557   poin:53557   vel:0      tor:0     status:0b1000011000
+id:4 t:-15.01 pos:88198   poin:88198   vel:0      tor:0     status:0b1000011000
+id:5 t:-15.01 pos:5       poin:5       vel:0      tor:0     status:0b1000011000
+id:6 t:-15.01 pos:8       poin:8       vel:0      tor:0     status:0b1000011000
+id:7 t:-15.01 pos:126812  poin:126812  vel:0      tor:0     status:0b1000011000
+id:8 t:-15.01 pos:208853  poin:208853  vel:0      tor:0     status:0b1000011000
+
+id:1 t:-15.21 pos:51950   poin:51950   vel:0      tor:0     status:0b1000011000
+id:2 t:-15.21 pos:84952   poin:84952   vel:0      tor:0     status:0b1000011000
+id:3 t:-15.21 pos:53557   poin:53557   vel:0      tor:0     status:0b1000011000
+id:4 t:-15.21 pos:88198   poin:88198   vel:0      tor:0     status:0b1000011000
+id:5 t:-15.21 pos:5       poin:5       vel:0      tor:0     status:0b1000011000
+id:6 t:-15.21 pos:8       poin:8       vel:0      tor:0     status:0b1000011000
+id:7 t:-15.21 pos:126812  poin:126812  vel:0      tor:0     status:0b1000011000
+id:8 t:-15.21 pos:208853  poin:208853  vel:0      tor:0     status:0b1000011000
+
+id:1 t:-15.41 pos:51950   poin:51950   vel:0      tor:0     status:0b1000011000
+id:2 t:-15.41 pos:84952   poin:84952   vel:0      tor:0     status:0b1000011000
+id:3 t:-15.41 pos:53557   poin:53557   vel:0      tor:0     status:0b1000011000
+id:4 t:-15.41 pos:88198   poin:88198   vel:0      tor:0     status:0b1000011000
+id:5 t:-15.41 pos:5       poin:5       vel:0      tor:0     status:0b1000011000
+id:6 t:-15.41 pos:8       poin:8       vel:0      tor:0     status:0b1000011000
+id:7 t:-15.41 pos:126812  poin:126812  vel:0      tor:0     status:0b1000011000
+id:8 t:-15.41 pos:208853  poin:208853  vel:0      tor:0     status:0b1000011000
+
+id:1 t:-15.61 pos:51950   poin:51950   vel:0      tor:0     status:0b1000011000
+id:2 t:-15.62 pos:84952   poin:84952   vel:0      tor:0     status:0b1000011000
+id:3 t:-15.62 pos:53557   poin:53557   vel:0      tor:0     status:0b1000011000
+id:4 t:-15.62 pos:88198   poin:88198   vel:0      tor:0     status:0b1000011000
+id:5 t:-15.62 pos:5       poin:5       vel:0      tor:0     status:0b1000011000
+id:6 t:-15.62 pos:8       poin:8       vel:0      tor:0     status:0b1000011000
+id:7 t:-15.62 pos:126812  poin:126812  vel:0      tor:0     status:0b1000011000
+id:8 t:-15.62 pos:208853  poin:208853  vel:0      tor:0     status:0b1000011000
+
+id:1 t:-15.82 pos:51950   poin:51950   vel:0      tor:0     status:0b1000011000
+id:2 t:-15.82 pos:84952   poin:84952   vel:0      tor:0     status:0b1000011000
+id:3 t:-15.82 pos:53557   poin:53557   vel:0      tor:0     status:0b1000011000
+id:4 t:-15.82 pos:88198   poin:88198   vel:0      tor:0     status:0b1000011000
+id:5 t:-15.82 pos:5       poin:5       vel:0      tor:0     status:0b1000011000
+id:6 t:-15.82 pos:8       poin:8       vel:0      tor:0     status:0b1000011000
+id:7 t:-15.82 pos:126812  poin:126812  vel:0      tor:0     status:0b1000011000
+id:8 t:-15.82 pos:208853  poin:208853  vel:0      tor:0     status:0b1000011000
+
+id:1 t:-16.02 pos:51950   poin:51950   vel:0      tor:0     status:0b1000011000
+id:2 t:-16.02 pos:84952   poin:84952   vel:0      tor:0     status:0b1000011000
+id:3 t:-16.02 pos:53557   poin:53557   vel:0      tor:0     status:0b1000011000
+id:4 t:-16.02 pos:88198   poin:88198   vel:0      tor:0     status:0b1000011000
+id:5 t:-16.02 pos:5       poin:5       vel:0      tor:0     status:0b1000011000
+id:6 t:-16.02 pos:8       poin:8       vel:0      tor:0     status:0b1000011000
+id:7 t:-16.02 pos:126812  poin:126812  vel:0      tor:0     status:0b1000011000
+id:8 t:-16.02 pos:208853  poin:208853  vel:0      tor:0     status:0b1000011000
+
+id:1 t:-16.22 pos:51950   poin:51950   vel:0      tor:0     status:0b1000011000
+id:2 t:-16.22 pos:84952   poin:84952   vel:0      tor:0     status:0b1000011000
+id:3 t:-16.22 pos:53557   poin:53557   vel:0      tor:0     status:0b1000011000
+id:4 t:-16.22 pos:88198   poin:88198   vel:0      tor:0     status:0b1000011000
+id:5 t:-16.22 pos:5       poin:5       vel:0      tor:0     status:0b1000011000
+id:6 t:-16.23 pos:8       poin:8       vel:0      tor:0     status:0b1000011000
+id:7 t:-16.23 pos:126812  poin:126812  vel:0      tor:0     status:0b1000011000
+id:8 t:-16.23 pos:208853  poin:208853  vel:0      tor:0     status:0b1000011000
+
+id:1 t:-16.43 pos:51950   poin:51950   vel:0      tor:0     status:0b1000011000
+id:2 t:-16.43 pos:84952   poin:84952   vel:0      tor:0     status:0b1000011000
+id:3 t:-16.43 pos:53557   poin:53557   vel:0      tor:0     status:0b1000011000
+id:4 t:-16.43 pos:88198   poin:88198   vel:0      tor:0     status:0b1000011000
+id:5 t:-16.43 pos:5       poin:5       vel:0      tor:0     status:0b1000011000
+id:6 t:-16.43 pos:8       poin:8       vel:0      tor:0     status:0b1000011000
+id:7 t:-16.43 pos:126812  poin:126812  vel:0      tor:0     status:0b1000011000
+id:8 t:-16.43 pos:208853  poin:208853  vel:0      tor:0     status:0b1000011000
+
+id:1 t:-16.63 pos:51950   poin:51950   vel:0      tor:0     status:0b1000011000
+id:2 t:-16.63 pos:84952   poin:84952   vel:0      tor:0     status:0b1000011000
+id:3 t:-16.63 pos:53557   poin:53557   vel:0      tor:0     status:0b1000011000
+id:4 t:-16.63 pos:88198   poin:88198   vel:0      tor:0     status:0b1000011000
+id:5 t:-16.63 pos:5       poin:5       vel:0      tor:0     status:0b1000011000
+id:6 t:-16.63 pos:8       poin:8       vel:0      tor:0     status:0b1000011000
+id:7 t:-16.63 pos:126812  poin:126812  vel:0      tor:0     status:0b1000011000
+id:8 t:-16.63 pos:208853  poin:208853  vel:0      tor:0     status:0b1000011000
+
+id:1 t:-16.83 pos:51950   poin:51950   vel:0      tor:0     status:0b1000011000
+id:2 t:-16.83 pos:84952   poin:84952   vel:0      tor:0     status:0b1000011000
+id:3 t:-16.83 pos:53557   poin:53557   vel:0      tor:0     status:0b1000011000
+id:4 t:-16.83 pos:88198   poin:88198   vel:0      tor:0     status:0b1000011000
+id:5 t:-16.83 pos:5       poin:5       vel:0      tor:0     status:0b1000011000
+id:6 t:-16.83 pos:8       poin:8       vel:0      tor:0     status:0b1000011000
+id:7 t:-16.83 pos:126812  poin:126812  vel:0      tor:0     status:0b1000011000
+id:8 t:-16.83 pos:208853  poin:208853  vel:0      tor:0     status:0b1000011000
+
+id:1 t:-17.04 pos:51950   poin:51950   vel:0      tor:0     status:0b1000011000
+id:2 t:-17.04 pos:84952   poin:84952   vel:0      tor:0     status:0b1000011000
+id:3 t:-17.04 pos:53557   poin:53557   vel:0      tor:0     status:0b1000011000
+id:4 t:-17.04 pos:88198   poin:88198   vel:0      tor:0     status:0b1000011000
+id:5 t:-17.04 pos:5       poin:5       vel:0      tor:0     status:0b1000011000
+id:6 t:-17.04 pos:8       poin:8       vel:0      tor:0     status:0b1000011000
+id:7 t:-17.04 pos:126812  poin:126812  vel:0      tor:0     status:0b1000011000
+id:8 t:-17.04 pos:208853  poin:208853  vel:0      tor:0     status:0b1000011000
+
+
+changing command
+id:1 t:-17.24 pos:51950   poin:51950   vel:0      tor:0     status:0b1000011000
+id:2 t:-17.24 pos:84952   poin:84952   vel:0      tor:0     status:0b1000011000
+id:3 t:-17.24 pos:53557   poin:53557   vel:0      tor:0     status:0b1000011000
+id:4 t:-17.24 pos:88198   poin:88198   vel:0      tor:0     status:0b1000011000
+id:5 t:-17.24 pos:5       poin:5       vel:0      tor:0     status:0b1000011000
+id:6 t:-17.24 pos:8       poin:8       vel:0      tor:0     status:0b1000011000
+id:7 t:-17.24 pos:126812  poin:126812  vel:0      tor:0     status:0b1000011000
+id:8 t:-17.24 pos:208853  poin:208853  vel:0      tor:0     status:0b1000011000
+
+id:1 t:-17.44 pos:51950   poin:51950   vel:0      tor:0     status:0b1000011000
+id:2 t:-17.44 pos:84952   poin:84952   vel:0      tor:0     status:0b1000011000
+id:3 t:-17.44 pos:53557   poin:53557   vel:0      tor:0     status:0b1000011000
+id:4 t:-17.44 pos:88198   poin:88198   vel:0      tor:0     status:0b1000011000
+id:5 t:-17.45 pos:5       poin:5       vel:0      tor:0     status:0b1000011000
+id:6 t:-17.45 pos:8       poin:8       vel:0      tor:0     status:0b1000011000
+id:7 t:-17.45 pos:126812  poin:126812  vel:0      tor:0     status:0b1000011000
+id:8 t:-17.45 pos:208853  poin:208853  vel:0      tor:0     status:0b1000011000
+
+id:1 t:-17.65 pos:51950   poin:51950   vel:0      tor:0     status:0b1000011000
+id:2 t:-17.65 pos:84952   poin:84952   vel:0      tor:0     status:0b1000011000
+id:3 t:-17.65 pos:53557   poin:53557   vel:0      tor:0     status:0b1000011000
+id:4 t:-17.65 pos:88198   poin:88198   vel:0      tor:0     status:0b1000011000
+id:5 t:-17.65 pos:5       poin:5       vel:0      tor:0     status:0b1000011000
+id:6 t:-17.65 pos:8       poin:8       vel:0      tor:0     status:0b1000011000
+id:7 t:-17.65 pos:126812  poin:126812  vel:0      tor:0     status:0b1000011000
+id:8 t:-17.65 pos:208853  poin:208853  vel:0      tor:0     status:0b1000011000
+
+id:1 t:-17.85 pos:51950   poin:51950   vel:0      tor:0     status:0b1000011000
+id:2 t:-17.85 pos:84952   poin:84952   vel:0      tor:0     status:0b1000011000
+id:3 t:-17.85 pos:53557   poin:53557   vel:0      tor:0     status:0b1000011000
+id:4 t:-17.85 pos:88198   poin:88198   vel:0      tor:0     status:0b1000011000
+id:5 t:-17.85 pos:5       poin:5       vel:0      tor:0     status:0b1000011000
+id:6 t:-17.85 pos:8       poin:8       vel:0      tor:0     status:0b1000011000
+id:7 t:-17.85 pos:126812  poin:126812  vel:0      tor:0     status:0b1000011000
+id:8 t:-17.85 pos:208853  poin:208853  vel:0      tor:0     status:0b1000011000
+
+id:1 t:-18.05 pos:51950   poin:51950   vel:0      tor:0     status:0b1000011000
+id:2 t:-18.05 pos:84952   poin:84952   vel:0      tor:0     status:0b1000011000
+id:3 t:-18.05 pos:53557   poin:53557   vel:0      tor:0     status:0b1000011000
+id:4 t:-18.05 pos:88198   poin:88198   vel:0      tor:0     status:0b1000011000
+id:5 t:-18.05 pos:5       poin:5       vel:0      tor:0     status:0b1000011000
+id:6 t:-18.05 pos:8       poin:8       vel:0      tor:0     status:0b1000011000
+id:7 t:-18.06 pos:126812  poin:126812  vel:0      tor:0     status:0b1000011000
+id:8 t:-18.06 pos:208853  poin:208853  vel:0      tor:0     status:0b1000011000
+
+id:1 t:-18.26 pos:51950   poin:51950   vel:0      tor:0     status:0b1000011000
+id:2 t:-18.26 pos:84952   poin:84952   vel:0      tor:0     status:0b1000011000
+id:3 t:-18.26 pos:53557   poin:53557   vel:0      tor:0     status:0b1000011000
+id:4 t:-18.26 pos:88198   poin:88198   vel:0      tor:0     status:0b1000011000
+id:5 t:-18.26 pos:5       poin:5       vel:0      tor:0     status:0b1000011000
+id:6 t:-18.26 pos:8       poin:8       vel:0      tor:0     status:0b1000011000
+id:7 t:-18.26 pos:126812  poin:126812  vel:0      tor:0     status:0b1000011000
+id:8 t:-18.26 pos:208853  poin:208853  vel:0      tor:0     status:0b1000011000
+
+id:1 t:-18.46 pos:51950   poin:51950   vel:0      tor:0     status:0b1000011000
+id:2 t:-18.46 pos:84952   poin:84952   vel:0      tor:0     status:0b1000011000
+id:3 t:-18.46 pos:53557   poin:53557   vel:0      tor:0     status:0b1000011000
+id:4 t:-18.46 pos:88198   poin:88198   vel:0      tor:0     status:0b1000011000
+id:5 t:-18.46 pos:5       poin:5       vel:0      tor:0     status:0b1000011000
+id:6 t:-18.46 pos:8       poin:8       vel:0      tor:0     status:0b1000011000
+id:7 t:-18.46 pos:126812  poin:126812  vel:0      tor:0     status:0b1000011000
+id:8 t:-18.46 pos:208853  poin:208853  vel:0      tor:0     status:0b1000011000
+
+id:1 t:-18.66 pos:51950   poin:51950   vel:0      tor:0     status:0b1000011000
+id:2 t:-18.66 pos:84952   poin:84952   vel:0      tor:0     status:0b1000011000
+id:3 t:-18.66 pos:53557   poin:53557   vel:0      tor:0     status:0b1000011000
+id:4 t:-18.66 pos:88198   poin:88198   vel:0      tor:0     status:0b1000011000
+id:5 t:-18.66 pos:5       poin:5       vel:0      tor:0     status:0b1000011000
+id:6 t:-18.66 pos:8       poin:8       vel:0      tor:0     status:0b1000011000
+id:7 t:-18.66 pos:126812  poin:126812  vel:0      tor:0     status:0b1000011000
+id:8 t:-18.66 pos:208853  poin:208853  vel:0      tor:0     status:0b1000011000
+
+id:1 t:-18.86 pos:51950   poin:51950   vel:0      tor:0     status:0b1000011000
+id:2 t:-18.86 pos:84952   poin:84952   vel:0      tor:0     status:0b1000011000
+id:3 t:-18.86 pos:53557   poin:53557   vel:0      tor:0     status:0b1000011000
+id:4 t:-18.87 pos:88198   poin:88198   vel:0      tor:0     status:0b1000011000
+id:5 t:-18.87 pos:5       poin:5       vel:0      tor:0     status:0b1000011000
+id:6 t:-18.87 pos:8       poin:8       vel:0      tor:0     status:0b1000011000
+id:7 t:-18.87 pos:126812  poin:126812  vel:0      tor:0     status:0b1000011000
+id:8 t:-18.87 pos:208853  poin:208853  vel:0      tor:0     status:0b1000011000
+
+id:1 t:-19.07 pos:51950   poin:51950   vel:0      tor:0     status:0b1000011000
+id:2 t:-19.07 pos:84952   poin:84952   vel:0      tor:0     status:0b1000011000
+id:3 t:-19.07 pos:53557   poin:53557   vel:0      tor:0     status:0b1000011000
+id:4 t:-19.07 pos:88198   poin:88198   vel:0      tor:0     status:0b1000011000
+id:5 t:-19.07 pos:5       poin:5       vel:0      tor:0     status:0b1000011000
+id:6 t:-19.07 pos:8       poin:8       vel:0      tor:0     status:0b1000011000
+id:7 t:-19.07 pos:126812  poin:126812  vel:0      tor:0     status:0b1000011000
+id:8 t:-19.07 pos:208853  poin:208853  vel:0      tor:0     status:0b1000011000
+
+id:1 t:-19.27 pos:51950   poin:51950   vel:0      tor:0     status:0b1000011000
+id:2 t:-19.27 pos:84952   poin:84952   vel:0      tor:0     status:0b1000011000
+id:3 t:-19.27 pos:53557   poin:53557   vel:0      tor:0     status:0b1000011000
+id:4 t:-19.27 pos:88198   poin:88198   vel:0      tor:0     status:0b1000011000
+id:5 t:-19.27 pos:5       poin:5       vel:0      tor:0     status:0b1000011000
+id:6 t:-19.27 pos:8       poin:8       vel:0      tor:0     status:0b1000011000
+id:7 t:-19.27 pos:126812  poin:126812  vel:0      tor:0     status:0b1000011000
+id:8 t:-19.27 pos:208853  poin:208853  vel:0      tor:0     status:0b1000011000
+
+id:1 t:-19.47 pos:51950   poin:51950   vel:0      tor:0     status:0b1000011000
+id:2 t:-19.47 pos:84952   poin:84952   vel:0      tor:0     status:0b1000011000
+id:3 t:-19.47 pos:53557   poin:53557   vel:0      tor:0     status:0b1000011000
+id:4 t:-19.47 pos:88198   poin:88198   vel:0      tor:0     status:0b1000011000
+id:5 t:-19.47 pos:5       poin:5       vel:0      tor:0     status:0b1000011000
+id:6 t:-19.47 pos:8       poin:8       vel:0      tor:0     status:0b1000011000
+id:7 t:-19.48 pos:126812  poin:126812  vel:0      tor:0     status:0b1000011000
+id:8 t:-19.48 pos:208853  poin:208853  vel:0      tor:0     status:0b1000011000
+
+id:1 t:-19.68 pos:51950   poin:51950   vel:0      tor:0     status:0b1000011000
+id:2 t:-19.68 pos:84952   poin:84952   vel:0      tor:0     status:0b1000011000
+id:3 t:-19.68 pos:53557   poin:53557   vel:0      tor:0     status:0b1000011000
+id:4 t:-19.68 pos:88198   poin:88198   vel:0      tor:0     status:0b1000011000
+id:5 t:-19.68 pos:5       poin:5       vel:0      tor:0     status:0b1000011000
+id:6 t:-19.68 pos:8       poin:8       vel:0      tor:0     status:0b1000011000
+id:7 t:-19.68 pos:126812  poin:126812  vel:0      tor:0     status:0b1000011000
+id:8 t:-19.68 pos:208853  poin:208853  vel:0      tor:0     status:0b1000011000
+
+id:1 t:-19.88 pos:51950   poin:51950   vel:0      tor:0     status:0b1000011000
+id:2 t:-19.88 pos:84952   poin:84952   vel:0      tor:0     status:0b1000011000
+id:3 t:-19.88 pos:53557   poin:53557   vel:0      tor:0     status:0b1000011000
+id:4 t:-19.88 pos:88198   poin:88198   vel:0      tor:0     status:0b1000011000
+id:5 t:-19.88 pos:5       poin:5       vel:0      tor:0     status:0b1000011000
+id:6 t:-19.88 pos:8       poin:8       vel:0      tor:0     status:0b1000011000
+id:7 t:-19.88 pos:126812  poin:126812  vel:0      tor:0     status:0b1000011000
+id:8 t:-19.88 pos:208853  poin:208853  vel:0      tor:0     status:0b1000011000
+
+id:1 t:-20.08 pos:51950   poin:51950   vel:0      tor:0     status:0b1000011000
+id:2 t:-20.08 pos:84952   poin:84952   vel:0      tor:0     status:0b1000011000
+id:3 t:-20.08 pos:53557   poin:53557   vel:0      tor:0     status:0b1000011000
+id:4 t:-20.08 pos:88198   poin:88198   vel:0      tor:0     status:0b1000011000
+id:5 t:-20.08 pos:5       poin:5       vel:0      tor:0     status:0b1000011000
+id:6 t:-20.08 pos:8       poin:8       vel:0      tor:0     status:0b1000011000
+id:7 t:-20.08 pos:126812  poin:126812  vel:0      tor:0     status:0b1000011000
+id:8 t:-20.09 pos:208853  poin:208853  vel:0      tor:0     status:0b1000011000
+
+
+changing command
+id:1 t:-20.29 pos:51950   poin:51950   vel:0      tor:0     status:0b1000011000
+id:2 t:-20.29 pos:84952   poin:84952   vel:0      tor:0     status:0b1000011000
+id:3 t:-20.29 pos:53557   poin:53557   vel:0      tor:0     status:0b1000011000
+id:4 t:-20.29 pos:88198   poin:88198   vel:0      tor:0     status:0b1000011000
+id:5 t:-20.29 pos:5       poin:5       vel:0      tor:0     status:0b1000011000
+id:6 t:-20.29 pos:8       poin:8       vel:0      tor:0     status:0b1000011000
+id:7 t:-20.29 pos:126812  poin:126812  vel:0      tor:0     status:0b1000011000
+id:8 t:-20.29 pos:208853  poin:208853  vel:0      tor:0     status:0b1000011000
+
+id:1 t:-20.49 pos:51950   poin:51950   vel:0      tor:0     status:0b1000011000
+id:2 t:-20.49 pos:84952   poin:84952   vel:0      tor:0     status:0b1000011000
+id:3 t:-20.49 pos:53557   poin:53557   vel:0      tor:0     status:0b1000011000
+id:4 t:-20.49 pos:88198   poin:88198   vel:0      tor:0     status:0b1000011000
+id:5 t:-20.49 pos:5       poin:5       vel:0      tor:0     status:0b1000011000
+id:6 t:-20.49 pos:8       poin:8       vel:0      tor:0     status:0b1000011000
+id:7 t:-20.49 pos:126812  poin:126812  vel:0      tor:0     status:0b1000011000
+id:8 t:-20.49 pos:208853  poin:208853  vel:0      tor:0     status:0b1000011000
+
+id:1 t:-20.69 pos:51950   poin:51950   vel:0      tor:0     status:0b1000011000
+id:2 t:-20.69 pos:84952   poin:84952   vel:0      tor:0     status:0b1000011000
+id:3 t:-20.69 pos:53557   poin:53557   vel:0      tor:0     status:0b1000011000
+id:4 t:-20.69 pos:88198   poin:88198   vel:0      tor:0     status:0b1000011000
+id:5 t:-20.69 pos:5       poin:5       vel:0      tor:0     status:0b1000011000
+id:6 t:-20.70 pos:8       poin:8       vel:0      tor:0     status:0b1000011000
+id:7 t:-20.70 pos:126812  poin:126812  vel:0      tor:0     status:0b1000011000
+id:8 t:-20.70 pos:208853  poin:208853  vel:0      tor:0     status:0b1000011000
+
+id:1 t:-20.90 pos:51950   poin:51950   vel:0      tor:0     status:0b1000011000
+id:2 t:-20.90 pos:84952   poin:84952   vel:0      tor:0     status:0b1000011000
+id:3 t:-20.90 pos:53557   poin:53557   vel:0      tor:0     status:0b1000011000
+id:4 t:-20.90 pos:88198   poin:88198   vel:0      tor:0     status:0b1000011000
+id:5 t:-20.90 pos:5       poin:5       vel:0      tor:0     status:0b1000011000
+id:6 t:-20.90 pos:8       poin:8       vel:0      tor:0     status:0b1000011000
+id:7 t:-20.90 pos:126812  poin:126812  vel:0      tor:0     status:0b1000011000
+id:8 t:-20.90 pos:208853  poin:208853  vel:0      tor:0     status:0b1000011000
+
+id:1 t:-21.10 pos:51950   poin:51950   vel:0      tor:0     status:0b1000011000
+id:2 t:-21.10 pos:84952   poin:84952   vel:0      tor:0     status:0b1000011000
+id:3 t:-21.10 pos:53557   poin:53557   vel:0      tor:0     status:0b1000011000
+id:4 t:-21.10 pos:88198   poin:88198   vel:0      tor:0     status:0b1000011000
+id:5 t:-21.10 pos:5       poin:5       vel:0      tor:0     status:0b1000011000
+id:6 t:-21.10 pos:8       poin:8       vel:0      tor:0     status:0b1000011000
+id:7 t:-21.10 pos:126812  poin:126812  vel:0      tor:0     status:0b1000011000
+id:8 t:-21.10 pos:208853  poin:208853  vel:0      tor:0     status:0b1000011000
+
+id:1 t:-21.30 pos:51950   poin:51950   vel:0      tor:0     status:0b1000011000
+id:2 t:-21.30 pos:84952   poin:84952   vel:0      tor:0     status:0b1000011000
+id:3 t:-21.30 pos:53557   poin:53557   vel:0      tor:0     status:0b1000011000
+id:4 t:-21.30 pos:88198   poin:88198   vel:0      tor:0     status:0b1000011000
+id:5 t:-21.30 pos:5       poin:5       vel:0      tor:0     status:0b1000011000
+id:6 t:-21.30 pos:8       poin:8       vel:0      tor:0     status:0b1000011000
+id:7 t:-21.30 pos:126812  poin:126812  vel:0      tor:0     status:0b1000011000
+id:8 t:-21.30 pos:208853  poin:208853  vel:0      tor:0     status:0b1000011000
+
+id:1 t:-21.51 pos:51950   poin:51950   vel:0      tor:0     status:0b1000011000
+id:2 t:-21.51 pos:84952   poin:84952   vel:0      tor:0     status:0b1000011000
+id:3 t:-21.51 pos:53557   poin:53557   vel:0      tor:0     status:0b1000011000
+id:4 t:-21.51 pos:88198   poin:88198   vel:0      tor:0     status:0b1000011000
+id:5 t:-21.51 pos:5       poin:5       vel:0      tor:0     status:0b1000011000
+id:6 t:-21.51 pos:8       poin:8       vel:0      tor:0     status:0b1000011000
+id:7 t:-21.51 pos:126812  poin:126812  vel:0      tor:0     status:0b1000011000
+id:8 t:-21.51 pos:208853  poin:208853  vel:0      tor:0     status:0b1000011000
+
+id:1 t:-21.71 pos:51950   poin:51950   vel:0      tor:0     status:0b1000011000
+id:2 t:-21.71 pos:84952   poin:84952   vel:0      tor:0     status:0b1000011000
+id:3 t:-21.71 pos:53557   poin:53557   vel:0      tor:0     status:0b1000011000
+id:4 t:-21.71 pos:88198   poin:88198   vel:0      tor:0     status:0b1000011000
+id:5 t:-21.71 pos:5       poin:5       vel:0      tor:0     status:0b1000011000
+id:6 t:-21.71 pos:8       poin:8       vel:0      tor:0     status:0b1000011000
+id:7 t:-21.71 pos:126812  poin:126812  vel:0      tor:0     status:0b1000011000
+id:8 t:-21.71 pos:208853  poin:208853  vel:0      tor:0     status:0b1000011000
+
+id:1 t:-21.91 pos:51950   poin:51950   vel:0      tor:0     status:0b1000011000
+id:2 t:-21.91 pos:84952   poin:84952   vel:0      tor:0     status:0b1000011000
+id:3 t:-21.91 pos:53557   poin:53557   vel:0      tor:0     status:0b1000011000
+id:4 t:-21.91 pos:88198   poin:88198   vel:0      tor:0     status:0b1000011000
+id:5 t:-21.91 pos:5       poin:5       vel:0      tor:0     status:0b1000011000
+id:6 t:-21.91 pos:8       poin:8       vel:0      tor:0     status:0b1000011000
+id:7 t:-21.91 pos:126812  poin:126812  vel:0      tor:0     status:0b1000011000
+id:8 t:-21.91 pos:208853  poin:208853  vel:0      tor:0     status:0b1000011000
+
+id:1 t:-22.12 pos:51950   poin:51950   vel:0      tor:0     status:0b1000011000
+id:2 t:-22.12 pos:84952   poin:84952   vel:0      tor:0     status:0b1000011000
+id:3 t:-22.12 pos:53557   poin:53557   vel:0      tor:0     status:0b1000011000
+id:4 t:-22.12 pos:88198   poin:88198   vel:0      tor:0     status:0b1000011000
+id:5 t:-22.12 pos:5       poin:5       vel:0      tor:0     status:0b1000011000
+id:6 t:-22.12 pos:8       poin:8       vel:0      tor:0     status:0b1000011000
+id:7 t:-22.12 pos:126812  poin:126812  vel:0      tor:0     status:0b1000011000
+id:8 t:-22.12 pos:208853  poin:208853  vel:0      tor:0     status:0b1000011000
+
+id:1 t:-22.32 pos:51950   poin:51950   vel:0      tor:0     status:0b1000011000
+id:2 t:-22.32 pos:84952   poin:84952   vel:0      tor:0     status:0b1000011000
+id:3 t:-22.32 pos:53557   poin:53557   vel:0      tor:0     status:0b1000011000
+id:4 t:-22.32 pos:88198   poin:88198   vel:0      tor:0     status:0b1000011000
+id:5 t:-22.32 pos:5       poin:5       vel:0      tor:0     status:0b1000011000
+id:6 t:-22.32 pos:8       poin:8       vel:0      tor:0     status:0b1000011000
+id:7 t:-22.32 pos:126812  poin:126812  vel:0      tor:0     status:0b1000011000
+id:8 t:-22.32 pos:208853  poin:208853  vel:0      tor:0     status:0b1000011000
+
+id:1 t:-22.52 pos:51950   poin:51950   vel:0      tor:0     status:0b1000011000
+id:2 t:-22.52 pos:84952   poin:84952   vel:0      tor:0     status:0b1000011000
+id:3 t:-22.52 pos:53557   poin:53557   vel:0      tor:0     status:0b1000011000
+id:4 t:-22.52 pos:88198   poin:88198   vel:0      tor:0     status:0b1000011000
+id:5 t:-22.52 pos:5       poin:5       vel:0      tor:0     status:0b1000011000
+id:6 t:-22.52 pos:8       poin:8       vel:0      tor:0     status:0b1000011000
+id:7 t:-22.52 pos:126812  poin:126812  vel:0      tor:0     status:0b1000011000
+id:8 t:-22.52 pos:208853  poin:208853  vel:0      tor:0     status:0b1000011000
+
+id:1 t:-22.72 pos:51950   poin:51950   vel:0      tor:0     status:0b1000011000
+id:2 t:-22.72 pos:84952   poin:84952   vel:0      tor:0     status:0b1000011000
+id:3 t:-22.72 pos:53557   poin:53557   vel:0      tor:0     status:0b1000011000
+id:4 t:-22.73 pos:88198   poin:88198   vel:0      tor:0     status:0b1000011000
+id:5 t:-22.73 pos:5       poin:5       vel:0      tor:0     status:0b1000011000
+id:6 t:-22.73 pos:8       poin:8       vel:0      tor:0     status:0b1000011000
+id:7 t:-22.73 pos:126812  poin:126812  vel:0      tor:0     status:0b1000011000
+id:8 t:-22.73 pos:208853  poin:208853  vel:0      tor:0     status:0b1000011000
+
+id:1 t:-22.93 pos:51950   poin:51950   vel:0      tor:0     status:0b1000011000
+id:2 t:-22.93 pos:84952   poin:84952   vel:0      tor:0     status:0b1000011000
+id:3 t:-22.93 pos:53557   poin:53557   vel:0      tor:0     status:0b1000011000
+id:4 t:-22.93 pos:88198   poin:88198   vel:0      tor:0     status:0b1000011000
+id:5 t:-22.93 pos:5       poin:5       vel:0      tor:0     status:0b1000011000
+id:6 t:-22.93 pos:8       poin:8       vel:0      tor:0     status:0b1000011000
+id:7 t:-22.93 pos:126812  poin:126812  vel:0      tor:0     status:0b1000011000
+id:8 t:-22.93 pos:208853  poin:208853  vel:0      tor:0     status:0b1000011000
+
+id:1 t:-23.13 pos:51950   poin:51950   vel:0      tor:0     status:0b1000011000
+id:2 t:-23.13 pos:84952   poin:84952   vel:0      tor:0     status:0b1000011000
+id:3 t:-23.13 pos:53557   poin:53557   vel:0      tor:0     status:0b1000011000
+id:4 t:-23.13 pos:88198   poin:88198   vel:0      tor:0     status:0b1000011000
+id:5 t:-23.13 pos:5       poin:5       vel:0      tor:0     status:0b1000011000
+id:6 t:-23.13 pos:8       poin:8       vel:0      tor:0     status:0b1000011000
+id:7 t:-23.13 pos:126812  poin:126812  vel:0      tor:0     status:0b1000011000
+id:8 t:-23.13 pos:208853  poin:208853  vel:0      tor:0     status:0b1000011000
+
+
+[SWITCH ON or DISABLE OPERATION] COMMAND: 0b111
+node_id: 1
+statusword: 0b1000011000
+controlword: 0b111
+
+SHUTDOWN COMMAND: 0b110
+node_id: 1
+statusword: 0b1010011000
+controlword: 0b110
+
+[SWITCH ON or DISABLE OPERATION] COMMAND: 0b111
+node_id: 2
+statusword: 0b1010011000
+controlword: 0b111
+
+SHUTDOWN COMMAND: 0b110
+node_id: 2
+statusword: 0b1010011000
+controlword: 0b110
+
+[SWITCH ON or DISABLE OPERATION] COMMAND: 0b111
+node_id: 3
+statusword: 0b1010011000
+controlword: 0b111
+
+SHUTDOWN COMMAND: 0b110
+node_id: 3
+statusword: 0b1010011000
+controlword: 0b110
+
+[SWITCH ON or DISABLE OPERATION] COMMAND: 0b111
+node_id: 4
+statusword: 0b1010011000
+controlword: 0b111
+
+SHUTDOWN COMMAND: 0b110
+node_id: 4
+statusword: 0b1010011000
+controlword: 0b110
+
+[SWITCH ON or DISABLE OPERATION] COMMAND: 0b111
+node_id: 5
+statusword: 0b1010011000
+controlword: 0b111
+
+SHUTDOWN COMMAND: 0b110
+node_id: 5
+statusword: 0b1010011000
+controlword: 0b110
+
+[SWITCH ON or DISABLE OPERATION] COMMAND: 0b111
+node_id: 6
+statusword: 0b1010011000
+controlword: 0b111
+
+SHUTDOWN COMMAND: 0b110
+node_id: 6
+statusword: 0b1010011000
+controlword: 0b110
+
+[SWITCH ON or DISABLE OPERATION] COMMAND: 0b111
+node_id: 7
+statusword: 0b1010011000
+controlword: 0b111
+
+SHUTDOWN COMMAND: 0b110
+node_id: 7
+statusword: 0b1010011000
+controlword: 0b110
+
+[SWITCH ON or DISABLE OPERATION] COMMAND: 0b111
+node_id: 8
+statusword: 0b1010011000
+controlword: 0b111
+
+SHUTDOWN COMMAND: 0b110
+node_id: 8
+statusword: 0b1010011000
+controlword: 0b110
+
+state command: PRE-OPERATIONAL
+master state: PRE-OPERATIONAL
+node 1 state: PRE-OPERATIONAL
+node 2 state: PRE-OPERATIONAL
+node 3 state: PRE-OPERATIONAL
+node 4 state: PRE-OPERATIONAL
+node 5 state: PRE-OPERATIONAL
+node 6 state: PRE-OPERATIONAL
+node 7 state: PRE-OPERATIONAL
+node 8 state: PRE-OPERATIONAL
+
+state command: RESET COMMUNICATION
+master state: INITIALISING
+node 1 state: PRE-OPERATIONAL
+node 2 state: PRE-OPERATIONAL
+node 3 state: PRE-OPERATIONAL
+node 4 state: PRE-OPERATIONAL
+node 5 state: PRE-OPERATIONAL
+node 6 state: PRE-OPERATIONAL
+node 7 state: PRE-OPERATIONAL
+node 8 state: PRE-OPERATIONAL
+
+state command: RESET
+master state: INITIALISING
+node 1 state: PRE-OPERATIONAL
+node 2 state: PRE-OPERATIONAL
+node 3 state: PRE-OPERATIONAL
+node 4 state: PRE-OPERATIONAL
+node 5 state: PRE-OPERATIONAL
+node 6 state: PRE-OPERATIONAL
+node 7 state: PRE-OPERATIONAL
+node 8 state: PRE-OPERATIONAL
+Successfully disconnected!
+========================
