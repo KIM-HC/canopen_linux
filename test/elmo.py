@@ -1,12 +1,12 @@
 import os.path
 from platform import node
 from re import T
-import re
+# import re
 import time
-import can
+# import can
 import canopen
-from canopen.node import remote
-from canopen.profiles.p402 import BaseNode402, OperationMode
+# from canopen.node import remote
+# from canopen.profiles.p402 import BaseNode402, OperationMode
 import traceback
 
 class OPMode():
