@@ -1,0 +1,561 @@
+# options:
+#   dcf_path: ""
+#   heartbeat_multiplier: 3.0
+
+master:
+  node_id: 99
+  baudrate: 125 # kbit/s
+  # vendor_id: 0x12345678
+  # product_code: 0x12345678
+  # revision_number: 0x12345678
+  # serial_number: 0x12345678
+  # heartbeat_multiplier: 3.0
+  # heartbeat_consumer: true
+  # heartbeat_producer: 0 # ms
+  # emcy_inhibit_time: 0 # 100 us
+  sync_period: 1000000 # us
+  # sync_window: 0 # us
+  # sync_overflow: 0
+  # error_behavior: {1: 0x00}
+  # nmt_inhibit_time: 0 # 100 us
+  # start: true
+  # start_nodes: true
+  # start_all_nodes: false
+  # reset_all_nodes: false
+  # stop_all_nodes: false
+  # boot_time: 0 # ms
+
+slave_1:
+  # dcf: "cpp-slave.eds"
+  dcf: "elmo.eds"
+  # dcf_path: ""
+  node_id: 1
+  revision_number: 0x000103F6
+  # serial_number: 0x000103F6
+  # heartbeat_multiplier: 3.0
+  # heartbeat_consumer: false
+  # heartbeat_producer: 0 # ms
+  # error_behavior: {}
+  rpdo:
+    1:
+      enabled: true
+      cob_id: auto
+      transmission: 0x01
+      inhibit_time: 0 # 100 us
+      event_timer: 0 # ms
+      mapping:
+        - {index: 0x6040, sub_index: 0x00}  # controlword
+        - {index: 0x6060, sub_index: 0x00}  # modes_of_operation
+    2:
+      enabled: true
+      cob_id: auto
+      transmission: 0x01
+      inhibit_time: 0 # 100 us
+      event_timer: 0 # ms
+      mapping:
+        - {index: 0x60FF, sub_index: 0x00}  # target_velocity
+        - {index: 0x6071, sub_index: 0x00}  # target_torque
+    3:
+      enabled: true
+      cob_id: auto
+      transmission: 0x01
+      inhibit_time: 0 # 100 us
+      event_timer: 0 # ms
+      mapping:
+        - {index: 0x607A, sub_index: 0x00}  # target_position
+  tpdo:
+    1:
+      enabled: true
+      cob_id: auto
+      transmission: 0x01
+      inhibit_time: 0 # 100 us
+      event_timer: 0 # ms
+      sync_start: 0
+      mapping:
+        - {index: 0x6041, sub_index: 0x00}  # statusword
+        - {index: 0x6060, sub_index: 0x00}  # modes_of_operation
+        - {index: 0x60FD, sub_index: 0x00}  # digital_inputs
+    2:
+      enabled: true
+      cob_id: auto
+      transmission: 0x01
+      inhibit_time: 0 # 100 us
+      event_timer: 0 # ms
+      sync_start: 0
+      mapping:
+        - {index: 0x6064, sub_index: 0x00}  # position_actual_value
+        - {index: 0x6063, sub_index: 0x00}  # position_actual_internal_value
+    3:
+      enabled: true
+      cob_id: auto
+      transmission: 0x01
+      inhibit_time: 0 # 100 us
+      event_timer: 0 # ms
+      sync_start: 0
+      mapping:
+        - {index: 0x606C, sub_index: 0x00}  # velocity_actual_value
+        - {index: 0x6077, sub_index: 0x00}  # torque_actual_value
+
+  # boot: true
+  # mandatory: false
+  # reset_communication: true
+  # software_file: "slave_v1.2.3.bin"
+  # software_version: 0x00010203
+  # restore_configuration: 0x00
+  # sdo:
+  #   - {index: 0x5000, sub_index: 0x00, value: 42}
+
+slave_2:
+  dcf: "elmo.eds"
+  # dcf_path: ""
+  node_id: 2
+  revision_number: 0x000103F6
+  rpdo:
+    1:
+      enabled: true
+      cob_id: auto
+      transmission: 0x01
+      inhibit_time: 0 # 100 us
+      event_timer: 0 # ms
+      mapping:
+        - {index: 0x6040, sub_index: 0x00}  # controlword
+        - {index: 0x6060, sub_index: 0x00}  # modes_of_operation
+    2:
+      enabled: true
+      cob_id: auto
+      transmission: 0x01
+      inhibit_time: 0 # 100 us
+      event_timer: 0 # ms
+      mapping:
+        - {index: 0x60FF, sub_index: 0x00}  # target_velocity
+        - {index: 0x6071, sub_index: 0x00}  # target_torque
+    3:
+      enabled: true
+      cob_id: auto
+      transmission: 0x01
+      inhibit_time: 0 # 100 us
+      event_timer: 0 # ms
+      mapping:
+        - {index: 0x607A, sub_index: 0x00}  # target_position
+  tpdo:
+    1:
+      enabled: true
+      cob_id: auto
+      transmission: 0x01
+      inhibit_time: 0 # 100 us
+      event_timer: 0 # ms
+      sync_start: 0
+      mapping:
+        - {index: 0x6041, sub_index: 0x00}  # statusword
+        - {index: 0x6060, sub_index: 0x00}  # modes_of_operation
+        - {index: 0x60FD, sub_index: 0x00}  # digital_inputs
+    2:
+      enabled: true
+      cob_id: auto
+      transmission: 0x01
+      inhibit_time: 0 # 100 us
+      event_timer: 0 # ms
+      sync_start: 0
+      mapping:
+        - {index: 0x6064, sub_index: 0x00}  # position_actual_value
+        - {index: 0x6063, sub_index: 0x00}  # position_actual_internal_value
+    3:
+      enabled: true
+      cob_id: auto
+      transmission: 0x01
+      inhibit_time: 0 # 100 us
+      event_timer: 0 # ms
+      sync_start: 0
+      mapping:
+        - {index: 0x606C, sub_index: 0x00}  # velocity_actual_value
+        - {index: 0x6077, sub_index: 0x00}  # torque_actual_value
+
+slave_3:
+  dcf: "elmo.eds"
+  # dcf_path: ""
+  node_id: 3
+  revision_number: 0x000103F6
+  rpdo:
+    1:
+      enabled: true
+      cob_id: auto
+      transmission: 0x01
+      inhibit_time: 0 # 100 us
+      event_timer: 0 # ms
+      mapping:
+        - {index: 0x6040, sub_index: 0x00}  # controlword
+        - {index: 0x6060, sub_index: 0x00}  # modes_of_operation
+    2:
+      enabled: true
+      cob_id: auto
+      transmission: 0x01
+      inhibit_time: 0 # 100 us
+      event_timer: 0 # ms
+      mapping:
+        - {index: 0x60FF, sub_index: 0x00}  # target_velocity
+        - {index: 0x6071, sub_index: 0x00}  # target_torque
+    3:
+      enabled: true
+      cob_id: auto
+      transmission: 0x01
+      inhibit_time: 0 # 100 us
+      event_timer: 0 # ms
+      mapping:
+        - {index: 0x607A, sub_index: 0x00}  # target_position
+  tpdo:
+    1:
+      enabled: true
+      cob_id: auto
+      transmission: 0x01
+      inhibit_time: 0 # 100 us
+      event_timer: 0 # ms
+      sync_start: 0
+      mapping:
+        - {index: 0x6041, sub_index: 0x00}  # statusword
+        - {index: 0x6060, sub_index: 0x00}  # modes_of_operation
+        - {index: 0x60FD, sub_index: 0x00}  # digital_inputs
+    2:
+      enabled: true
+      cob_id: auto
+      transmission: 0x01
+      inhibit_time: 0 # 100 us
+      event_timer: 0 # ms
+      sync_start: 0
+      mapping:
+        - {index: 0x6064, sub_index: 0x00}  # position_actual_value
+        - {index: 0x6063, sub_index: 0x00}  # position_actual_internal_value
+    3:
+      enabled: true
+      cob_id: auto
+      transmission: 0x01
+      inhibit_time: 0 # 100 us
+      event_timer: 0 # ms
+      sync_start: 0
+      mapping:
+        - {index: 0x606C, sub_index: 0x00}  # velocity_actual_value
+        - {index: 0x6077, sub_index: 0x00}  # torque_actual_value
+
+slave_4:
+  dcf: "elmo.eds"
+  # dcf_path: ""
+  node_id: 4
+  revision_number: 0x000103F6
+  rpdo:
+    1:
+      enabled: true
+      cob_id: auto
+      transmission: 0x01
+      inhibit_time: 0 # 100 us
+      event_timer: 0 # ms
+      mapping:
+        - {index: 0x6040, sub_index: 0x00}  # controlword
+        - {index: 0x6060, sub_index: 0x00}  # modes_of_operation
+    2:
+      enabled: true
+      cob_id: auto
+      transmission: 0x01
+      inhibit_time: 0 # 100 us
+      event_timer: 0 # ms
+      mapping:
+        - {index: 0x60FF, sub_index: 0x00}  # target_velocity
+        - {index: 0x6071, sub_index: 0x00}  # target_torque
+    3:
+      enabled: true
+      cob_id: auto
+      transmission: 0x01
+      inhibit_time: 0 # 100 us
+      event_timer: 0 # ms
+      mapping:
+        - {index: 0x607A, sub_index: 0x00}  # target_position
+  tpdo:
+    1:
+      enabled: true
+      cob_id: auto
+      transmission: 0x01
+      inhibit_time: 0 # 100 us
+      event_timer: 0 # ms
+      sync_start: 0
+      mapping:
+        - {index: 0x6041, sub_index: 0x00}  # statusword
+        - {index: 0x6060, sub_index: 0x00}  # modes_of_operation
+        - {index: 0x60FD, sub_index: 0x00}  # digital_inputs
+    2:
+      enabled: true
+      cob_id: auto
+      transmission: 0x01
+      inhibit_time: 0 # 100 us
+      event_timer: 0 # ms
+      sync_start: 0
+      mapping:
+        - {index: 0x6064, sub_index: 0x00}  # position_actual_value
+        - {index: 0x6063, sub_index: 0x00}  # position_actual_internal_value
+    3:
+      enabled: true
+      cob_id: auto
+      transmission: 0x01
+      inhibit_time: 0 # 100 us
+      event_timer: 0 # ms
+      sync_start: 0
+      mapping:
+        - {index: 0x606C, sub_index: 0x00}  # velocity_actual_value
+        - {index: 0x6077, sub_index: 0x00}  # torque_actual_value
+
+slave_5:
+  dcf: "elmo.eds"
+  # dcf_path: ""
+  node_id: 5
+  revision_number: 0x000103F6
+  rpdo:
+    1:
+      enabled: true
+      cob_id: auto
+      transmission: 0x01
+      inhibit_time: 0 # 100 us
+      event_timer: 0 # ms
+      mapping:
+        - {index: 0x6040, sub_index: 0x00}  # controlword
+        - {index: 0x6060, sub_index: 0x00}  # modes_of_operation
+    2:
+      enabled: true
+      cob_id: auto
+      transmission: 0x01
+      inhibit_time: 0 # 100 us
+      event_timer: 0 # ms
+      mapping:
+        - {index: 0x60FF, sub_index: 0x00}  # target_velocity
+        - {index: 0x6071, sub_index: 0x00}  # target_torque
+    3:
+      enabled: true
+      cob_id: auto
+      transmission: 0x01
+      inhibit_time: 0 # 100 us
+      event_timer: 0 # ms
+      mapping:
+        - {index: 0x607A, sub_index: 0x00}  # target_position
+  tpdo:
+    1:
+      enabled: true
+      cob_id: auto
+      transmission: 0x01
+      inhibit_time: 0 # 100 us
+      event_timer: 0 # ms
+      sync_start: 0
+      mapping:
+        - {index: 0x6041, sub_index: 0x00}  # statusword
+        - {index: 0x6060, sub_index: 0x00}  # modes_of_operation
+        - {index: 0x60FD, sub_index: 0x00}  # digital_inputs
+    2:
+      enabled: true
+      cob_id: auto
+      transmission: 0x01
+      inhibit_time: 0 # 100 us
+      event_timer: 0 # ms
+      sync_start: 0
+      mapping:
+        - {index: 0x6064, sub_index: 0x00}  # position_actual_value
+        - {index: 0x6063, sub_index: 0x00}  # position_actual_internal_value
+    3:
+      enabled: true
+      cob_id: auto
+      transmission: 0x01
+      inhibit_time: 0 # 100 us
+      event_timer: 0 # ms
+      sync_start: 0
+      mapping:
+        - {index: 0x606C, sub_index: 0x00}  # velocity_actual_value
+        - {index: 0x6077, sub_index: 0x00}  # torque_actual_value
+
+slave_6:
+  dcf: "elmo.eds"
+  # dcf_path: ""
+  node_id: 6
+  revision_number: 0x000103F6
+  rpdo:
+    1:
+      enabled: true
+      cob_id: auto
+      transmission: 0x01
+      inhibit_time: 0 # 100 us
+      event_timer: 0 # ms
+      mapping:
+        - {index: 0x6040, sub_index: 0x00}  # controlword
+        - {index: 0x6060, sub_index: 0x00}  # modes_of_operation
+    2:
+      enabled: true
+      cob_id: auto
+      transmission: 0x01
+      inhibit_time: 0 # 100 us
+      event_timer: 0 # ms
+      mapping:
+        - {index: 0x60FF, sub_index: 0x00}  # target_velocity
+        - {index: 0x6071, sub_index: 0x00}  # target_torque
+    3:
+      enabled: true
+      cob_id: auto
+      transmission: 0x01
+      inhibit_time: 0 # 100 us
+      event_timer: 0 # ms
+      mapping:
+        - {index: 0x607A, sub_index: 0x00}  # target_position
+  tpdo:
+    1:
+      enabled: true
+      cob_id: auto
+      transmission: 0x01
+      inhibit_time: 0 # 100 us
+      event_timer: 0 # ms
+      sync_start: 0
+      mapping:
+        - {index: 0x6041, sub_index: 0x00}  # statusword
+        - {index: 0x6060, sub_index: 0x00}  # modes_of_operation
+        - {index: 0x60FD, sub_index: 0x00}  # digital_inputs
+    2:
+      enabled: true
+      cob_id: auto
+      transmission: 0x01
+      inhibit_time: 0 # 100 us
+      event_timer: 0 # ms
+      sync_start: 0
+      mapping:
+        - {index: 0x6064, sub_index: 0x00}  # position_actual_value
+        - {index: 0x6063, sub_index: 0x00}  # position_actual_internal_value
+    3:
+      enabled: true
+      cob_id: auto
+      transmission: 0x01
+      inhibit_time: 0 # 100 us
+      event_timer: 0 # ms
+      sync_start: 0
+      mapping:
+        - {index: 0x606C, sub_index: 0x00}  # velocity_actual_value
+        - {index: 0x6077, sub_index: 0x00}  # torque_actual_value
+
+slave_7:
+  dcf: "elmo.eds"
+  # dcf_path: ""
+  node_id: 7
+  revision_number: 0x000103F6
+  rpdo:
+    1:
+      enabled: true
+      cob_id: auto
+      transmission: 0x01
+      inhibit_time: 0 # 100 us
+      event_timer: 0 # ms
+      mapping:
+        - {index: 0x6040, sub_index: 0x00}  # controlword
+        - {index: 0x6060, sub_index: 0x00}  # modes_of_operation
+    2:
+      enabled: true
+      cob_id: auto
+      transmission: 0x01
+      inhibit_time: 0 # 100 us
+      event_timer: 0 # ms
+      mapping:
+        - {index: 0x60FF, sub_index: 0x00}  # target_velocity
+        - {index: 0x6071, sub_index: 0x00}  # target_torque
+    3:
+      enabled: true
+      cob_id: auto
+      transmission: 0x01
+      inhibit_time: 0 # 100 us
+      event_timer: 0 # ms
+      mapping:
+        - {index: 0x607A, sub_index: 0x00}  # target_position
+  tpdo:
+    1:
+      enabled: true
+      cob_id: auto
+      transmission: 0x01
+      inhibit_time: 0 # 100 us
+      event_timer: 0 # ms
+      sync_start: 0
+      mapping:
+        - {index: 0x6041, sub_index: 0x00}  # statusword
+        - {index: 0x6060, sub_index: 0x00}  # modes_of_operation
+        - {index: 0x60FD, sub_index: 0x00}  # digital_inputs
+    2:
+      enabled: true
+      cob_id: auto
+      transmission: 0x01
+      inhibit_time: 0 # 100 us
+      event_timer: 0 # ms
+      sync_start: 0
+      mapping:
+        - {index: 0x6064, sub_index: 0x00}  # position_actual_value
+        - {index: 0x6063, sub_index: 0x00}  # position_actual_internal_value
+    3:
+      enabled: true
+      cob_id: auto
+      transmission: 0x01
+      inhibit_time: 0 # 100 us
+      event_timer: 0 # ms
+      sync_start: 0
+      mapping:
+        - {index: 0x606C, sub_index: 0x00}  # velocity_actual_value
+        - {index: 0x6077, sub_index: 0x00}  # torque_actual_value
+
+slave_8:
+  dcf: "elmo.eds"
+  # dcf_path: ""
+  node_id: 8
+  revision_number: 0x000103F6
+  rpdo:
+    1:
+      enabled: true
+      cob_id: auto
+      transmission: 0x01
+      inhibit_time: 0 # 100 us
+      event_timer: 0 # ms
+      mapping:
+        - {index: 0x6040, sub_index: 0x00}  # controlword
+        - {index: 0x6060, sub_index: 0x00}  # modes_of_operation
+    2:
+      enabled: true
+      cob_id: auto
+      transmission: 0x01
+      inhibit_time: 0 # 100 us
+      event_timer: 0 # ms
+      mapping:
+        - {index: 0x60FF, sub_index: 0x00}  # target_velocity
+        - {index: 0x6071, sub_index: 0x00}  # target_torque
+    3:
+      enabled: true
+      cob_id: auto
+      transmission: 0x01
+      inhibit_time: 0 # 100 us
+      event_timer: 0 # ms
+      mapping:
+        - {index: 0x607A, sub_index: 0x00}  # target_position
+  tpdo:
+    1:
+      enabled: true
+      cob_id: auto
+      transmission: 0x01
+      inhibit_time: 0 # 100 us
+      event_timer: 0 # ms
+      sync_start: 0
+      mapping:
+        - {index: 0x6041, sub_index: 0x00}  # statusword
+        - {index: 0x6060, sub_index: 0x00}  # modes_of_operation
+        - {index: 0x60FD, sub_index: 0x00}  # digital_inputs
+    2:
+      enabled: true
+      cob_id: auto
+      transmission: 0x01
+      inhibit_time: 0 # 100 us
+      event_timer: 0 # ms
+      sync_start: 0
+      mapping:
+        - {index: 0x6064, sub_index: 0x00}  # position_actual_value
+        - {index: 0x6063, sub_index: 0x00}  # position_actual_internal_value
+    3:
+      enabled: true
+      cob_id: auto
+      transmission: 0x01
+      inhibit_time: 0 # 100 us
+      event_timer: 0 # ms
+      sync_start: 0
+      mapping:
+        - {index: 0x606C, sub_index: 0x00}  # velocity_actual_value
+        - {index: 0x6077, sub_index: 0x00}  # torque_actual_value

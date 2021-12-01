@@ -1,8 +1,11 @@
 import os.path
 from platform import node
 from re import T
+# import re
 import time
+# import can
 import canopen
+# from canopen.node import remote
 # from canopen.profiles.p402 import BaseNode402, OperationMode
 import traceback
 
@@ -88,12 +91,9 @@ class TestElmo():
     @_try_except_decorator
     def _connect_network(self):
         ## -----------------------------------------------------------------
-        ## connect to CAN Bus (PEAK PCAN-USB(125kbps)
-
-        ## using peak driver command pcaninfo will show channel(bus channel) name
-        # self.network.connect(bustype='pcan', channel='PCAN_USBBUS1', bitrate=125000)
-        ## using socketcan (same PEAK PCAN-USB)
-        self.network.connect(bustype='socketcan', channel='can0', bitrate=125000)
+        ## connect to CAN Bus (PEAK PCAN-USB(125kbps) or IXXAT)
+        ## command pcaninfo will show channel(bus channel) name
+        self.network.connect(bustype='pcan', channel='PCAN_USBBUS1', bitrate=125000)
 
         ## -----------------------------------------------------------------
         ## attempt to read SDO from nodes 1 - 127
@@ -131,7 +131,7 @@ class TestElmo():
 
         ## -----------------------------------------------------------------
         ## receive message
-        msg = self.network.bus.recv(timeout=1.0)  ## TODO: keeps getting blocked here
+        msg = self.network.bus.recv(timeout=1.0)
         self._dprint('\nmsg: {0}'.format(msg))
 
         ## -----------------------------------------------------------------
@@ -160,7 +160,7 @@ class TestElmo():
 
         for node_id_ in self.network:
             if (node_id_ % 2 == 0):
-                ## Homing on the positive home switch
+                ## Homing on the positive home switch and index pulse
                 self.network[node_id_].sdo['homing_method'].raw = 20
                 self.network[node_id_].sdo['homing_speeds'][1].raw = 1200
                 self.network[node_id_].sdo['homing_speeds'][2].raw = 1000
@@ -175,9 +175,7 @@ class TestElmo():
                 self.network[node_id_].sdo['homing_acceleration'].raw = 1
             self.network[node_id_].sdo['Producer Heartbeat Time'].raw = 1000
             self.network[node_id_].sdo['Communication Cycle Period'].raw = 0  ## what is it?
-            # self.network[node_id_].sdo['target_velocity'].raw = 0
-            # self.network[node_id_].sdo['target_torque'].raw = 0
-            # self.network[node_id_].sdo['target_position'].raw = 0
+
         ## -----------------------------------------------------------------
         ## check error
         for node_id_ in self.network:
@@ -190,7 +188,6 @@ class TestElmo():
         for node_id_ in self.network:
             self._dprint("\n===========\nInformation")
             self._dprint("CAN Open Node ID: {0}".format(self.network[node_id_].sdo['CAN Open Node ID'].raw))
-            self._dprint("Product Code: {0}".format(hex(self.network[node_id_].sdo['Identity Object'][2].raw)))
             self._dprint("error_code: {0}".format(self.network[node_id_].sdo['error_code'].raw))
             self._dprint("statusword: {0}".format(bin(self.network[node_id_].sdo['statusword'].raw)))
             self._dprint("controlword: {0}".format(bin(self.network[node_id_].sdo['controlword'].raw)))
@@ -206,9 +203,6 @@ class TestElmo():
             self._dprint("homing_acceleration: {0}".format(self.network[node_id_].sdo['homing_acceleration'].raw))
 
             self._dprint('\n- control')
-            self._dprint("target_velocity: {0}".format(self.network[node_id_].sdo['target_velocity'].raw))
-            self._dprint("target_torque: {0}".format(self.network[node_id_].sdo['target_torque'].raw))
-            self._dprint("target_position: {0}".format(self.network[node_id_].sdo['target_position'].raw))
             self._dprint("profile_velocity: {0}".format(self.network[node_id_].sdo['profile_velocity'].raw))
             self._dprint("position_demand_value: {0}".format(self.network[node_id_].sdo['position_demand_value'].raw))
             self._dprint("position_actual_internal_value: {0}".format(self.network[node_id_].sdo['position_actual_internal_value'].raw))
@@ -228,7 +222,7 @@ class TestElmo():
             self.network[node_id_].tpdo[id_].add_variable('modes_of_operation')
             self.network[node_id_].tpdo[id_].add_variable('digital_inputs')
             self.network[node_id_].tpdo[id_].trans_type = trans_type_
-            self.network[node_id_].tpdo[id_].event_timer = 0
+            self.network[node_id_].tpdo[id_].event_timer = 10
             self.network[node_id_].tpdo[id_].inhibit_time = 0
             self.network[node_id_].tpdo[id_].enabled = True
 
@@ -237,7 +231,7 @@ class TestElmo():
             self.network[node_id_].tpdo[id_].add_variable('position_actual_value')
             self.network[node_id_].tpdo[id_].add_variable('position_actual_internal_value')
             self.network[node_id_].tpdo[id_].trans_type = trans_type_
-            self.network[node_id_].tpdo[id_].event_timer = 0
+            self.network[node_id_].tpdo[id_].event_timer = 10
             self.network[node_id_].tpdo[id_].inhibit_time = 0
             self.network[node_id_].tpdo[id_].enabled = True
 
@@ -246,7 +240,7 @@ class TestElmo():
             self.network[node_id_].tpdo[id_].add_variable('velocity_actual_value')
             self.network[node_id_].tpdo[id_].add_variable('torque_actual_value')
             self.network[node_id_].tpdo[id_].trans_type = trans_type_
-            self.network[node_id_].tpdo[id_].event_timer = 0
+            self.network[node_id_].tpdo[id_].event_timer = 10
             self.network[node_id_].tpdo[id_].inhibit_time = 0
             self.network[node_id_].tpdo[id_].enabled = True
 
@@ -725,13 +719,15 @@ if __name__ == "__main__":
 
     # tt_.test_dual_elmo(t1=4, t2=6, operation_mode=OPMode.PROFILED_VELOCITY, value=3000)
 
-    # tt_.test_multiple_elmo(test_set=node_set, operation_mode=OPMode.PROFILED_TORQUE, value=120)
+    # tt_.test_multiple_elmo(test_set=node_set, operation_mode=OPMode.PROFILED_TORQUE, value=70)
     # tt_.test_multiple_elmo(test_set=node_set, operation_mode=OPMode.PROFILED_VELOCITY, value=1000)
 
-    # tt_.test_odd_and_even_elmo(test_set=node_set, operation_mode=OPMode.PROFILED_TORQUE, value=150)
+    # tt_.test_odd_and_even_elmo(test_set=node_set, operation_mode=OPMode.PROFILED_TORQUE, value=70)
     # tt_.test_odd_and_even_elmo(test_set=node_set, operation_mode=OPMode.PROFILED_VELOCITY, value=1000)
 
     # tt_.test_control_zero(test_set=node_set, operation_mode=OPMode.PROFILED_TORQUE, value=150)
 
+    # tt_.set_free_wheel(test_set=node_set)
     tt_.test_homing(test_set=[2,4,6,8], play_time=10)
+    # tt_.set_free_wheel(test_set=node_set, play_time=60.0)
     tt_.finish_work()
