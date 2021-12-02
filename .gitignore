@@ -131,3 +131,6 @@ dmypy.json
 # Lely CANopen
 *.bin
 *.dcf
+
+# vscode
+.vscode/*
