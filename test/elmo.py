@@ -2,17 +2,47 @@
 import os.path
 import rospy
 from platform import node
-from re import T
+from re import S, T
 import time
 import canopen
 # from canopen.profiles.p402 import BaseNode402, OperationMode
 import traceback
 from sensor_msgs.msg import JointState
+import math
+import threading
 
 PKG_PATH = '/home/khc/catkin_ws/src/canopen_linux/'
 
-class OPMode():
+#### CONTROL INFORMATION ####
+HZ = 40
 
+#### ENCODER INFORMATION ####
+####  ELMO 1 2 3 4 5 6   ####
+REV2CNT = 2048.0
+CNT2REV = 1.0 / REV2CNT
+RAD2CNT = REV2CNT / (2.0 * math.pi)
+CNT2RAD = (2.0 * math.pi) / REV2CNT
+
+####      ELMO 7 8       ####
+REV2CNT2 = 8192.0
+CNT2REV2 = 1.0 / REV2CNT2
+RAD2CNT2 = REV2CNT2 / (2.0 * math.pi)
+CNT2RAD2 = (2.0 * math.pi) / REV2CNT2
+
+C2R = [CNT2RAD, CNT2RAD, CNT2RAD, CNT2RAD2]
+
+##### GEAR RATIO ####
+NS = 4.0            ## steer
+NT = 85.0 / 35.0    ## translate , 2.428571429
+NW = 2.0            ## wheel (rolling)
+
+N00 = 1.0 / NS
+N01 = 1.0 / (NS * NW)
+N11 = 1.0 / (NT * NW)
+
+RAD2DEG = 180.0 / math.pi
+
+class OPMode():
     NO_MODE =              -1
     PROFILED_POSITION =     1
     PROFILED_VELOCITY =     3
@@ -38,8 +68,7 @@ class CtrlPDO(dict):
 
 class TestElmo():
     def __init__(self, node_list):
-        # self.ready4control_ = False
-        self.ready4control_ = True
+        self.ready4control_ = False
         self.js_ = JointState(
             name = ['m1','m2','m3','m4','m5','m6','m7','m8'],
             velocity = [0,0,0,0,0,0,0,0],
@@ -52,11 +81,12 @@ class TestElmo():
         rospy.on_shutdown(self.finish_work)
 
         ## -----------------------------------------------------------------
-        ## node id for testing
+        ## basic setting
         self.node_list = node_list
         self.sleep_ = 0.005
         self.start_time = rospy.Time.now()
-        # self.start_time = time.time()
+        self.sub_time = rospy.Time.now()
+        self.lock_ = threading.Lock()
         self.cannot_test = False
 
         ## -----------------------------------------------------------------
@@ -96,15 +126,15 @@ class TestElmo():
 
                 except canopen.SdoCommunicationError as e:
                     self.cannot_test = True
-                    self._dprint('\n----\nFUNCTION: {2}\nERROR SdoCommunicationError----\n{0}\n\n{1}'.format(e, traceback.format_exc(),func.__name__))
+                    self._dprint('\n----\nFUNCTION: {2}\nERROR SdoCommunicationError\n----\n{0}\n\n{1}'.format(e, traceback.format_exc(),func.__name__))
 
                 except canopen.SdoAbortedError as e:
                     self.cannot_test = True
-                    self._dprint('\n----\nFUNCTION: {2}\nERROR SdoAbortedError----\n{0}\n\n{1}'.format(e, traceback.format_exc(),func.__name__))
+                    self._dprint('\n----\nFUNCTION: {2}\nERROR SdoAbortedError\n----\n{0}\n\n{1}'.format(e, traceback.format_exc(),func.__name__))
 
                 except Exception as e:
                     self.cannot_test = True
-                    self._dprint('\n----\nFUNCTION: {2}\nERROR----\n{0}\n\n{1}'.format(e, traceback.format_exc(),func.__name__))
+                    self._dprint('\n----\nFUNCTION: {2}\nERROR\n----\n{0}\n\n{1}'.format(e, traceback.format_exc(),func.__name__))
         return decorated
 
     @_try_except_decorator
@@ -311,7 +341,7 @@ class TestElmo():
         for node_id in self.network:
             self._dprint('node {0} state: {1}'.format(node_id, self.network[node_id].nmt.state))
 
-    def _change_status(self, test_set=None, status='PRE-OPERATIONAL', sleep_time=0.07):
+    def _change_status(self, test_set=None, status='PRE-OPERATIONAL', sleep_time=0.08):
         self._dprint('\nstate command: {0}'.format(status))
         self.network.nmt.state = status
         if test_set == None:
@@ -417,18 +447,68 @@ class TestElmo():
             self._dprint('')
 
     def _read_and_print(self):
-        for node_id_ in self.node_list:
-            # time_and_id_ = 'id:{0} '.format(node_id_) + 't:%-6.2f'%(time.time() - self.start_time)
-            time_and_id_ = 'id:{0} '.format(node_id_) + 't:%-6.2f'%((rospy.Time.now() - self.start_time).to_sec())
-            poin_ = 'poin:%-8d'%self.network[node_id_].tpdo['position_actual_internal_value'].raw
-            pos_ = ' pos:%-8d'%self.network[node_id_].tpdo['position_actual_value'].raw
-            vel_ = 'vel:%-7d'%self.network[node_id_].tpdo['velocity_actual_value'].raw
-            tor_ = 'tor:%-6d'%self.network[node_id_].tpdo['torque_actual_value'].raw
-            statusword_ = ' status:%s'%bin(self.network[node_id_].tpdo['statusword'].raw) 
-            di_ = '\tDI:%s'%bin(self.network[node_id_].tpdo['digital_inputs'].raw) 
-            test = time_and_id_ + pos_ + vel_ + tor_ + statusword_ + di_
-            self._dprint(test)
+        self._dprint('time: %-6.2f'%((rospy.Time.now() - self.start_time).to_sec()))
+        if (self.node_list == [1,2,3,4,5,6,7,8]):
+            for i in range(4):
+                id_s = (i+1)*2  ## steering node
+                ids_s = 'S-id:{0} '.format(id_s)
+                pos_s = ' pos:%-8.2f'%(RAD2DEG * C2R[i] * N00 * self.network[id_s].tpdo['position_actual_value'].raw)
+                vel_s = ' v:%-7d'%(RAD2DEG * C2R[i] * N00 * self.network[id_s].tpdo['velocity_actual_value'].raw)
+                tor_s = ' t:%-5d'%self.network[id_s].tpdo['torque_actual_value'].raw
+                statusword_s = ' stat:%-16s'%bin(self.network[id_s].tpdo['statusword'].raw) 
+                di_s = ' DI:%s'%bin(self.network[id_s].tpdo['digital_inputs'].raw) 
+                print_string_s = ids_s + pos_s + vel_s + tor_s + statusword_s + di_s
+
+                id_r = id_s - 1 ## rolling node
+                ids_r = 'R-id:{0} '.format(id_r)
+                pos_r = ' pos:%-8.2f'%(RAD2DEG * C2R[i] * (N01 * self.network[id_s].tpdo['position_actual_value'].raw
+                                             + N11 * self.network[id_r].tpdo['position_actual_value'].raw))
+                vel_r = ' v:%-7d'%(RAD2DEG * C2R[i] * (N01 * self.network[id_s].tpdo['velocity_actual_value'].raw
+                                             + N11 * self.network[id_r].tpdo['velocity_actual_value'].raw))
+                tor_r = ' t:%-5d'%self.network[id_r].tpdo['torque_actual_value'].raw
+                statusword_r = ' stat:%-16s'%bin(self.network[id_r].tpdo['statusword'].raw) 
+                di_r = ' DI:%s'%bin(self.network[id_r].tpdo['digital_inputs'].raw) 
+                print_string_r = ids_r + pos_r + vel_r + tor_r + statusword_r + di_r
+
+                self._dprint(print_string_r)
+                self._dprint(print_string_s)
+            for node_id_ in self.node_list:
+                id_ = 'id:{0} '.format(node_id_)
+                pos_ = ' pos:%-8d'%self.network[node_id_].tpdo['position_actual_value'].raw
+                vel_ = ' v:%-7d'%self.network[node_id_].tpdo['velocity_actual_value'].raw
+                tor_ = ' t:%-5d'%self.network[node_id_].tpdo['torque_actual_value'].raw
+                statusword_ = ' stat:%-16s'%bin(self.network[node_id_].tpdo['statusword'].raw) 
+                di_ = ' DI:%s'%bin(self.network[node_id_].tpdo['digital_inputs'].raw) 
+                print_string = id_ + pos_ + vel_ + tor_ + statusword_ + di_
+                self._dprint(print_string)
+        else:
+            for node_id_ in self.node_list:
+                id_ = 'id:{0} '.format(node_id_)
+                pos_ = ' pos:%-8d'%self.network[node_id_].tpdo['position_actual_value'].raw
+                vel_ = ' v:%-7d'%self.network[node_id_].tpdo['velocity_actual_value'].raw
+                tor_ = ' t:%-5d'%self.network[node_id_].tpdo['torque_actual_value'].raw
+                statusword_ = ' stat:%-16s'%bin(self.network[node_id_].tpdo['statusword'].raw) 
+                di_ = ' DI:%s'%bin(self.network[node_id_].tpdo['digital_inputs'].raw) 
+                print_string = id_ + pos_ + vel_ + tor_ + statusword_ + di_
+                self._dprint(print_string)
         self._dprint('')
+
+    def _pub_joint(self):
+        self.js_.header.stamp = rospy.Time.now()
+        for i in range(4):
+            s = (i+1)*2  ## steering node
+            idx_s = s-1  ## steering index
+            ## STEERING ##
+            self.js_.velocity[idx_s] = C2R[i] * N00 * self.network[s].tpdo['velocity_actual_value'].raw
+            self.js_.effort[idx_s] = self.network[s].tpdo['torque_actual_value'].raw
+            self.js_.position[idx_s] = C2R[i] * N00 * self.network[s].tpdo['position_actual_value'].raw
+            ## ROLLING ##
+            self.js_.velocity[idx_s - 1] = C2R[i] * (N01 * self.network[s].tpdo['velocity_actual_value'].raw
+                                                   + N11 * self.network[s-1].tpdo['velocity_actual_value'].raw)
+            self.js_.effort[idx_s - 1] = self.network[s-1].tpdo['torque_actual_value'].raw
+            self.js_.position[idx_s - 1] = C2R[i] * (N01 * self.network[s].tpdo['position_actual_value'].raw
+                                                   + N11 * self.network[s-1].tpdo['position_actual_value'].raw)
+        self.joint_pub.publish(self.js_)
 
     def _print_value(self, sec=5.0, iter=20):
         t_sleep_ = sec / iter
@@ -525,26 +605,18 @@ class TestElmo():
     ##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##
 
     @_try_except_decorator
-    def test_single_elmo(self, test_id, operation_mode, value):
+    def test_single_elmo(self, test_id, operation_mode, value, play_time=10.0):
         _,control_target = self._check_test_availability([test_id], operation_mode)
 
         self._start_operation_mode(test_set=[test_id], operation_mode=operation_mode)
         # self._rpdo_controlword(controlword=0b000011111, node_id=test_id, command='OPERATION COMMAND') ## Operation command
-        sec_=5.0
 
         self._control_command(test_id, control_target, value)
-        self._print_value(sec=sec_, iter=sec_*2)
+        self._print_value(sec=play_time*0.5, iter=play_time)
 
         self._control_command(test_id, control_target, -value, "\nchanging command")
-        self._print_value(sec=sec_, iter=sec_*2)
+        self._print_value(sec=play_time*0.5, iter=play_time)
 
-        self._control_command(test_id, control_target, value, "\nchanging command")
-        self._print_value(sec=sec_, iter=sec_*2)
-
-        self._control_command(test_id, control_target, -value, "\nchanging command")
-        self._print_value(sec=sec_, iter=sec_*2)
-
-        self._control_command(test_id, control_target, 0)
         self._stop_operation()
 
     @_try_except_decorator
@@ -579,8 +651,6 @@ class TestElmo():
         self._control_command(t2, control_target, value)
         self._print_value(sec=sec_, iter=sec_*2)
 
-        self._control_command(t1, control_target, 0)
-        self._control_command(t2, control_target, 0)
         self._stop_operation()
 
     @_try_except_decorator
@@ -599,18 +669,6 @@ class TestElmo():
             self._control_command(node_id_, control_target, -value)
         self._print_value(sec=sec_, iter=sec_*2)
 
-        self._dprint('\nchanging command')
-        for node_id_ in test_set:
-            self._control_command(node_id_, control_target, value)
-        self._print_value(sec=sec_, iter=sec_*2)
-
-        self._dprint('\nchanging command')
-        for node_id_ in test_set:
-            self._control_command(node_id_, control_target, -value)
-        self._print_value(sec=sec_, iter=sec_*2)
-
-        for node_id_ in test_set:
-            self._control_command(node_id_, control_target, 0)
         self._stop_operation()
 
     @_try_except_decorator
@@ -630,18 +688,6 @@ class TestElmo():
             self._control_command(node_id_, control_target, value_[(node_id_+1)%2])
         self._print_value(sec=sec_, iter=sec_*2)
 
-        self._dprint('\nchanging command')
-        for node_id_ in test_set:
-            self._control_command(node_id_, control_target, value_[node_id_%2])
-        self._print_value(sec=sec_, iter=sec_*2)
-
-        self._dprint('\nchanging command')
-        for node_id_ in test_set:
-            self._control_command(node_id_, control_target, value_[(node_id_+1)%2])
-        self._print_value(sec=sec_, iter=sec_*2)
-
-        for node_id_ in test_set:
-            self._control_command(node_id_, control_target, 0)
         self._stop_operation()
 
     @_try_except_decorator
@@ -662,7 +708,7 @@ class TestElmo():
 
     @_try_except_decorator
     def perform_homing(self, test_set):
-        r = rospy.Rate(2)  ## 2 hz
+        r = rospy.Rate(HZ)
         tick = 0
         work_done = False
         work_each = []
@@ -675,6 +721,7 @@ class TestElmo():
 
         while not rospy.is_shutdown():
             self.network.sync.transmit()
+            self._pub_joint()
             for i in range(len(test_set)):
                 statusword = bin(self.network[test_set[i]].tpdo['statusword'].raw)
                 try:
@@ -689,7 +736,7 @@ class TestElmo():
                 if work == False: work_done = False
 
             tick += 1
-            if (tick % 2 == 0): self._read_and_print()
+            if (tick % HZ == 0): self._read_and_print()
             if work_done: break
             r.sleep()
 
@@ -705,10 +752,10 @@ class TestElmo():
         self.perform_homing(test_set=[2, 4, 6, 8])
         ## execute homing for 1 3 5 7
         self.perform_homing(test_set=[1, 3, 5, 7])
+        self.ready4control_ = True
 
-        hz_ = 100
-        half_hz_ = int(hz_/2)
-        r = rospy.Rate(hz_)
+        half_hz_ = int(HZ/2)
+        r = rospy.Rate(HZ)
         tick = 0
 
         _,control_target = self._check_test_availability([1,2,3,4,5,6,7,8], operation_mode)
@@ -718,25 +765,23 @@ class TestElmo():
 
         while not rospy.is_shutdown():
             self.network.sync.transmit()
-            self.js_.header.stamp = rospy.Time.now()
-            for node_id_ in self.node_list:
-                node_index = node_id_ - 1
-                self.js_.velocity[node_index] = self.network[node_id_].tpdo['velocity_actual_value'].raw
-                self.js_.effort[node_index] = self.network[node_id_].tpdo['torque_actual_value'].raw
-                self.js_.position[node_index] = self.network[node_id_].tpdo['position_actual_value'].raw
-                if (node_id_ % 2 == 0):
-                    self.js_.position[node_index] += self.network[node_id_-1].tpdo['position_actual_value'].raw
-            self.joint_pub.publish(self.js_)
+            self._pub_joint()
+            if ((rospy.Time.now() - self.sub_time ).to_sec() > 0.1):
+                for node_id_ in [1,2,3,4,5,6,7,8]:
+                    self._control_command(node_id_, control_target, 0.0)
             tick += 1
             if (tick % half_hz_ == 0): self._read_and_print()
             r.sleep()
 
     @_try_except_decorator
     def _joint_callback(self, data):
-        self._dprint('==callback received==')
         if (self.ready4control_ and len(data.name) == 8):
-            for i in range(8):
-                self._dprint('name: {0}, desired_torque: {1}'.format(data.name[i], data.effort[i]))
+            self.lock_.acquire()
+            self.sub_time = rospy.Time.now()
+            if ((self.sub_time - data.header.stamp).to_sec() < 0.001):
+                for i in range(8):
+                    self._control_command(i+1, 'target_torque', data.effort[i])
+            self.lock_.release()
 
     @_try_except_decorator
     def finish_work(self):
@@ -756,6 +801,7 @@ if __name__ == "__main__":
     tt_ = TestElmo(node_list=node_set)
 
     # tt_.test_single_elmo(test_id=node_set[0], operation_mode=OPMode.PROFILED_TORQUE, value=300)
+    # tt_.test_single_elmo(test_id=node_set[1], operation_mode=OPMode.PROFILED_VELOCITY, value=0, play_time=60.0)
 
     # tt_.test_dual_elmo(t1=4, t2=6, operation_mode=OPMode.PROFILED_VELOCITY, value=3000)
 
@@ -772,4 +818,6 @@ if __name__ == "__main__":
     # tt_.perform_homing(test_set=[1,3,5,7])
 
     tt_.start_joint_publisher()
+
+    # tt_.set_free_wheel(test_set=node_set, play_time=60)
 
