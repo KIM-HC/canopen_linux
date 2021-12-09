@@ -18,8 +18,8 @@ if __name__ == "__main__":
     r = rospy.Rate(HZ)
     play_time = 5.0
 
-    value_steer = 100
-    value_roll = 60
+    value_steer = 80
+    value_roll = 50
 
     for i in range(4):
         s = (i+1)*2  ## steering node

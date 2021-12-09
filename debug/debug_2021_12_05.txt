@@ -1,0 +1,1492 @@
+
+
+
+==================================================================================
+==  DEBUG START 2021.12.05 - 15:52:13  ===========================================
+==================================================================================
+
+
+----
+FUNCTION: _connect_network
+ERROR
+----
+[Errno 19] No such device
+
+Traceback (most recent call last):
+  File "/home/khc/catkin_ws/src/canopen_linux/test/elmo.py", line 120, in decorated
+    func(self, *args, **kwargs)
+  File "/home/khc/catkin_ws/src/canopen_linux/test/elmo.py", line 149, in _connect_network
+    self.network.connect(bustype='socketcan', channel='can0', bitrate=1000000)
+  File "/home/khc/github/canopen/canopen/network.py", line 112, in connect
+    self.bus = can.interface.Bus(*args, **kwargs)
+  File "/home/khc/.local/lib/python3.6/site-packages/can/interface.py", line 127, in __new__
+    return cls(channel, *args, **kwargs)
+  File "/home/khc/.local/lib/python3.6/site-packages/can/interfaces/socketcan/socketcan.py", line 594, in __init__
+    bind_socket(self.socket, channel)
+  File "/home/khc/.local/lib/python3.6/site-packages/can/interfaces/socketcan/socketcan.py", line 459, in bind_socket
+    sock.bind((channel,))
+OSError: [Errno 19] No such device
+
+
+----
+FUNCTION: finish_work
+TEST CANNOT BE PERFORMED (decorator)
+----
+
+
+
+==================================================================================
+==  DEBUG START 2021.12.05 - 15:53:04  ===========================================
+==================================================================================
+
+
+state command: INITIALISING
+master state: INITIALISING
+
+
+state: BusState.ACTIVE
+bus channel_info: socketcan channel 'can0'
+
+msg: None
+
+----
+test node 1 is not in network
+----
+
+----
+FUNCTION: finish_work
+TEST CANNOT BE PERFORMED (decorator)
+----
+
+
+
+==================================================================================
+==  DEBUG START 2021.12.05 - 15:55:21  ===========================================
+==================================================================================
+
+
+state command: INITIALISING
+master state: INITIALISING
+
+
+state: BusState.ACTIVE
+bus channel_info: socketcan channel 'can0'
+
+msg: None
+
+----
+test node 1 is not in network
+----
+
+----
+FUNCTION: finish_work
+TEST CANNOT BE PERFORMED (decorator)
+----
+
+
+
+==================================================================================
+==  DEBUG START 2021.12.05 - 15:55:25  ===========================================
+==================================================================================
+
+
+state command: INITIALISING
+master state: INITIALISING
+
+
+state: BusState.ACTIVE
+bus channel_info: socketcan channel 'can0'
+
+msg: None
+
+----
+test node 1 is not in network
+----
+
+----
+FUNCTION: finish_work
+TEST CANNOT BE PERFORMED (decorator)
+----
+
+
+
+==================================================================================
+==  DEBUG START 2021.12.05 - 15:55:29  ===========================================
+==================================================================================
+
+
+state command: INITIALISING
+master state: INITIALISING
+
+
+state: BusState.ACTIVE
+bus channel_info: socketcan channel 'can0'
+
+msg: None
+
+----
+test node 1 is not in network
+----
+
+----
+FUNCTION: finish_work
+TEST CANNOT BE PERFORMED (decorator)
+----
+
+
+
+==================================================================================
+==  DEBUG START 2021.12.05 - 15:56:19  ===========================================
+==================================================================================
+
+
+state command: INITIALISING
+master state: INITIALISING
+
+
+state: BusState.ACTIVE
+bus channel_info: socketcan channel 'can0'
+
+msg: None
+
+----
+test node 2 is not in network
+----
+
+----
+FUNCTION: finish_work
+TEST CANNOT BE PERFORMED (decorator)
+----
+
+
+
+==================================================================================
+==  DEBUG START 2021.12.05 - 15:56:26  ===========================================
+==================================================================================
+
+
+state command: INITIALISING
+master state: INITIALISING
+
+
+state: BusState.ACTIVE
+bus channel_info: socketcan channel 'can0'
+
+msg: None
+
+----
+test node 2 is not in network
+----
+
+----
+FUNCTION: finish_work
+TEST CANNOT BE PERFORMED (decorator)
+----
+
+
+
+==================================================================================
+==  DEBUG START 2021.12.05 - 15:56:34  ===========================================
+==================================================================================
+
+
+state command: INITIALISING
+master state: INITIALISING
+
+
+state: BusState.ACTIVE
+bus channel_info: socketcan channel 'can0'
+
+msg: None
+
+----
+test node 2 is not in network
+----
+
+----
+FUNCTION: finish_work
+TEST CANNOT BE PERFORMED (decorator)
+----
+
+
+
+==================================================================================
+==  DEBUG START 2021.12.05 - 15:57:02  ===========================================
+==================================================================================
+
+
+state command: INITIALISING
+master state: INITIALISING
+
+
+state: BusState.ACTIVE
+bus channel_info: socketcan channel 'can0'
+
+msg: None
+
+----
+test node 2 is not in network
+----
+
+----
+FUNCTION: finish_work
+TEST CANNOT BE PERFORMED (decorator)
+----
+
+
+
+==================================================================================
+==  DEBUG START 2021.12.05 - 15:57:16  ===========================================
+==================================================================================
+
+
+state command: INITIALISING
+master state: INITIALISING
+
+
+state: BusState.ACTIVE
+bus channel_info: socketcan channel 'can0'
+
+msg: None
+
+----
+test node 2 is not in network
+----
+
+----
+FUNCTION: finish_work
+TEST CANNOT BE PERFORMED (decorator)
+----
+
+
+
+==================================================================================
+==  DEBUG START 2021.12.05 - 15:57:44  ===========================================
+==================================================================================
+
+
+state command: INITIALISING
+master state: INITIALISING
+
+
+state: BusState.ACTIVE
+bus channel_info: socketcan channel 'can0'
+
+msg: None
+
+----
+test node 2 is not in network
+----
+
+----
+FUNCTION: finish_work
+TEST CANNOT BE PERFORMED (decorator)
+----
+
+
+
+==================================================================================
+==  DEBUG START 2021.12.05 - 16:36:27  ===========================================
+==================================================================================
+
+
+state command: INITIALISING
+master state: INITIALISING
+
+
+state: BusState.ACTIVE
+bus channel_info: socketcan channel 'can0'
+
+msg: None
+
+----
+test node 2 is not in network
+----
+
+----
+FUNCTION: finish_work
+TEST CANNOT BE PERFORMED (decorator)
+----
+
+
+
+==================================================================================
+==  DEBUG START 2021.12.05 - 16:36:50  ===========================================
+==================================================================================
+
+
+state command: INITIALISING
+master state: INITIALISING
+
+
+state: BusState.ACTIVE
+bus channel_info: socketcan channel 'can0'
+
+msg: None
+
+----
+test node 2 is not in network
+----
+
+----
+FUNCTION: finish_work
+TEST CANNOT BE PERFORMED (decorator)
+----
+
+
+
+==================================================================================
+==  DEBUG START 2021.12.05 - 16:37:41  ===========================================
+==================================================================================
+
+
+state command: INITIALISING
+master state: INITIALISING
+
+
+state: BusState.ACTIVE
+bus channel_info: socketcan channel 'can0'
+
+msg: None
+
+----
+test node 2 is not in network
+----
+
+----
+FUNCTION: finish_work
+TEST CANNOT BE PERFORMED (decorator)
+----
+
+
+
+==================================================================================
+==  DEBUG START 2021.12.05 - 16:37:54  ===========================================
+==================================================================================
+
+
+state command: INITIALISING
+master state: INITIALISING
+
+
+state: BusState.ACTIVE
+bus channel_info: socketcan channel 'can0'
+
+msg: None
+
+----
+test node 1 is not in network
+----
+
+----
+FUNCTION: finish_work
+TEST CANNOT BE PERFORMED (decorator)
+----
+
+
+
+==================================================================================
+==  DEBUG START 2021.12.05 - 16:39:42  ===========================================
+==================================================================================
+
+
+state command: INITIALISING
+master state: INITIALISING
+
+
+state: BusState.ACTIVE
+bus channel_info: socketcan channel 'can0'
+
+msg: None
+
+----
+test node 1 is not in network
+----
+
+----
+FUNCTION: finish_work
+TEST CANNOT BE PERFORMED (decorator)
+----
+
+
+
+==================================================================================
+==  DEBUG START 2021.12.05 - 16:48:53  ===========================================
+==================================================================================
+
+
+state command: INITIALISING
+master state: INITIALISING
+
+
+state: BusState.ACTIVE
+bus channel_info: socketcan channel 'can0'
+
+msg: None
+
+----
+test node 1 is not in network
+----
+
+----
+FUNCTION: finish_work
+TEST CANNOT BE PERFORMED (decorator)
+----
+
+
+
+==================================================================================
+==  DEBUG START 2021.12.05 - 16:49:38  ===========================================
+==================================================================================
+
+
+state command: INITIALISING
+master state: INITIALISING
+
+
+state: BusState.ACTIVE
+bus channel_info: socketcan channel 'can0'
+
+msg: None
+
+----
+test node 1 is not in network
+----
+
+----
+FUNCTION: finish_work
+TEST CANNOT BE PERFORMED (decorator)
+----
+
+
+
+==================================================================================
+==  DEBUG START 2021.12.05 - 16:58:42  ===========================================
+==================================================================================
+
+
+state command: INITIALISING
+master state: INITIALISING
+
+
+state: BusState.ACTIVE
+bus channel_info: socketcan channel 'can0'
+
+msg: None
+
+----
+test node 1 is not in network
+----
+
+----
+FUNCTION: finish_work
+TEST CANNOT BE PERFORMED (decorator)
+----
+
+
+
+==================================================================================
+==  DEBUG START 2021.12.05 - 16:58:47  ===========================================
+==================================================================================
+
+
+state command: INITIALISING
+master state: INITIALISING
+
+
+state: BusState.ACTIVE
+bus channel_info: socketcan channel 'can0'
+
+msg: None
+
+----
+test node 1 is not in network
+----
+
+----
+FUNCTION: finish_work
+TEST CANNOT BE PERFORMED (decorator)
+----
+
+
+
+==================================================================================
+==  DEBUG START 2021.12.05 - 16:59:22  ===========================================
+==================================================================================
+
+
+state command: INITIALISING
+master state: INITIALISING
+
+Found node 3
+Found node 4
+Found node 5
+Found node 6
+Found node 7
+Found node 8
+
+state: BusState.ACTIVE
+bus channel_info: socketcan channel 'can0'
+
+msg: Timestamp: 1638691162.989861        ID: 0708    S                DLC:  1    00                          Channel: can0
+
+----
+test node 1 is not in network
+----
+
+----
+FUNCTION: finish_work
+TEST CANNOT BE PERFORMED (decorator)
+----
+
+
+
+==================================================================================
+==  DEBUG START 2021.12.05 - 17:12:23  ===========================================
+==================================================================================
+
+
+state command: INITIALISING
+master state: INITIALISING
+
+Found node 3
+Found node 4
+Found node 5
+Found node 6
+Found node 7
+Found node 8
+
+state: BusState.ACTIVE
+bus channel_info: socketcan channel 'can0'
+
+msg: Timestamp: 1638691943.438314        ID: 0703    S                DLC:  1    00                          Channel: can0
+
+----
+test node 1 is not in network
+----
+
+----
+FUNCTION: finish_work
+TEST CANNOT BE PERFORMED (decorator)
+----
+
+
+
+==================================================================================
+==  DEBUG START 2021.12.05 - 17:17:25  ===========================================
+==================================================================================
+
+
+----
+FUNCTION: _connect_network
+ERROR
+----
+Failed to transmit: [Errno 100] Network is down
+
+Traceback (most recent call last):
+  File "/home/khc/.local/lib/python3.6/site-packages/can/interfaces/socketcan/socketcan.py", line 679, in _send_once
+    sent = self.socket.send(data)
+OSError: [Errno 100] Network is down
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/khc/catkin_ws/src/canopen_linux/test/elmo.py", line 120, in decorated
+    func(self, *args, **kwargs)
+  File "/home/khc/catkin_ws/src/canopen_linux/test/elmo.py", line 155, in _connect_network
+    self.network.scanner.search()
+  File "/home/khc/github/canopen/canopen/network.py", line 401, in search
+    self.network.send_message(0x600 + node_id, sdo_req)
+  File "/home/khc/github/canopen/canopen/network.py", line 213, in send_message
+    self.bus.send(msg)
+  File "/home/khc/.local/lib/python3.6/site-packages/can/interfaces/socketcan/socketcan.py", line 658, in send
+    sent = self._send_once(data, msg.channel)
+  File "/home/khc/.local/lib/python3.6/site-packages/can/interfaces/socketcan/socketcan.py", line 681, in _send_once
+    raise can.CanError("Failed to transmit: %s" % exc)
+can.CanError: Failed to transmit: [Errno 100] Network is down
+
+
+----
+FUNCTION: finish_work
+TEST CANNOT BE PERFORMED (decorator)
+----
+
+
+
+==================================================================================
+==  DEBUG START 2021.12.05 - 17:17:44  ===========================================
+==================================================================================
+
+
+state command: INITIALISING
+master state: INITIALISING
+
+
+state: BusState.ACTIVE
+bus channel_info: socketcan channel 'can0'
+
+msg: None
+
+----
+test node 1 is not in network
+----
+
+----
+FUNCTION: finish_work
+TEST CANNOT BE PERFORMED (decorator)
+----
+
+
+
+==================================================================================
+==  DEBUG START 2021.12.05 - 17:17:50  ===========================================
+==================================================================================
+
+
+state command: INITIALISING
+master state: INITIALISING
+
+
+state: BusState.ACTIVE
+bus channel_info: socketcan channel 'can0'
+
+msg: None
+
+----
+test node 1 is not in network
+----
+
+----
+FUNCTION: finish_work
+TEST CANNOT BE PERFORMED (decorator)
+----
+
+
+
+==================================================================================
+==  DEBUG START 2021.12.05 - 17:18:12  ===========================================
+==================================================================================
+
+
+state command: INITIALISING
+master state: INITIALISING
+
+Found node 3
+Found node 4
+Found node 5
+Found node 6
+Found node 7
+Found node 8
+
+state: BusState.ACTIVE
+bus channel_info: socketcan channel 'can0'
+
+msg: Timestamp: 1638692292.356627        ID: 0706    S                DLC:  1    00                          Channel: can0
+
+----
+test node 1 is not in network
+----
+
+----
+FUNCTION: finish_work
+TEST CANNOT BE PERFORMED (decorator)
+----
+
+
+
+==================================================================================
+==  DEBUG START 2021.12.05 - 17:18:38  ===========================================
+==================================================================================
+
+
+state command: INITIALISING
+master state: INITIALISING
+
+
+state: BusState.ACTIVE
+bus channel_info: socketcan channel 'can0'
+
+msg: None
+
+----
+test node 1 is not in network
+----
+
+----
+FUNCTION: finish_work
+TEST CANNOT BE PERFORMED (decorator)
+----
+
+
+
+==================================================================================
+==  DEBUG START 2021.12.05 - 17:18:53  ===========================================
+==================================================================================
+
+
+state command: INITIALISING
+master state: INITIALISING
+
+
+state: BusState.ACTIVE
+bus channel_info: socketcan channel 'can0'
+
+msg: None
+
+----
+test node 1 is not in network
+----
+
+----
+FUNCTION: finish_work
+TEST CANNOT BE PERFORMED (decorator)
+----
+
+
+
+==================================================================================
+==  DEBUG START 2021.12.05 - 17:19:18  ===========================================
+==================================================================================
+
+
+state command: INITIALISING
+master state: INITIALISING
+
+Found node 3
+Found node 4
+Found node 5
+Found node 6
+Found node 7
+Found node 8
+
+state: BusState.ACTIVE
+bus channel_info: socketcan channel 'can0'
+
+msg: Timestamp: 1638692358.398926        ID: 0707    S                DLC:  1    00                          Channel: can0
+
+----
+test node 1 is not in network
+----
+
+----
+FUNCTION: finish_work
+TEST CANNOT BE PERFORMED (decorator)
+----
+
+
+
+==================================================================================
+==  DEBUG START 2021.12.05 - 18:07:13  ===========================================
+==================================================================================
+
+
+state command: INITIALISING
+master state: INITIALISING
+
+Found node 1
+Adding node 1
+Found node 2
+Found node 3
+Found node 4
+Found node 5
+Found node 6
+Found node 7
+Found node 8
+
+state: BusState.ACTIVE
+bus channel_info: socketcan channel 'can0'
+
+msg: Timestamp: 1638695233.597187        ID: 0705    S                DLC:  1    00                          Channel: can0
+
+state command: STOPPED
+master state: STOPPED
+node 1 state: STOPPED
+
+state command: RESET
+master state: INITIALISING
+node 1 state: INITIALISING
+
+state command: RESET COMMUNICATION
+master state: INITIALISING
+node 1 state: PRE-OPERATIONAL
+
+state command: INITIALISING
+master state: INITIALISING
+node 1 state: INITIALISING
+
+state command: PRE-OPERATIONAL
+master state: PRE-OPERATIONAL
+node 1 state: PRE-OPERATIONAL
+
+===========
+Information
+CAN Open Node ID: 1
+Product Code: 0x3012a
+error_code: 0
+statusword: 0b1001000000
+controlword: 0b0
+modes_of_operation: -1
+Producer Heartbeat Time: 100
+Communication Cycle Period: 0
+
+- homing
+home_offset: 0
+homing_method: 35
+homing_speeds search switch: 1
+homing_speeds search zero: 1
+homing_acceleration: 1
+
+- control
+target_velocity: 0
+target_torque: 0
+target_position: 0
+profile_velocity: 1887
+position_demand_value: 0
+position_actual_internal_value: 0
+position_actual_value: 0
+profile_acceleration: 914775
+profile_deceleration: 914775
+
+FAULT RESET COMMAND: 0b10000000
+node_id: 1
+statusword: 0b0
+controlword: 0b10000000
+
+[SWITCH ON or DISABLE OPERATION] COMMAND: 0b111
+node_id: 1
+statusword: 0b0
+controlword: 0b111
+
+SHUTDOWN COMMAND: 0b110
+node_id: 1
+statusword: 0b0
+controlword: 0b110
+
+state command: RESET COMMUNICATION
+master state: INITIALISING
+node 1 state: PRE-OPERATIONAL
+
+state command: RESET
+master state: INITIALISING
+node 1 state: INITIALISING
+==========================
+Successfully disconnected!
+==========================
+
+
+
+==================================================================================
+==  DEBUG START 2021.12.05 - 18:08:22  ===========================================
+==================================================================================
+
+
+state command: INITIALISING
+master state: INITIALISING
+
+
+state: BusState.ACTIVE
+bus channel_info: socketcan channel 'can0'
+
+msg: None
+
+----
+test node 1 is not in network
+----
+
+----
+FUNCTION: finish_work
+TEST CANNOT BE PERFORMED (decorator)
+----
+
+
+
+==================================================================================
+==  DEBUG START 2021.12.05 - 18:09:05  ===========================================
+==================================================================================
+
+
+state command: INITIALISING
+master state: INITIALISING
+
+Found node 1
+Adding node 1
+Found node 2
+Found node 3
+Found node 4
+Found node 5
+Found node 6
+Found node 7
+Found node 8
+
+state: BusState.ACTIVE
+bus channel_info: socketcan channel 'can0'
+
+msg: Timestamp: 1638695345.823196        ID: 0701    S                DLC:  1    00                          Channel: can0
+
+state command: STOPPED
+master state: STOPPED
+node 1 state: STOPPED
+
+state command: RESET
+master state: INITIALISING
+node 1 state: INITIALISING
+
+state command: RESET COMMUNICATION
+master state: INITIALISING
+node 1 state: PRE-OPERATIONAL
+
+state command: INITIALISING
+master state: INITIALISING
+node 1 state: INITIALISING
+
+state command: PRE-OPERATIONAL
+master state: PRE-OPERATIONAL
+node 1 state: PRE-OPERATIONAL
+
+===========
+Information
+CAN Open Node ID: 1
+Product Code: 0x3012a
+error_code: 0
+statusword: 0b1001000000
+controlword: 0b0
+modes_of_operation: -1
+Producer Heartbeat Time: 100
+Communication Cycle Period: 0
+
+- homing
+home_offset: 0
+homing_method: 35
+homing_speeds search switch: 1
+homing_speeds search zero: 1
+homing_acceleration: 1
+
+- control
+target_velocity: 0
+target_torque: 0
+target_position: 0
+profile_velocity: 1887
+position_demand_value: 0
+position_actual_internal_value: 0
+position_actual_value: 0
+profile_acceleration: 914775
+profile_deceleration: 914775
+
+FAULT RESET COMMAND: 0b10000000
+node_id: 1
+statusword: 0b0
+controlword: 0b10000000
+
+[SWITCH ON or DISABLE OPERATION] COMMAND: 0b111
+node_id: 1
+statusword: 0b0
+controlword: 0b111
+
+SHUTDOWN COMMAND: 0b110
+node_id: 1
+statusword: 0b0
+controlword: 0b110
+
+state command: RESET COMMUNICATION
+master state: INITIALISING
+node 1 state: PRE-OPERATIONAL
+
+state command: RESET
+master state: INITIALISING
+node 1 state: INITIALISING
+==========================
+Successfully disconnected!
+==========================
+
+
+
+==================================================================================
+==  DEBUG START 2021.12.05 - 18:11:46  ===========================================
+==================================================================================
+
+
+state command: INITIALISING
+master state: INITIALISING
+
+
+state: BusState.ACTIVE
+bus channel_info: socketcan channel 'can0'
+
+msg: None
+
+----
+test node 1 is not in network
+----
+
+----
+FUNCTION: finish_work
+TEST CANNOT BE PERFORMED (decorator)
+----
+
+
+
+==================================================================================
+==  DEBUG START 2021.12.05 - 18:30:27  ===========================================
+==================================================================================
+
+
+state command: INITIALISING
+master state: INITIALISING
+
+
+state: BusState.ACTIVE
+bus channel_info: socketcan channel 'can0'
+
+msg: None
+
+----
+test node 1 is not in network
+----
+
+----
+FUNCTION: finish_work
+TEST CANNOT BE PERFORMED (decorator)
+----
+
+
+
+==================================================================================
+==  DEBUG START 2021.12.05 - 18:30:39  ===========================================
+==================================================================================
+
+
+state command: INITIALISING
+master state: INITIALISING
+
+
+state: BusState.ACTIVE
+bus channel_info: socketcan channel 'can0'
+
+msg: None
+
+----
+test node 1 is not in network
+----
+
+----
+FUNCTION: finish_work
+TEST CANNOT BE PERFORMED (decorator)
+----
+
+
+
+==================================================================================
+==  DEBUG START 2021.12.05 - 18:30:44  ===========================================
+==================================================================================
+
+
+state command: INITIALISING
+master state: INITIALISING
+
+
+state: BusState.ACTIVE
+bus channel_info: socketcan channel 'can0'
+
+msg: None
+
+----
+test node 1 is not in network
+----
+
+----
+FUNCTION: finish_work
+TEST CANNOT BE PERFORMED (decorator)
+----
+
+
+
+==================================================================================
+==  DEBUG START 2021.12.05 - 18:30:55  ===========================================
+==================================================================================
+
+
+state command: INITIALISING
+master state: INITIALISING
+
+
+state: BusState.ACTIVE
+bus channel_info: socketcan channel 'can0'
+
+msg: None
+
+----
+test node 1 is not in network
+----
+
+----
+FUNCTION: finish_work
+TEST CANNOT BE PERFORMED (decorator)
+----
+
+
+
+==================================================================================
+==  DEBUG START 2021.12.05 - 18:31:05  ===========================================
+==================================================================================
+
+
+state command: INITIALISING
+master state: INITIALISING
+
+
+state: BusState.ACTIVE
+bus channel_info: socketcan channel 'can0'
+
+msg: None
+
+----
+test node 1 is not in network
+----
+
+----
+FUNCTION: finish_work
+TEST CANNOT BE PERFORMED (decorator)
+----
+
+
+
+==================================================================================
+==  DEBUG START 2021.12.05 - 18:31:59  ===========================================
+==================================================================================
+
+
+state command: INITIALISING
+master state: INITIALISING
+
+
+state: BusState.ACTIVE
+bus channel_info: socketcan channel 'can0'
+
+msg: None
+
+----
+test node 1 is not in network
+----
+
+----
+FUNCTION: finish_work
+TEST CANNOT BE PERFORMED (decorator)
+----
+
+
+
+==================================================================================
+==  DEBUG START 2021.12.05 - 18:34:32  ===========================================
+==================================================================================
+
+
+state command: INITIALISING
+master state: INITIALISING
+
+
+state: BusState.ACTIVE
+bus channel_info: socketcan channel 'can0'
+
+msg: None
+
+----
+test node 1 is not in network
+----
+
+----
+FUNCTION: finish_work
+TEST CANNOT BE PERFORMED (decorator)
+----
+
+
+
+==================================================================================
+==  DEBUG START 2021.12.05 - 18:35:45  ===========================================
+==================================================================================
+
+
+state command: INITIALISING
+master state: INITIALISING
+
+
+state: BusState.ACTIVE
+bus channel_info: socketcan channel 'can0'
+
+msg: None
+
+----
+test node 1 is not in network
+----
+
+----
+FUNCTION: finish_work
+TEST CANNOT BE PERFORMED (decorator)
+----
+
+
+
+==================================================================================
+==  DEBUG START 2021.12.05 - 18:36:13  ===========================================
+==================================================================================
+
+
+state command: INITIALISING
+master state: INITIALISING
+
+Found node 1
+Adding node 1
+
+state: BusState.ACTIVE
+bus channel_info: socketcan channel 'can0'
+
+msg: None
+
+state command: STOPPED
+master state: STOPPED
+node 1 state: STOPPED
+
+state command: RESET
+master state: INITIALISING
+node 1 state: INITIALISING
+
+state command: RESET COMMUNICATION
+master state: INITIALISING
+node 1 state: PRE-OPERATIONAL
+
+state command: INITIALISING
+master state: INITIALISING
+node 1 state: INITIALISING
+
+state command: PRE-OPERATIONAL
+master state: PRE-OPERATIONAL
+node 1 state: PRE-OPERATIONAL
+
+===========
+Information
+CAN Open Node ID: 1
+Product Code: 0x3012a
+error_code: 0
+statusword: 0b1001000000
+controlword: 0b0
+modes_of_operation: -1
+Producer Heartbeat Time: 100
+Communication Cycle Period: 0
+
+- homing
+home_offset: 0
+homing_method: 35
+homing_speeds search switch: 1
+homing_speeds search zero: 1
+homing_acceleration: 1
+
+- control
+target_velocity: 0
+target_torque: 0
+target_position: 0
+profile_velocity: 1887
+position_demand_value: 0
+position_actual_internal_value: 0
+position_actual_value: 0
+profile_acceleration: 914775
+profile_deceleration: 914775
+
+FAULT RESET COMMAND: 0b10000000
+node_id: 1
+statusword: 0b0
+controlword: 0b10000000
+
+[SWITCH ON or DISABLE OPERATION] COMMAND: 0b111
+node_id: 1
+statusword: 0b0
+controlword: 0b111
+
+SHUTDOWN COMMAND: 0b110
+node_id: 1
+statusword: 0b0
+controlword: 0b110
+
+state command: RESET COMMUNICATION
+master state: INITIALISING
+node 1 state: PRE-OPERATIONAL
+
+state command: RESET
+master state: INITIALISING
+node 1 state: INITIALISING
+==========================
+Successfully disconnected!
+==========================
+
+
+
+==================================================================================
+==  DEBUG START 2021.12.05 - 18:36:28  ===========================================
+==================================================================================
+
+
+state command: INITIALISING
+master state: INITIALISING
+
+
+state: BusState.ACTIVE
+bus channel_info: socketcan channel 'can0'
+
+msg: None
+
+----
+test node 1 is not in network
+----
+
+----
+FUNCTION: finish_work
+TEST CANNOT BE PERFORMED (decorator)
+----
+
+
+
+==================================================================================
+==  DEBUG START 2021.12.05 - 18:38:01  ===========================================
+==================================================================================
+
+
+state command: INITIALISING
+master state: INITIALISING
+
+
+state: BusState.ACTIVE
+bus channel_info: socketcan channel 'can0'
+
+msg: None
+
+----
+test node 1 is not in network
+----
+
+----
+FUNCTION: finish_work
+TEST CANNOT BE PERFORMED (decorator)
+----
+
+
+
+==================================================================================
+==  DEBUG START 2021.12.05 - 18:38:34  ===========================================
+==================================================================================
+
+
+state command: INITIALISING
+master state: INITIALISING
+
+
+state: BusState.ACTIVE
+bus channel_info: socketcan channel 'can0'
+
+msg: None
+
+----
+test node 1 is not in network
+----
+
+----
+FUNCTION: finish_work
+TEST CANNOT BE PERFORMED (decorator)
+----
+
+
+
+==================================================================================
+==  DEBUG START 2021.12.05 - 18:38:53  ===========================================
+==================================================================================
+
+
+state command: INITIALISING
+master state: INITIALISING
+
+
+state: BusState.ACTIVE
+bus channel_info: socketcan channel 'can0'
+
+msg: None
+
+----
+test node 1 is not in network
+----
+
+----
+FUNCTION: finish_work
+TEST CANNOT BE PERFORMED (decorator)
+----
+
+
+
+==================================================================================
+==  DEBUG START 2021.12.05 - 18:39:30  ===========================================
+==================================================================================
+
+
+state command: INITIALISING
+master state: INITIALISING
+
+
+state: BusState.ACTIVE
+bus channel_info: socketcan channel 'can0'
+
+msg: None
+
+----
+test node 1 is not in network
+----
+
+----
+FUNCTION: finish_work
+TEST CANNOT BE PERFORMED (decorator)
+----
+
+
+
+==================================================================================
+==  DEBUG START 2021.12.05 - 18:39:58  ===========================================
+==================================================================================
+
+
+state command: INITIALISING
+master state: INITIALISING
+
+
+state: BusState.ACTIVE
+bus channel_info: socketcan channel 'can0'
+
+msg: None
+
+----
+test node 1 is not in network
+----
+
+----
+FUNCTION: finish_work
+TEST CANNOT BE PERFORMED (decorator)
+----
+
+
+
+==================================================================================
+==  DEBUG START 2021.12.05 - 18:40:01  ===========================================
+==================================================================================
+
+
+state command: INITIALISING
+master state: INITIALISING
+
+
+state: BusState.ACTIVE
+bus channel_info: socketcan channel 'can0'
+
+msg: None
+
+----
+test node 1 is not in network
+----
+
+----
+FUNCTION: finish_work
+TEST CANNOT BE PERFORMED (decorator)
+----

@@ -14,7 +14,7 @@ import threading
 PKG_PATH = '/home/khc/catkin_ws/src/canopen_linux/'
 
 #### CONTROL INFORMATION ####
-HZ = 40
+HZ = 300
 
 #### ENCODER INFORMATION ####
 ####  ELMO 1 2 3 4 5 6   ####
@@ -61,10 +61,10 @@ class CtrlWord():
 class CtrlPDO(dict):
     def __init__(self):
         self['controlword'] =        1
+        self['target_torque'] =      1
         self['modes_of_operation'] = 1
         self['target_velocity'] =    2
-        self['target_torque'] =      2
-        self['target_position'] =    3
+        self['target_position'] =    2
 
 class TestElmo():
     def __init__(self, node_list):
@@ -145,13 +145,15 @@ class TestElmo():
         ## using peak driver command pcaninfo will show channel(bus channel) name
         # self.network.connect(bustype='pcan', channel='PCAN_USBBUS1', bitrate=125000)
         ## using socketcan (same PEAK PCAN-USB)
-        self.network.connect(bustype='socketcan', channel='can0', bitrate=125000)
+        # self.network.connect(bustype='socketcan', channel='can0', bitrate=125000)
+        # self.network.connect(bustype='socketcan', channel='can0', bitrate=500000)
+        self.network.connect(bustype='socketcan', channel='can0', bitrate=1000000)
 
         ## -----------------------------------------------------------------
         ## attempt to read SDO from nodes 1 - 127
         ## add found node
         self.network.scanner.search()
-        time.sleep(self.sleep_)
+        time.sleep(0.1)
         self._change_status(status='INITIALISING')
         self._dprint()
         for node_id in self.network.scanner.nodes:
@@ -225,8 +227,13 @@ class TestElmo():
                 self.network[node_id_].sdo['homing_speeds'][1].raw = 1
                 self.network[node_id_].sdo['homing_speeds'][2].raw = 1
                 self.network[node_id_].sdo['homing_acceleration'].raw = 1
-            self.network[node_id_].sdo['Producer Heartbeat Time'].raw = 1000
-            self.network[node_id_].sdo['Communication Cycle Period'].raw = 0  ## what is it?
+            ## The producer heartbeat time indicates the configured cycle time of the heartbeat, in milliseconds.
+            ## A value of 0 disables the heartbeat.
+            self.network[node_id_].sdo['Producer Heartbeat Time'].raw = 100
+            ## This object defines the communication cycle period, in microseconds.
+            ## Its value is 0 if it is not used. I still do not get what it is...
+            # self.network[node_id_].sdo['Communication Cycle Period'].raw = 0
+            self.network[node_id_].sdo['Communication Cycle Period'].raw = 0
             # self.network[node_id_].sdo['target_velocity'].raw = 0
             # self.network[node_id_].sdo['target_torque'].raw = 0
             # self.network[node_id_].sdo['target_position'].raw = 0
@@ -276,9 +283,9 @@ class TestElmo():
 
             id_ = 1
             self.network[node_id_].tpdo[id_].clear()
-            self.network[node_id_].tpdo[id_].add_variable('statusword')
-            self.network[node_id_].tpdo[id_].add_variable('modes_of_operation')
-            self.network[node_id_].tpdo[id_].add_variable('digital_inputs')
+            self.network[node_id_].tpdo[id_].add_variable('modes_of_operation')     ## 8bit
+            self.network[node_id_].tpdo[id_].add_variable('statusword')             ## 16bit
+            self.network[node_id_].tpdo[id_].add_variable('digital_inputs')         ## 32bit
             self.network[node_id_].tpdo[id_].trans_type = trans_type_
             self.network[node_id_].tpdo[id_].event_timer = 0
             self.network[node_id_].tpdo[id_].inhibit_time = 0
@@ -286,8 +293,8 @@ class TestElmo():
 
             id_ = 2
             self.network[node_id_].tpdo[id_].clear()
-            self.network[node_id_].tpdo[id_].add_variable('position_actual_value')
-            self.network[node_id_].tpdo[id_].add_variable('position_actual_internal_value')
+            self.network[node_id_].tpdo[id_].add_variable('torque_actual_value')    ## 16bit
+            self.network[node_id_].tpdo[id_].add_variable('position_actual_value')  ## 32bit
             self.network[node_id_].tpdo[id_].trans_type = trans_type_
             self.network[node_id_].tpdo[id_].event_timer = 0
             self.network[node_id_].tpdo[id_].inhibit_time = 0
@@ -295,8 +302,7 @@ class TestElmo():
 
             id_ = 3
             self.network[node_id_].tpdo[id_].clear()
-            self.network[node_id_].tpdo[id_].add_variable('velocity_actual_value')
-            self.network[node_id_].tpdo[id_].add_variable('torque_actual_value')
+            self.network[node_id_].tpdo[id_].add_variable('velocity_actual_value')  ## 32bit
             self.network[node_id_].tpdo[id_].trans_type = trans_type_
             self.network[node_id_].tpdo[id_].event_timer = 0
             self.network[node_id_].tpdo[id_].inhibit_time = 0
@@ -309,20 +315,20 @@ class TestElmo():
         for node_id_ in self.network:
             id_ = 1
             self.network[node_id_].rpdo[id_].clear()
-            self.network[node_id_].rpdo[id_].add_variable('controlword')
-            self.network[node_id_].rpdo[id_].add_variable('modes_of_operation')
+            self.network[node_id_].rpdo[id_].add_variable('controlword')            ## 16bit
+            self.network[node_id_].rpdo[id_].add_variable('target_torque')          ## 16bit
+            self.network[node_id_].rpdo[id_].add_variable('modes_of_operation')     ## 8bit
             self.network[node_id_].rpdo[id_].enabled = True
 
             id_ = 2
             self.network[node_id_].rpdo[id_].clear()
-            self.network[node_id_].rpdo[id_].add_variable('target_velocity')
-            self.network[node_id_].rpdo[id_].add_variable('target_torque')
+            self.network[node_id_].rpdo[id_].add_variable('target_velocity')        ## 32bit
+            self.network[node_id_].rpdo[id_].add_variable('target_position')        ## 32bit
             self.network[node_id_].rpdo[id_].enabled = True
 
             id_ = 3
             self.network[node_id_].rpdo[id_].clear()
-            self.network[node_id_].rpdo[id_].add_variable('target_position')
-            self.network[node_id_].rpdo[id_].enabled = True
+            self.network[node_id_].rpdo[id_].enabled = False
 
             self.network[node_id_].rpdo.save()
 
@@ -453,9 +459,9 @@ class TestElmo():
                 id_s = (i+1)*2  ## steering node
                 ids_s = 'S-id:{0} '.format(id_s)
                 pos_s = ' pos:%-8.2f'%(RAD2DEG * C2R[i] * N00 * self.network[id_s].tpdo['position_actual_value'].raw)
-                vel_s = ' v:%-7d'%(RAD2DEG * C2R[i] * N00 * self.network[id_s].tpdo['velocity_actual_value'].raw)
-                tor_s = ' t:%-5d'%self.network[id_s].tpdo['torque_actual_value'].raw
-                statusword_s = ' stat:%-16s'%bin(self.network[id_s].tpdo['statusword'].raw) 
+                vel_s = ' v:%-7.2f'%(RAD2DEG * C2R[i] * N00 * self.network[id_s].tpdo['velocity_actual_value'].raw)
+                tor_s = ' t:%-4d'%self.network[id_s].tpdo['torque_actual_value'].raw
+                statusword_s = ' stat:%-15s'%bin(self.network[id_s].tpdo['statusword'].raw) 
                 di_s = ' DI:%s'%bin(self.network[id_s].tpdo['digital_inputs'].raw) 
                 print_string_s = ids_s + pos_s + vel_s + tor_s + statusword_s + di_s
 
@@ -463,31 +469,22 @@ class TestElmo():
                 ids_r = 'R-id:{0} '.format(id_r)
                 pos_r = ' pos:%-8.2f'%(RAD2DEG * C2R[i] * (N01 * self.network[id_s].tpdo['position_actual_value'].raw
                                              + N11 * self.network[id_r].tpdo['position_actual_value'].raw))
-                vel_r = ' v:%-7d'%(RAD2DEG * C2R[i] * (N01 * self.network[id_s].tpdo['velocity_actual_value'].raw
+                vel_r = ' v:%-7.2f'%(RAD2DEG * C2R[i] * (N01 * self.network[id_s].tpdo['velocity_actual_value'].raw
                                              + N11 * self.network[id_r].tpdo['velocity_actual_value'].raw))
-                tor_r = ' t:%-5d'%self.network[id_r].tpdo['torque_actual_value'].raw
-                statusword_r = ' stat:%-16s'%bin(self.network[id_r].tpdo['statusword'].raw) 
+                tor_r = ' t:%-4d'%self.network[id_r].tpdo['torque_actual_value'].raw
+                statusword_r = ' stat:%-15s'%bin(self.network[id_r].tpdo['statusword'].raw) 
                 di_r = ' DI:%s'%bin(self.network[id_r].tpdo['digital_inputs'].raw) 
                 print_string_r = ids_r + pos_r + vel_r + tor_r + statusword_r + di_r
 
                 self._dprint(print_string_r)
                 self._dprint(print_string_s)
-            for node_id_ in self.node_list:
-                id_ = 'id:{0} '.format(node_id_)
-                pos_ = ' pos:%-8d'%self.network[node_id_].tpdo['position_actual_value'].raw
-                vel_ = ' v:%-7d'%self.network[node_id_].tpdo['velocity_actual_value'].raw
-                tor_ = ' t:%-5d'%self.network[node_id_].tpdo['torque_actual_value'].raw
-                statusword_ = ' stat:%-16s'%bin(self.network[node_id_].tpdo['statusword'].raw) 
-                di_ = ' DI:%s'%bin(self.network[node_id_].tpdo['digital_inputs'].raw) 
-                print_string = id_ + pos_ + vel_ + tor_ + statusword_ + di_
-                self._dprint(print_string)
         else:
             for node_id_ in self.node_list:
                 id_ = 'id:{0} '.format(node_id_)
                 pos_ = ' pos:%-8d'%self.network[node_id_].tpdo['position_actual_value'].raw
                 vel_ = ' v:%-7d'%self.network[node_id_].tpdo['velocity_actual_value'].raw
-                tor_ = ' t:%-5d'%self.network[node_id_].tpdo['torque_actual_value'].raw
-                statusword_ = ' stat:%-16s'%bin(self.network[node_id_].tpdo['statusword'].raw) 
+                tor_ = ' t:%-4d'%self.network[node_id_].tpdo['torque_actual_value'].raw
+                statusword_ = ' stat:%-15s'%bin(self.network[node_id_].tpdo['statusword'].raw) 
                 di_ = ' DI:%s'%bin(self.network[node_id_].tpdo['digital_inputs'].raw) 
                 print_string = id_ + pos_ + vel_ + tor_ + statusword_ + di_
                 self._dprint(print_string)
@@ -742,18 +739,74 @@ class TestElmo():
 
         self._dprint('homing performing finished!')
         self.network.sync.transmit()
-        time.sleep(0.01)
+        self._read_and_print()
+        self._stop_operation()
+
+    @_try_except_decorator
+    def homing(self):
+        r = rospy.Rate(HZ)
+        tick = 0
+        self._switch_on_mode(self.node_list)
+        for i in range(4):
+            h_node = i*2+2
+            for node_id_ in self.node_list:
+                self.network[node_id_].rpdo['modes_of_operation'].raw = OPMode.NO_MODE
+                self.network[node_id_].rpdo[1].transmit()
+                self._dprint('operation mode: {0}'.format(self.network[node_id_].rpdo['modes_of_operation'].raw))
+            self.network[h_node].rpdo['modes_of_operation'].raw = OPMode.HOMING
+            self.network[h_node].rpdo[1].transmit()
+            self._dprint('operation mode: {0}'.format(self.network[h_node].rpdo['modes_of_operation'].raw))
+            time.sleep(self.sleep_)
+            self._rpdo_controlword(controlword=CtrlWord.ENABLE_OPERATION, node_id=h_node) ## Enable Operation command
+            self._rpdo_controlword(controlword=0b11111, node_id=h_node, command='HOMING COMMAND') ## Operation command
+            while not rospy.is_shutdown():
+                self.network.sync.transmit()
+                self._pub_joint()
+                statusword = bin(self.network[h_node].tpdo['statusword'].raw)
+                try:
+                    statusword = statusword[2:]
+                    if statusword[-13] == '1':
+                        break
+                except:
+                    pass
+                tick += 1
+                if (tick % HZ == 0): self._read_and_print()
+                r.sleep()
+
+            self._rpdo_controlword(controlword=CtrlWord.DISABLE_OPERATION, node_id=h_node) ## Disavle Operation command
+            self.network[h_node].rpdo['modes_of_operation'].raw = OPMode.NO_MODE
+            self.network[h_node].rpdo[1].transmit()
+            h_node = i*2+1
+            self.network[h_node].rpdo['modes_of_operation'].raw = OPMode.HOMING
+            self.network[h_node].rpdo[1].transmit()
+            self._rpdo_controlword(controlword=CtrlWord.ENABLE_OPERATION, node_id=h_node) ## Enable Operation command
+            self._rpdo_controlword(controlword=0b11111, node_id=h_node, command='HOMING COMMAND') ## Operation command
+            while not rospy.is_shutdown():
+                self.network.sync.transmit()
+                self._pub_joint()
+                statusword = bin(self.network[h_node].tpdo['statusword'].raw)
+                try:
+                    statusword = statusword[2:]
+                    if statusword[-13] == '1':
+                        break
+                except:
+                    pass
+                tick += 1
+                if (tick % HZ == 0): self._read_and_print()
+                r.sleep()
+            self._rpdo_controlword(controlword=CtrlWord.DISABLE_OPERATION, node_id=h_node) ## Disavle Operation command
+            self.network[h_node].rpdo['modes_of_operation'].raw = OPMode.NO_MODE
+            self.network[h_node].rpdo[1].transmit()
+
+        self._dprint('homing performing finished!')
+        self.network.sync.transmit()
+        time.sleep(0.001)
+        self.ready4control_ = True
         self._read_and_print()
         self._stop_operation()
 
     @_try_except_decorator
     def start_joint_publisher(self, operation_mode=OPMode.PROFILED_TORQUE):
-        ## execute homing for 2 4 6 8
-        self.perform_homing(test_set=[2, 4, 6, 8])
-        ## execute homing for 1 3 5 7
-        self.perform_homing(test_set=[1, 3, 5, 7])
-        self.ready4control_ = True
-
         half_hz_ = int(HZ/2)
         r = rospy.Rate(HZ)
         tick = 0
@@ -764,11 +817,15 @@ class TestElmo():
         self._start_operation_mode(test_set=[1,2,3,4,5,6,7,8], operation_mode=operation_mode)
 
         while not rospy.is_shutdown():
+            self.lock_.acquire()
             self.network.sync.transmit()
+            self.lock_.release()
             self._pub_joint()
             if ((rospy.Time.now() - self.sub_time ).to_sec() > 0.1):
+                self.lock_.acquire()
                 for node_id_ in [1,2,3,4,5,6,7,8]:
                     self._control_command(node_id_, control_target, 0.0)
+                self.lock_.release()
             tick += 1
             if (tick % half_hz_ == 0): self._read_and_print()
             r.sleep()
@@ -800,10 +857,10 @@ if __name__ == "__main__":
 
     tt_ = TestElmo(node_list=node_set)
 
-    # tt_.test_single_elmo(test_id=node_set[0], operation_mode=OPMode.PROFILED_TORQUE, value=300)
+    # tt_.test_single_elmo(test_id=node_set[0], operation_mode=OPMode.PROFILED_TORQUE, value=150)
     # tt_.test_single_elmo(test_id=node_set[1], operation_mode=OPMode.PROFILED_VELOCITY, value=0, play_time=60.0)
 
-    # tt_.test_dual_elmo(t1=4, t2=6, operation_mode=OPMode.PROFILED_VELOCITY, value=3000)
+    # tt_.test_dual_elmo(t1=1, t2=2, operation_mode=OPMode.PROFILED_TORQUE, value=80)
 
     # tt_.test_multiple_elmo(test_set=node_set, operation_mode=OPMode.PROFILED_TORQUE, value=120)
     # tt_.test_multiple_elmo(test_set=node_set, operation_mode=OPMode.PROFILED_VELOCITY, value=1000)
@@ -817,7 +874,7 @@ if __name__ == "__main__":
     # tt_.perform_homing(test_set=[2,4,6,8])
     # tt_.perform_homing(test_set=[1,3,5,7])
 
-    tt_.start_joint_publisher()
-
     # tt_.set_free_wheel(test_set=node_set, play_time=60)
 
+    tt_.homing()
+    tt_.start_joint_publisher()
