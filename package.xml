@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <package>
-  <name>dyros_pcd_canopen</name>
+  <name>dyros_pcv_canopen</name>
   <version>0.0.1</version>
-  <description>The dyros_pcd_canopen package</description>
+  <description>The dyros_pcv_canopen package</description>
   <maintainer email="kimhc37@snu.ac.kr">kimhc</maintainer>
   <license>BSD</license>
   <author email="kimhc37@snu.ac.kr">kimhc</author>
