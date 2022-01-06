@@ -6,6 +6,7 @@ https://www.notion.so/kimms74/40dcc3a8ff054dc9994e5fc62de9bc30
 """
 import os.path
 import rospy
+import rospkg
 from platform import node
 from re import S, T
 import time
@@ -15,8 +16,6 @@ import traceback
 from sensor_msgs.msg import JointState
 import math
 import threading
-
-PKG_PATH = '/home/kimhc/catkin_ws/src/canopen_linux/'
 
 #### CONTROL INFORMATION ####
 HZ = 300
@@ -122,7 +121,8 @@ class TestElmo():
 
         ## -----------------------------------------------------------------
         ## for debug
-        self.db_ = open(PKG_PATH + 'debug/debug'+time.strftime('_%Y_%m_%d', time.localtime())+'.txt', 'a')
+        pkg_path = rospkg.RosPack().get_path('dyros_pcv_canopen')
+        self.db_ = open(pkg_path + '/debug/debug'+time.strftime('_%Y_%m_%d', time.localtime())+'.txt', 'a')
         ptime_ = time.strftime('==  DEBUG START %Y.%m.%d - %X', time.localtime())
         two_bar = ''
         for _ in range(len(ptime_)+4):
@@ -133,7 +133,7 @@ class TestElmo():
 
         ## -----------------------------------------------------------------
         ## path for eds file of elmo
-        self.EDS_PATH = PKG_PATH + 'eds_file/elmo.eds'  ## os.path.join(os.path.dirname(__file__), 'elmo.eds')
+        self.EDS_PATH = pkg_path + '/eds_file/elmo.eds'  ## os.path.join(os.path.dirname(__file__), 'elmo.eds')
 
         ## -----------------------------------------------------------------
         ## one network per one CAN Bus
