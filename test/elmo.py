@@ -16,7 +16,7 @@ from sensor_msgs.msg import JointState
 import math
 import threading
 
-PKG_PATH = '/home/khc/catkin_ws/src/canopen_linux/'
+PKG_PATH = '/home/kimhc/catkin_ws/src/canopen_linux/'
 
 #### CONTROL INFORMATION ####
 HZ = 300
