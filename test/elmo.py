@@ -4,6 +4,7 @@ Kim Hyoung Cheol
 https://github.com/KIM-HC/canopen_linux
 https://www.notion.so/kimms74/40dcc3a8ff054dc9994e5fc62de9bc30
 """
+from inspect import modulesbyfile
 import os.path
 import rospy
 import rospkg
@@ -940,6 +941,60 @@ class TestElmo():
         self._read_and_print()
         self._stop_operation()
 
+    ## moudle: 1~4
+    @_try_except_decorator
+    def test_calibration(self, stationary_module, jt_tor_r=700):
+        half_hz_ = int(HZ/2)
+        r = rospy.Rate(HZ)
+
+        self.homing()
+
+        ## change steering angle of stationary_module by hand for now
+        stationary_steer = stationary_module * 2
+        stationary_roll = stationary_module * 2 - 1
+
+        time.sleep(6.0)
+
+        self._start_operation_mode(test_set=[stationary_steer], operation_mode=OPMode.PROFILED_VELOCITY)
+
+
+        # changing_angle = True
+        # while changing_angle:
+        #     self._control_command(stationary_steer, 'target_velocity', 0.0)
+        #     pass
+        self._control_command(stationary_steer, 'target_velocity', 0.0)
+
+        ## freeze stationary_module
+        self._start_operation_mode(test_set=[stationary_roll], operation_mode=OPMode.PROFILED_VELOCITY)
+        self._control_command(stationary_roll, 'target_velocity', 0.0)
+
+
+        ## align other modules with hand for now
+
+        ## move moving_modules' rolling while freeing steering
+        tick = 0
+        mt_tor_s, mt_tor_r = self._from_desired_torque_to_motor_torque(0, jt_tor_r)
+        for node_id in range(1,9):
+            if (node_id == stationary_roll or node_id == stationary_steer):
+                pass
+            else:
+                self._start_operation_mode(test_set=[node_id], operation_mode=OPMode.PROFILED_TORQUE)
+        for module in range(1,5):
+            if (module == stationary_module):
+                pass
+            else:
+                self._control_command(module * 2, 'target_torque', mt_tor_s)
+                self._control_command(module * 2 - 1, 'target_torque', mt_tor_r)
+
+        while tick < 30 * HZ:
+            self.network.sync.transmit()
+            tick += 1
+            if (tick % half_hz_ == 0): self._read_and_print()
+            r.sleep()
+
+        self._stop_operation()
+        self._disconnect_device()
+
     @_try_except_decorator
     def finish_work(self):
         self._disconnect_device()
@@ -948,7 +1003,8 @@ class TestElmo():
 if __name__ == "__main__":
     ## operation mode for elmo(402.pdf)
     ## NO_MODE, PROFILED_POSITION, PROFILED_VELOCITY, PROFILED_TORQUE, HOMING, INTERPOLATED_POSITION
-    ## Torque value : 130
+    ## motor Torque value : 130
+    ## joint Torque value : 600
     ## Velocity value : 1000
 
     # node_set = [1]
@@ -976,5 +1032,7 @@ if __name__ == "__main__":
     # tt_.perform_homing(test_set=[1,3,5,7])
 
     # tt_.set_free_wheel(test_set=node_set, play_time=5)
+
+    # tt_.test_calibration(1, jt_tor_r=700)
 
     tt_.start_joint_publisher()

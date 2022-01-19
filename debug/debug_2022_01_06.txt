@@ -1,0 +1,39 @@
+
+
+
+==================================================================================
+==  DEBUG START 2022.01.06 - 19:37:15  ===========================================
+==================================================================================
+
+
+----
+FUNCTION: _connect_network
+ERROR
+----
+[Errno 19] No such device
+
+Traceback (most recent call last):
+  File "/home/khc/catkin_ws/src/canopen_linux/test/elmo.py", line 151, in decorated
+    func(self, *args, **kwargs)
+  File "/home/khc/catkin_ws/src/canopen_linux/test/elmo.py", line 181, in _connect_network
+    self.network.connect(bustype='socketcan', channel='can0', bitrate=1000000)
+  File "/home/khc/github/canopen/canopen/network.py", line 112, in connect
+    self.bus = can.interface.Bus(*args, **kwargs)
+  File "/home/khc/.local/lib/python3.6/site-packages/can/interface.py", line 127, in __new__
+    return cls(channel, *args, **kwargs)
+  File "/home/khc/.local/lib/python3.6/site-packages/can/interfaces/socketcan/socketcan.py", line 594, in __init__
+    bind_socket(self.socket, channel)
+  File "/home/khc/.local/lib/python3.6/site-packages/can/interfaces/socketcan/socketcan.py", line 459, in bind_socket
+    sock.bind((channel,))
+OSError: [Errno 19] No such device
+
+
+----
+FUNCTION: start_joint_publisher
+TEST CANNOT BE PERFORMED (decorator)
+----
+
+----
+FUNCTION: finish_work
+TEST CANNOT BE PERFORMED (decorator)
+----
