@@ -943,7 +943,7 @@ class TestElmo():
 
     ## moudle: 1~4
     @_try_except_decorator
-    def test_calibration(self, stationary_module, jt_tor_r=700):
+    def test_calibration(self, stationary_module, st_tor_r=1300, jt_tor_r=960):
         half_hz_ = int(HZ/2)
         r = rospy.Rate(HZ)
 
@@ -953,7 +953,7 @@ class TestElmo():
         stationary_steer = stationary_module * 2
         stationary_roll = stationary_module * 2 - 1
 
-        time.sleep(6.0)
+        time.sleep(20.0)
 
         self._start_operation_mode(test_set=[stationary_steer], operation_mode=OPMode.PROFILED_VELOCITY)
 
@@ -973,12 +973,27 @@ class TestElmo():
 
         ## move moving_modules' rolling while freeing steering
         tick = 0
-        mt_tor_s, mt_tor_r = self._from_desired_torque_to_motor_torque(0, jt_tor_r)
+        mt_tor_s, mt_tor_r = self._from_desired_torque_to_motor_torque(0, st_tor_r)
         for node_id in range(1,9):
             if (node_id == stationary_roll or node_id == stationary_steer):
                 pass
             else:
                 self._start_operation_mode(test_set=[node_id], operation_mode=OPMode.PROFILED_TORQUE)
+
+        for module in range(1,5):
+            if (module == stationary_module):
+                pass
+            else:
+                self._control_command(module * 2, 'target_torque', mt_tor_s)
+                self._control_command(module * 2 - 1, 'target_torque', mt_tor_r)
+
+        while tick < 3 * HZ:
+            self.network.sync.transmit()
+            tick += 1
+            if (tick % half_hz_ == 0): self._read_and_print()
+            r.sleep()
+
+        mt_tor_s, mt_tor_r = self._from_desired_torque_to_motor_torque(0, jt_tor_r)
         for module in range(1,5):
             if (module == stationary_module):
                 pass
@@ -1033,6 +1048,6 @@ if __name__ == "__main__":
 
     # tt_.set_free_wheel(test_set=node_set, play_time=5)
 
-    # tt_.test_calibration(1, jt_tor_r=700)
+    # tt_.test_calibration(1, st_tor_r=1300, jt_tor_r=960)
 
     tt_.start_joint_publisher()
