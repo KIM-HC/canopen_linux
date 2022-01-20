@@ -1068,6 +1068,6 @@ if __name__ == "__main__":
 
     # tt_.set_free_wheel(test_set=node_set, play_time=5)
 
-    tt_.test_calibration(stationary_set=0, target_steer=45.0, st_tor_r=1300, jt_tor_r=960)
+    tt_.test_calibration(stationary_set=0, target_steer=45.0 + 180.0, st_tor_r=1300, jt_tor_r=960)
 
     # tt_.start_joint_publisher()
