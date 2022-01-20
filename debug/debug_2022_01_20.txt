@@ -1,0 +1,1769 @@
+
+
+
+==================================================================================
+==  DEBUG START 2022.01.20 - 10:40:36  ===========================================
+==================================================================================
+
+state command: INITIALISING
+master state: INITIALISING
+
+
+Found node 1
+Adding node 1
+Found node 2
+Adding node 2
+Found node 3
+Adding node 3
+Found node 4
+Adding node 4
+Found node 5
+Adding node 5
+Found node 6
+Adding node 6
+Found node 7
+Adding node 7
+Found node 8
+Adding node 8
+
+state: BusState.ACTIVE
+bus channel_info: socketcan channel 'can0'
+state command: STOPPED
+master state: STOPPED
+node 1 state: STOPPED
+node 2 state: STOPPED
+node 3 state: STOPPED
+node 4 state: STOPPED
+node 5 state: STOPPED
+node 6 state: STOPPED
+node 7 state: STOPPED
+node 8 state: STOPPED
+
+state command: RESET
+master state: INITIALISING
+node 1 state: INITIALISING
+node 2 state: INITIALISING
+node 3 state: INITIALISING
+node 4 state: INITIALISING
+node 5 state: INITIALISING
+node 6 state: INITIALISING
+node 7 state: INITIALISING
+node 8 state: INITIALISING
+
+state command: RESET COMMUNICATION
+master state: INITIALISING
+node 1 state: PRE-OPERATIONAL
+node 2 state: PRE-OPERATIONAL
+node 3 state: PRE-OPERATIONAL
+node 4 state: PRE-OPERATIONAL
+node 5 state: PRE-OPERATIONAL
+node 6 state: PRE-OPERATIONAL
+node 7 state: PRE-OPERATIONAL
+node 8 state: PRE-OPERATIONAL
+
+state command: INITIALISING
+master state: INITIALISING
+node 1 state: INITIALISING
+node 2 state: INITIALISING
+node 3 state: INITIALISING
+node 4 state: INITIALISING
+node 5 state: INITIALISING
+node 6 state: INITIALISING
+node 7 state: INITIALISING
+node 8 state: INITIALISING
+
+state command: PRE-OPERATIONAL
+master state: PRE-OPERATIONAL
+node 1 state: PRE-OPERATIONAL
+node 2 state: PRE-OPERATIONAL
+node 3 state: PRE-OPERATIONAL
+node 4 state: PRE-OPERATIONAL
+node 5 state: PRE-OPERATIONAL
+node 6 state: PRE-OPERATIONAL
+node 7 state: PRE-OPERATIONAL
+node 8 state: PRE-OPERATIONAL
+
+
+===========
+Information
+CAN Open Node ID: 1
+Product Code: 0x3012a
+error_code: 0
+statusword: 0b1001000000
+modes_of_operation: -1
+Producer Heartbeat Time: 100
+Communication Cycle Period: 0
+
+- homing
+home_offset: 0
+homing_method: 35
+homing_speeds search switch: 1
+homing_speeds search zero: 1
+homing_acceleration: 1
+
+===========
+Information
+CAN Open Node ID: 2
+Product Code: 0x3012a
+error_code: 0
+statusword: 0b1001000000
+modes_of_operation: -1
+Producer Heartbeat Time: 100
+Communication Cycle Period: 0
+
+- homing
+home_offset: 3072
+homing_method: 20
+homing_speeds search switch: 800
+homing_speeds search zero: 1500
+homing_acceleration: 620746
+
+===========
+Information
+CAN Open Node ID: 3
+Product Code: 0x3012a
+error_code: 0
+statusword: 0b1001000000
+modes_of_operation: -1
+Producer Heartbeat Time: 100
+Communication Cycle Period: 0
+
+- homing
+home_offset: 0
+homing_method: 35
+homing_speeds search switch: 1
+homing_speeds search zero: 1
+homing_acceleration: 1
+
+===========
+Information
+CAN Open Node ID: 4
+Product Code: 0x3012a
+error_code: 0
+statusword: 0b1001000000
+modes_of_operation: -1
+Producer Heartbeat Time: 100
+Communication Cycle Period: 0
+
+- homing
+home_offset: -3072
+homing_method: 20
+homing_speeds search switch: 800
+homing_speeds search zero: 1500
+homing_acceleration: 648999
+
+===========
+Information
+CAN Open Node ID: 5
+Product Code: 0x3012a
+error_code: 0
+statusword: 0b1001000000
+modes_of_operation: -1
+Producer Heartbeat Time: 100
+Communication Cycle Period: 0
+
+- homing
+home_offset: 0
+homing_method: 35
+homing_speeds search switch: 1
+homing_speeds search zero: 1
+homing_acceleration: 1
+
+===========
+Information
+CAN Open Node ID: 6
+Product Code: 0x3012a
+error_code: 0
+statusword: 0b1001000000
+modes_of_operation: -1
+Producer Heartbeat Time: 100
+Communication Cycle Period: 0
+
+- homing
+home_offset: -1024
+homing_method: 20
+homing_speeds search switch: 800
+homing_speeds search zero: 1500
+homing_acceleration: 651658
+
+===========
+Information
+CAN Open Node ID: 7
+Product Code: 0x3012a
+error_code: 0
+statusword: 0b1001000000
+modes_of_operation: -1
+Producer Heartbeat Time: 100
+Communication Cycle Period: 0
+
+- homing
+home_offset: 0
+homing_method: 35
+homing_speeds search switch: 1
+homing_speeds search zero: 1
+homing_acceleration: 1
+
+===========
+Information
+CAN Open Node ID: 8
+Product Code: 0x3012a
+error_code: 0
+statusword: 0b1001000000
+modes_of_operation: -1
+Producer Heartbeat Time: 100
+Communication Cycle Period: 0
+
+- homing
+home_offset: 4096
+homing_method: 20
+homing_speeds search switch: 3200
+homing_speeds search zero: 6000
+homing_acceleration: 2637282
+FAULT RESET COMMAND: 0b10000000
+node_id:1 stat:0b0             ctrl:0b10000000
+node_id:2 stat:0b0             ctrl:0b10000000
+node_id:3 stat:0b0             ctrl:0b10000000
+node_id:4 stat:0b0             ctrl:0b10000000
+node_id:5 stat:0b0             ctrl:0b10000000
+node_id:6 stat:0b0             ctrl:0b10000000
+node_id:7 stat:0b0             ctrl:0b10000000
+node_id:8 stat:0b0             ctrl:0b10000000
+
+[SWITCH ON or DISABLE OPERATION] COMMAND: 0b111
+node_id:1 stat:0b0             ctrl:0b111     
+node_id:2 stat:0b0             ctrl:0b111     
+node_id:3 stat:0b0             ctrl:0b111     
+node_id:4 stat:0b0             ctrl:0b111     
+node_id:5 stat:0b0             ctrl:0b111     
+node_id:6 stat:0b0             ctrl:0b111     
+node_id:7 stat:0b0             ctrl:0b111     
+node_id:8 stat:0b0             ctrl:0b111     
+
+
+----
+FUNCTION: test_calibration
+ERROR
+----
+test_calibration() got an unexpected keyword argument 'stationary_module'
+
+Traceback (most recent call last):
+  File "/home/khc/catkin_ws/src/canopen_linux/test/elmo.py", line 153, in decorated
+    func(self, *args, **kwargs)
+TypeError: test_calibration() got an unexpected keyword argument 'stationary_module'
+
+
+----
+FUNCTION: finish_work
+TEST CANNOT BE PERFORMED (decorator)
+----
+
+
+
+==================================================================================
+==  DEBUG START 2022.01.20 - 10:41:01  ===========================================
+==================================================================================
+
+state command: INITIALISING
+master state: INITIALISING
+
+
+Found node 1
+Adding node 1
+Found node 2
+Adding node 2
+Found node 3
+Adding node 3
+Found node 4
+Adding node 4
+Found node 5
+Adding node 5
+Found node 6
+Adding node 6
+Found node 7
+Adding node 7
+Found node 8
+Adding node 8
+
+state: BusState.ACTIVE
+bus channel_info: socketcan channel 'can0'
+state command: STOPPED
+master state: STOPPED
+node 1 state: STOPPED
+node 2 state: STOPPED
+node 3 state: STOPPED
+node 4 state: STOPPED
+node 5 state: STOPPED
+node 6 state: STOPPED
+node 7 state: STOPPED
+node 8 state: STOPPED
+
+state command: RESET
+master state: INITIALISING
+node 1 state: INITIALISING
+node 2 state: INITIALISING
+node 3 state: INITIALISING
+node 4 state: INITIALISING
+node 5 state: INITIALISING
+node 6 state: INITIALISING
+node 7 state: INITIALISING
+node 8 state: INITIALISING
+
+state command: RESET COMMUNICATION
+master state: INITIALISING
+node 1 state: PRE-OPERATIONAL
+node 2 state: PRE-OPERATIONAL
+node 3 state: PRE-OPERATIONAL
+node 4 state: PRE-OPERATIONAL
+node 5 state: PRE-OPERATIONAL
+node 6 state: PRE-OPERATIONAL
+node 7 state: PRE-OPERATIONAL
+node 8 state: PRE-OPERATIONAL
+
+state command: INITIALISING
+master state: INITIALISING
+node 1 state: INITIALISING
+node 2 state: INITIALISING
+node 3 state: INITIALISING
+node 4 state: INITIALISING
+node 5 state: INITIALISING
+node 6 state: INITIALISING
+node 7 state: INITIALISING
+node 8 state: INITIALISING
+
+state command: PRE-OPERATIONAL
+master state: PRE-OPERATIONAL
+node 1 state: PRE-OPERATIONAL
+node 2 state: PRE-OPERATIONAL
+node 3 state: PRE-OPERATIONAL
+node 4 state: PRE-OPERATIONAL
+node 5 state: PRE-OPERATIONAL
+node 6 state: PRE-OPERATIONAL
+node 7 state: PRE-OPERATIONAL
+node 8 state: PRE-OPERATIONAL
+
+
+===========
+Information
+CAN Open Node ID: 1
+Product Code: 0x3012a
+error_code: 0
+statusword: 0b1001000000
+modes_of_operation: -1
+Producer Heartbeat Time: 100
+Communication Cycle Period: 0
+
+- homing
+home_offset: 0
+homing_method: 35
+homing_speeds search switch: 1
+homing_speeds search zero: 1
+homing_acceleration: 1
+
+===========
+Information
+CAN Open Node ID: 2
+Product Code: 0x3012a
+error_code: 0
+statusword: 0b1001000000
+modes_of_operation: -1
+Producer Heartbeat Time: 100
+Communication Cycle Period: 0
+
+- homing
+home_offset: 3072
+homing_method: 20
+homing_speeds search switch: 800
+homing_speeds search zero: 1500
+homing_acceleration: 620746
+
+===========
+Information
+CAN Open Node ID: 3
+Product Code: 0x3012a
+error_code: 0
+statusword: 0b1001000000
+modes_of_operation: -1
+Producer Heartbeat Time: 100
+Communication Cycle Period: 0
+
+- homing
+home_offset: 0
+homing_method: 35
+homing_speeds search switch: 1
+homing_speeds search zero: 1
+homing_acceleration: 1
+
+===========
+Information
+CAN Open Node ID: 4
+Product Code: 0x3012a
+error_code: 0
+statusword: 0b1001000000
+modes_of_operation: -1
+Producer Heartbeat Time: 100
+Communication Cycle Period: 0
+
+- homing
+home_offset: -3072
+homing_method: 20
+homing_speeds search switch: 800
+homing_speeds search zero: 1500
+homing_acceleration: 648999
+
+===========
+Information
+CAN Open Node ID: 5
+Product Code: 0x3012a
+error_code: 0
+statusword: 0b1001000000
+modes_of_operation: -1
+Producer Heartbeat Time: 100
+Communication Cycle Period: 0
+
+- homing
+home_offset: 0
+homing_method: 35
+homing_speeds search switch: 1
+homing_speeds search zero: 1
+homing_acceleration: 1
+
+===========
+Information
+CAN Open Node ID: 6
+Product Code: 0x3012a
+error_code: 0
+statusword: 0b1001000000
+modes_of_operation: -1
+Producer Heartbeat Time: 100
+Communication Cycle Period: 0
+
+- homing
+home_offset: -1024
+homing_method: 20
+homing_speeds search switch: 800
+homing_speeds search zero: 1500
+homing_acceleration: 651658
+
+===========
+Information
+CAN Open Node ID: 7
+Product Code: 0x3012a
+error_code: 0
+statusword: 0b1001000000
+modes_of_operation: -1
+Producer Heartbeat Time: 100
+Communication Cycle Period: 0
+
+- homing
+home_offset: 0
+homing_method: 35
+homing_speeds search switch: 1
+homing_speeds search zero: 1
+homing_acceleration: 1
+
+===========
+Information
+CAN Open Node ID: 8
+Product Code: 0x3012a
+error_code: 0
+statusword: 0b1001000000
+modes_of_operation: -1
+Producer Heartbeat Time: 100
+Communication Cycle Period: 0
+
+- homing
+home_offset: 4096
+homing_method: 20
+homing_speeds search switch: 3200
+homing_speeds search zero: 6000
+homing_acceleration: 2637282
+FAULT RESET COMMAND: 0b10000000
+node_id:1 stat:0b0             ctrl:0b10000000
+node_id:2 stat:0b0             ctrl:0b10000000
+node_id:3 stat:0b0             ctrl:0b10000000
+node_id:4 stat:0b0             ctrl:0b10000000
+node_id:5 stat:0b0             ctrl:0b10000000
+node_id:6 stat:0b0             ctrl:0b10000000
+node_id:7 stat:0b0             ctrl:0b10000000
+node_id:8 stat:0b0             ctrl:0b10000000
+
+[SWITCH ON or DISABLE OPERATION] COMMAND: 0b111
+node_id:1 stat:0b0             ctrl:0b111     
+node_id:2 stat:0b0             ctrl:0b111     
+node_id:3 stat:0b0             ctrl:0b111     
+node_id:4 stat:0b0             ctrl:0b111     
+node_id:5 stat:0b0             ctrl:0b111     
+node_id:6 stat:0b0             ctrl:0b111     
+node_id:7 stat:0b0             ctrl:0b111     
+node_id:8 stat:0b0             ctrl:0b111     
+
+state command: PRE-OPERATIONAL
+master state: PRE-OPERATIONAL
+node 1 state: PRE-OPERATIONAL
+node 2 state: PRE-OPERATIONAL
+node 3 state: PRE-OPERATIONAL
+node 4 state: PRE-OPERATIONAL
+node 5 state: PRE-OPERATIONAL
+node 6 state: PRE-OPERATIONAL
+node 7 state: PRE-OPERATIONAL
+node 8 state: PRE-OPERATIONAL
+
+state command: OPERATIONAL
+master state: OPERATIONAL
+node 1 state: OPERATIONAL
+node 2 state: OPERATIONAL
+node 3 state: OPERATIONAL
+node 4 state: OPERATIONAL
+node 5 state: OPERATIONAL
+node 6 state: OPERATIONAL
+node 7 state: OPERATIONAL
+node 8 state: OPERATIONAL
+
+SHUTDOWN COMMAND: 0b110
+node_id:1 stat:0b0             ctrl:0b110     
+node_id:2 stat:0b0             ctrl:0b110     
+node_id:3 stat:0b0             ctrl:0b110     
+node_id:4 stat:0b0             ctrl:0b110     
+node_id:5 stat:0b0             ctrl:0b110     
+node_id:6 stat:0b0             ctrl:0b110     
+node_id:7 stat:0b0             ctrl:0b110     
+node_id:8 stat:0b0             ctrl:0b110     
+
+[SWITCH ON or DISABLE OPERATION] COMMAND: 0b111
+node_id:1 stat:0b1000110001    ctrl:0b111     
+node_id:2 stat:0b1000110001    ctrl:0b111     
+node_id:3 stat:0b1000110001    ctrl:0b111     
+node_id:4 stat:0b1000110001    ctrl:0b111     
+node_id:5 stat:0b1000110001    ctrl:0b111     
+node_id:6 stat:0b1000110001    ctrl:0b111     
+node_id:7 stat:0b1000110001    ctrl:0b111     
+node_id:8 stat:0b1000110001    ctrl:0b111     
+
+
+===
+homing node: 2
+===
+node 1 operation mode: -1
+node 2 operation mode: -1
+node 3 operation mode: -1
+node 4 operation mode: -1
+node 5 operation mode: -1
+node 6 operation mode: -1
+node 7 operation mode: -1
+node 8 operation mode: -1
+node 2 operation mode: 6
+[ENABLE OPERATION or OPERATION] COMMAND: 0b1111
+node_id:2 stat:0b1000110011    ctrl:0b1111    
+
+OPERATION COMMAND: 0b11111
+node_id:2 stat:0b11000110111   ctrl:0b11111   
+
+time:4.42   | homing_satus:False | print_motor_val:False
+R-id:1  pos:1.82      v:7.39    jt:-0.0    mt:0    stat:0b1000110011    DI:0b1110110000000000000000
+S-id:2  pos:62.05     v:72.47   jt:376.0   mt:94   stat:0b1000110111    DI:0b1010010000000000000000
+R-id:3  pos:0.00      v:0.00    jt:-0.0    mt:0    stat:0b1000110011    DI:0b1110110000000000000000
+S-id:4  pos:0.00      v:0.00    jt:0.0     mt:0    stat:0b1000110011    DI:0b1010010000000000000000
+R-id:5  pos:0.00      v:0.00    jt:-0.0    mt:0    stat:0b1000110011    DI:0b1110110000000000000000
+S-id:6  pos:0.00      v:0.00    jt:0.0     mt:0    stat:0b1000110011    DI:0b1010010000000000000000
+R-id:7  pos:0.00      v:0.00    jt:-0.0    mt:0    stat:0b1000110011    DI:0b1110110000000000000000
+S-id:8  pos:0.00      v:0.00    jt:0.0     mt:0    stat:0b1000110011    DI:0b1010010000000000000000
+
+time:5.42   | homing_satus:False | print_motor_val:False
+R-id:1  pos:31.90     v:35.49   jt:-0.0    mt:0    stat:0b1000110011    DI:0b1110110000000000000000
+S-id:2  pos:131.18    v:70.97   jt:412.0   mt:103  stat:0b1000110111    DI:0b1010010000000000000000
+R-id:3  pos:0.00      v:0.00    jt:-0.0    mt:0    stat:0b1000110011    DI:0b1110110000000000000000
+S-id:4  pos:0.00      v:0.00    jt:0.0     mt:0    stat:0b1000110011    DI:0b1010010000000000000000
+R-id:5  pos:0.00      v:0.00    jt:-0.0    mt:0    stat:0b1000110011    DI:0b1110110000000000000000
+S-id:6  pos:0.00      v:0.00    jt:0.0     mt:0    stat:0b1000110011    DI:0b1010010000000000000000
+R-id:7  pos:0.00      v:0.00    jt:-0.0    mt:0    stat:0b1000110011    DI:0b1110110000000000000000
+S-id:8  pos:0.00      v:0.00    jt:0.0     mt:0    stat:0b1000110011    DI:0b1010010000000000000000
+
+time:6.42   | homing_satus:False | print_motor_val:False
+R-id:1  pos:60.29     v:32.30   jt:-0.0    mt:0    stat:0b1000110011    DI:0b1110110000000000000000
+S-id:2  pos:194.77    v:64.60   jt:272.0   mt:68   stat:0b1000110111    DI:0b1010010000000000000000
+R-id:3  pos:0.00      v:0.00    jt:-0.0    mt:0    stat:0b1000110011    DI:0b1110110000000000000000
+S-id:4  pos:0.00      v:0.00    jt:0.0     mt:0    stat:0b1000110011    DI:0b1010010000000000000000
+R-id:5  pos:0.00      v:0.00    jt:-0.0    mt:0    stat:0b1000110011    DI:0b1110110000000000000000
+S-id:6  pos:0.00      v:0.00    jt:0.0     mt:0    stat:0b1000110011    DI:0b1010010000000000000000
+R-id:7  pos:0.00      v:0.00    jt:-0.0    mt:0    stat:0b1000110011    DI:0b1110110000000000000000
+S-id:8  pos:0.00      v:0.00    jt:0.0     mt:0    stat:0b1000110011    DI:0b1010010000000000000000
+
+[SWITCH ON or DISABLE OPERATION] COMMAND: 0b111
+node_id:2 stat:0b1011000110111 ctrl:0b111     
+
+
+===
+homing node: 1
+===
+[ENABLE OPERATION or OPERATION] COMMAND: 0b1111
+node_id:1 stat:0b1000110011    ctrl:0b1111    
+
+OPERATION COMMAND: 0b11111
+node_id:1 stat:0b11000110111   ctrl:0b11111   
+
+[SWITCH ON or DISABLE OPERATION] COMMAND: 0b111
+node_id:1 stat:0b1011000110111 ctrl:0b111     
+
+
+===
+homing node: 4
+===
+node 1 operation mode: -1
+node 2 operation mode: -1
+node 3 operation mode: -1
+node 4 operation mode: -1
+node 5 operation mode: -1
+node 6 operation mode: -1
+node 7 operation mode: -1
+node 8 operation mode: -1
+node 4 operation mode: 6
+[ENABLE OPERATION or OPERATION] COMMAND: 0b1111
+node_id:4 stat:0b1000110011    ctrl:0b1111    
+
+OPERATION COMMAND: 0b11111
+node_id:4 stat:0b11000110111   ctrl:0b11111   
+
+time:7.47   | homing_satus:False | print_motor_val:False
+R-id:1  pos:-67.23    v:0.00    jt:-0.0    mt:0    stat:0b1000110011    DI:0b1110110000000000000000
+S-id:2  pos:-134.60   v:0.00    jt:0.0     mt:0    stat:0b1000110011    DI:0b1110110000000000000100
+R-id:3  pos:7.37      v:24.61   jt:-0.0    mt:0    stat:0b1000110011    DI:0b1110110000000000000000
+S-id:4  pos:37.75     v:73.04   jt:244.0   mt:61   stat:0b1000110111    DI:0b1010010000000000000000
+R-id:5  pos:0.00      v:0.00    jt:-0.0    mt:0    stat:0b1000110011    DI:0b1110110000000000000000
+S-id:6  pos:0.00      v:0.00    jt:0.0     mt:0    stat:0b1000110011    DI:0b1010010000000000000000
+R-id:7  pos:0.00      v:0.00    jt:-0.0    mt:0    stat:0b1000110011    DI:0b1110110000000000000000
+S-id:8  pos:0.00      v:0.00    jt:0.0     mt:0    stat:0b1000110011    DI:0b1010010000000000000000
+
+time:8.47   | homing_satus:False | print_motor_val:False
+R-id:1  pos:-67.23    v:0.00    jt:-0.0    mt:0    stat:0b1000110011    DI:0b1110110000000000000000
+S-id:2  pos:-134.60   v:0.00    jt:0.0     mt:0    stat:0b1000110011    DI:0b1110110000000000000100
+R-id:3  pos:9.82      v:0.93    jt:-0.0    mt:0    stat:0b1000110011    DI:0b1110110000000000000000
+S-id:4  pos:103.54    v:70.84   jt:356.0   mt:89   stat:0b1000110111    DI:0b1010010000000000000000
+R-id:5  pos:0.00      v:0.00    jt:-0.0    mt:0    stat:0b1000110011    DI:0b1110110000000000000000
+S-id:6  pos:0.00      v:0.00    jt:0.0     mt:0    stat:0b1000110011    DI:0b1010010000000000000000
+R-id:7  pos:0.00      v:0.00    jt:-0.0    mt:0    stat:0b1000110011    DI:0b1110110000000000000000
+S-id:8  pos:0.00      v:0.00    jt:0.0     mt:0    stat:0b1000110011    DI:0b1010010000000000000000
+
+[SWITCH ON or DISABLE OPERATION] COMMAND: 0b111
+node_id:4 stat:0b1011000110111 ctrl:0b111     
+
+
+===
+homing node: 3
+===
+[ENABLE OPERATION or OPERATION] COMMAND: 0b1111
+node_id:3 stat:0b1000110011    ctrl:0b1111    
+
+OPERATION COMMAND: 0b11111
+node_id:3 stat:0b11000110111   ctrl:0b11111   
+
+[SWITCH ON or DISABLE OPERATION] COMMAND: 0b111
+node_id:3 stat:0b1011000110111 ctrl:0b111     
+
+
+===
+homing node: 6
+===
+node 1 operation mode: -1
+node 2 operation mode: -1
+node 3 operation mode: -1
+node 4 operation mode: -1
+node 5 operation mode: -1
+node 6 operation mode: -1
+node 7 operation mode: -1
+node 8 operation mode: -1
+node 6 operation mode: 6
+[ENABLE OPERATION or OPERATION] COMMAND: 0b1111
+node_id:6 stat:0b1000110011    ctrl:0b1111    
+
+OPERATION COMMAND: 0b11111
+node_id:6 stat:0b11000110111   ctrl:0b11111   
+
+time:9.51   | homing_satus:False | print_motor_val:False
+R-id:1  pos:-67.23    v:0.00    jt:-0.0    mt:0    stat:0b1000110011    DI:0b1110110000000000000000
+S-id:2  pos:-134.60   v:0.00    jt:0.0     mt:0    stat:0b1000110011    DI:0b1110110000000000000100
+R-id:3  pos:68.15     v:0.00    jt:-0.0    mt:0    stat:0b1000110011    DI:0b1110110000000000000000
+S-id:4  pos:136.45    v:0.00    jt:0.0     mt:0    stat:0b1000110011    DI:0b1110110000000000000100
+R-id:5  pos:13.90     v:31.42   jt:-0.0    mt:0    stat:0b1000110011    DI:0b1110110000000000000000
+S-id:6  pos:33.66     v:62.84   jt:468.0   mt:117  stat:0b1000110111    DI:0b1010010000000000000000
+R-id:7  pos:0.00      v:0.00    jt:-0.0    mt:0    stat:0b1000110011    DI:0b1110110000000000000000
+S-id:8  pos:0.00      v:0.00    jt:0.0     mt:0    stat:0b1000110011    DI:0b1010010000000000000000
+
+time:10.51  | homing_satus:False | print_motor_val:False
+R-id:1  pos:-67.23    v:0.00    jt:-0.0    mt:0    stat:0b1000110011    DI:0b1110110000000000000000
+S-id:2  pos:-134.60   v:0.00    jt:0.0     mt:0    stat:0b1000110011    DI:0b1110110000000000000100
+R-id:3  pos:68.15     v:0.00    jt:-0.0    mt:0    stat:0b1000110011    DI:0b1110110000000000000000
+S-id:4  pos:136.45    v:0.00    jt:0.0     mt:0    stat:0b1000110011    DI:0b1110110000000000000100
+R-id:5  pos:29.34     v:37.95   jt:-0.0    mt:0    stat:0b1000110011    DI:0b1110110000000000000000
+S-id:6  pos:99.58     v:75.89   jt:636.0   mt:159  stat:0b1000110111    DI:0b1010010000000000000000
+R-id:7  pos:0.00      v:0.00    jt:-0.0    mt:0    stat:0b1000110011    DI:0b1110110000000000000000
+S-id:8  pos:0.00      v:0.00    jt:0.0     mt:0    stat:0b1000110011    DI:0b1010010000000000000000
+
+time:11.51  | homing_satus:False | print_motor_val:False
+R-id:1  pos:-67.23    v:0.00    jt:-0.0    mt:0    stat:0b1000110011    DI:0b1110110000000000000000
+S-id:2  pos:-134.60   v:0.00    jt:0.0     mt:0    stat:0b1000110011    DI:0b1110110000000000000100
+R-id:3  pos:68.15     v:0.00    jt:-0.0    mt:0    stat:0b1000110011    DI:0b1110110000000000000000
+S-id:4  pos:136.45    v:0.00    jt:0.0     mt:0    stat:0b1000110011    DI:0b1110110000000000000100
+R-id:5  pos:61.81     v:35.29   jt:-0.0    mt:0    stat:0b1000110011    DI:0b1110110000000000000000
+S-id:6  pos:165.45    v:70.58   jt:704.0   mt:176  stat:0b1000110111    DI:0b1010010000000000000000
+R-id:7  pos:0.00      v:0.00    jt:-0.0    mt:0    stat:0b1000110011    DI:0b1110110000000000000000
+S-id:8  pos:0.00      v:0.00    jt:0.0     mt:0    stat:0b1000110011    DI:0b1010010000000000000000
+
+time:12.51  | homing_satus:False | print_motor_val:False
+R-id:1  pos:-67.23    v:0.00    jt:-0.0    mt:0    stat:0b1000110011    DI:0b1110110000000000000000
+S-id:2  pos:-134.60   v:0.00    jt:0.0     mt:0    stat:0b1000110011    DI:0b1110110000000000000100
+R-id:3  pos:68.15     v:0.00    jt:-0.0    mt:0    stat:0b1000110011    DI:0b1110110000000000000000
+S-id:4  pos:136.45    v:0.00    jt:0.0     mt:0    stat:0b1000110011    DI:0b1110110000000000000100
+R-id:5  pos:94.28     v:31.84   jt:-0.0    mt:0    stat:0b1000110011    DI:0b1110110000000000000000
+S-id:6  pos:231.33    v:63.68   jt:496.0   mt:124  stat:0b1000110111    DI:0b1010010000000000000000
+R-id:7  pos:0.00      v:0.00    jt:-0.0    mt:0    stat:0b1000110011    DI:0b1110110000000000000000
+S-id:8  pos:0.00      v:0.00    jt:0.0     mt:0    stat:0b1000110011    DI:0b1010010000000000000000
+
+[SWITCH ON or DISABLE OPERATION] COMMAND: 0b111
+node_id:6 stat:0b1011000110111 ctrl:0b111     
+
+
+===
+homing node: 5
+===
+[ENABLE OPERATION or OPERATION] COMMAND: 0b1111
+node_id:5 stat:0b1000110011    ctrl:0b1111    
+
+OPERATION COMMAND: 0b11111
+node_id:5 stat:0b11000110111   ctrl:0b11111   
+
+[SWITCH ON or DISABLE OPERATION] COMMAND: 0b111
+node_id:5 stat:0b1011000110111 ctrl:0b111     
+
+
+===
+homing node: 8
+===
+node 1 operation mode: -1
+node 2 operation mode: -1
+node 3 operation mode: -1
+node 4 operation mode: -1
+node 5 operation mode: -1
+node 6 operation mode: -1
+node 7 operation mode: -1
+node 8 operation mode: -1
+node 8 operation mode: 6
+[ENABLE OPERATION or OPERATION] COMMAND: 0b1111
+node_id:8 stat:0b1000110011    ctrl:0b1111    
+
+OPERATION COMMAND: 0b11111
+node_id:8 stat:0b11000110111   ctrl:0b11111   
+
+time:13.54  | homing_satus:False | print_motor_val:False
+R-id:1  pos:-67.23    v:0.00    jt:-0.0    mt:0    stat:0b1000110011    DI:0b1110110000000000000000
+S-id:2  pos:-134.60   v:0.00    jt:0.0     mt:0    stat:0b1000110011    DI:0b1110110000000000000100
+R-id:3  pos:68.15     v:0.00    jt:-0.0    mt:0    stat:0b1000110011    DI:0b1110110000000000000000
+S-id:4  pos:136.45    v:0.00    jt:0.0     mt:0    stat:0b1000110011    DI:0b1110110000000000000100
+R-id:5  pos:22.79     v:0.00    jt:-0.0    mt:0    stat:0b1000110011    DI:0b1110110000000000000000
+S-id:6  pos:45.57     v:0.00    jt:0.0     mt:0    stat:0b1000110011    DI:0b1110110000000000000100
+R-id:7  pos:1.10      v:-14.97  jt:-0.0    mt:0    stat:0b1000110011    DI:0b1110110000000000000000
+S-id:8  pos:13.70     v:60.57   jt:320.0   mt:80   stat:0b1000110111    DI:0b1010010000000000000000
+
+time:14.54  | homing_satus:False | print_motor_val:False
+R-id:1  pos:-67.23    v:0.00    jt:-0.0    mt:0    stat:0b1000110011    DI:0b1110110000000000000000
+S-id:2  pos:-134.60   v:0.00    jt:0.0     mt:0    stat:0b1000110011    DI:0b1110110000000000000100
+R-id:3  pos:68.15     v:0.00    jt:-0.0    mt:0    stat:0b1000110011    DI:0b1110110000000000000000
+S-id:4  pos:136.45    v:0.00    jt:0.0     mt:0    stat:0b1000110011    DI:0b1110110000000000000100
+R-id:5  pos:22.79     v:0.00    jt:-0.0    mt:0    stat:0b1000110011    DI:0b1110110000000000000000
+S-id:6  pos:45.57     v:0.00    jt:0.0     mt:0    stat:0b1000110011    DI:0b1110110000000000000100
+R-id:7  pos:9.85      v:36.11   jt:-0.0    mt:0    stat:0b1000110011    DI:0b1110110000000000000000
+S-id:8  pos:79.45     v:73.21   jt:348.0   mt:87   stat:0b1000110111    DI:0b1010010000000000000000
+
+time:15.54  | homing_satus:False | print_motor_val:False
+R-id:1  pos:-67.23    v:0.00    jt:-0.0    mt:0    stat:0b1000110011    DI:0b1110110000000000000000
+S-id:2  pos:-134.60   v:0.00    jt:0.0     mt:0    stat:0b1000110011    DI:0b1110110000000000000100
+R-id:3  pos:68.15     v:0.00    jt:-0.0    mt:0    stat:0b1000110011    DI:0b1110110000000000000000
+S-id:4  pos:136.45    v:0.00    jt:0.0     mt:0    stat:0b1000110011    DI:0b1110110000000000000100
+R-id:5  pos:22.79     v:0.00    jt:-0.0    mt:0    stat:0b1000110011    DI:0b1110110000000000000000
+S-id:6  pos:45.57     v:0.00    jt:0.0     mt:0    stat:0b1000110011    DI:0b1110110000000000000100
+R-id:7  pos:41.21     v:1.66    jt:-0.0    mt:0    stat:0b1000110011    DI:0b1110110000000000000000
+S-id:8  pos:145.58    v:56.82   jt:264.0   mt:66   stat:0b1000110111    DI:0b1010010000000000000000
+
+[SWITCH ON or DISABLE OPERATION] COMMAND: 0b111
+node_id:8 stat:0b1011000110111 ctrl:0b111     
+
+
+===
+homing node: 7
+===
+[ENABLE OPERATION or OPERATION] COMMAND: 0b1111
+node_id:7 stat:0b1000110011    ctrl:0b1111    
+
+OPERATION COMMAND: 0b11111
+node_id:7 stat:0b11000110111   ctrl:0b11111   
+
+[SWITCH ON or DISABLE OPERATION] COMMAND: 0b111
+node_id:7 stat:0b1011000110111 ctrl:0b111     
+
+homing performing finished!
+time:15.99  | homing_satus:True | print_motor_val:False
+R-id:1  pos:-67.23    v:0.00    jt:-0.0    mt:0    stat:0b1000110011    DI:0b1110110000000000000000
+S-id:2  pos:-134.60   v:0.00    jt:0.0     mt:0    stat:0b1000110011    DI:0b1110110000000000000100
+R-id:3  pos:68.15     v:0.00    jt:-0.0    mt:0    stat:0b1000110011    DI:0b1110110000000000000000
+S-id:4  pos:136.45    v:0.00    jt:0.0     mt:0    stat:0b1000110011    DI:0b1110110000000000000100
+R-id:5  pos:22.79     v:0.00    jt:-0.0    mt:0    stat:0b1000110011    DI:0b1110110000000000000000
+S-id:6  pos:45.57     v:0.00    jt:0.0     mt:0    stat:0b1000110011    DI:0b1110110000000000000100
+R-id:7  pos:-22.04    v:1.16    jt:204.0   mt:-42  stat:0b1011000110111 DI:0b1110110000000000000000
+S-id:8  pos:-44.07    v:9.69    jt:-102.0  mt:0    stat:0b1000110011    DI:0b1110110000000000000100
+
+[SWITCH ON or DISABLE OPERATION] COMMAND: 0b111
+node_id:1 stat:0b1000110011    ctrl:0b111     
+node_id:2 stat:0b1000110011    ctrl:0b111     
+node_id:3 stat:0b1000110011    ctrl:0b111     
+node_id:4 stat:0b1000110011    ctrl:0b111     
+node_id:5 stat:0b1000110011    ctrl:0b111     
+node_id:6 stat:0b1000110011    ctrl:0b111     
+node_id:7 stat:0b1000110011    ctrl:0b111     
+node_id:8 stat:0b1000110011    ctrl:0b111     
+
+state command: PRE-OPERATIONAL
+master state: PRE-OPERATIONAL
+node 1 state: PRE-OPERATIONAL
+node 2 state: PRE-OPERATIONAL
+node 3 state: OPERATIONAL
+node 4 state: PRE-OPERATIONAL
+node 5 state: PRE-OPERATIONAL
+node 6 state: PRE-OPERATIONAL
+node 7 state: PRE-OPERATIONAL
+node 8 state: PRE-OPERATIONAL
+
+state command: PRE-OPERATIONAL
+master state: PRE-OPERATIONAL
+node 1 state: PRE-OPERATIONAL
+node 2 state: PRE-OPERATIONAL
+node 3 state: PRE-OPERATIONAL
+node 4 state: PRE-OPERATIONAL
+node 5 state: PRE-OPERATIONAL
+node 6 state: PRE-OPERATIONAL
+node 7 state: PRE-OPERATIONAL
+node 8 state: PRE-OPERATIONAL
+
+state command: OPERATIONAL
+master state: OPERATIONAL
+node 1 state: PRE-OPERATIONAL
+node 2 state: OPERATIONAL
+node 3 state: OPERATIONAL
+node 4 state: OPERATIONAL
+node 5 state: OPERATIONAL
+node 6 state: OPERATIONAL
+node 7 state: PRE-OPERATIONAL
+node 8 state: OPERATIONAL
+
+SHUTDOWN COMMAND: 0b110
+node_id:2 stat:0b1000110011    ctrl:0b110     
+
+[SWITCH ON or DISABLE OPERATION] COMMAND: 0b111
+node_id:2 stat:0b1000110001    ctrl:0b111     
+
+node 2 operation mode: 3
+
+[ENABLE OPERATION or OPERATION] COMMAND: 0b1111
+node_id:2 stat:0b1000110011    ctrl:0b1111    
+
+time:16.77  | homing_satus:True | print_motor_val:False
+R-id:1  pos:-61.95    v:12.41   jt:-0.0    mt:0    stat:0b1000110011    DI:0b1110110000000000000000
+S-id:2  pos:-123.97   v:24.83   jt:328.0   mt:82   stat:0b1000110111    DI:0b1110110000000000000100
+R-id:3  pos:68.15     v:0.00    jt:-0.0    mt:0    stat:0b1000110011    DI:0b1110110000000000000000
+S-id:4  pos:136.45    v:0.00    jt:0.0     mt:0    stat:0b1000110011    DI:0b1110110000000000000100
+R-id:5  pos:22.79     v:0.00    jt:-0.0    mt:0    stat:0b1000110011    DI:0b1110110000000000000000
+S-id:6  pos:45.57     v:0.00    jt:0.0     mt:0    stat:0b1000110011    DI:0b1110110000000000000100
+R-id:7  pos:-22.06    v:0.00    jt:-0.0    mt:0    stat:0b1000110011    DI:0b1110110000000000000000
+S-id:8  pos:-44.11    v:0.00    jt:0.0     mt:0    stat:0b1000110011    DI:0b1110110000000000000100
+
+time:17.27  | homing_satus:True | print_motor_val:False
+R-id:1  pos:-56.46    v:11.16   jt:-0.0    mt:0    stat:0b1000110011    DI:0b1110110000000000000000
+S-id:2  pos:-112.98   v:22.32   jt:440.0   mt:110  stat:0b1000110111    DI:0b1010010000000000000000
+R-id:3  pos:68.15     v:0.00    jt:-0.0    mt:0    stat:0b1000110011    DI:0b1110110000000000000000
+S-id:4  pos:136.45    v:0.00    jt:0.0     mt:0    stat:0b1000110011    DI:0b1110110000000000000100
+R-id:5  pos:22.79     v:0.00    jt:-0.0    mt:0    stat:0b1000110011    DI:0b1110110000000000000000
+S-id:6  pos:45.57     v:0.00    jt:0.0     mt:0    stat:0b1000110011    DI:0b1110110000000000000100
+R-id:7  pos:-22.06    v:0.00    jt:-0.0    mt:0    stat:0b1000110011    DI:0b1110110000000000000000
+S-id:8  pos:-44.11    v:0.00    jt:0.0     mt:0    stat:0b1000110011    DI:0b1110110000000000000100
+
+time:17.77  | homing_satus:True | print_motor_val:False
+R-id:1  pos:-50.94    v:11.07   jt:-0.0    mt:0    stat:0b1000110011    DI:0b1110110000000000000000
+S-id:2  pos:-101.95   v:22.15   jt:280.0   mt:70   stat:0b1000110111    DI:0b1010010000000000000000
+R-id:3  pos:68.15     v:0.00    jt:-0.0    mt:0    stat:0b1000110011    DI:0b1110110000000000000000
+S-id:4  pos:136.45    v:0.00    jt:0.0     mt:0    stat:0b1000110011    DI:0b1110110000000000000100
+R-id:5  pos:22.79     v:0.00    jt:-0.0    mt:0    stat:0b1000110011    DI:0b1110110000000000000000
+S-id:6  pos:45.57     v:0.00    jt:0.0     mt:0    stat:0b1000110011    DI:0b1110110000000000000100
+R-id:7  pos:-22.06    v:0.00    jt:-0.0    mt:0    stat:0b1000110011    DI:0b1110110000000000000000
+S-id:8  pos:-44.11    v:0.00    jt:0.0     mt:0    stat:0b1000110011    DI:0b1110110000000000000100
+
+time:18.27  | homing_satus:True | print_motor_val:False
+R-id:1  pos:-45.47    v:11.60   jt:-0.0    mt:0    stat:0b1000110011    DI:0b1110110000000000000000
+S-id:2  pos:-91.01    v:23.20   jt:384.0   mt:96   stat:0b1000110111    DI:0b1010010000000000000000
+R-id:3  pos:68.15     v:0.00    jt:-0.0    mt:0    stat:0b1000110011    DI:0b1110110000000000000000
+S-id:4  pos:136.45    v:0.00    jt:0.0     mt:0    stat:0b1000110011    DI:0b1110110000000000000100
+R-id:5  pos:22.79     v:0.00    jt:-0.0    mt:0    stat:0b1000110011    DI:0b1110110000000000000000
+S-id:6  pos:45.57     v:0.00    jt:0.0     mt:0    stat:0b1000110011    DI:0b1110110000000000000100
+R-id:7  pos:-22.06    v:0.00    jt:-0.0    mt:0    stat:0b1000110011    DI:0b1110110000000000000000
+S-id:8  pos:-44.11    v:0.00    jt:0.0     mt:0    stat:0b1000110011    DI:0b1110110000000000000100
+
+time:18.77  | homing_satus:True | print_motor_val:False
+R-id:1  pos:-39.95    v:12.19   jt:-0.0    mt:0    stat:0b1000110011    DI:0b1110110000000000000000
+S-id:2  pos:-79.98    v:24.39   jt:272.0   mt:68   stat:0b1000110111    DI:0b1010010000000000000000
+R-id:3  pos:68.15     v:0.00    jt:-0.0    mt:0    stat:0b1000110011    DI:0b1110110000000000000000
+S-id:4  pos:136.45    v:0.00    jt:0.0     mt:0    stat:0b1000110011    DI:0b1110110000000000000100
+R-id:5  pos:22.79     v:0.00    jt:-0.0    mt:0    stat:0b1000110011    DI:0b1110110000000000000000
+S-id:6  pos:45.57     v:0.00    jt:0.0     mt:0    stat:0b1000110011    DI:0b1110110000000000000100
+R-id:7  pos:-22.06    v:0.00    jt:-0.0    mt:0    stat:0b1000110011    DI:0b1110110000000000000000
+S-id:8  pos:-44.11    v:0.00    jt:0.0     mt:0    stat:0b1000110011    DI:0b1110110000000000000100
+
+time:19.28  | homing_satus:True | print_motor_val:False
+R-id:1  pos:-34.39    v:11.27   jt:-0.0    mt:0    stat:0b1000110011    DI:0b1110110000000000000000
+S-id:2  pos:-68.86    v:22.54   jt:452.0   mt:113  stat:0b1000110111    DI:0b1010010000000000000000
+R-id:3  pos:68.15     v:0.00    jt:-0.0    mt:0    stat:0b1000110011    DI:0b1110110000000000000000
+S-id:4  pos:136.45    v:0.00    jt:0.0     mt:0    stat:0b1000110011    DI:0b1110110000000000000100
+R-id:5  pos:22.79     v:0.00    jt:-0.0    mt:0    stat:0b1000110011    DI:0b1110110000000000000000
+S-id:6  pos:45.57     v:0.00    jt:0.0     mt:0    stat:0b1000110011    DI:0b1110110000000000000100
+R-id:7  pos:-22.06    v:0.00    jt:-0.0    mt:0    stat:0b1000110011    DI:0b1110110000000000000000
+S-id:8  pos:-44.11    v:0.00    jt:0.0     mt:0    stat:0b1000110011    DI:0b1110110000000000000100
+
+time:19.78  | homing_satus:True | print_motor_val:False
+R-id:1  pos:-28.92    v:10.20   jt:-0.0    mt:0    stat:0b1000110011    DI:0b1110110000000000000000
+S-id:2  pos:-57.83    v:20.39   jt:348.0   mt:87   stat:0b1000110111    DI:0b1010010000000000000000
+R-id:3  pos:68.15     v:0.00    jt:-0.0    mt:0    stat:0b1000110011    DI:0b1110110000000000000000
+S-id:4  pos:136.45    v:0.00    jt:0.0     mt:0    stat:0b1000110011    DI:0b1110110000000000000100
+R-id:5  pos:22.79     v:0.00    jt:-0.0    mt:0    stat:0b1000110011    DI:0b1110110000000000000000
+S-id:6  pos:45.57     v:0.00    jt:0.0     mt:0    stat:0b1000110011    DI:0b1110110000000000000100
+R-id:7  pos:-22.06    v:0.00    jt:-0.0    mt:0    stat:0b1000110011    DI:0b1110110000000000000000
+S-id:8  pos:-44.11    v:0.00    jt:0.0     mt:0    stat:0b1000110011    DI:0b1110110000000000000100
+
+time:20.28  | homing_satus:True | print_motor_val:False
+R-id:1  pos:-23.40    v:11.38   jt:-0.0    mt:0    stat:0b1000110011    DI:0b1110110000000000000000
+S-id:2  pos:-46.80    v:22.76   jt:412.0   mt:103  stat:0b1000110111    DI:0b1010010000000000000000
+R-id:3  pos:68.15     v:0.00    jt:-0.0    mt:0    stat:0b1000110011    DI:0b1110110000000000000000
+S-id:4  pos:136.45    v:0.00    jt:0.0     mt:0    stat:0b1000110011    DI:0b1110110000000000000100
+R-id:5  pos:22.79     v:0.00    jt:-0.0    mt:0    stat:0b1000110011    DI:0b1110110000000000000000
+S-id:6  pos:45.57     v:0.00    jt:0.0     mt:0    stat:0b1000110011    DI:0b1110110000000000000100
+R-id:7  pos:-22.06    v:0.00    jt:-0.0    mt:0    stat:0b1000110011    DI:0b1110110000000000000000
+S-id:8  pos:-44.11    v:0.00    jt:0.0     mt:0    stat:0b1000110011    DI:0b1110110000000000000100
+
+time:20.78  | homing_satus:True | print_motor_val:False
+R-id:1  pos:-17.93    v:10.00   jt:-0.0    mt:0    stat:0b1000110011    DI:0b1110110000000000000000
+S-id:2  pos:-35.86    v:20.00   jt:376.0   mt:94   stat:0b1000110111    DI:0b1010010000000000000000
+R-id:3  pos:68.15     v:0.00    jt:-0.0    mt:0    stat:0b1000110011    DI:0b1110110000000000000000
+S-id:4  pos:136.45    v:0.00    jt:0.0     mt:0    stat:0b1000110011    DI:0b1110110000000000000100
+R-id:5  pos:22.79     v:0.00    jt:-0.0    mt:0    stat:0b1000110011    DI:0b1110110000000000000000
+S-id:6  pos:45.57     v:0.00    jt:0.0     mt:0    stat:0b1000110011    DI:0b1110110000000000000100
+R-id:7  pos:-22.06    v:0.00    jt:-0.0    mt:0    stat:0b1000110011    DI:0b1110110000000000000000
+S-id:8  pos:-44.11    v:0.00    jt:0.0     mt:0    stat:0b1000110011    DI:0b1110110000000000000100
+
+time:21.28  | homing_satus:True | print_motor_val:False
+R-id:1  pos:-12.41    v:13.16   jt:-0.0    mt:0    stat:0b1000110011    DI:0b1110110000000000000000
+S-id:2  pos:-24.83    v:26.32   jt:440.0   mt:110  stat:0b1000110111    DI:0b1010010000000000000000
+R-id:3  pos:68.15     v:0.00    jt:-0.0    mt:0    stat:0b1000110011    DI:0b1110110000000000000000
+S-id:4  pos:136.45    v:0.00    jt:0.0     mt:0    stat:0b1000110011    DI:0b1110110000000000000100
+R-id:5  pos:22.79     v:0.00    jt:-0.0    mt:0    stat:0b1000110011    DI:0b1110110000000000000000
+S-id:6  pos:45.57     v:0.00    jt:0.0     mt:0    stat:0b1000110011    DI:0b1110110000000000000100
+R-id:7  pos:-22.06    v:0.00    jt:-0.0    mt:0    stat:0b1000110011    DI:0b1110110000000000000000
+S-id:8  pos:-44.11    v:0.00    jt:0.0     mt:0    stat:0b1000110011    DI:0b1110110000000000000100
+
+time:21.78  | homing_satus:True | print_motor_val:False
+R-id:1  pos:-6.94     v:12.55   jt:-0.0    mt:0    stat:0b1000110011    DI:0b1110110000000000000000
+S-id:2  pos:-13.89    v:25.09   jt:300.0   mt:75   stat:0b1000110111    DI:0b1010010000000000000000
+R-id:3  pos:68.15     v:0.00    jt:-0.0    mt:0    stat:0b1000110011    DI:0b1110110000000000000000
+S-id:4  pos:136.45    v:0.00    jt:0.0     mt:0    stat:0b1000110011    DI:0b1110110000000000000100
+R-id:5  pos:22.79     v:0.00    jt:-0.0    mt:0    stat:0b1000110011    DI:0b1110110000000000000000
+S-id:6  pos:45.57     v:0.00    jt:0.0     mt:0    stat:0b1000110011    DI:0b1110110000000000000100
+R-id:7  pos:-22.06    v:0.00    jt:-0.0    mt:0    stat:0b1000110011    DI:0b1110110000000000000000
+S-id:8  pos:-44.11    v:0.00    jt:0.0     mt:0    stat:0b1000110011    DI:0b1110110000000000000100
+
+time:22.28  | homing_satus:True | print_motor_val:False
+R-id:1  pos:-1.43     v:11.05   jt:-0.0    mt:0    stat:0b1000110011    DI:0b1110110000000000000000
+S-id:2  pos:-2.86     v:22.10   jt:404.0   mt:101  stat:0b1000110111    DI:0b1010010000000000000000
+R-id:3  pos:68.15     v:0.00    jt:-0.0    mt:0    stat:0b1000110011    DI:0b1110110000000000000000
+S-id:4  pos:136.45    v:0.00    jt:0.0     mt:0    stat:0b1000110011    DI:0b1110110000000000000100
+R-id:5  pos:22.79     v:0.00    jt:-0.0    mt:0    stat:0b1000110011    DI:0b1110110000000000000000
+S-id:6  pos:45.57     v:0.00    jt:0.0     mt:0    stat:0b1000110011    DI:0b1110110000000000000100
+R-id:7  pos:-22.06    v:0.00    jt:-0.0    mt:0    stat:0b1000110011    DI:0b1110110000000000000000
+S-id:8  pos:-44.11    v:0.00    jt:0.0     mt:0    stat:0b1000110011    DI:0b1110110000000000000100
+
+time:22.78  | homing_satus:True | print_motor_val:False
+R-id:1  pos:4.04      v:10.37   jt:-0.0    mt:0    stat:0b1000110011    DI:0b1110110000000000000000
+S-id:2  pos:8.09      v:20.74   jt:292.0   mt:73   stat:0b1000110111    DI:0b1010010000000000000000
+R-id:3  pos:68.15     v:0.00    jt:-0.0    mt:0    stat:0b1000110011    DI:0b1110110000000000000000
+S-id:4  pos:136.45    v:0.00    jt:0.0     mt:0    stat:0b1000110011    DI:0b1110110000000000000100
+R-id:5  pos:22.79     v:0.00    jt:-0.0    mt:0    stat:0b1000110011    DI:0b1110110000000000000000
+S-id:6  pos:45.57     v:0.00    jt:0.0     mt:0    stat:0b1000110011    DI:0b1110110000000000000100
+R-id:7  pos:-22.06    v:0.00    jt:-0.0    mt:0    stat:0b1000110011    DI:0b1110110000000000000000
+S-id:8  pos:-44.11    v:0.00    jt:0.0     mt:0    stat:0b1000110011    DI:0b1110110000000000000100
+
+time:23.28  | homing_satus:True | print_motor_val:False
+R-id:1  pos:9.54      v:9.95    jt:-0.0    mt:0    stat:0b1000110011    DI:0b1110110000000000000000
+S-id:2  pos:19.07     v:19.91   jt:320.0   mt:80   stat:0b1000110111    DI:0b1010010000000000000000
+R-id:3  pos:68.15     v:0.00    jt:-0.0    mt:0    stat:0b1000110011    DI:0b1110110000000000000000
+S-id:4  pos:136.45    v:0.00    jt:0.0     mt:0    stat:0b1000110011    DI:0b1110110000000000000100
+R-id:5  pos:22.79     v:0.00    jt:-0.0    mt:0    stat:0b1000110011    DI:0b1110110000000000000000
+S-id:6  pos:45.57     v:0.00    jt:0.0     mt:0    stat:0b1000110011    DI:0b1110110000000000000100
+R-id:7  pos:-22.06    v:0.00    jt:-0.0    mt:0    stat:0b1000110011    DI:0b1110110000000000000000
+S-id:8  pos:-44.11    v:0.00    jt:0.0     mt:0    stat:0b1000110011    DI:0b1110110000000000000100
+
+time:23.78  | homing_satus:True | print_motor_val:False
+R-id:1  pos:15.03     v:10.70   jt:-0.0    mt:0    stat:0b1000110011    DI:0b1110110000000000000000
+S-id:2  pos:30.06     v:21.40   jt:328.0   mt:82   stat:0b1000110111    DI:0b1010010000000000000000
+R-id:3  pos:68.15     v:0.00    jt:-0.0    mt:0    stat:0b1000110011    DI:0b1110110000000000000000
+S-id:4  pos:136.45    v:0.00    jt:0.0     mt:0    stat:0b1000110011    DI:0b1110110000000000000100
+R-id:5  pos:22.79     v:0.00    jt:-0.0    mt:0    stat:0b1000110011    DI:0b1110110000000000000000
+S-id:6  pos:45.57     v:0.00    jt:0.0     mt:0    stat:0b1000110011    DI:0b1110110000000000000100
+R-id:7  pos:-22.06    v:0.00    jt:-0.0    mt:0    stat:0b1000110011    DI:0b1110110000000000000000
+S-id:8  pos:-44.11    v:0.00    jt:0.0     mt:0    stat:0b1000110011    DI:0b1110110000000000000100
+
+time:24.28  | homing_satus:True | print_motor_val:False
+R-id:1  pos:20.52     v:10.66   jt:-0.0    mt:0    stat:0b1000110011    DI:0b1110110000000000000000
+S-id:2  pos:41.04     v:21.31   jt:404.0   mt:101  stat:0b1000110111    DI:0b1010010000000000000000
+R-id:3  pos:68.15     v:0.00    jt:-0.0    mt:0    stat:0b1000110011    DI:0b1110110000000000000000
+S-id:4  pos:136.45    v:0.00    jt:0.0     mt:0    stat:0b1000110011    DI:0b1110110000000000000100
+R-id:5  pos:22.79     v:0.00    jt:-0.0    mt:0    stat:0b1000110011    DI:0b1110110000000000000000
+S-id:6  pos:45.57     v:0.00    jt:0.0     mt:0    stat:0b1000110011    DI:0b1110110000000000000100
+R-id:7  pos:-22.06    v:0.00    jt:-0.0    mt:0    stat:0b1000110011    DI:0b1110110000000000000000
+S-id:8  pos:-44.11    v:0.00    jt:0.0     mt:0    stat:0b1000110011    DI:0b1110110000000000000100
+
+
+======================
+STEER SETTING FINISHED
+======================
+state command: PRE-OPERATIONAL
+master state: PRE-OPERATIONAL
+node 1 state: PRE-OPERATIONAL
+node 2 state: PRE-OPERATIONAL
+node 3 state: PRE-OPERATIONAL
+node 4 state: PRE-OPERATIONAL
+node 5 state: PRE-OPERATIONAL
+node 6 state: OPERATIONAL
+node 7 state: PRE-OPERATIONAL
+node 8 state: PRE-OPERATIONAL
+
+state command: OPERATIONAL
+master state: OPERATIONAL
+node 1 state: OPERATIONAL
+node 2 state: OPERATIONAL
+node 3 state: OPERATIONAL
+node 4 state: OPERATIONAL
+node 5 state: PRE-OPERATIONAL
+node 6 state: OPERATIONAL
+node 7 state: OPERATIONAL
+node 8 state: OPERATIONAL
+
+SHUTDOWN COMMAND: 0b110
+node_id:1 stat:0b1000110011    ctrl:0b110     
+
+[SWITCH ON or DISABLE OPERATION] COMMAND: 0b111
+node_id:1 stat:0b1000110001    ctrl:0b111     
+
+node 1 operation mode: 3
+
+[ENABLE OPERATION or OPERATION] COMMAND: 0b1111
+node_id:1 stat:0b1000110011    ctrl:0b1111    
+
+
+======================
+ALIGN SETTING FINISHED
+======================
+state command: PRE-OPERATIONAL
+master state: PRE-OPERATIONAL
+node 1 state: PRE-OPERATIONAL
+node 2 state: PRE-OPERATIONAL
+node 3 state: PRE-OPERATIONAL
+node 4 state: PRE-OPERATIONAL
+node 5 state: OPERATIONAL
+node 6 state: PRE-OPERATIONAL
+node 7 state: PRE-OPERATIONAL
+node 8 state: PRE-OPERATIONAL
+
+state command: OPERATIONAL
+master state: OPERATIONAL
+node 1 state: OPERATIONAL
+node 2 state: OPERATIONAL
+node 3 state: OPERATIONAL
+node 4 state: PRE-OPERATIONAL
+node 5 state: OPERATIONAL
+node 6 state: OPERATIONAL
+node 7 state: OPERATIONAL
+node 8 state: OPERATIONAL
+
+SHUTDOWN COMMAND: 0b110
+node_id:3 stat:0b1000110011    ctrl:0b110     
+
+[SWITCH ON or DISABLE OPERATION] COMMAND: 0b111
+node_id:3 stat:0b1000110001    ctrl:0b111     
+
+node 3 operation mode: 4
+
+[ENABLE OPERATION or OPERATION] COMMAND: 0b1111
+node_id:3 stat:0b1000110011    ctrl:0b1111    
+
+state command: PRE-OPERATIONAL
+master state: PRE-OPERATIONAL
+node 1 state: PRE-OPERATIONAL
+node 2 state: PRE-OPERATIONAL
+node 3 state: PRE-OPERATIONAL
+node 4 state: PRE-OPERATIONAL
+node 5 state: PRE-OPERATIONAL
+node 6 state: PRE-OPERATIONAL
+node 7 state: PRE-OPERATIONAL
+node 8 state: PRE-OPERATIONAL
+
+state command: OPERATIONAL
+master state: OPERATIONAL
+node 1 state: OPERATIONAL
+node 2 state: OPERATIONAL
+node 3 state: PRE-OPERATIONAL
+node 4 state: OPERATIONAL
+node 5 state: OPERATIONAL
+node 6 state: OPERATIONAL
+node 7 state: OPERATIONAL
+node 8 state: PRE-OPERATIONAL
+
+SHUTDOWN COMMAND: 0b110
+node_id:4 stat:0b1000110011    ctrl:0b110     
+
+[SWITCH ON or DISABLE OPERATION] COMMAND: 0b111
+node_id:4 stat:0b1000110001    ctrl:0b111     
+
+node 4 operation mode: 4
+
+[ENABLE OPERATION or OPERATION] COMMAND: 0b1111
+node_id:4 stat:0b1000110011    ctrl:0b1111    
+
+state command: PRE-OPERATIONAL
+master state: PRE-OPERATIONAL
+node 1 state: PRE-OPERATIONAL
+node 2 state: PRE-OPERATIONAL
+node 3 state: OPERATIONAL
+node 4 state: PRE-OPERATIONAL
+node 5 state: PRE-OPERATIONAL
+node 6 state: PRE-OPERATIONAL
+node 7 state: PRE-OPERATIONAL
+node 8 state: PRE-OPERATIONAL
+
+state command: OPERATIONAL
+master state: OPERATIONAL
+node 1 state: OPERATIONAL
+node 2 state: PRE-OPERATIONAL
+node 3 state: OPERATIONAL
+node 4 state: OPERATIONAL
+node 5 state: OPERATIONAL
+node 6 state: OPERATIONAL
+node 7 state: OPERATIONAL
+node 8 state: PRE-OPERATIONAL
+
+SHUTDOWN COMMAND: 0b110
+node_id:5 stat:0b1000110011    ctrl:0b110     
+
+[SWITCH ON or DISABLE OPERATION] COMMAND: 0b111
+node_id:5 stat:0b1000110001    ctrl:0b111     
+
+node 5 operation mode: 4
+
+[ENABLE OPERATION or OPERATION] COMMAND: 0b1111
+node_id:5 stat:0b1000110011    ctrl:0b1111    
+
+state command: PRE-OPERATIONAL
+master state: PRE-OPERATIONAL
+node 1 state: PRE-OPERATIONAL
+node 2 state: OPERATIONAL
+node 3 state: OPERATIONAL
+node 4 state: PRE-OPERATIONAL
+node 5 state: PRE-OPERATIONAL
+node 6 state: PRE-OPERATIONAL
+node 7 state: PRE-OPERATIONAL
+node 8 state: OPERATIONAL
+
+state command: OPERATIONAL
+master state: OPERATIONAL
+node 1 state: PRE-OPERATIONAL
+node 2 state: OPERATIONAL
+node 3 state: OPERATIONAL
+node 4 state: OPERATIONAL
+node 5 state: OPERATIONAL
+node 6 state: OPERATIONAL
+node 7 state: PRE-OPERATIONAL
+node 8 state: OPERATIONAL
+
+SHUTDOWN COMMAND: 0b110
+node_id:6 stat:0b1000110011    ctrl:0b110     
+
+[SWITCH ON or DISABLE OPERATION] COMMAND: 0b111
+node_id:6 stat:0b1000110001    ctrl:0b111     
+
+node 6 operation mode: 4
+
+[ENABLE OPERATION or OPERATION] COMMAND: 0b1111
+node_id:6 stat:0b1000110011    ctrl:0b1111    
+
+state command: PRE-OPERATIONAL
+master state: PRE-OPERATIONAL
+node 1 state: OPERATIONAL
+node 2 state: OPERATIONAL
+node 3 state: PRE-OPERATIONAL
+node 4 state: PRE-OPERATIONAL
+node 5 state: PRE-OPERATIONAL
+node 6 state: PRE-OPERATIONAL
+node 7 state: PRE-OPERATIONAL
+node 8 state: PRE-OPERATIONAL
+
+state command: OPERATIONAL
+master state: OPERATIONAL
+node 1 state: OPERATIONAL
+node 2 state: OPERATIONAL
+node 3 state: OPERATIONAL
+node 4 state: OPERATIONAL
+node 5 state: OPERATIONAL
+node 6 state: PRE-OPERATIONAL
+node 7 state: OPERATIONAL
+node 8 state: OPERATIONAL
+
+SHUTDOWN COMMAND: 0b110
+node_id:7 stat:0b1000110011    ctrl:0b110     
+
+[SWITCH ON or DISABLE OPERATION] COMMAND: 0b111
+node_id:7 stat:0b1000110001    ctrl:0b111     
+
+node 7 operation mode: 4
+
+[ENABLE OPERATION or OPERATION] COMMAND: 0b1111
+node_id:7 stat:0b1000110011    ctrl:0b1111    
+
+state command: PRE-OPERATIONAL
+master state: PRE-OPERATIONAL
+node 1 state: OPERATIONAL
+node 2 state: PRE-OPERATIONAL
+node 3 state: PRE-OPERATIONAL
+node 4 state: PRE-OPERATIONAL
+node 5 state: PRE-OPERATIONAL
+node 6 state: PRE-OPERATIONAL
+node 7 state: OPERATIONAL
+node 8 state: PRE-OPERATIONAL
+
+state command: OPERATIONAL
+master state: OPERATIONAL
+node 1 state: OPERATIONAL
+node 2 state: OPERATIONAL
+node 3 state: OPERATIONAL
+node 4 state: OPERATIONAL
+node 5 state: OPERATIONAL
+node 6 state: PRE-OPERATIONAL
+node 7 state: OPERATIONAL
+node 8 state: OPERATIONAL
+
+SHUTDOWN COMMAND: 0b110
+node_id:8 stat:0b1000110011    ctrl:0b110     
+
+[SWITCH ON or DISABLE OPERATION] COMMAND: 0b111
+node_id:8 stat:0b1000110001    ctrl:0b111     
+
+node 8 operation mode: 4
+
+[ENABLE OPERATION or OPERATION] COMMAND: 0b1111
+node_id:8 stat:0b1000110011    ctrl:0b1111    
+
+
+=====================
+STARTING SMALL TORQUE
+=====================
+time:36.08  | homing_satus:True | print_motor_val:False
+R-id:1  pos:22.67     v:0.00    jt:-218.6  mt:45   stat:0b1001000110111 DI:0b1110110000000000000000
+S-id:2  pos:45.26     v:0.00    jt:33.3    mt:-19  stat:0b1001000110111 DI:0b1010010000000000000000
+R-id:3  pos:121.12    v:207.44  jt:956.9   mt:-197 stat:0b11000110111   DI:0b1110010000000000000000
+S-id:4  pos:78.22     v:0.00    jt:-18.4   mt:115  stat:0b11000110111   DI:0b1010010000000000000000
+R-id:5  pos:102.07    v:376.20  jt:956.9   mt:-197 stat:0b11000110111   DI:0b1110110000000000000000
+S-id:6  pos:45.70     v:0.00    jt:1.6     mt:120  stat:0b11000110111   DI:0b1110110000000000000100
+R-id:7  pos:45.87     v:291.02  jt:966.6   mt:-199 stat:0b11000110111   DI:0b1110110000000000000000
+S-id:8  pos:-35.50    v:0.60    jt:-15.3   mt:117  stat:0b11000110111   DI:0b1110110000000000000100
+
+time:36.58  | homing_satus:True | print_motor_val:False
+R-id:1  pos:22.67     v:0.00    jt:-218.6  mt:45   stat:0b1001000110111 DI:0b1110110000000000000000
+S-id:2  pos:45.26     v:0.00    jt:73.3    mt:-9   stat:0b1001000110111 DI:0b1010010000000000000000
+R-id:3  pos:214.06    v:171.98  jt:956.9   mt:-197 stat:0b11000110111   DI:0b1110010000000000000000
+S-id:4  pos:78.22     v:0.00    jt:-10.4   mt:117  stat:0b11000110111   DI:0b1010010000000000000000
+R-id:5  pos:299.24    v:515.71  jt:981.1   mt:-202 stat:0b11000110111   DI:0b1110110000000000000000
+S-id:6  pos:45.70     v:0.00    jt:-10.6   mt:120  stat:0b11000110111   DI:0b1110110000000000000100
+R-id:7  pos:176.46    v:198.46  jt:922.9   mt:-190 stat:0b11000110111   DI:0b1110110000000000000000
+S-id:8  pos:-35.46    v:0.00    jt:18.6    mt:120  stat:0b11000110111   DI:0b1110110000000000000100
+
+time:37.08  | homing_satus:True | print_motor_val:False
+R-id:1  pos:22.67     v:0.00    jt:-238.0  mt:49   stat:0b1001000110111 DI:0b1110110000000000000000
+S-id:2  pos:45.26     v:0.00    jt:27.0    mt:-23  stat:0b1001000110111 DI:0b1010010000000000000000
+R-id:3  pos:316.40    v:201.07  jt:966.6   mt:-199 stat:0b11000110111   DI:0b1110010000000000000000
+S-id:4  pos:78.22     v:0.00    jt:-3.3    mt:120  stat:0b11000110111   DI:0b1010010000000000000000
+R-id:5  pos:548.55    v:386.51  jt:956.9   mt:-197 stat:0b11000110111   DI:0b1110110000000000000000
+S-id:6  pos:45.70     v:0.00    jt:9.6     mt:122  stat:0b11000110111   DI:0b1110110000000000000100
+R-id:7  pos:293.56    v:304.41  jt:966.6   mt:-199 stat:0b11000110111   DI:0b1110110000000000000000
+S-id:8  pos:-35.39    v:0.00    jt:-15.3   mt:117  stat:0b11000110111   DI:0b1110110000000000000100
+
+time:37.58  | homing_satus:True | print_motor_val:False
+R-id:1  pos:22.67     v:0.00    jt:-228.3  mt:47   stat:0b1001000110111 DI:0b1110110000000000000000
+S-id:2  pos:45.26     v:0.00    jt:58.1    mt:-14  stat:0b1001000110111 DI:0b1010010000000000000000
+R-id:3  pos:438.80    v:294.48  jt:947.1   mt:-195 stat:0b11000110111   DI:0b1110010000000000000000
+S-id:4  pos:78.22     v:0.00    jt:6.4     mt:120  stat:0b11000110111   DI:0b1010010000000000000000
+R-id:5  pos:786.32    v:542.78  jt:966.6   mt:-199 stat:0b11000110111   DI:0b1110110000000000000000
+S-id:6  pos:45.70     v:0.00    jt:4.7     mt:122  stat:0b11000110111   DI:0b1110110000000000000100
+R-id:7  pos:483.65    v:326.96  jt:981.1   mt:-202 stat:0b11000110111   DI:0b1110110000000000000000
+S-id:8  pos:-35.38    v:0.00    jt:-22.6   mt:117  stat:0b11000110111   DI:0b1110110000000000000100
+
+time:38.08  | homing_satus:True | print_motor_val:False
+R-id:1  pos:22.67     v:0.00    jt:-238.0  mt:49   stat:0b1001000110111 DI:0b1110110000000000000000
+S-id:2  pos:45.26     v:0.00    jt:43.0    mt:-19  stat:0b1001000110111 DI:0b1010010000000000000000
+R-id:3  pos:558.22    v:199.15  jt:966.6   mt:-199 stat:0b11000110111   DI:0b1110010000000000000000
+S-id:4  pos:78.22     v:0.00    jt:-3.3    mt:120  stat:0b11000110111   DI:0b1010010000000000000000
+R-id:5  pos:1018.99   v:547.52  jt:966.6   mt:-199 stat:0b11000110111   DI:0b1110110000000000000000
+S-id:6  pos:45.70     v:0.00    jt:12.7    mt:124  stat:0b11000110111   DI:0b1110110000000000000100
+R-id:7  pos:602.59    v:257.08  jt:913.1   mt:-188 stat:0b11000110111   DI:0b1110110000000000000000
+S-id:8  pos:-35.33    v:0.00    jt:39.4    mt:124  stat:0b11000110111   DI:0b1110110000000000000100
+
+time:38.58  | homing_satus:True | print_motor_val:False
+R-id:1  pos:22.67     v:0.00    jt:-228.3  mt:47   stat:0b1001000110111 DI:0b1110110000000000000000
+S-id:2  pos:45.26     v:0.00    jt:38.1    mt:-19  stat:0b1001000110111 DI:0b1010010000000000000000
+R-id:3  pos:672.22    v:229.48  jt:956.9   mt:-197 stat:0b11000110111   DI:0b1110010000000000000000
+S-id:4  pos:78.22     v:0.00    jt:9.6     mt:122  stat:0b11000110111   DI:0b1010010000000000000000
+R-id:5  pos:1270.98   v:373.95  jt:956.9   mt:-197 stat:0b11000110111   DI:0b1110110000000000000000
+S-id:6  pos:45.70     v:0.00    jt:-10.4   mt:117  stat:0b11000110111   DI:0b1110110000000000000100
+R-id:7  pos:748.76    v:358.13  jt:947.1   mt:-195 stat:0b11000110111   DI:0b1110110000000000000000
+S-id:8  pos:-35.30    v:0.00    jt:-5.6    mt:117  stat:0b11000110111   DI:0b1110110000000000000100
+
+time:39.08  | homing_satus:True | print_motor_val:False
+R-id:1  pos:22.67     v:0.00    jt:-262.3  mt:54   stat:0b1001000110111 DI:0b1110110000000000000000
+S-id:2  pos:45.26     v:0.00    jt:55.1    mt:-19  stat:0b1001000110111 DI:0b1010010000000000000000
+R-id:3  pos:808.70    v:312.50  jt:956.9   mt:-197 stat:0b11000110111   DI:0b1110010000000000000000
+S-id:4  pos:78.22     v:0.00    jt:1.6     mt:120  stat:0b11000110111   DI:0b1010010000000000000000
+R-id:5  pos:1511.97   v:516.15  jt:947.1   mt:-195 stat:0b11000110111   DI:0b1110110000000000000000
+S-id:6  pos:45.70     v:0.00    jt:-5.6    mt:117  stat:0b11000110111   DI:0b1110110000000000000100
+R-id:7  pos:905.99    v:230.67  jt:947.1   mt:-195 stat:0b11000110111   DI:0b1110110000000000000000
+S-id:8  pos:-35.30    v:0.00    jt:-13.6   mt:115  stat:0b11000110111   DI:0b1110110000000000000100
+
+time:39.58  | homing_satus:True | print_motor_val:False
+R-id:1  pos:22.67     v:0.00    jt:-218.6  mt:45   stat:0b1001000110111 DI:0b1110110000000000000000
+S-id:2  pos:45.26     v:0.00    jt:45.3    mt:-16  stat:0b1001000110111 DI:0b1010010000000000000000
+R-id:3  pos:934.96    v:219.86  jt:966.6   mt:-199 stat:0b11000110111   DI:0b1110010000000000000000
+S-id:4  pos:78.22     v:0.00    jt:-3.3    mt:120  stat:0b11000110111   DI:0b1010010000000000000000
+R-id:5  pos:1752.17   v:567.39  jt:981.1   mt:-202 stat:0b11000110111   DI:0b1110110000000000000000
+S-id:6  pos:45.70     v:0.00    jt:-10.6   mt:120  stat:0b11000110111   DI:0b1110110000000000000100
+R-id:7  pos:1025.51   v:280.95  jt:932.6   mt:-192 stat:0b11000110111   DI:0b1110110000000000000000
+S-id:8  pos:-35.26    v:0.60    jt:-6.3    mt:115  stat:0b11000110111   DI:0b1110110000000000000100
+
+time:40.08  | homing_satus:True | print_motor_val:False
+R-id:1  pos:22.67     v:0.00    jt:-218.6  mt:45   stat:0b1001000110111 DI:0b1110110000000000000000
+S-id:2  pos:45.26     v:0.00    jt:25.3    mt:-21  stat:0b1001000110111 DI:0b1010010000000000000000
+R-id:3  pos:1055.51   v:278.92  jt:932.6   mt:-192 stat:0b11000110111   DI:0b1110010000000000000000
+S-id:4  pos:78.22     v:0.00    jt:21.7    mt:122  stat:0b11000110111   DI:0b1010010000000000000000
+R-id:5  pos:2005.97   v:435.88  jt:990.9   mt:-204 stat:0b11000110111   DI:0b1110110000000000000000
+S-id:6  pos:45.70     v:0.00    jt:-15.4   mt:120  stat:0b11000110111   DI:0b1110110000000000000100
+R-id:7  pos:1197.67   v:318.23  jt:913.1   mt:-188 stat:0b11000110111   DI:0b1110110000000000000000
+S-id:8  pos:-35.24    v:0.00    jt:11.4    mt:117  stat:0b11000110111   DI:0b1110110000000000000100
+
+time:40.58  | homing_satus:True | print_motor_val:False
+R-id:1  pos:22.67     v:0.00    jt:-218.6  mt:45   stat:0b1001000110111 DI:0b1110110000000000000000
+S-id:2  pos:45.26     v:0.00    jt:53.3    mt:-14  stat:0b1001000110111 DI:0b1010010000000000000000
+R-id:3  pos:1194.23   v:275.77  jt:956.9   mt:-197 stat:0b11000110111   DI:0b1110010000000000000000
+S-id:4  pos:78.22     v:0.00    jt:1.6     mt:120  stat:0b11000110111   DI:0b1010010000000000000000
+R-id:5  pos:2262.85   v:522.59  jt:947.1   mt:-195 stat:0b11000110111   DI:0b1110110000000000000000
+S-id:6  pos:45.70     v:0.00    jt:6.4     mt:120  stat:0b11000110111   DI:0b1110110000000000000100
+R-id:7  pos:1326.46   v:263.77  jt:922.9   mt:-190 stat:0b11000110111   DI:0b1110110000000000000000
+S-id:8  pos:-35.22    v:0.00    jt:26.6    mt:122  stat:0b11000110111   DI:0b1110110000000000000100
+
+time:41.08  | homing_satus:True | print_motor_val:False
+R-id:1  pos:22.67     v:0.00    jt:-228.3  mt:47   stat:0b1001000110111 DI:0b1110110000000000000000
+S-id:2  pos:45.26     v:0.00    jt:38.1    mt:-19  stat:0b1001000110111 DI:0b1010010000000000000000
+R-id:3  pos:1311.16   v:210.77  jt:956.9   mt:-197 stat:0b11000110111   DI:0b1110010000000000000000
+S-id:4  pos:78.22     v:0.00    jt:-18.4   mt:115  stat:0b11000110111   DI:0b1010010000000000000000
+R-id:5  pos:2509.74   v:569.16  jt:922.9   mt:-190 stat:0b11000110111   DI:0b1110110000000000000000
+S-id:6  pos:45.70     v:0.00    jt:26.6    mt:122  stat:0b11000110111   DI:0b1110110000000000000100
+R-id:7  pos:1480.19   v:370.75  jt:932.6   mt:-192 stat:0b11000110111   DI:0b1110110000000000000000
+S-id:8  pos:-35.20    v:0.00    jt:21.7    mt:122  stat:0b11000110111   DI:0b1110110000000000000100
+
+time:41.58  | homing_satus:True | print_motor_val:False
+R-id:1  pos:22.67     v:0.00    jt:-228.3  mt:47   stat:0b1001000110111 DI:0b1110110000000000000000
+S-id:2  pos:45.26     v:0.00    jt:66.1    mt:-12  stat:0b1001000110111 DI:0b1010010000000000000000
+R-id:3  pos:1433.16   v:264.44  jt:956.9   mt:-197 stat:0b11000110111   DI:0b1110010000000000000000
+S-id:4  pos:78.22     v:0.00    jt:9.6     mt:122  stat:0b11000110111   DI:0b1010010000000000000000
+R-id:5  pos:2759.38   v:434.97  jt:956.9   mt:-197 stat:0b11000110111   DI:0b1110110000000000000000
+S-id:6  pos:45.70     v:0.00    jt:9.6     mt:122  stat:0b11000110111   DI:0b1110110000000000000100
+R-id:7  pos:1632.60   v:248.47  jt:956.9   mt:-197 stat:0b11000110111   DI:0b1110110000000000000000
+S-id:8  pos:-35.20    v:0.00    jt:-18.4   mt:115  stat:0b11000110111   DI:0b1110110000000000000100
+
+time:42.08  | homing_satus:True | print_motor_val:False
+R-id:1  pos:22.67     v:0.00    jt:-238.0  mt:49   stat:0b1001000110111 DI:0b1110110000000000000000
+S-id:2  pos:45.26     v:0.00    jt:15.0    mt:-26  stat:0b1001000110111 DI:0b1010010000000000000000
+R-id:3  pos:1578.21   v:265.82  jt:966.6   mt:-199 stat:0b11000110111   DI:0b1110010000000000000000
+S-id:4  pos:78.22     v:0.00    jt:12.7    mt:124  stat:0b11000110111   DI:0b1010010000000000000000
+R-id:5  pos:3023.10   v:500.37  jt:947.1   mt:-195 stat:0b11000110111   DI:0b1110110000000000000000
+S-id:6  pos:45.70     v:0.00    jt:6.4     mt:120  stat:0b11000110111   DI:0b1110110000000000000100
+R-id:7  pos:1765.95   v:318.88  jt:966.6   mt:-199 stat:0b11000110111   DI:0b1110110000000000000000
+S-id:8  pos:-35.16    v:0.60    jt:-15.3   mt:117  stat:0b11000110111   DI:0b1110110000000000000100
+
+time:42.58  | homing_satus:True | print_motor_val:False
+R-id:1  pos:22.67     v:0.00    jt:-252.6  mt:52   stat:0b1001000110111 DI:0b1110110000000000000000
+S-id:2  pos:45.26     v:0.00    jt:70.3    mt:-14  stat:0b1001000110111 DI:0b1010010000000000000000
+R-id:3  pos:1698.72   v:262.81  jt:1000.6  mt:-206 stat:0b11000110111   DI:0b1110010000000000000000
+S-id:4  pos:78.22     v:0.00    jt:-20.3   mt:120  stat:0b11000110111   DI:0b1010010000000000000000
+R-id:5  pos:3267.78   v:524.47  jt:947.1   mt:-195 stat:0b11000110111   DI:0b1110110000000000000000
+S-id:6  pos:45.70     v:0.00    jt:14.4    mt:122  stat:0b11000110111   DI:0b1110110000000000000100
+R-id:7  pos:1948.70   v:312.50  jt:956.9   mt:-197 stat:0b11000110111   DI:0b1110110000000000000000
+S-id:8  pos:-35.16    v:0.00    jt:9.6     mt:122  stat:0b11000110111   DI:0b1110110000000000000100
+
+time:43.08  | homing_satus:True | print_motor_val:False
+R-id:1  pos:22.67     v:0.00    jt:-238.0  mt:49   stat:0b1001000110111 DI:0b1110110000000000000000
+S-id:2  pos:45.26     v:0.00    jt:35.0    mt:-21  stat:0b1001000110111 DI:0b1010010000000000000000
+R-id:3  pos:1830.89   v:306.42  jt:956.9   mt:-197 stat:0b11000110111   DI:0b1110010000000000000000
+S-id:4  pos:78.22     v:0.00    jt:1.6     mt:120  stat:0b11000110111   DI:0b1010010000000000000000
+R-id:5  pos:3512.84   v:509.96  jt:966.6   mt:-199 stat:0b11000110111   DI:0b1110110000000000000000
+S-id:6  pos:45.75     v:0.00    jt:-3.3    mt:120  stat:0b11000110111   DI:0b1110110000000000000100
+R-id:7  pos:2075.52   v:283.30  jt:990.9   mt:-204 stat:0b11000110111   DI:0b1110110000000000000000
+S-id:8  pos:-35.13    v:0.00    jt:-15.4   mt:120  stat:0b11000110111   DI:0b1110110000000000000100
+
+time:43.58  | homing_satus:True | print_motor_val:False
+R-id:1  pos:22.67     v:0.00    jt:-252.6  mt:52   stat:0b1001000110111 DI:0b1110110000000000000000
+S-id:2  pos:45.26     v:0.00    jt:70.3    mt:-14  stat:0b1001000110111 DI:0b1010010000000000000000
+R-id:3  pos:1976.95   v:243.34  jt:956.9   mt:-197 stat:0b11000110111   DI:0b1110010000000000000000
+S-id:4  pos:78.22     v:0.00    jt:-18.4   mt:115  stat:0b11000110111   DI:0b1010010000000000000000
+R-id:5  pos:3778.01   v:433.27  jt:966.6   mt:-199 stat:0b11000110111   DI:0b1110110000000000000000
+S-id:6  pos:45.75     v:0.00    jt:24.7    mt:127  stat:0b11000110111   DI:0b1110110000000000000100
+R-id:7  pos:2258.34   v:390.19  jt:966.6   mt:-199 stat:0b11000110111   DI:0b1110110000000000000000
+S-id:8  pos:-35.16    v:0.00    jt:4.7     mt:122  stat:0b11000110111   DI:0b1110110000000000000100
+
+time:44.08  | homing_satus:True | print_motor_val:False
+R-id:1  pos:22.67     v:0.00    jt:-228.3  mt:47   stat:0b1001000110111 DI:0b1110110000000000000000
+S-id:2  pos:45.26     v:0.00    jt:50.1    mt:-16  stat:0b1001000110111 DI:0b1010010000000000000000
+R-id:3  pos:2099.75   v:248.30  jt:981.1   mt:-202 stat:0b11000110111   DI:0b1110010000000000000000
+S-id:4  pos:78.22     v:0.00    jt:-2.6    mt:122  stat:0b11000110111   DI:0b1010010000000000000000
+R-id:5  pos:4027.22   v:509.88  jt:966.6   mt:-199 stat:0b11000110111   DI:0b1110110000000000000000
+S-id:6  pos:45.75     v:0.00    jt:-3.3    mt:120  stat:0b11000110111   DI:0b1110110000000000000100
+R-id:7  pos:2397.12   v:283.87  jt:956.9   mt:-197 stat:0b11000110111   DI:0b1110110000000000000000
+S-id:8  pos:-35.12    v:0.00    jt:-18.4   mt:115  stat:0b11000110111   DI:0b1110110000000000000100
+
+time:44.58  | homing_satus:True | print_motor_val:False
+R-id:1  pos:22.67     v:0.00    jt:-218.6  mt:45   stat:0b1001000110111 DI:0b1110110000000000000000
+S-id:2  pos:45.26     v:0.00    jt:45.3    mt:-16  stat:0b1001000110111 DI:0b1010010000000000000000
+R-id:3  pos:2244.62   v:348.04  jt:947.1   mt:-195 stat:0b11000110111   DI:0b1110010000000000000000
+S-id:4  pos:78.22     v:0.00    jt:6.4     mt:120  stat:0b11000110111   DI:0b1010010000000000000000
+R-id:5  pos:4274.83   v:577.49  jt:956.9   mt:-197 stat:0b11000110111   DI:0b1110110000000000000000
+S-id:6  pos:45.75     v:0.00    jt:1.6     mt:120  stat:0b11000110111   DI:0b1110110000000000000100
+R-id:7  pos:2557.85   v:443.69  jt:947.1   mt:-195 stat:0b11000110111   DI:0b1110110000000000000000
+S-id:8  pos:-35.10    v:0.00    jt:-5.6    mt:117  stat:0b11000110111   DI:0b1110110000000000000100
+
+time:45.08  | homing_satus:True | print_motor_val:False
+R-id:1  pos:22.67     v:0.00    jt:-218.6  mt:45   stat:0b1001000110111 DI:0b1110110000000000000000
+S-id:2  pos:45.26     v:0.00    jt:25.3    mt:-21  stat:0b1001000110111 DI:0b1010010000000000000000
+R-id:3  pos:2382.68   v:242.87  jt:981.1   mt:-202 stat:0b11000110111   DI:0b1110010000000000000000
+S-id:4  pos:78.22     v:0.00    jt:-10.6   mt:120  stat:0b11000110111   DI:0b1010010000000000000000
+R-id:5  pos:4533.19   v:453.93  jt:956.9   mt:-197 stat:0b11000110111   DI:0b1110110000000000000000
+S-id:6  pos:45.75     v:0.00    jt:1.6     mt:120  stat:0b11000110111   DI:0b1110110000000000000100
+R-id:7  pos:2715.87   v:206.07  jt:932.6   mt:-192 stat:0b11000110111   DI:0b1110110000000000000000
+S-id:8  pos:-35.10    v:0.60    jt:1.7     mt:117  stat:0b11000110111   DI:0b1110110000000000000100
+
+time:45.58  | homing_satus:True | print_motor_val:False
+R-id:1  pos:22.67     v:0.00    jt:-218.6  mt:45   stat:0b1001000110111 DI:0b1110110000000000000000
+S-id:2  pos:45.26     v:0.00    jt:33.3    mt:-19  stat:0b1001000110111 DI:0b1010010000000000000000
+R-id:3  pos:2517.82   v:289.30  jt:947.1   mt:-195 stat:0b11000110111   DI:0b1110010000000000000000
+S-id:4  pos:78.22     v:0.00    jt:-5.6    mt:117  stat:0b11000110111   DI:0b1010010000000000000000
+R-id:5  pos:4796.59   v:551.54  jt:956.9   mt:-197 stat:0b11000110111   DI:0b1110110000000000000000
+S-id:6  pos:45.75     v:0.00    jt:17.6    mt:124  stat:0b11000110111   DI:0b1110110000000000000100
+R-id:7  pos:2849.35   v:377.50  jt:1000.6  mt:-206 stat:0b11000110111   DI:0b1110110000000000000000
+S-id:8  pos:-35.04    v:0.00    jt:-20.3   mt:120  stat:0b11000110111   DI:0b1110110000000000000100
+
+time:46.08  | homing_satus:True | print_motor_val:False
+R-id:1  pos:22.67     v:0.00    jt:-218.6  mt:45   stat:0b1001000110111 DI:0b1110110000000000000000
+S-id:2  pos:45.26     v:0.00    jt:45.3    mt:-16  stat:0b1001000110111 DI:0b1010010000000000000000
+R-id:3  pos:2676.77   v:291.95  jt:947.1   mt:-195 stat:0b11000110111   DI:0b1110010000000000000000
+S-id:4  pos:78.22     v:0.00    jt:14.4    mt:122  stat:0b11000110111   DI:0b1010010000000000000000
+R-id:5  pos:5050.53   v:545.39  jt:932.6   mt:-192 stat:0b11000110111   DI:0b1110110000000000000000
+S-id:6  pos:45.75     v:0.00    jt:1.7     mt:117  stat:0b11000110111   DI:0b1110110000000000000100
+R-id:7  pos:3031.94   v:269.17  jt:922.9   mt:-190 stat:0b11000110111   DI:0b1110110000000000000000
+S-id:8  pos:-35.04    v:0.00    jt:46.6    mt:127  stat:0b11000110111   DI:0b1110110000000000000100
+
+time:46.58  | homing_satus:True | print_motor_val:False
+R-id:1  pos:22.67     v:0.00    jt:-238.0  mt:49   stat:0b1001000110111 DI:0b1110110000000000000000
+S-id:2  pos:45.26     v:0.00    jt:63.0    mt:-14  stat:0b1001000110111 DI:0b1010010000000000000000
+R-id:3  pos:2808.06   v:277.47  jt:947.1   mt:-195 stat:0b11000110111   DI:0b1110010000000000000000
+S-id:4  pos:78.22     v:0.00    jt:14.4    mt:122  stat:0b11000110111   DI:0b1010010000000000000000
+R-id:5  pos:5305.02   v:495.63  jt:966.6   mt:-199 stat:0b11000110111   DI:0b1110110000000000000000
+S-id:6  pos:45.75     v:0.00    jt:4.7     mt:122  stat:0b11000110111   DI:0b1110110000000000000100
+R-id:7  pos:3162.50   v:238.68  jt:898.6   mt:-185 stat:0b11000110111   DI:0b1110110000000000000000
+S-id:8  pos:-34.99    v:0.00    jt:18.7    mt:117  stat:0b11000110111   DI:0b1110110000000000000100
+
+time:47.08  | homing_satus:True | print_motor_val:False
+R-id:1  pos:22.67     v:0.00    jt:-238.0  mt:49   stat:0b1001000110111 DI:0b1110110000000000000000
+S-id:2  pos:45.26     v:0.00    jt:55.0    mt:-16  stat:0b1001000110111 DI:0b1010010000000000000000
+R-id:3  pos:2959.01   v:338.63  jt:947.1   mt:-195 stat:0b11000110111   DI:0b1110010000000000000000
+S-id:4  pos:78.22     v:0.00    jt:14.4    mt:122  stat:0b11000110111   DI:0b1010010000000000000000
+R-id:5  pos:5577.93   v:442.82  jt:966.6   mt:-199 stat:0b11000110111   DI:0b1110110000000000000000
+S-id:6  pos:45.75     v:0.00    jt:-15.3   mt:117  stat:0b11000110111   DI:0b1110110000000000000100
+R-id:7  pos:3345.33   v:361.30  jt:966.6   mt:-199 stat:0b11000110111   DI:0b1110110000000000000000
+S-id:8  pos:-34.98    v:0.00    jt:4.7     mt:122  stat:0b11000110111   DI:0b1110110000000000000100
+
+time:47.59  | homing_satus:True | print_motor_val:False
+R-id:1  pos:22.67     v:0.00    jt:-238.0  mt:49   stat:0b1001000110111 DI:0b1110110000000000000000
+S-id:2  pos:45.26     v:0.00    jt:71.0    mt:-12  stat:0b1001000110111 DI:0b1010010000000000000000
+R-id:3  pos:3105.01   v:256.48  jt:956.9   mt:-197 stat:0b11000110111   DI:0b1110010000000000000000
+S-id:4  pos:78.22     v:0.00    jt:9.6     mt:122  stat:0b11000110111   DI:0b1010010000000000000000
+R-id:5  pos:5840.49   v:556.06  jt:966.6   mt:-199 stat:0b11000110111   DI:0b1110110000000000000000
+S-id:6  pos:45.75     v:0.00    jt:12.7    mt:124  stat:0b11000110111   DI:0b1110110000000000000100
+R-id:7  pos:3488.39   v:277.87  jt:990.9   mt:-204 stat:0b11000110111   DI:0b1110110000000000000000
+S-id:8  pos:-34.97    v:0.00    jt:-27.4   mt:117  stat:0b11000110111   DI:0b1110110000000000000100
+
+time:48.09  | homing_satus:True | print_motor_val:False
+R-id:1  pos:22.67     v:0.00    jt:-194.3  mt:40   stat:0b1001000110111 DI:0b1110110000000000000000
+S-id:2  pos:45.26     v:0.00    jt:13.1    mt:-21  stat:0b1001000110111 DI:0b1010010000000000000000
+R-id:3  pos:3243.36   v:311.31  jt:981.1   mt:-202 stat:0b11000110111   DI:0b1110010000000000000000
+S-id:4  pos:78.22     v:0.00    jt:-2.6    mt:122  stat:0b11000110111   DI:0b1010010000000000000000
+R-id:5  pos:6094.87   v:564.28  jt:932.6   mt:-192 stat:0b11000110111   DI:0b1110110000000000000000
+S-id:6  pos:45.75     v:0.00    jt:21.7    mt:122  stat:0b11000110111   DI:0b1110110000000000000100
+R-id:7  pos:3653.36   v:439.42  jt:947.1   mt:-195 stat:0b11000110111   DI:0b1110110000000000000000
+S-id:8  pos:-34.96    v:0.00    jt:22.4    mt:124  stat:0b11000110111   DI:0b1110110000000000000100
+
+time:48.59  | homing_satus:True | print_motor_val:False
+R-id:1  pos:22.67     v:0.00    jt:-228.3  mt:47   stat:0b1001000110111 DI:0b1110110000000000000000
+S-id:2  pos:45.26     v:0.00    jt:50.1    mt:-16  stat:0b1001000110111 DI:0b1010010000000000000000
+R-id:3  pos:3401.55   v:280.33  jt:922.9   mt:-190 stat:0b11000110111   DI:0b1110010000000000000000
+S-id:4  pos:78.22     v:0.00    jt:18.6    mt:120  stat:0b11000110111   DI:0b1010010000000000000000
+R-id:5  pos:6354.61   v:471.45  jt:990.9   mt:-204 stat:0b11000110111   DI:0b1110110000000000000000
+S-id:6  pos:45.75     v:0.00    jt:-7.4    mt:122  stat:0b11000110111   DI:0b1110110000000000000100
+R-id:7  pos:3815.42   v:309.93  jt:966.6   mt:-199 stat:0b11000110111   DI:0b1110110000000000000000
+S-id:8  pos:-34.97    v:0.00    jt:-15.3   mt:117  stat:0b11000110111   DI:0b1110110000000000000100
+
+time:49.09  | homing_satus:True | print_motor_val:False
+R-id:1  pos:22.67     v:0.00    jt:-218.6  mt:45   stat:0b1001000110111 DI:0b1110110000000000000000
+S-id:2  pos:45.26     v:0.00    jt:25.3    mt:-21  stat:0b1001000110111 DI:0b1010010000000000000000
+R-id:3  pos:3530.75   v:273.42  jt:956.9   mt:-197 stat:0b11000110111   DI:0b1110010000000000000000
+S-id:4  pos:78.22     v:0.00    jt:-18.4   mt:115  stat:0b11000110111   DI:0b1010010000000000000000
+R-id:5  pos:6623.51   v:528.92  jt:966.6   mt:-199 stat:0b11000110111   DI:0b1110110000000000000000
+S-id:6  pos:45.75     v:0.00    jt:4.7     mt:122  stat:0b11000110111   DI:0b1110110000000000000100
+R-id:7  pos:3967.64   v:396.91  jt:956.9   mt:-197 stat:0b11000110111   DI:0b1110110000000000000000
+S-id:8  pos:-34.95    v:0.00    jt:-10.4   mt:117  stat:0b11000110111   DI:0b1110110000000000000100
+
+time:49.59  | homing_satus:True | print_motor_val:False
+R-id:1  pos:22.67     v:0.00    jt:-252.6  mt:52   stat:0b1001000110111 DI:0b1110110000000000000000
+S-id:2  pos:45.26     v:0.00    jt:62.3    mt:-16  stat:0b1001000110111 DI:0b1010010000000000000000
+R-id:3  pos:3680.97   v:345.98  jt:1015.1  mt:-209 stat:0b11000110111   DI:0b1110010000000000000000
+S-id:4  pos:78.22     v:0.00    jt:-39.6   mt:117  stat:0b11000110111   DI:0b1010010000000000000000
+R-id:5  pos:6875.17   v:558.92  jt:932.6   mt:-192 stat:0b11000110111   DI:0b1110110000000000000000
+S-id:6  pos:45.75     v:0.00    jt:13.7    mt:120  stat:0b11000110111   DI:0b1110110000000000000100
+R-id:7  pos:4142.92   v:266.10  jt:966.6   mt:-199 stat:0b11000110111   DI:0b1110110000000000000000
+S-id:8  pos:-34.95    v:0.00    jt:-3.3    mt:120  stat:0b11000110111   DI:0b1110110000000000000100
+
+time:50.09  | homing_satus:True | print_motor_val:False
+R-id:1  pos:22.67     v:0.00    jt:-252.6  mt:52   stat:0b1001000110111 DI:0b1110110000000000000000
+S-id:2  pos:45.26     v:0.00    jt:50.3    mt:-19  stat:0b1001000110111 DI:0b1010010000000000000000
+R-id:3  pos:3825.41   v:237.08  jt:932.6   mt:-192 stat:0b11000110111   DI:0b1110010000000000000000
+S-id:4  pos:78.22     v:0.00    jt:13.7    mt:120  stat:0b11000110111   DI:0b1010010000000000000000
+R-id:5  pos:7121.63   v:534.17  jt:947.1   mt:-195 stat:0b11000110111   DI:0b1110110000000000000000
+S-id:6  pos:45.75     v:0.00    jt:22.4    mt:124  stat:0b11000110111   DI:0b1110110000000000000100
+R-id:7  pos:4286.74   v:332.19  jt:932.6   mt:-192 stat:0b11000110111   DI:0b1110110000000000000000
+S-id:8  pos:-34.94    v:0.00    jt:-6.3    mt:115  stat:0b11000110111   DI:0b1110110000000000000100
+
+time:50.59  | homing_satus:True | print_motor_val:False
+R-id:1  pos:22.67     v:0.00    jt:-228.3  mt:47   stat:0b1001000110111 DI:0b1110110000000000000000
+S-id:2  pos:45.26     v:0.00    jt:30.1    mt:-21  stat:0b1001000110111 DI:0b1010010000000000000000
+R-id:3  pos:3961.95   v:302.22  jt:990.9   mt:-204 stat:0b11000110111   DI:0b1110010000000000000000
+S-id:4  pos:78.22     v:0.00    jt:12.6    mt:127  stat:0b11000110111   DI:0b1010010000000000000000
+R-id:5  pos:7386.76   v:446.04  jt:966.6   mt:-199 stat:0b11000110111   DI:0b1110110000000000000000
+S-id:6  pos:45.75     v:0.00    jt:4.7     mt:122  stat:0b11000110111   DI:0b1110110000000000000100
+R-id:7  pos:4475.49   v:291.78  jt:956.9   mt:-197 stat:0b11000110111   DI:0b1110110000000000000000
+S-id:8  pos:-34.94    v:0.00    jt:-10.4   mt:117  stat:0b11000110111   DI:0b1110110000000000000100
+
+time:51.09  | homing_satus:True | print_motor_val:False
+R-id:1  pos:22.67     v:0.00    jt:-252.6  mt:52   stat:0b1001000110111 DI:0b1110110000000000000000
+S-id:2  pos:45.26     v:0.00    jt:62.3    mt:-16  stat:0b1001000110111 DI:0b1010010000000000000000
+R-id:3  pos:4124.41   v:293.14  jt:966.6   mt:-199 stat:0b11000110111   DI:0b1110010000000000000000
+S-id:4  pos:78.22     v:0.00    jt:4.7     mt:122  stat:0b11000110111   DI:0b1010010000000000000000
+R-id:5  pos:7645.37   v:521.47  jt:966.6   mt:-199 stat:0b11000110111   DI:0b1110110000000000000000
+S-id:6  pos:45.75     v:0.00    jt:-3.3    mt:120  stat:0b11000110111   DI:0b1110110000000000000100
+R-id:7  pos:4609.80   v:314.10  jt:981.1   mt:-202 stat:0b11000110111   DI:0b1110110000000000000000
+S-id:8  pos:-34.93    v:0.00    jt:-10.6   mt:120  stat:0b11000110111   DI:0b1110110000000000000100
+
+time:51.59  | homing_satus:True | print_motor_val:False
+R-id:1  pos:22.67     v:0.00    jt:-228.3  mt:47   stat:0b1001000110111 DI:0b1110110000000000000000
+S-id:2  pos:45.26     v:0.00    jt:50.1    mt:-16  stat:0b1001000110111 DI:0b1010010000000000000000
+R-id:3  pos:4255.28   v:290.43  jt:990.9   mt:-204 stat:0b11000110111   DI:0b1110010000000000000000
+S-id:4  pos:78.22     v:0.00    jt:-27.4   mt:117  stat:0b11000110111   DI:0b1010010000000000000000
+R-id:5  pos:7891.76   v:560.23  jt:966.6   mt:-199 stat:0b11000110111   DI:0b1110110000000000000000
+S-id:6  pos:45.75     v:0.00    jt:12.7    mt:124  stat:0b11000110111   DI:0b1110110000000000000100
+R-id:7  pos:4799.43   v:354.60  jt:947.1   mt:-195 stat:0b11000110111   DI:0b1110110000000000000000
+S-id:8  pos:-34.91    v:0.00    jt:6.4     mt:120  stat:0b11000110111   DI:0b1110110000000000000100
+
+time:52.09  | homing_satus:True | print_motor_val:False
+R-id:1  pos:22.67     v:0.00    jt:-218.6  mt:45   stat:0b1001000110111 DI:0b1110110000000000000000
+S-id:2  pos:45.26     v:0.00    jt:53.3    mt:-14  stat:0b1001000110111 DI:0b1010010000000000000000
+R-id:3  pos:4414.88   v:340.62  jt:966.6   mt:-199 stat:0b11000110111   DI:0b1110010000000000000000
+S-id:4  pos:78.22     v:0.00    jt:4.7     mt:122  stat:0b11000110111   DI:0b1010010000000000000000
+R-id:5  pos:8156.78   v:455.35  jt:981.1   mt:-202 stat:0b11000110111   DI:0b1110110000000000000000
+S-id:6  pos:45.75     v:0.00    jt:-10.6   mt:120  stat:0b11000110111   DI:0b1110110000000000000100
+R-id:7  pos:4945.04   v:248.22  jt:990.9   mt:-204 stat:0b11000110111   DI:0b1110110000000000000000
+S-id:8  pos:-34.90    v:0.00    jt:-15.4   mt:120  stat:0b11000110111   DI:0b1110110000000000000100
+
+time:52.60  | homing_satus:True | print_motor_val:False
+R-id:1  pos:22.67     v:0.00    jt:-228.3  mt:47   stat:0b1001000110111 DI:0b1110110000000000000000
+S-id:2  pos:45.26     v:0.00    jt:50.1    mt:-16  stat:0b1001000110111 DI:0b1010010000000000000000
+R-id:3  pos:4557.83   v:260.75  jt:956.9   mt:-197 stat:0b11000110111   DI:0b1110010000000000000000
+S-id:4  pos:78.22     v:0.00    jt:-10.4   mt:117  stat:0b11000110111   DI:0b1010010000000000000000
+R-id:5  pos:8427.66   v:528.56  jt:956.9   mt:-197 stat:0b11000110111   DI:0b1110110000000000000000
+S-id:6  pos:45.75     v:0.00    jt:9.6     mt:122  stat:0b11000110111   DI:0b1110110000000000000100
+R-id:7  pos:5130.85   v:416.53  jt:932.6   mt:-192 stat:0b11000110111   DI:0b1110110000000000000000
+S-id:8  pos:-34.91    v:-0.12   jt:21.7    mt:122  stat:0b11000110111   DI:0b1110110000000000000100
+
+time:53.09  | homing_satus:True | print_motor_val:False
+R-id:1  pos:22.67     v:0.00    jt:-238.0  mt:49   stat:0b1001000110111 DI:0b1110110000000000000000
+S-id:2  pos:45.26     v:0.00    jt:35.0    mt:-21  stat:0b1001000110111 DI:0b1010010000000000000000
+R-id:3  pos:4698.90   v:307.87  jt:956.9   mt:-197 stat:0b11000110111   DI:0b1110010000000000000000
+S-id:4  pos:78.22     v:0.00    jt:9.6     mt:122  stat:0b11000110111   DI:0b1010010000000000000000
+R-id:5  pos:8678.85   v:550.56  jt:947.1   mt:-195 stat:0b11000110111   DI:0b1110110000000000000000
+S-id:6  pos:45.79     v:0.00    jt:14.4    mt:122  stat:0b11000110111   DI:0b1110110000000000000100
+R-id:7  pos:5274.12   v:282.39  jt:981.1   mt:-202 stat:0b11000110111   DI:0b1110110000000000000000
+S-id:8  pos:-34.90    v:0.00    jt:-10.6   mt:120  stat:0b11000110111   DI:0b1110110000000000000100
+
+time:53.59  | homing_satus:True | print_motor_val:False
+R-id:1  pos:22.67     v:0.00    jt:-194.3  mt:40   stat:0b1001000110111 DI:0b1110110000000000000000
+S-id:2  pos:45.26     v:0.00    jt:21.1    mt:-19  stat:0b1001000110111 DI:0b1010010000000000000000
+R-id:3  pos:4858.71   v:276.89  jt:956.9   mt:-197 stat:0b11000110111   DI:0b1110010000000000000000
+S-id:4  pos:78.22     v:0.00    jt:1.6     mt:120  stat:0b11000110111   DI:0b1010010000000000000000
+R-id:5  pos:8928.52   v:528.31  jt:956.9   mt:-197 stat:0b11000110111   DI:0b1110110000000000000000
+S-id:6  pos:45.79     v:0.00    jt:9.6     mt:122  stat:0b11000110111   DI:0b1110110000000000000100
+R-id:7  pos:5446.10   v:437.73  jt:966.6   mt:-199 stat:0b11000110111   DI:0b1110110000000000000000
+S-id:8  pos:-34.89    v:0.00    jt:-3.3    mt:120  stat:0b11000110111   DI:0b1110110000000000000100
+
+time:54.09  | homing_satus:True | print_motor_val:False
+R-id:1  pos:22.67     v:0.00    jt:-218.6  mt:45   stat:0b1001000110111 DI:0b1110110000000000000000
+S-id:2  pos:45.26     v:0.00    jt:33.3    mt:-19  stat:0b1001000110111 DI:0b1010010000000000000000
+R-id:3  pos:4991.35   v:274.79  jt:981.1   mt:-202 stat:0b11000110111   DI:0b1110010000000000000000
+S-id:4  pos:78.22     v:0.00    jt:-30.6   mt:115  stat:0b11000110111   DI:0b1010010000000000000000
+R-id:5  pos:9193.83   v:427.15  jt:932.6   mt:-192 stat:0b11000110111   DI:0b1110110000000000000000
+S-id:6  pos:45.79     v:0.00    jt:13.7    mt:120  stat:0b11000110111   DI:0b1110110000000000000100
+R-id:7  pos:5615.33   v:268.24  jt:1015.1  mt:-209 stat:0b11000110111   DI:0b1110110000000000000000
+S-id:8  pos:-34.89    v:0.00    jt:-27.6   mt:120  stat:0b11000110111   DI:0b1110110000000000000100
+
+time:54.59  | homing_satus:True | print_motor_val:False
+R-id:1  pos:22.67     v:0.00    jt:-238.0  mt:49   stat:0b1001000110111 DI:0b1110110000000000000000
+S-id:2  pos:45.26     v:0.00    jt:55.0    mt:-16  stat:0b1001000110111 DI:0b1010010000000000000000
+R-id:3  pos:5150.77   v:328.39  jt:932.6   mt:-192 stat:0b11000110111   DI:0b1110010000000000000000
+S-id:4  pos:78.22     v:0.00    jt:21.7    mt:122  stat:0b11000110111   DI:0b1010010000000000000000
+R-id:5  pos:9450.86   v:458.68  jt:966.6   mt:-199 stat:0b11000110111   DI:0b1110110000000000000000
+S-id:6  pos:45.79     v:0.00    jt:-15.3   mt:117  stat:0b11000110111   DI:0b1110110000000000000100
+R-id:7  pos:5768.99   v:373.47  jt:956.9   mt:-197 stat:0b11000110111   DI:0b1110110000000000000000
+S-id:8  pos:-34.88    v:0.00    jt:9.6     mt:122  stat:0b11000110111   DI:0b1110110000000000000100
+
+time:55.09  | homing_satus:True | print_motor_val:False
+R-id:1  pos:22.67     v:0.00    jt:-228.3  mt:47   stat:0b1001000110111 DI:0b1110110000000000000000
+S-id:2  pos:45.26     v:0.00    jt:30.1    mt:-21  stat:0b1001000110111 DI:0b1010010000000000000000
+R-id:3  pos:5289.23   v:264.37  jt:922.9   mt:-190 stat:0b11000110111   DI:0b1110010000000000000000
+S-id:4  pos:78.22     v:0.00    jt:26.6    mt:122  stat:0b11000110111   DI:0b1010010000000000000000
+R-id:5  pos:9701.55   v:575.50  jt:966.6   mt:-199 stat:0b11000110111   DI:0b1110110000000000000000
+S-id:6  pos:45.79     v:0.00    jt:-3.3    mt:120  stat:0b11000110111   DI:0b1110110000000000000100
+R-id:7  pos:5952.00   v:282.54  jt:922.9   mt:-190 stat:0b11000110111   DI:0b1110110000000000000000
+S-id:8  pos:-34.89    v:0.00    jt:6.6     mt:117  stat:0b11000110111   DI:0b1110110000000000000100
+
+time:55.59  | homing_satus:True | print_motor_val:False
+R-id:1  pos:22.67     v:0.00    jt:-238.0  mt:49   stat:0b1001000110111 DI:0b1110110000000000000000
+S-id:2  pos:45.26     v:0.00    jt:55.0    mt:-16  stat:0b1001000110111 DI:0b1010010000000000000000
+R-id:3  pos:5433.88   v:315.43  jt:981.1   mt:-202 stat:0b11000110111   DI:0b1110010000000000000000
+S-id:4  pos:78.22     v:0.00    jt:-10.6   mt:120  stat:0b11000110111   DI:0b1010010000000000000000
+R-id:5  pos:9956.61   v:458.96  jt:956.9   mt:-197 stat:0b11000110111   DI:0b1110110000000000000000
+S-id:6  pos:45.79     v:0.00    jt:-10.4   mt:117  stat:0b11000110111   DI:0b1110110000000000000100
+R-id:7  pos:6109.11   v:400.32  jt:922.9   mt:-190 stat:0b11000110111   DI:0b1110110000000000000000
+S-id:8  pos:-34.88    v:0.00    jt:-9.4    mt:113  stat:0b11000110111   DI:0b1110110000000000000100
+
+time:56.09  | homing_satus:True | print_motor_val:False
+R-id:1  pos:22.67     v:0.00    jt:-228.3  mt:47   stat:0b1001000110111 DI:0b1110110000000000000000
+S-id:2  pos:45.26     v:0.00    jt:58.1    mt:-14  stat:0b1001000110111 DI:0b1010010000000000000000
+R-id:3  pos:5592.36   v:270.09  jt:947.1   mt:-195 stat:0b11000110111   DI:0b1110010000000000000000
+S-id:4  pos:78.22     v:0.00    jt:-13.6   mt:115  stat:0b11000110111   DI:0b1010010000000000000000
+R-id:5  pos:10225.33  v:514.95  jt:990.9   mt:-204 stat:0b11000110111   DI:0b1110110000000000000000
+S-id:6  pos:45.79     v:0.00    jt:-27.4   mt:117  stat:0b11000110111   DI:0b1110110000000000000100
+R-id:7  pos:6299.42   v:299.27  jt:898.6   mt:-185 stat:0b11000110111   DI:0b1110110000000000000000
+S-id:8  pos:-34.88    v:0.00    jt:2.7     mt:113  stat:0b11000110111   DI:0b1110110000000000000100
+
+time:56.59  | homing_satus:True | print_motor_val:False
+R-id:1  pos:22.67     v:0.00    jt:-218.6  mt:45   stat:0b1001000110111 DI:0b1110110000000000000000
+S-id:2  pos:45.26     v:0.00    jt:17.3    mt:-23  stat:0b1001000110111 DI:0b1010010000000000000000
+R-id:3  pos:5727.10   v:292.92  jt:981.1   mt:-202 stat:0b11000110111   DI:0b1110010000000000000000
+S-id:4  pos:78.22     v:0.00    jt:-2.6    mt:122  stat:0b11000110111   DI:0b1010010000000000000000
+R-id:5  pos:10475.33  v:531.16  jt:966.6   mt:-199 stat:0b11000110111   DI:0b1110110000000000000000
+S-id:6  pos:45.79     v:0.00    jt:-23.3   mt:115  stat:0b11000110111   DI:0b1110110000000000000100
+R-id:7  pos:6447.18   v:346.55  jt:922.9   mt:-190 stat:0b11000110111   DI:0b1110110000000000000000
+S-id:8  pos:-34.87    v:0.00    jt:6.6     mt:117  stat:0b11000110111   DI:0b1110110000000000000100
+
+time:57.09  | homing_satus:True | print_motor_val:False
+R-id:1  pos:22.67     v:0.00    jt:-262.3  mt:54   stat:0b1001000110111 DI:0b1110110000000000000000
+S-id:2  pos:45.26     v:0.00    jt:67.1    mt:-16  stat:0b1001000110111 DI:0b1010010000000000000000
+R-id:3  pos:5889.63   v:337.84  jt:966.6   mt:-199 stat:0b11000110111   DI:0b1110010000000000000000
+S-id:4  pos:78.22     v:0.00    jt:-3.3    mt:120  stat:0b11000110111   DI:0b1010010000000000000000
+R-id:5  pos:10723.56  v:540.68  jt:932.6   mt:-192 stat:0b11000110111   DI:0b1110110000000000000000
+S-id:6  pos:45.79     v:0.00    jt:21.7    mt:122  stat:0b11000110111   DI:0b1110110000000000000100
+R-id:7  pos:6639.54   v:310.31  jt:1015.1  mt:-209 stat:0b11000110111   DI:0b1110110000000000000000
+S-id:8  pos:-34.88    v:0.00    jt:-47.6   mt:115  stat:0b11000110111   DI:0b1110110000000000000100
+
+time:57.59  | homing_satus:True | print_motor_val:False
+R-id:1  pos:22.67     v:0.00    jt:-238.0  mt:49   stat:0b1001000110111 DI:0b1110110000000000000000
+S-id:2  pos:45.26     v:0.00    jt:27.0    mt:-23  stat:0b1001000110111 DI:0b1010010000000000000000
+R-id:3  pos:6027.19   v:271.28  jt:913.1   mt:-188 stat:0b11000110111   DI:0b1110010000000000000000
+S-id:4  pos:78.22     v:0.00    jt:3.4     mt:115  stat:0b11000110111   DI:0b1010010000000000000000
+R-id:5  pos:10993.54  v:421.07  jt:981.1   mt:-202 stat:0b11000110111   DI:0b1110110000000000000000
+S-id:6  pos:45.79     v:0.00    jt:-22.6   mt:117  stat:0b11000110111   DI:0b1110110000000000000100
+R-id:7  pos:6781.10   v:319.45  jt:947.1   mt:-195 stat:0b11000110111   DI:0b1110110000000000000000
+S-id:8  pos:-34.87    v:0.00    jt:6.4     mt:120  stat:0b11000110111   DI:0b1110110000000000000100
+
+
+=========================
+CALIBRATION TEST FINISHED
+=========================
+[SWITCH ON or DISABLE OPERATION] COMMAND: 0b111
+node_id:1 stat:0b1001000110111 ctrl:0b111     
+node_id:2 stat:0b1001000110111 ctrl:0b111     
+node_id:3 stat:0b11000110111   ctrl:0b111     
+node_id:4 stat:0b11000110111   ctrl:0b111     
+node_id:5 stat:0b11000110111   ctrl:0b111     
+node_id:6 stat:0b11000110111   ctrl:0b111     
+node_id:7 stat:0b11000110111   ctrl:0b111     
+node_id:8 stat:0b11000110111   ctrl:0b111     
+
+state command: PRE-OPERATIONAL
+master state: PRE-OPERATIONAL
+node 1 state: OPERATIONAL
+node 2 state: PRE-OPERATIONAL
+node 3 state: PRE-OPERATIONAL
+node 4 state: PRE-OPERATIONAL
+node 5 state: PRE-OPERATIONAL
+node 6 state: PRE-OPERATIONAL
+node 7 state: PRE-OPERATIONAL
+node 8 state: PRE-OPERATIONAL
+
+SHUTDOWN COMMAND: 0b110
+node_id:1 stat:0b1001000110011 ctrl:0b110     
+node_id:2 stat:0b1001000110011 ctrl:0b110     
+node_id:3 stat:0b1000110011    ctrl:0b110     
+node_id:4 stat:0b1000110011    ctrl:0b110     
+node_id:5 stat:0b1000110011    ctrl:0b110     
+node_id:6 stat:0b1000110011    ctrl:0b110     
+node_id:7 stat:0b1000110011    ctrl:0b110     
+node_id:8 stat:0b1000110011    ctrl:0b110     
+
+state command: RESET COMMUNICATION
+master state: INITIALISING
+node 1 state: PRE-OPERATIONAL
+node 2 state: PRE-OPERATIONAL
+node 3 state: PRE-OPERATIONAL
+node 4 state: PRE-OPERATIONAL
+node 5 state: PRE-OPERATIONAL
+node 6 state: PRE-OPERATIONAL
+node 7 state: PRE-OPERATIONAL
+node 8 state: PRE-OPERATIONAL
+
+state command: RESET
+master state: INITIALISING
+node 1 state: INITIALISING
+node 2 state: INITIALISING
+node 3 state: INITIALISING
+node 4 state: INITIALISING
+node 5 state: INITIALISING
+node 6 state: INITIALISING
+node 7 state: INITIALISING
+node 8 state: INITIALISING
+
+==========================
+Successfully disconnected!
+==========================

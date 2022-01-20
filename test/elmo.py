@@ -119,6 +119,7 @@ class TestElmo():
         self.homing_call_ = True
         self.ready4control_ = False
         self.print_motor_status_ = False
+        self.is_disconnected_ = False
 
         ## -----------------------------------------------------------------
         ## for debug
@@ -249,11 +250,11 @@ class TestElmo():
                 ## Homing on the positive home switch
                 self.network[node_id_].sdo['homing_method'].raw = 20
                 self.network[node_id_].sdo['home_offset'].raw = HOME_OFFSET[(node_id_ // 2) - 1]
-                self.network[node_id_].sdo['homing_speeds'][1].raw = 1000
-                self.network[node_id_].sdo['homing_speeds'][2].raw = 3000
+                self.network[node_id_].sdo['homing_speeds'][1].raw = 800
+                self.network[node_id_].sdo['homing_speeds'][2].raw = 1500
                 if (node_id_ == 8):
-                    self.network[node_id_].sdo['homing_speeds'][1].raw = 1000 * 4
-                    self.network[node_id_].sdo['homing_speeds'][2].raw = 3000 * 4
+                    self.network[node_id_].sdo['homing_speeds'][1].raw = 800  * 4
+                    self.network[node_id_].sdo['homing_speeds'][2].raw = 1500 * 4
                 self.network[node_id_].sdo['homing_acceleration'].raw = self.network[node_id_].sdo['profile_acceleration'].raw
             else:
                 self.network[node_id_].sdo['homing_method'].raw = 35
@@ -286,7 +287,6 @@ class TestElmo():
             self._dprint("Product Code: {0}".format(hex(self.network[node_id_].sdo['Identity Object'][2].raw)))
             self._dprint("error_code: {0}".format(self.network[node_id_].sdo['error_code'].raw))
             self._dprint("statusword: {0}".format(bin(self.network[node_id_].sdo['statusword'].raw)))
-            self._dprint("controlword: {0}".format(bin(self.network[node_id_].sdo['controlword'].raw)))
             self._dprint("modes_of_operation: {0}".format(self.network[node_id_].sdo['modes_of_operation'].raw))
             self._dprint("Producer Heartbeat Time: {0}".format(self.network[node_id_].sdo['Producer Heartbeat Time'].raw))
             self._dprint("Communication Cycle Period: {0}".format(self.network[node_id_].sdo['Communication Cycle Period'].raw))
@@ -298,16 +298,16 @@ class TestElmo():
             self._dprint("homing_speeds search zero: {0}".format(self.network[node_id_].sdo['homing_speeds'][2].raw))
             self._dprint("homing_acceleration: {0}".format(self.network[node_id_].sdo['homing_acceleration'].raw))
 
-            self._dprint('\n- control')
-            self._dprint("target_velocity: {0}".format(self.network[node_id_].sdo['target_velocity'].raw))
-            self._dprint("target_torque: {0}".format(self.network[node_id_].sdo['target_torque'].raw))
-            self._dprint("target_position: {0}".format(self.network[node_id_].sdo['target_position'].raw))
-            self._dprint("profile_velocity: {0}".format(self.network[node_id_].sdo['profile_velocity'].raw))
-            self._dprint("position_demand_value: {0}".format(self.network[node_id_].sdo['position_demand_value'].raw))
-            self._dprint("position_actual_internal_value: {0}".format(self.network[node_id_].sdo['position_actual_internal_value'].raw))
-            self._dprint("position_actual_value: {0}".format(self.network[node_id_].sdo['position_actual_value'].raw))
-            self._dprint("profile_acceleration: {0}".format(self.network[node_id_].sdo['profile_acceleration'].raw))
-            self._dprint("profile_deceleration: {0}".format(self.network[node_id_].sdo['profile_deceleration'].raw))
+            # self._dprint('\n- control')
+            # self._dprint("target_velocity: {0}".format(self.network[node_id_].sdo['target_velocity'].raw))
+            # self._dprint("target_torque: {0}".format(self.network[node_id_].sdo['target_torque'].raw))
+            # self._dprint("target_position: {0}".format(self.network[node_id_].sdo['target_position'].raw))
+            # self._dprint("profile_velocity: {0}".format(self.network[node_id_].sdo['profile_velocity'].raw))
+            # self._dprint("position_demand_value: {0}".format(self.network[node_id_].sdo['position_demand_value'].raw))
+            # self._dprint("position_actual_internal_value: {0}".format(self.network[node_id_].sdo['position_actual_internal_value'].raw))
+            # self._dprint("position_actual_value: {0}".format(self.network[node_id_].sdo['position_actual_value'].raw))
+            # self._dprint("profile_acceleration: {0}".format(self.network[node_id_].sdo['profile_acceleration'].raw))
+            # self._dprint("profile_deceleration: {0}".format(self.network[node_id_].sdo['profile_deceleration'].raw))
 
         ## -----------------------------------------------------------------
         ## change TPDO configuration
@@ -730,6 +730,7 @@ class TestElmo():
     def _disconnect_device(self):
         ## -----------------------------------------------------------------
         ## disconnect after use
+        if self.is_disconnected_: return
         for node_id_ in self.node_list:
             self.network[node_id_].rpdo['modes_of_operation'].raw = -1
             self.network[node_id_].rpdo[1].transmit()
@@ -743,10 +744,12 @@ class TestElmo():
         self._dprint('==========================')
         self._dprint('Successfully disconnected!')
         self._dprint('==========================')
+        self.is_disconnected_ = True
 
     def _stop_operation(self):
         ## -----------------------------------------------------------------
         ## stop operation
+        if self.is_disconnected_: return
         self._rpdo_controlword(controlword=CtrlWord.DISABLE_OPERATION)
 
         for node_id_ in self.node_list:
@@ -941,38 +944,51 @@ class TestElmo():
         self._read_and_print()
         self._stop_operation()
 
-    ## moudle: 1~4
+    ## set: (0 ~ 3)
     @_try_except_decorator
-    def test_calibration(self, stationary_module, st_tor_r=1300, jt_tor_r=960):
+    def test_calibration(self, stationary_set, target_steer=45.0, st_tor_r=1300, jt_tor_r=960):
         half_hz_ = int(HZ/2)
         r = rospy.Rate(HZ)
 
         self.homing()
 
-        ## change steering angle of stationary_module by hand for now
-        stationary_steer = stationary_module * 2
-        stationary_roll = stationary_module * 2 - 1
-
-        time.sleep(20.0)
+        ## change steering angle of stationary_set by hand for now
+        stationary_steer = (stationary_set + 1) * 2
+        stationary_roll = stationary_set * 2 + 1
 
         self._start_operation_mode(test_set=[stationary_steer], operation_mode=OPMode.PROFILED_VELOCITY)
 
+        set_s, _ = self._read_set(stationary_set)
+        jt_pos_s = RAD2DEG * set_s[1]
+        search_vel = 500
+        if (target_steer < jt_pos_s):
+            search_vel = -500
+        self._control_command(stationary_steer, 'target_velocity', search_vel)
 
-        # changing_angle = True
-        # while changing_angle:
-        #     self._control_command(stationary_steer, 'target_velocity', 0.0)
-        #     pass
-        self._control_command(stationary_steer, 'target_velocity', 0.0)
+        tick = 0
+        changing_angle = True
+        while changing_angle:
+            self.network.sync.transmit()
+            tick += 1
+            if (tick % half_hz_ == 0): self._read_and_print()
+            set_s, _ = self._read_set(stationary_set)
+            jt_pos_s = RAD2DEG * set_s[1]
+            if ((jt_pos_s < target_steer and search_vel < 0) or (jt_pos_s > target_steer and search_vel > 0)):
+                changing_angle = False
+                self._control_command(stationary_steer, 'target_velocity', 0.0)
+            r.sleep()
 
-        ## freeze stationary_module
+        self._dprint("\n======================\nSTEER SETTING FINISHED\n======================")
+
+        ## freeze stationary_set
         self._start_operation_mode(test_set=[stationary_roll], operation_mode=OPMode.PROFILED_VELOCITY)
         self._control_command(stationary_roll, 'target_velocity', 0.0)
 
+        ## align other sets with hand by rotating it for now
+        time.sleep(10.0)
+        self._dprint("\n======================\nALIGN SETTING FINISHED\n======================")
 
-        ## align other modules with hand for now
-
-        ## move moving_modules' rolling while freeing steering
-        tick = 0
+        ## move moving_sets' rolling while freeing steering
         mt_tor_s, mt_tor_r = self._from_desired_torque_to_motor_torque(0, st_tor_r)
         for node_id in range(1,9):
             if (node_id == stationary_roll or node_id == stationary_steer):
@@ -980,32 +996,36 @@ class TestElmo():
             else:
                 self._start_operation_mode(test_set=[node_id], operation_mode=OPMode.PROFILED_TORQUE)
 
-        for module in range(1,5):
-            if (module == stationary_module):
+        for moving_set in range(4):
+            if (moving_set == stationary_set):
                 pass
             else:
-                self._control_command(module * 2, 'target_torque', mt_tor_s)
-                self._control_command(module * 2 - 1, 'target_torque', mt_tor_r)
+                self._control_command((moving_set + 1) * 2, 'target_torque', mt_tor_s)
+                self._control_command(moving_set * 2 + 1, 'target_torque', mt_tor_r)
 
+        tick = 0
         while tick < 3 * HZ:
             self.network.sync.transmit()
             tick += 1
             if (tick % half_hz_ == 0): self._read_and_print()
             r.sleep()
 
+        self._dprint("\n=====================\nSTARTING SMALL TORQUE\n=====================\n")
         mt_tor_s, mt_tor_r = self._from_desired_torque_to_motor_torque(0, jt_tor_r)
-        for module in range(1,5):
-            if (module == stationary_module):
+        for moving_set in range(4):
+            if (moving_set == stationary_set):
                 pass
             else:
-                self._control_command(module * 2, 'target_torque', mt_tor_s)
-                self._control_command(module * 2 - 1, 'target_torque', mt_tor_r)
+                self._control_command((moving_set + 1) * 2, 'target_torque', mt_tor_s)
+                self._control_command(moving_set * 2 + 1, 'target_torque', mt_tor_r)
 
+        tick = 0
         while tick < 30 * HZ:
             self.network.sync.transmit()
             tick += 1
             if (tick % half_hz_ == 0): self._read_and_print()
             r.sleep()
+        self._dprint("\n=========================\nCALIBRATION TEST FINISHED\n=========================\n")
 
         self._stop_operation()
         self._disconnect_device()
@@ -1048,6 +1068,6 @@ if __name__ == "__main__":
 
     # tt_.set_free_wheel(test_set=node_set, play_time=5)
 
-    # tt_.test_calibration(1, st_tor_r=1300, jt_tor_r=960)
+    tt_.test_calibration(stationary_set=0, target_steer=45.0, st_tor_r=1300, jt_tor_r=960)
 
-    tt_.start_joint_publisher()
+    # tt_.start_joint_publisher()
