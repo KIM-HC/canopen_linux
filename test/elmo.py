@@ -250,11 +250,11 @@ class TestElmo():
                 ## Homing on the positive home switch
                 self.network[node_id_].sdo['homing_method'].raw = 20
                 self.network[node_id_].sdo['home_offset'].raw = HOME_OFFSET[(node_id_ // 2) - 1]
-                self.network[node_id_].sdo['homing_speeds'][1].raw = 800
-                self.network[node_id_].sdo['homing_speeds'][2].raw = 1500
+                self.network[node_id_].sdo['homing_speeds'][1].raw = 500
+                self.network[node_id_].sdo['homing_speeds'][2].raw = 900
                 if (node_id_ == 8):
-                    self.network[node_id_].sdo['homing_speeds'][1].raw = 800  * 4
-                    self.network[node_id_].sdo['homing_speeds'][2].raw = 1500 * 4
+                    self.network[node_id_].sdo['homing_speeds'][1].raw = 500  * 4
+                    self.network[node_id_].sdo['homing_speeds'][2].raw = 900 * 4
                 self.network[node_id_].sdo['homing_acceleration'].raw = self.network[node_id_].sdo['profile_acceleration'].raw
             else:
                 self.network[node_id_].sdo['homing_method'].raw = 35
@@ -619,6 +619,15 @@ class TestElmo():
             self.lock_.release()
 
     @_try_except_decorator
+    def _make_debug_data(self):
+        qdb = '%-6.2f'%((rospy.Time.now() - self.start_time).to_sec())
+        for i in range(4):
+            set_s, set_r = self._read_set(i)
+            qdb += '\t' + '%-9.2f'%(RAD2DEG * set_r[1]) + '\t' + '%-9.2f'%(RAD2DEG * set_s[1])
+        qdb += '\n'
+        return qdb
+
+    @_try_except_decorator
     def start_joint_publisher(self, operation_mode=OPMode.PROFILED_TORQUE):
         half_hz_ = int(HZ/2)
         r = rospy.Rate(HZ)
@@ -946,9 +955,15 @@ class TestElmo():
 
     ## set: (0 ~ 3)
     @_try_except_decorator
-    def test_calibration(self, stationary_set, target_steer=45.0, st_tor_r=1300, jt_tor_r=960):
+    def test_calibration(self, stationary_set, target_1=45.0, target_2=225.0, st_tor_r=1300, jt_tor_r=960):
         half_hz_ = int(HZ/2)
         r = rospy.Rate(HZ)
+        pkg_path = rospkg.RosPack().get_path('dyros_pcv_canopen')
+        qdb_ = open(pkg_path + '/debug/set_'+stationary_set+'_qvalue'+time.strftime('_%Y_%m_%d', time.localtime())+'.txt', 'a')
+
+        align_time = 10
+        speed_up_time = 3
+        play_time = 60
 
         self.homing()
 
@@ -961,7 +976,7 @@ class TestElmo():
         set_s, _ = self._read_set(stationary_set)
         jt_pos_s = RAD2DEG * set_s[1]
         search_vel = 500
-        if (target_steer < jt_pos_s):
+        if (target_1 < jt_pos_s):
             search_vel = -500
         self._control_command(stationary_steer, 'target_velocity', search_vel)
 
@@ -969,11 +984,12 @@ class TestElmo():
         changing_angle = True
         while changing_angle:
             self.network.sync.transmit()
+            qdb_.write(self._make_debug_data())
             tick += 1
             if (tick % half_hz_ == 0): self._read_and_print()
             set_s, _ = self._read_set(stationary_set)
             jt_pos_s = RAD2DEG * set_s[1]
-            if ((jt_pos_s < target_steer and search_vel < 0) or (jt_pos_s > target_steer and search_vel > 0)):
+            if ((jt_pos_s < target_1 and search_vel < 0) or (jt_pos_s > target_1 and search_vel > 0)):
                 changing_angle = False
                 self._control_command(stationary_steer, 'target_velocity', 0.0)
             r.sleep()
@@ -985,7 +1001,13 @@ class TestElmo():
         self._control_command(stationary_roll, 'target_velocity', 0.0)
 
         ## align other sets with hand by rotating it for now
-        time.sleep(10.0)
+        while tick < align_time * HZ:
+            self.network.sync.transmit()
+            qdb_.write(self._make_debug_data())
+            tick += 1
+            if (tick % half_hz_ == 0): self._read_and_print()
+            r.sleep()
+
         self._dprint("\n======================\nALIGN SETTING FINISHED\n======================")
 
         ## move moving_sets' rolling while freeing steering
@@ -1004,8 +1026,9 @@ class TestElmo():
                 self._control_command(moving_set * 2 + 1, 'target_torque', mt_tor_r)
 
         tick = 0
-        while tick < 3 * HZ:
+        while tick < speed_up_time * HZ:
             self.network.sync.transmit()
+            qdb_.write(self._make_debug_data())
             tick += 1
             if (tick % half_hz_ == 0): self._read_and_print()
             r.sleep()
@@ -1020,13 +1043,98 @@ class TestElmo():
                 self._control_command(moving_set * 2 + 1, 'target_torque', mt_tor_r)
 
         tick = 0
-        while tick < 30 * HZ:
+        while tick < play_time * HZ:
             self.network.sync.transmit()
+            qdb_.write(self._make_debug_data())
             tick += 1
             if (tick % half_hz_ == 0): self._read_and_print()
             r.sleep()
         self._dprint("\n=========================\nCALIBRATION TEST FINISHED\n=========================\n")
 
+        for moving_set in range(4):
+            if (moving_set == stationary_set):
+                pass
+            else:
+                self._control_command((moving_set + 1) * 2, 'target_torque', 0.0)
+                self._control_command(moving_set * 2 + 1, 'target_torque', 0.0)
+
+        self._rpdo_controlword(controlword=CtrlWord.DISABLE_OPERATION, node_id=stationary_roll)
+        self.network[stationary_roll].rpdo['modes_of_operation'].raw = -1
+        self.network[stationary_roll].rpdo[1].transmit()
+
+        set_s, _ = self._read_set(stationary_set)
+        jt_pos_s = RAD2DEG * set_s[1]
+        search_vel = 500
+        if (target_2 < jt_pos_s):
+            search_vel = -500
+        self._control_command(stationary_steer, 'target_velocity', search_vel)
+
+        tick = 0
+        changing_angle = True
+        while changing_angle:
+            self.network.sync.transmit()
+            qdb_.write(self._make_debug_data())
+            tick += 1
+            if (tick % half_hz_ == 0): self._read_and_print()
+            set_s, _ = self._read_set(stationary_set)
+            jt_pos_s = RAD2DEG * set_s[1]
+            if ((jt_pos_s < target_2 and search_vel < 0) or (jt_pos_s > target_2 and search_vel > 0)):
+                changing_angle = False
+                self._control_command(stationary_steer, 'target_velocity', 0.0)
+            r.sleep()
+
+        self._dprint("\n======================\nSTEER SETTING FINISHED\n======================")
+
+        ## freeze stationary_set
+        self._start_operation_mode(test_set=[stationary_roll], operation_mode=OPMode.PROFILED_VELOCITY)
+        self._control_command(stationary_roll, 'target_velocity', 0.0)
+
+        ## align other sets with hand by rotating it for now
+        time.sleep(align_time)
+        self._dprint("\n======================\nALIGN SETTING FINISHED\n======================")
+
+        ## move moving_sets' rolling while freeing steering
+        mt_tor_s, mt_tor_r = self._from_desired_torque_to_motor_torque(0, st_tor_r)
+        for node_id in range(1,9):
+            if (node_id == stationary_roll or node_id == stationary_steer):
+                pass
+            else:
+                self._start_operation_mode(test_set=[node_id], operation_mode=OPMode.PROFILED_TORQUE)
+
+        for moving_set in range(4):
+            if (moving_set == stationary_set):
+                pass
+            else:
+                self._control_command((moving_set + 1) * 2, 'target_torque', mt_tor_s)
+                self._control_command(moving_set * 2 + 1, 'target_torque', mt_tor_r)
+
+        tick = 0
+        while tick < speed_up_time * HZ:
+            self.network.sync.transmit()
+            qdb_.write(self._make_debug_data())
+            tick += 1
+            if (tick % half_hz_ == 0): self._read_and_print()
+            r.sleep()
+
+        self._dprint("\n=====================\nSTARTING SMALL TORQUE\n=====================\n")
+        mt_tor_s, mt_tor_r = self._from_desired_torque_to_motor_torque(0, jt_tor_r)
+        for moving_set in range(4):
+            if (moving_set == stationary_set):
+                pass
+            else:
+                self._control_command((moving_set + 1) * 2, 'target_torque', mt_tor_s)
+                self._control_command(moving_set * 2 + 1, 'target_torque', mt_tor_r)
+
+        tick = 0
+        while tick < play_time * HZ:
+            self.network.sync.transmit()
+            qdb_.write(self._make_debug_data())
+            tick += 1
+            if (tick % half_hz_ == 0): self._read_and_print()
+            r.sleep()
+        self._dprint("\n=========================\nCALIBRATION TEST FINISHED\n=========================\n")
+
+        qdb_.close()
         self._stop_operation()
         self._disconnect_device()
 
@@ -1035,12 +1143,14 @@ class TestElmo():
         self._disconnect_device()
         self.cannot_test_ = True
 
+
+
 if __name__ == "__main__":
     ## operation mode for elmo(402.pdf)
     ## NO_MODE, PROFILED_POSITION, PROFILED_VELOCITY, PROFILED_TORQUE, HOMING, INTERPOLATED_POSITION
-    ## motor Torque value : 130
-    ## joint Torque value : 600
-    ## Velocity value : 1000
+    ## motor Torque value : in_air - 130    on_ground - 
+    ## joint Torque value : in_air - 600    on_ground - 1200
+    ##     Velocity value : in_air - 600   on_ground - 600
 
     # node_set = [1]
     # node_set = [1,2]
@@ -1068,6 +1178,4 @@ if __name__ == "__main__":
 
     # tt_.set_free_wheel(test_set=node_set, play_time=5)
 
-    tt_.test_calibration(stationary_set=0, target_steer=45.0 + 180.0, st_tor_r=1300, jt_tor_r=960)
-
-    # tt_.start_joint_publisher()
+    tt_.start_joint_publisher()
