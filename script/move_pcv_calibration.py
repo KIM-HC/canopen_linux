@@ -12,4 +12,6 @@ if __name__ == "__main__":
     node_set = [1,2,3,4,5,6,7,8]
 
     tt_ = elmo.TestElmo(node_list=node_set)
-    tt_.test_calibration(stationary_set=0, target_1=45.0, target_2=225.0, st_tor_r=1300, jt_tor_r=960)
+    tt_.test_calibration(stationary_set=3, target_1=45.0, target_2=45.0 + 100, st_tor_r=1300, jt_tor_r=960)
+
+
