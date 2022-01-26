@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Kim Hyoung Cheol
-https://github.com/KIM-HC/canopen_linux
+https://github.com/KIM-HC/dyros_pcv_canopen
 https://www.notion.so/kimms74/40dcc3a8ff054dc9994e5fc62de9bc30
 """
 

@@ -1,15 +1,16 @@
 #!/usr/bin/env python3
 """
 Kim Hyoung Cheol
-https://github.com/KIM-HC/canopen_linux
+https://github.com/KIM-HC/dyros_pcv_canopen
 https://www.notion.so/kimms74/40dcc3a8ff054dc9994e5fc62de9bc30
 """
-from inspect import modulesbyfile
+# from inspect import modulesbyfile
 import os.path
+import csv
 import rospy
 import rospkg
-from platform import node
-from re import S, T
+# from platform import node
+# from re import S, T
 import time
 import canopen
 # from canopen.profiles.p402 import BaseNode402, OperationMode
@@ -620,11 +621,12 @@ class TestElmo():
 
     @_try_except_decorator
     def _make_debug_data(self):
-        qdb = '%-6.2f'%((rospy.Time.now() - self.start_time).to_sec())
+        qdb = []
+        qdb.append((rospy.Time.now() - self.start_time).to_sec())
         for i in range(4):
             set_s, set_r = self._read_set(i)
-            qdb += '\t' + '%-9.2f'%(RAD2DEG * set_r[1]) + '\t' + '%-9.2f'%(RAD2DEG * set_s[1])
-        qdb += '\n'
+            qdb.append(set_r[1])
+            qdb.append(set_s[1])
         return qdb
 
     @_try_except_decorator
@@ -958,8 +960,12 @@ class TestElmo():
     def test_calibration(self, stationary_set, target_1=45.0, target_2=225.0, st_tor_r=1300, jt_tor_r=960):
         half_hz_ = int(HZ/2)
         r = rospy.Rate(HZ)
-        pkg_path = rospkg.RosPack().get_path('dyros_pcv_canopen')
-        qdb_ = open(pkg_path + '/debug/set_'+stationary_set+'_qvalue'+time.strftime('_%Y_%m_%d', time.localtime())+'.txt', 'a')
+        pkg_path = rospkg.RosPack().get_path('dyros_pcv_canopen') + '/data/set_' + stationary_set + '_qvalue' 
+        file_number = 0
+        while(os.path.isfile(pkg_path + time.strftime('_%Y_%m_%d_', time.localtime()) + str(file_number) + '.csv')):
+            file_number += 1
+        qdb_ = open(pkg_path + time.strftime('_%Y_%m_%d_', time.localtime()) + str(file_number) + '.csv', 'w')
+        wr = csv.writer(qdb_, delimiter='\t')
 
         align_time = 10
         speed_up_time = 3
@@ -984,7 +990,7 @@ class TestElmo():
         changing_angle = True
         while changing_angle:
             self.network.sync.transmit()
-            qdb_.write(self._make_debug_data())
+            wr.writerow(self._make_debug_data())
             tick += 1
             if (tick % half_hz_ == 0): self._read_and_print()
             set_s, _ = self._read_set(stationary_set)
@@ -1003,7 +1009,7 @@ class TestElmo():
         ## align other sets with hand by rotating it for now
         while tick < align_time * HZ:
             self.network.sync.transmit()
-            qdb_.write(self._make_debug_data())
+            wr.writerow(self._make_debug_data())
             tick += 1
             if (tick % half_hz_ == 0): self._read_and_print()
             r.sleep()
@@ -1028,7 +1034,7 @@ class TestElmo():
         tick = 0
         while tick < speed_up_time * HZ:
             self.network.sync.transmit()
-            qdb_.write(self._make_debug_data())
+            wr.writerow(self._make_debug_data())
             tick += 1
             if (tick % half_hz_ == 0): self._read_and_print()
             r.sleep()
@@ -1045,7 +1051,7 @@ class TestElmo():
         tick = 0
         while tick < play_time * HZ:
             self.network.sync.transmit()
-            qdb_.write(self._make_debug_data())
+            wr.writerow(self._make_debug_data())
             tick += 1
             if (tick % half_hz_ == 0): self._read_and_print()
             r.sleep()
@@ -1073,7 +1079,7 @@ class TestElmo():
         changing_angle = True
         while changing_angle:
             self.network.sync.transmit()
-            qdb_.write(self._make_debug_data())
+            wr.writerow(self._make_debug_data())
             tick += 1
             if (tick % half_hz_ == 0): self._read_and_print()
             set_s, _ = self._read_set(stationary_set)
@@ -1111,7 +1117,7 @@ class TestElmo():
         tick = 0
         while tick < speed_up_time * HZ:
             self.network.sync.transmit()
-            qdb_.write(self._make_debug_data())
+            wr.writerow(self._make_debug_data())
             tick += 1
             if (tick % half_hz_ == 0): self._read_and_print()
             r.sleep()
@@ -1128,7 +1134,7 @@ class TestElmo():
         tick = 0
         while tick < play_time * HZ:
             self.network.sync.transmit()
-            qdb_.write(self._make_debug_data())
+            wr.writerow(self._make_debug_data())
             tick += 1
             if (tick % half_hz_ == 0): self._read_and_print()
             r.sleep()
