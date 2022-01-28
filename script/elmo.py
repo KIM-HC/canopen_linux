@@ -966,9 +966,9 @@ class TestElmo():
         qdb_ = open(pkg_path + time.strftime('_%Y_%m_%d_', time.localtime()) + str(file_number) + '.csv', 'w')
         wr = csv.writer(qdb_, delimiter='\t')
 
-        align_time = 10
+        align_time = 20
         speed_up_time = 3
-        play_time = 60
+        play_time = 90
 
         self.homing()
 
