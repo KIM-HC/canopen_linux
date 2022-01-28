@@ -966,9 +966,9 @@ class TestElmo():
         qdb_ = open(pkg_path + time.strftime('_%Y_%m_%d_', time.localtime()) + str(file_number) + '.csv', 'w')
         wr = csv.writer(qdb_, delimiter='\t')
 
-        align_time = 20
+        align_time = 15
         speed_up_time = 3
-        play_time = 90
+        play_time = 60
 
         self.homing()
 
@@ -992,7 +992,9 @@ class TestElmo():
             self._make_debug_data()
             wr.writerow(self.cali_)
             tick += 1
-            if (tick % half_hz_ == 0): self._read_and_print()
+            if (tick % half_hz_ == 0):
+                self._dprint('changing angle')
+                self._read_and_print()
             set_s, _ = self._read_set(stationary_set)
             jt_pos_s = RAD2DEG * set_s[1]
             if ((jt_pos_s < target_1 and search_vel < 0) or (jt_pos_s > target_1 and search_vel > 0)):
@@ -1012,7 +1014,9 @@ class TestElmo():
             self._make_debug_data()
             wr.writerow(self.cali_)
             tick += 1
-            if (tick % half_hz_ == 0): self._read_and_print()
+            if (tick % half_hz_ == 0):
+                self._dprint('rotate it by hand')
+                self._read_and_print()
             r.sleep()
 
         self._dprint("\n======================\nALIGN SETTING FINISHED\n======================")
@@ -1038,7 +1042,9 @@ class TestElmo():
             self._make_debug_data()
             wr.writerow(self.cali_)
             tick += 1
-            if (tick % half_hz_ == 0): self._read_and_print()
+            if (tick % half_hz_ == 0):
+                self._dprint('speed up')
+                self._read_and_print()
             r.sleep()
 
         self._dprint("\n=====================\nSTARTING SMALL TORQUE\n=====================\n")
@@ -1056,7 +1062,9 @@ class TestElmo():
             self._make_debug_data()
             wr.writerow(self.cali_)
             tick += 1
-            if (tick % half_hz_ == 0): self._read_and_print()
+            if (tick % half_hz_ == 0):
+                self._dprint('rotating')
+                self._read_and_print()
             r.sleep()
         self._dprint("\n=========================\nCALIBRATION TEST FINISHED\n=========================\n")
 
@@ -1085,7 +1093,9 @@ class TestElmo():
             self._make_debug_data()
             wr.writerow(self.cali_)
             tick += 1
-            if (tick % half_hz_ == 0): self._read_and_print()
+            if (tick % half_hz_ == 0):
+                self._dprint('changing angle')
+                self._read_and_print()
             set_s, _ = self._read_set(stationary_set)
             jt_pos_s = RAD2DEG * set_s[1]
             if ((jt_pos_s < target_2 and search_vel < 0) or (jt_pos_s > target_2 and search_vel > 0)):
@@ -1100,7 +1110,16 @@ class TestElmo():
         self._control_command(stationary_roll, 'target_velocity', 0.0)
 
         ## align other sets with hand by rotating it for now
-        time.sleep(align_time)
+        while tick < align_time * HZ:
+            self.network.sync.transmit()
+            self._make_debug_data()
+            wr.writerow(self.cali_)
+            tick += 1
+            if (tick % half_hz_ == 0):
+                self._dprint('rotate it by hand')
+                self._read_and_print()
+            r.sleep()
+
         self._dprint("\n======================\nALIGN SETTING FINISHED\n======================")
 
         ## move moving_sets' rolling while freeing steering
@@ -1124,7 +1143,9 @@ class TestElmo():
             self._make_debug_data()
             wr.writerow(self.cali_)
             tick += 1
-            if (tick % half_hz_ == 0): self._read_and_print()
+            if (tick % half_hz_ == 0):
+                self._dprint('speed up')
+                self._read_and_print()
             r.sleep()
 
         self._dprint("\n=====================\nSTARTING SMALL TORQUE\n=====================\n")
@@ -1142,7 +1163,9 @@ class TestElmo():
             self._make_debug_data()
             wr.writerow(self.cali_)
             tick += 1
-            if (tick % half_hz_ == 0): self._read_and_print()
+            if (tick % half_hz_ == 0):
+                self._dprint('rotating')
+                self._read_and_print()
             r.sleep()
         self._dprint("\n=========================\nCALIBRATION TEST FINISHED\n=========================\n")
 
