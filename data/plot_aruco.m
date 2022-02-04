@@ -2,7 +2,7 @@ clc
 clear all
 
 %% load data
-ar = load("aruco_pose_2022_01_26_6.csv");
+ar = load("aruco/aruco_pose_2022_01_26_6.csv");
 tot_tick = length(ar);
 av = ones(tot_tick,4);
 av(:,1:3) = (ar(:,2:4) + ar(:,9:11)) / 2;
