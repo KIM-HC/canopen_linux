@@ -4,13 +4,10 @@ Kim Hyoung Cheol
 https://github.com/KIM-HC/dyros_pcv_canopen
 https://www.notion.so/kimms74/40dcc3a8ff054dc9994e5fc62de9bc30
 """
-# from inspect import modulesbyfile
 import os.path
 import csv
 import rospy
 import rospkg
-# from platform import node
-# from re import S, T
 import time
 import canopen
 # from canopen.profiles.p402 import BaseNode402, OperationMode
