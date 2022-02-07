@@ -956,11 +956,12 @@ class TestElmo():
     def test_calibration(self, stationary_set, target_1=45.0, target_2=225.0, st_tor_r=1300, jt_tor_r=960):
         half_hz_ = int(HZ/2)
         r = rospy.Rate(HZ)
-        pkg_path = rospkg.RosPack().get_path('dyros_pcv_canopen') + '/data/set_' + str(stationary_set) + '_qvalue' 
+        pkg_path = rospkg.RosPack().get_path('dyros_pcv_canopen') + '/data/joint'
+        ymd = time.strftime('_%Y_%m_%d_', time.localtime())
         file_number = 0
-        while(os.path.isfile(pkg_path + time.strftime('_%Y_%m_%d_', time.localtime()) + str(file_number) + '.csv')):
+        while(os.path.isfile(pkg_path + ymd + str(file_number) + '.csv')):
             file_number += 1
-        qdb_ = open(pkg_path + time.strftime('_%Y_%m_%d_', time.localtime()) + str(file_number) + '.csv', 'w')
+        qdb_ = open(pkg_path + ymd + str(file_number) + '.csv', 'w')
         wr = csv.writer(qdb_, delimiter='\t')
 
         align_time = 15

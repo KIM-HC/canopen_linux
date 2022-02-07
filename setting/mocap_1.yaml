@@ -1,0 +1,85 @@
+### Kim Hyoung Cheol ###
+
+is_mocap: true        ## if false, data is aruco
+show_animation: true  ## animation plot
+
+## information of each set as a stationary set
+set_0:
+  mv_file: 'mocap/mocap_2022_01_28_0.txt'
+  jt_file: 'joint/joint_2022_01_28_0.csv'
+  cali_tick: -100
+  base_st: 10
+  base_ed: 0
+  p1:
+    circle_st: 0
+    circle_ed: 5000
+
+    move_st: 0
+    move_ed: 0
+
+  p2:
+    circle_st: 0
+    circle_ed: 0
+
+    move_st: 0
+    move_ed: 0
+
+set_1:
+  mv_file: 'mocap/mocap_2022_01_28_1.txt'
+  jt_file: 'joint/joint_2022_01_28_1.csv'
+  cali_tick: -100
+  base_st: 0
+  base_ed: 0
+  p1:
+    circle_st: 0
+    circle_ed: 0
+
+    move_st: 0
+    move_ed: 0
+
+  p2:
+    circle_st: 0
+    circle_ed: 0
+
+    move_st: 0
+    move_ed: 0
+
+set_2:
+  mv_file: 'mocap/mocap_2022_01_28_2.txt'
+  jt_file: 'joint/joint_2022_01_28_2.csv'
+  cali_tick: -100
+  base_st: 0
+  base_ed: 0
+  p1:
+    circle_st: 0
+    circle_ed: 0
+
+    move_st: 0
+    move_ed: 0
+
+  p2:
+    circle_st: 0
+    circle_ed: 0
+
+    move_st: 0
+    move_ed: 0
+
+set_3:
+  mv_file: 'mocap/mocap_2022_01_28_3.txt'
+  jt_file: 'joint/joint_2022_01_28_3.csv'
+  cali_tick: -100
+  base_st: 0
+  base_ed: 0
+  p1:
+    circle_st: 0
+    circle_ed: 0
+
+    move_st: 0
+    move_ed: 0
+
+  p2:
+    circle_st: 0
+    circle_ed: 0
+
+    move_st: 0
+    move_ed: 0
