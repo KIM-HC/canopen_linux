@@ -1,23 +1,24 @@
 ### Kim Hyoung Cheol ###
-
 is_mocap: True        ## if false, data is aruco
+half_circle_number: 8
 
 ## information of each set as a stationary set
 set_0:
   mv_file: 'mocap/mocap_2022_01_28_0.txt'
   jt_file: 'joint/joint_2022_01_28_0.csv'
   cali_tick: -100
-  base_start: 4000
-  base_end: 0
-  ## p2 - p1 (in radian)
-  ## 2.534903251981022 - 0.7900001057611052
-  steer_delta_theta: 1.744903146
   0:
+    steer_angle: 0.7900001057611052
+    base_start: 0
+    base_end: 0
     circle_start: 4000
     circle_end: 5200
-    sweep_start: 4000
+    sweep_start: 0
     sweep_end: 0
   1:
+    steer_angle: 2.534903251981022
+    base_start: 0
+    base_end: 0
     circle_start: 12700
     circle_end: 14000
     sweep_start: 0
@@ -27,17 +28,18 @@ set_1:
   mv_file: 'mocap/mocap_2022_01_28_1.txt'
   jt_file: 'joint/joint_2022_01_28_1.csv'
   cali_tick: -100
-  base_start: 4100
-  base_end: 0
-  ## p2 - p1 (in radian)
-  ## 2.5448741271022786 - 0.7623884515791637
-  steer_delta_theta: 1.782485676
   0:
+    steer_angle: 0.7623884515791637
+    base_start: 0
+    base_end: 0
     circle_start: 4100
     circle_end: 5600
-    sweep_start: 4100
+    sweep_start: 0
     sweep_end: 0
   1:
+    steer_angle: 2.5448741271022786
+    base_start: 0
+    base_end: 0
     circle_start: 12000
     circle_end: 14000
     sweep_start: 0
@@ -47,17 +49,18 @@ set_2:
   mv_file: 'mocap/mocap_2022_01_28_2.txt'
   jt_file: 'joint/joint_2022_01_28_2.csv'
   cali_tick: -100
-  base_start: 3800
-  base_end: 0
-  ## p2 - p1 (in radian)
-  ## 2.534903251981022 - 0.7892331153671623
-  steer_delta_theta: 1.745670137
   0:
+    steer_angle: 0.7892331153671623
+    base_start: 0
+    base_end: 0
     circle_start: 3800
     circle_end: 5600
-    sweep_start: 4000
+    sweep_start: 0
     sweep_end: 0
   1:
+    steer_angle: 2.534903251981022
+    base_start: 0
+    base_end: 0
     circle_start: 12000
     circle_end: 14000
     sweep_start: 0
@@ -67,17 +70,18 @@ set_3:
   mv_file: 'mocap/mocap_2022_01_28_3.txt'
   jt_file: 'joint/joint_2022_01_28_3.csv'
   cali_tick: -100
-  base_start: 3900
-  base_end: 0
-  ## p2 - p1 (in radian)
-  ## 2.5356702423749646 - 0.788849620170191
-  steer_delta_theta: 1.746820622
   0:
+    steer_angle: 0.788849620170191
+    base_start: 0
+    base_end: 0
     circle_start: 3900
     circle_end: 5400
-    sweep_start: 4000
+    sweep_start: 0
     sweep_end: 0
   1:
+    steer_angle: 2.5356702423749646
+    base_start: 0
+    base_end: 0
     circle_start: 12130
     circle_end: 13400
     sweep_start: 0

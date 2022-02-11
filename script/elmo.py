@@ -6,6 +6,7 @@ https://www.notion.so/kimms74/40dcc3a8ff054dc9994e5fc62de9bc30
 """
 import os.path
 import csv
+from tracemalloc import stop
 import rospy
 import rospkg
 import time
@@ -964,9 +965,10 @@ class TestElmo():
         qdb_ = open(pkg_path + ymd + str(file_number) + '.csv', 'w')
         wr = csv.writer(qdb_, delimiter='\t')
 
-        align_time = 15
+        align_time = 20
         speed_up_time = 3
-        play_time = 60
+        play_time = 30
+        stop_time = 20
 
         self.homing()
 
@@ -1073,6 +1075,19 @@ class TestElmo():
                 self._control_command((moving_set + 1) * 2, 'target_torque', 0.0)
                 self._control_command(moving_set * 2 + 1, 'target_torque', 0.0)
 
+        tick = 0
+        while tick < stop_time * HZ:
+            self.network.sync.transmit()
+            self._make_debug_data()
+            wr.writerow(self.cali_)
+            tick += 1
+            if (tick % half_hz_ == 0):
+                self._dprint('rotating')
+                self._read_and_print()
+            r.sleep()
+
+
+
         self._rpdo_controlword(controlword=CtrlWord.DISABLE_OPERATION, node_id=stationary_roll)
         self.network[stationary_roll].rpdo['modes_of_operation'].raw = -1
         self.network[stationary_roll].rpdo[1].transmit()
@@ -1166,6 +1181,23 @@ class TestElmo():
                 self._read_and_print()
             r.sleep()
         self._dprint("\n=========================\nCALIBRATION TEST FINISHED\n=========================\n")
+
+        for moving_set in range(4):
+            if (moving_set == stationary_set):
+                pass
+            else:
+                self._control_command((moving_set + 1) * 2, 'target_torque', 0.0)
+                self._control_command(moving_set * 2 + 1, 'target_torque', 0.0)
+        tick = 0
+        while tick < stop_time * HZ:
+            self.network.sync.transmit()
+            self._make_debug_data()
+            wr.writerow(self.cali_)
+            tick += 1
+            if (tick % half_hz_ == 0):
+                self._dprint('rotating')
+                self._read_and_print()
+            r.sleep()
 
         qdb_.close()
         self._stop_operation()

@@ -3,7 +3,7 @@ clear all
 
 %% load data
 % Time center:X center:Y center:Z x_axis:X x_axis:Y x_axis:Z y_axis:X y_axis:Y y_axis:Z
-ar = load("mocap/mocap_2022_01_28_rot.txt");
+ar = load("mocap/mocap_2022_01_28_4_set0rotate.txt");
 
 
 tot_tick = length(ar);
