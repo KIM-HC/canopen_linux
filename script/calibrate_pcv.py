@@ -8,8 +8,7 @@ https://www.notion.so/kimms74/40dcc3a8ff054dc9994e5fc62de9bc30
 
 #####################################################
 from matplotlib.animation import FuncAnimation      #
-from mpl_toolkits.mplot3d import Axes3D
-from simplejson import dump             #
+from mpl_toolkits.mplot3d import Axes3D             #
 from sklearn.cluster import KMeans                  #
 import matplotlib.pyplot as plt                     #
 import numpy as np                                  #
@@ -19,16 +18,13 @@ import yaml                                         #
 #####################################################
 
 class CalibratePCV():
-    def __init__(self, yaml_path):
+    def __init__(self, yaml_path='mocap_3.yaml'):
         ## reads parameters, paths from yaml
         self.pkg_path = rospkg.RosPack().get_path('dyros_pcv_canopen')
         self.out_path = self.pkg_path + '/setting/output_' + yaml_path
 
         with open(self.pkg_path + '/setting/' + yaml_path, 'r') as stream:
             self.yam = yaml.safe_load(stream)
-        for key in self.yam:
-            print(key,':',self.yam[key])
-            print()
 
         ## data made
         self.mv = [np.array([]),np.array([]),np.array([]),np.array([])]
@@ -39,7 +35,7 @@ class CalibratePCV():
         self.wheel_offset = []
         self.angle_error = []
         self.angle_phi = []
-        self.wheel_radius = []
+        self.wheel_radius = [0.0, 0.0, 0.0, 0.0]
 
         ## data given
         self.circle_start_tick = [[],[],[],[]]
@@ -49,17 +45,22 @@ class CalibratePCV():
         self.base_start_tick = [[],[],[],[]]
         self.base_end_tick = [[],[],[],[]]
         self.measured_steer_angle = [[],[],[],[]]
-        self.cali_tick = []
+        self.jt_wheel_rot = [[],[],[],[]]
         self.steer_delta_theta = []
         self.mv_path = []
         self.jt_path = []
         self.is_mocap = self.yam['is_mocap']
+        self.num_half_circle = self.yam['num_half_circle']
+        self.cali_time = []
+        self.mv_cali = []
+        self.jt_cali = []
 
         for module in range(4):
             set_name = 'set_' + str(module)
             self.mv_path.append(self.pkg_path + '/data/' + self.yam[set_name]['mv_file'])
             self.jt_path.append(self.pkg_path + '/data/' + self.yam[set_name]['jt_file'])
-            self.cali_tick.append(self.yam[set_name]['cali_tick'])
+            self.mv_cali.append(self.yam[set_name]['mv_cali'])
+            self.jt_cali.append(self.yam[set_name]['jt_cali'])
             for pt in range(2):
                 self.base_start_tick[module].append(self.yam[set_name][pt]['base_start'])
                 self.base_end_tick[module].append(self.yam[set_name][pt]['base_end'])
@@ -92,9 +93,7 @@ class CalibratePCV():
         ## use wheel_offset of moving caster and dist_d to find
         ## distance between wheel of moving caster and stationary caster(robot_rot point)
 
-        # self.plot_animation(module=0, pt=0, interval=1, plot_what='circle', plot_original=False)
-        # self.plot_robot_animation(module=1, pt=0, interval=1, plot_what='circle')
-
+        # self.plot_animation(module=3, pt=1, interval=1, plot_what='circle', plot_original=True)
         # self.plot_animation(module=1, pt=0)
         self.plot_data(plot_in_one=True)
 
@@ -103,50 +102,65 @@ class CalibratePCV():
         for module in range(4):
             set_name = 'set_' + str(module)
             mv = np.loadtxt(self.mv_path[module], delimiter='\t')
+            jt = np.loadtxt(self.jt_path[module], delimiter='\t')
             self.mv[module] = np.ones((np.size(mv, 0), 4))
+            tmp_mv = np.ones((np.size(mv, 0), 4))
             self.mv[module][:,0:3] = mv[:,1:4]
-            print('{0} data shape: {1}'.format(set_name,np.shape(mv)))
+            tmp_mv[:,0:3] = mv[:,1:4]
+
+            ## sync jt time with mv time
+            self.cali_time.append(0.0)
+            for idx in range(4):
+                self.cali_time[module] += (mv[self.mv_cali[module][idx],0] - jt[self.jt_cali[module][idx],0]) / 4.0
+            jt[:, 0] += np.full(np.size(jt, 0), self.cali_time[module])
 
             ## find reference transform for each rotation -> transform each data with each reference transform
             for pt in range(2):
+                tmp_rot_point = np.zeros(2)
                 cst = self.circle_start_tick[module][pt]
                 ced = self.circle_end_tick[module][pt]
                 if (self.is_mocap):
-                    bc = mv[cst, 1:4]
-                    bx = mv[cst, 4:7]
-                    by = mv[cst, 7:10]
+                    half_len = int((ced - cst + 1) / self.num_half_circle)
+                    for cir in range(self.num_half_circle):
+                        cur_st = cst + half_len * cir
+                        cur_ed = cst + half_len * (cir + 1) - 1
+                        bc = mv[cur_st, 1:4]
+                        bx = mv[cur_st, 4:7]
+                        by = mv[cur_st, 7:10]
+                        temp_x = (bx - bc) / np.linalg.norm(bx - bc)
+                        temp_y = (by - bc) / np.linalg.norm(by - bc)
+                        unit_z = np.cross(temp_x, temp_y) / np.linalg.norm(np.cross(temp_x, temp_y))
+                        unit_y = np.cross(unit_z, temp_x) / np.linalg.norm(np.cross(unit_z, temp_x))
+                        unit_x = np.cross(unit_y, unit_z) / np.linalg.norm(np.cross(unit_y, unit_z))
+                        btf_inv = np.zeros((4,4))
+                        btf_inv[0:3,0:3] = np.array([unit_x,unit_y,unit_z])  ## transpose of original R
+                        btf_inv[0:3,3] = -np.dot(btf_inv[0:3,0:3],bc)
+                        btf_inv[3,3] = 1.0
+                        if (cir == 0): self.btf_inv[module].append(btf_inv)
+                        
+                        for tick in range(cur_st, cur_ed):
+                            self.mv[module][tick,:] = np.dot(btf_inv, tmp_mv[tick,:])
 
-                    temp_x = (bx - bc) / np.linalg.norm(bx - bc)
-                    temp_y = (by - bc) / np.linalg.norm(by - bc)
-                    unit_z = np.cross(temp_x, temp_y) / np.linalg.norm(np.cross(temp_x, temp_y))
-                    unit_y = np.cross(unit_z, temp_x) / np.linalg.norm(np.cross(unit_z, temp_x))
-                    unit_x = np.cross(unit_y, unit_z) / np.linalg.norm(np.cross(unit_y, unit_z))
+                        ## find robot_rot_point
+                        one_third = int((cur_ed - cur_st + 1)/3)
+                        tmp_centers = np.zeros((one_third - 1, 2))
+                        for tick in range(one_third - 1):
+                            p1 = self.mv[module][cur_st + tick,0:2]
+                            p2 = self.mv[module][cur_st + tick + one_third,0:2]
+                            p3 = self.mv[module][cur_st + tick + one_third*2,0:2]
+                            tmp_centers[tick,:] = self.compute_center_of_circle(p1, p2, p3)
+                        test_out = KMeans(n_clusters=1).fit(tmp_centers).cluster_centers_[0]
+                        tmp_rot_point = tmp_rot_point + test_out
+                    ## in robot center point
+                    self.robot_rot_point[module].append(tmp_rot_point / self.num_half_circle)
 
                 else:
                     ## TODO: aruco
                     pass
 
-                btf_inv = np.zeros((4,4))
-                btf_inv[0:3,0:3] = np.array([unit_x,unit_y,unit_z])  ## transpose of original R
-                btf_inv[0:3,3] = -np.dot(btf_inv[0:3,0:3],bc)
-                btf_inv[3,3] = 1.0
-                self.btf_inv[module].append(btf_inv)
-
-                ## TODO: make more reference transform
                 ## move points to first reference axis for convenience
                 for tick in range(cst, ced+1):
-                    self.mv[module][tick,:] = np.dot(btf_inv, self.mv[module][tick,:])
-
-                ## find robot_rot_point
-                one_third = int((ced - cst + 1)/3)
-                tmp_centers = np.zeros((one_third - 1, 2))
-                for tick in range(one_third - 1):
-                    p1 = self.mv[module][cst + tick,0:2]
-                    p2 = self.mv[module][cst + tick + one_third,0:2]
-                    p3 = self.mv[module][cst + tick + one_third*2,0:2]
-                    tmp_centers[tick,:] = self.compute_center_of_circle(p1, p2, p3)
-                ## in robot center point
-                self.robot_rot_point[module].append(KMeans(n_clusters=1).fit(tmp_centers).cluster_centers_[0])
+                    self.mv[module][tick,:] = np.dot(self.btf_inv[module][pt], tmp_mv[tick,:])
 
                 if False:
                     tmp_fig1 = plt.figure(module+10)
@@ -185,14 +199,9 @@ class CalibratePCV():
                     print('set_{2}: max_y: {0}, min_y: {1}'.format(np.max(self.mv[module][cst:ced+1,1]),
                             np.min(self.mv[module][cst:ced+1,1]), module))
 
-            print('=======\nset_{0}'.format(module))
-            for pt in range(2):
-                print('P_{0}: {1}'.format(pt+1, self.robot_rot_point[module][pt]))
-
             ## offset b
             len_p1p2 = np.linalg.norm(self.robot_rot_point[module][1] - self.robot_rot_point[module][0])
             self.wheel_offset.append(len_p1p2 / (2.0 * math.sin(self.steer_delta_theta[module] / 2.0)))
-            print('offset b: {0}'.format(self.wheel_offset[module]))
 
             ## steer point
             uvec_p1p2 = (self.robot_rot_point[module][1] - self.robot_rot_point[module][0]) / len_p1p2
@@ -201,7 +210,6 @@ class CalibratePCV():
                 [math.sin(self.angle_phi[module]),  math.cos(self.angle_phi[module])]
             ])
             self.robot_steer_point.append(self.robot_rot_point[module][0] + self.wheel_offset[module] * np.dot(rot_p1p2, uvec_p1p2))
-            print('steer point: {0}'.format(self.robot_steer_point[module]))
 
             ## angle_error
             vec_p1ps = self.robot_steer_point[module] - self.robot_rot_point[module][0]
@@ -209,25 +217,63 @@ class CalibratePCV():
             angle_error_1 = self.measured_steer_angle[module][0] - math.atan2(vec_p1ps[1], vec_p1ps[0])
             angle_error_2 = self.measured_steer_angle[module][1] - math.atan2(vec_p2ps[1], vec_p2ps[0])
             self.angle_error.append((angle_error_1 + angle_error_2) / 2.0)
+
+            ## sweep data
+            for pt in range(2):
+                sweep_start_time = mv[self.sweep_start_tick[module][pt],0]
+                sweep_end_time = mv[self.sweep_end_tick[module][pt],0]
+                jt_st = 0
+                jt_ed = 0
+                while(jt[jt_st,0] < sweep_start_time):
+                    jt_st += 1
+                while(jt[jt_ed,0] < sweep_end_time):
+                    jt_ed += 1
+                wheel_rot = []
+                for wheel_mod in range(4):
+                    wheel_rot.append(abs(jt[jt_st, 2 * wheel_mod + 1] - jt[jt_ed, 2 * wheel_mod + 1]))
+                self.jt_wheel_rot[module].append(wheel_rot)
+
+        ## radius of caster wheel
+        for module in range(4):
+            for pt in range(2):
+                vec_psc1 = self.mv[module][self.sweep_start_tick[module][pt],0:2] - self.robot_steer_point[module]
+                vec_psc2 = self.mv[module][self.sweep_end_tick[module][pt],0:2] - self.robot_steer_point[module]
+                angle1 = math.atan2(vec_psc1[1], vec_psc1[0])
+                angle2 = math.atan2(vec_psc2[1], vec_psc2[0])
+                abs_rot = abs(angle1 - angle2)
+                if (abs_rot > math.pi):
+                    abs_rot = 2.0 * math.pi - abs_rot
+
+                for mv_set in range(4):
+                    if mv_set != module:
+                        dist_d = np.linalg.norm(self.robot_rot_point[module][pt] - self.robot_steer_point[mv_set])
+                        dist_w = math.sqrt(dist_d**2 - self.wheel_offset[mv_set])
+                        calc_rad = dist_w * abs_rot / self.jt_wheel_rot[module][pt][mv_set]
+                        self.wheel_radius[mv_set] += calc_rad / 6.0
+
+        for module in range(4):
+            print('=======\nset_{0}'.format(module))
+            print('cali time: {0}'.format(self.cali_time[module]))
+            for pt in range(2):
+                print('P_{0}: {1}'.format(pt+1, self.robot_rot_point[module][pt]))
+            print('offset b: {0}'.format(self.wheel_offset[module]))
+            print('steer point: {0}'.format(self.robot_steer_point[module]))
             print('angle error beta: {0} (radian)'.format(self.angle_error[module]))
             print('angle error beta: {0} (degree)'.format(self.angle_error[module] * 180.0 / math.pi))
+            print('wheel radius: {0}'.format(self.wheel_radius[module]))
 
-        ## TODO: find radius of caster wheel
-        for module in range(4):
-            pass
 
     def save_data(self):
         dumper = {}
         for module in range(4):
             dumper[module] = {}
-            dumper[module]['angle_error'] = float(self.angle_error[module])
+            dumper[module]['angle_error_rad'] = float(self.angle_error[module])
+            dumper[module]['angle_error_deg'] = float(self.angle_error[module] * 180.0 / math.pi)
             dumper[module]['steer_point'] = self.robot_steer_point[module].tolist()
             dumper[module]['wheel_offset'] = float(self.wheel_offset[module])
-            # dumper[module]['wheel_radius'] = self.wheel_radius[module]
+            dumper[module]['wheel_radius'] = float(self.wheel_radius[module])
         with open(self.out_path, 'w') as f:
             yaml.dump(dumper, f)
-        print('output path',self.out_path)
-        print('output',dumper)
 
     ## from https://mathbang.net/455
     def compute_center_of_circle(self, p1, p2, p3):
@@ -242,7 +288,10 @@ class CalibratePCV():
         center_point = np.array([-param_a/2.0, -param_b/2.0])
         return center_point
 
-    def plot_data(self, plot_in_one=False):
+#########################################################################################################################
+#########################################################################################################################
+#########################################################################################################################
+    def plot_data(self, plot_in_one=False, plot_what='circle'):
         fig = plt.figure(99)
         p1 = 0
         p2 = 1
@@ -264,6 +313,11 @@ class CalibratePCV():
                 ced1 = self.circle_end_tick[module][p1]
                 cst2 = self.circle_start_tick[module][p2]
                 ced2 = self.circle_end_tick[module][p2]
+                if plot_what == 'sweep':
+                    cst1 = self.sweep_start_tick[module][p1]
+                    ced1 = self.sweep_end_tick[module][p1]
+                    cst2 = self.sweep_start_tick[module][p2]
+                    ced2 = self.sweep_end_tick[module][p2]
                 ax.plot(self.mv[module][cst1:ced1+1,x],self.mv[module][cst1:ced1+1,y], 'r', linewidth=1.0)
                 ax.plot(self.mv[module][cst2:ced2+1,x],self.mv[module][cst2:ced2+1,y], 'b', linewidth=1.0)
                 ax.plot(self.robot_rot_point[module][p1][x],self.robot_rot_point[module][p1][y],'ro', markersize=5)
@@ -278,6 +332,11 @@ class CalibratePCV():
                 ced1 = self.circle_end_tick[module][p1]
                 cst2 = self.circle_start_tick[module][p2]
                 ced2 = self.circle_end_tick[module][p2]
+                if plot_what == 'sweep':
+                    cst1 = self.sweep_start_tick[module][p1]
+                    ced1 = self.sweep_end_tick[module][p1]
+                    cst2 = self.sweep_start_tick[module][p2]
+                    ced2 = self.sweep_end_tick[module][p2]
                 ax = fig.add_subplot(2,2,module+1)
                 ax.plot([125, -125, -125, 125, 125], [215, 215, -215, -215, 215], 'k--', linewidth=0.8)
                 ax.plot([0, 0], [0, 100], 'r', linewidth=0.8)
@@ -310,14 +369,19 @@ class CalibratePCV():
         ax = fig.add_subplot(111)
         x, y = [], []
         line, = ax.plot([],[],'b', linewidth=1.0, markersize=5)
+        line2, = ax.plot(self.mv[module][st,0],self.mv[module][st,1],'ro', linewidth=1.0, markersize=2)
+        line3, = ax.plot(self.mv[module][ed,0],self.mv[module][ed,1],'go', linewidth=1.0, markersize=2)
 
         def update(idx):
             idx = int(idx)
             print(idx, end='')
-            if (idx % 4 == 0):
+            if (idx % 7 == 0):
                 print('')
             else:
-                print('  ', end='')
+                print('   ', end='')
+            if len(x) > 900:
+                x.pop(0)
+                y.pop(0)
             x.append(self.mv[module][idx,0])
             y.append(self.mv[module][idx,1])
             line.set_data(x, y)
@@ -330,7 +394,7 @@ class CalibratePCV():
         len_val = max(len_x, len_y)
         ax.set_xlim(mid_x - len_val * 0.55, mid_x + len_val * 0.55)
         ax.set_ylim(mid_y - len_val * 0.55, mid_y + len_val * 0.55)
-        ax.invert_xaxis()
+        if (not plot_original): ax.invert_xaxis()
         ax.set_aspect('equal')
         ax.set_title(set_name)
         ani = FuncAnimation(fig, update, frames=np.linspace(st, ed, ed - st + 1), interval=interval, repeat=False)
@@ -413,6 +477,6 @@ class CalibratePCV():
         ax.set_zlim3d([z_middle - plot_radius, z_middle + plot_radius])
 
 if __name__ == "__main__":
-    CalibratePCV('mocap_1.yaml')
+    CalibratePCV()
 
 

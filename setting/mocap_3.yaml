@@ -1,7 +1,7 @@
 ### Kim Hyoung Cheol ###
-## use six half circle
+## use two half circle
 is_mocap: True        ## if false, data is aruco
-num_half_circle: 6
+num_half_circle: 2
 
 ## information of each set as a stationary set
 set_0:
@@ -13,18 +13,18 @@ set_0:
     steer_angle: 0.7900001057611052
     base_start: 0
     base_end: 0
-    circle_start: 3700
-    circle_end: 7210
-    sweep_start: 3700
-    sweep_end: 0
+    circle_start: 4000
+    circle_end: 5200
+    sweep_start: 4000
+    sweep_end: 4300
   1:
     steer_angle: 2.534903251981022
     base_start: 0
     base_end: 0
-    circle_start: 10530
-    circle_end: 14300
-    sweep_start: 10530
-    sweep_end: 0
+    circle_start: 12700
+    circle_end: 14000
+    sweep_start: 12700
+    sweep_end: 13200
 
 set_1:
   mv_file: 'mocap/mocap_2022_01_28_1.txt'
@@ -35,18 +35,18 @@ set_1:
     steer_angle: 0.7623884515791637
     base_start: 0
     base_end: 0
-    circle_start: 3600
-    circle_end: 7950
-    sweep_start: 3600
-    sweep_end: 0
+    circle_start: 4100
+    circle_end: 5600
+    sweep_start: 4100
+    sweep_end: 4750
   1:
     steer_angle: 2.5448741271022786
     base_start: 0
     base_end: 0
-    circle_start: 10470
-    circle_end: 14800
-    sweep_start: 10470
-    sweep_end: 0
+    circle_start: 12000
+    circle_end: 14000
+    sweep_start: 12000
+    sweep_end: 12450
 
 set_2:
   mv_file: 'mocap/mocap_2022_01_28_2.txt'
@@ -57,18 +57,18 @@ set_2:
     steer_angle: 0.7892331153671623
     base_start: 0
     base_end: 0
-    circle_start: 3370
-    circle_end: 8390
-    sweep_start: 3370
-    sweep_end: 0
+    circle_start: 3800
+    circle_end: 5600
+    sweep_start: 3800
+    sweep_end: 4300
   1:
     steer_angle: 2.534903251981022
     base_start: 0
     base_end: 0
-    circle_start: 10630
-    circle_end: 15000
-    sweep_start: 10630
-    sweep_end: 0
+    circle_start: 12000
+    circle_end: 14000
+    sweep_start: 12000
+    sweep_end: 12500
 
 set_3:
   mv_file: 'mocap/mocap_2022_01_28_3.txt'
@@ -79,15 +79,15 @@ set_3:
     steer_angle: 0.788849620170191
     base_start: 0
     base_end: 0
-    circle_start: 3300
-    circle_end: 7700
-    sweep_start: 3300
-    sweep_end: 3850
+    circle_start: 3900
+    circle_end: 5400
+    sweep_start: 3900
+    sweep_end: 4550
   1:
     steer_angle: 2.5356702423749646
     base_start: 0
     base_end: 0
-    circle_start: 10600
-    circle_end: 14410
-    sweep_start: 10600
-    sweep_end: 11100
+    circle_start: 12130
+    circle_end: 13400
+    sweep_start: 12130
+    sweep_end: 12550
