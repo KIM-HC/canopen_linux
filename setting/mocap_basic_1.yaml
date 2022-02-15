@@ -1,0 +1,34 @@
+### Kim Hyoung Cheol ###
+## mv_cali & jt_cali: each index points same time
+##       steer_angle: [p1, p2]
+##          is_mocap: if false, data is aruco
+##             set_N: information of each set as a stationary set
+is_mocap: True
+
+set_0:
+  mv_file: 'mocap/mocap_2022_01_28_0.txt'
+  jt_file: 'joint/joint_2022_01_28_0.csv'
+  mv_cali: [2415, 3068, 9281, 10001]
+  jt_cali: [2882, 4505, 23081, 24907]
+  steer_angle: [0.7900001057611052, 2.534903251981022]
+
+set_1:
+  mv_file: 'mocap/mocap_2022_01_28_1.txt'
+  jt_file: 'joint/joint_2022_01_28_1.csv'
+  mv_cali: [2149, 2994, 9225,  9927]
+  jt_cali: [2293, 4512, 23142, 24918]
+  steer_angle: [0.7623884515791637, 2.5448741271022786]
+
+set_2:
+  mv_file: 'mocap/mocap_2022_01_28_2.txt'
+  jt_file: 'joint/joint_2022_01_28_2.csv'
+  mv_cali: [1987, 3108, 9182,  10042]
+  jt_cali: [1476, 4509, 22672, 24910]
+  steer_angle: [0.7892331153671623, 2.534903251981022]
+
+set_3:
+  mv_file: 'mocap/mocap_2022_01_28_3.txt'
+  jt_file: 'joint/joint_2022_01_28_3.csv'
+  mv_cali: [1606, 2610, 8697,  9541]
+  jt_cali: [1866, 4506, 22739, 24911]
+  steer_angle: [0.788849620170191, 2.5356702423749646]

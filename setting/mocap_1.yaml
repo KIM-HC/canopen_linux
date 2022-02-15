@@ -1,93 +1,23 @@
 ### Kim Hyoung Cheol ###
-## use six half circle
-is_mocap: True        ## if false, data is aruco
-num_half_circle: 6
+## 3 LOOP
+##  set_N: information of each set as a stationary set
+## circle: [[p1 start, p1 end], [p2 start, pt end]]
+##  sweep: [[p1 start, p1 end], [p2 start, pt end]]
+basic_file: 'mocap_basic_1.yaml'
+num_section: 6
 
-## information of each set as a stationary set
 set_0:
-  mv_file: 'mocap/mocap_2022_01_28_0.txt'
-  jt_file: 'joint/joint_2022_01_28_0.csv'
-  mv_cali: [2415, 3068, 9281, 10001]
-  jt_cali: [2882, 4505, 23081, 24907]
-  0:
-    steer_angle: 0.7900001057611052
-    base_start: 0
-    base_end: 0
-    circle_start: 3700
-    circle_end: 7210
-    sweep_start: 3700
-    sweep_end: 0
-  1:
-    steer_angle: 2.534903251981022
-    base_start: 0
-    base_end: 0
-    circle_start: 10530
-    circle_end: 14300
-    sweep_start: 10530
-    sweep_end: 0
+  circle: [[3700, 7210], [10530, 14300]]
+  sweep:  [[4000, 4300], [12700, 13200]]
 
 set_1:
-  mv_file: 'mocap/mocap_2022_01_28_1.txt'
-  jt_file: 'joint/joint_2022_01_28_1.csv'
-  mv_cali: [2149, 2994, 9225,  9927]
-  jt_cali: [2293, 4512, 23142, 24918]
-  0:
-    steer_angle: 0.7623884515791637
-    base_start: 0
-    base_end: 0
-    circle_start: 3600
-    circle_end: 7950
-    sweep_start: 3600
-    sweep_end: 0
-  1:
-    steer_angle: 2.5448741271022786
-    base_start: 0
-    base_end: 0
-    circle_start: 10470
-    circle_end: 14800
-    sweep_start: 10470
-    sweep_end: 0
+  circle: [[3600, 7950], [10470, 14800]]
+  sweep:  [[4100, 4750], [12000, 12450]]
 
 set_2:
-  mv_file: 'mocap/mocap_2022_01_28_2.txt'
-  jt_file: 'joint/joint_2022_01_28_2.csv'
-  mv_cali: [1987, 3108, 9182,  10042]
-  jt_cali: [1476, 4509, 22672, 24910]
-  0:
-    steer_angle: 0.7892331153671623
-    base_start: 0
-    base_end: 0
-    circle_start: 3370
-    circle_end: 8390
-    sweep_start: 3370
-    sweep_end: 0
-  1:
-    steer_angle: 2.534903251981022
-    base_start: 0
-    base_end: 0
-    circle_start: 10630
-    circle_end: 15000
-    sweep_start: 10630
-    sweep_end: 0
+  circle: [[3370, 8390], [10630, 15000]]
+  sweep:  [[3800, 4300], [12000, 12500]]
 
 set_3:
-  mv_file: 'mocap/mocap_2022_01_28_3.txt'
-  jt_file: 'joint/joint_2022_01_28_3.csv'
-  mv_cali: [1606, 2610, 8697,  9541]
-  jt_cali: [1866, 4506, 22739, 24911]
-  0:
-    steer_angle: 0.788849620170191
-    base_start: 0
-    base_end: 0
-    circle_start: 3300
-    circle_end: 7700
-    sweep_start: 3300
-    sweep_end: 3850
-  1:
-    steer_angle: 2.5356702423749646
-    base_start: 0
-    base_end: 0
-    circle_start: 10600
-    circle_end: 14410
-    sweep_start: 10600
-    sweep_end: 11100
+  circle: [[3300, 7700], [10600, 14410]]
+  sweep:  [[3900, 4550], [12130, 12550]]

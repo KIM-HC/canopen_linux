@@ -18,13 +18,15 @@ import yaml                                         #
 #####################################################
 
 class CalibratePCV():
-    def __init__(self, yaml_path='mocap_3.yaml'):
+    def __init__(self, yaml_path='mocap_4.yaml'):
         ## reads parameters, paths from yaml
         self.pkg_path = rospkg.RosPack().get_path('dyros_pcv_canopen')
         self.out_path = self.pkg_path + '/setting/output_' + yaml_path
 
         with open(self.pkg_path + '/setting/' + yaml_path, 'r') as stream:
             self.yam = yaml.safe_load(stream)
+        with open(self.pkg_path + '/setting/' + self.yam['basic_file'], 'r') as stream:
+            yam_bas = yaml.safe_load(stream)
 
         ## data made
         self.mv = [np.array([]),np.array([]),np.array([]),np.array([])]
@@ -42,33 +44,29 @@ class CalibratePCV():
         self.circle_end_tick = [[],[],[],[]]
         self.sweep_start_tick = [[],[],[],[]]
         self.sweep_end_tick = [[],[],[],[]]
-        self.base_start_tick = [[],[],[],[]]
-        self.base_end_tick = [[],[],[],[]]
         self.measured_steer_angle = [[],[],[],[]]
         self.jt_wheel_rot = [[],[],[],[]]
         self.steer_delta_theta = []
         self.mv_path = []
         self.jt_path = []
-        self.is_mocap = self.yam['is_mocap']
-        self.num_half_circle = self.yam['num_half_circle']
+        self.is_mocap = yam_bas['is_mocap']
+        self.num_section = self.yam['num_section']
         self.cali_time = []
         self.mv_cali = []
         self.jt_cali = []
 
         for module in range(4):
             set_name = 'set_' + str(module)
-            self.mv_path.append(self.pkg_path + '/data/' + self.yam[set_name]['mv_file'])
-            self.jt_path.append(self.pkg_path + '/data/' + self.yam[set_name]['jt_file'])
-            self.mv_cali.append(self.yam[set_name]['mv_cali'])
-            self.jt_cali.append(self.yam[set_name]['jt_cali'])
+            self.mv_path.append(self.pkg_path + '/data/' + yam_bas[set_name]['mv_file'])
+            self.jt_path.append(self.pkg_path + '/data/' + yam_bas[set_name]['jt_file'])
+            self.mv_cali.append(yam_bas[set_name]['mv_cali'])
+            self.jt_cali.append(yam_bas[set_name]['jt_cali'])
             for pt in range(2):
-                self.base_start_tick[module].append(self.yam[set_name][pt]['base_start'])
-                self.base_end_tick[module].append(self.yam[set_name][pt]['base_end'])
-                self.circle_start_tick[module].append(self.yam[set_name][pt]['circle_start'])
-                self.circle_end_tick[module].append(self.yam[set_name][pt]['circle_end'])
-                self.sweep_start_tick[module].append(self.yam[set_name][pt]['sweep_start'])
-                self.sweep_end_tick[module].append(self.yam[set_name][pt]['sweep_end'])
-                self.measured_steer_angle[module].append(self.yam[set_name][pt]['steer_angle'])
+                self.circle_start_tick[module].append(self.yam[set_name]['circle'][pt][0])
+                self.circle_end_tick[module].append(self.yam[set_name]['circle'][pt][1])
+                self.sweep_start_tick[module].append(self.yam[set_name]['sweep'][pt][0])
+                self.sweep_end_tick[module].append(self.yam[set_name]['sweep'][pt][1])
+                self.measured_steer_angle[module].append(yam_bas[set_name]['steer_angle'][pt])
                 ## [ 0 < steer_angle <= 2*pi ]
                 while(True):
                     if ((2.0 * math.pi) < self.measured_steer_angle[module][pt]):
@@ -87,11 +85,6 @@ class CalibratePCV():
 
         self.make_data()
         self.save_data()
-
-        ## TODO: find wheel radius using sweep distance
-        ## find distance between steer point of moving caster and robot_rot_point (dist_d)
-        ## use wheel_offset of moving caster and dist_d to find
-        ## distance between wheel of moving caster and stationary caster(robot_rot point)
 
         # self.plot_animation(module=3, pt=1, interval=1, plot_what='circle', plot_original=True)
         # self.plot_animation(module=1, pt=0)
@@ -120,8 +113,8 @@ class CalibratePCV():
                 cst = self.circle_start_tick[module][pt]
                 ced = self.circle_end_tick[module][pt]
                 if (self.is_mocap):
-                    half_len = int((ced - cst + 1) / self.num_half_circle)
-                    for cir in range(self.num_half_circle):
+                    half_len = int((ced - cst + 1) / self.num_section)
+                    for cir in range(self.num_section):
                         cur_st = cst + half_len * cir
                         cur_ed = cst + half_len * (cir + 1) - 1
                         bc = mv[cur_st, 1:4]
@@ -152,7 +145,7 @@ class CalibratePCV():
                         test_out = KMeans(n_clusters=1).fit(tmp_centers).cluster_centers_[0]
                         tmp_rot_point = tmp_rot_point + test_out
                     ## in robot center point
-                    self.robot_rot_point[module].append(tmp_rot_point / self.num_half_circle)
+                    self.robot_rot_point[module].append(tmp_rot_point / self.num_section)
 
                 else:
                     ## TODO: aruco
@@ -358,10 +351,7 @@ class CalibratePCV():
         set_name = 'set_' + str(module)
         st = self.circle_start_tick[module][pt]
         ed = self.circle_end_tick[module][pt]
-        if (plot_what == 'base'):
-            st = self.base_start_tick[module][pt]
-            ed = self.base_end_tick[module][pt]
-        elif (plot_what == 'sweep'):
+        if (plot_what == 'sweep'):
             st = self.sweep_start_tick[module][pt]
             ed = self.sweep_end_tick[module][pt]
 
@@ -407,10 +397,7 @@ class CalibratePCV():
         self.mv[module][:,0:3] = mv[:,1:4]
         st = self.circle_start_tick[module][pt]
         ed = self.circle_end_tick[module][pt]
-        if (plot_what == 'base'):
-            st = self.base_start_tick[module][pt]
-            ed = self.base_end_tick[module][pt]
-        elif (plot_what == 'sweep'):
+        if (plot_what == 'sweep'):
             st = self.sweep_start_tick[module][pt]
             ed = self.sweep_end_tick[module][pt]
         ax = fig.add_subplot(111)
