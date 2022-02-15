@@ -4,9 +4,10 @@ Kim Hyoung Cheol
 https://github.com/KIM-HC/dyros_pcv_canopen
 https://www.notion.so/kimms74/40dcc3a8ff054dc9994e5fc62de9bc30
 """
-import os.path
+import os
 import csv
 from tracemalloc import stop
+from turtle import speed
 import rospy
 import rospkg
 import time
@@ -821,8 +822,179 @@ class TestElmo():
         ## change drive mode
         self._rpdo_controlword(controlword=CtrlWord.ENABLE_OPERATION, node_id=test_set) ## Enable Operation command
 
+    @_try_except_decorator
+    def finish_work(self):
+        self._disconnect_device()
+        self.cannot_test_ = True
+
+
 
     ##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##
+
+    @_try_except_decorator
+    def perform_homing(self, test_set):
+        r = rospy.Rate(HZ)
+        tick = 0
+        work_done = False
+        work_each = []
+        for _ in range(len(test_set)):
+            work_each.append(False)
+
+        self._start_operation_mode(test_set=test_set, operation_mode=OPMode.HOMING)
+        for node_id_ in test_set:
+            self._rpdo_controlword(controlword=0b11111, node_id=node_id_, command='HOMING COMMAND') ## Operation command
+
+        while not rospy.is_shutdown():
+            self.network.sync.transmit()
+            self._pub_joint()
+            for i in range(len(test_set)):
+                statusword = bin(self.network[test_set[i]].tpdo['statusword'].raw)
+                try:
+                    statusword = statusword[2:]
+                    if statusword[-13] == '1':
+                        work_each[i] = True
+                except:
+                    pass
+
+            work_done = True
+            for work in work_each:
+                if work == False: work_done = False
+
+            tick += 1
+            if (tick % HZ == 0): self._read_and_print()
+            if work_done: break
+            r.sleep()
+
+        self._dprint('homing performing finished!')
+        self.network.sync.transmit()
+        self._read_and_print()
+        self._stop_operation()
+
+
+    @_try_except_decorator
+    def _cali_value_changer(self, mt_tor_s, mt_tor_r, stationary_set):
+        for moving_set in range(4):
+            if (moving_set == stationary_set):
+                pass
+            else:
+                self._control_command((moving_set + 1) * 2, 'target_torque', mt_tor_s)
+                self._control_command(moving_set * 2 + 1, 'target_torque', mt_tor_r)
+
+    @_try_except_decorator
+    def _cali_recorder(self, time, wr, hz=HZ):
+        half_hz_ = int(hz/2)
+        r = rospy.Rate(hz)
+        tick = 0
+        while tick < time * hz:
+            self.network.sync.transmit()
+            self._make_debug_data()
+            wr.writerow(self.cali_)
+            tick += 1
+            if (tick % half_hz_ == 0):
+                self._read_and_print()
+            r.sleep()
+
+    @_try_except_decorator
+    def _cali_set_steer_angle(self, stationary_set, target, wr, hz=HZ):
+        half_hz_ = int(hz/2)
+        r = rospy.Rate(hz)
+        stationary_steer = (stationary_set + 1) * 2
+
+        set_s, _ = self._read_set(stationary_set)
+        jt_pos_s = RAD2DEG * set_s[1]
+        search_vel = 500
+        if (target < jt_pos_s):
+            search_vel = -500
+        self._control_command(stationary_steer, 'target_velocity', search_vel)
+
+        tick = 0
+        changing_angle = True
+        while changing_angle:
+            self.network.sync.transmit()
+            self._make_debug_data()
+            wr.writerow(self.cali_)
+            tick += 1
+            if (tick % half_hz_ == 0):
+                self._dprint('changing angle')
+                self._read_and_print()
+            set_s, _ = self._read_set(stationary_set)
+            jt_pos_s = RAD2DEG * set_s[1]
+            if ((jt_pos_s < target and search_vel < 0) or (jt_pos_s > target and search_vel > 0)):
+                changing_angle = False
+                self._control_command(stationary_steer, 'target_velocity', 0.0)
+            r.sleep()
+
+    @_try_except_decorator
+    def _cali_single_set(self, stationary_set, target, st_tor_r, jt_tor_r, align_time, speed_up_time, play_time, wr, hz=HZ):
+        stationary_steer = (stationary_set + 1) * 2
+        stationary_roll = stationary_set * 2 + 1
+        ## set steer angle
+        self._cali_set_steer_angle(stationary_set=stationary_set,target=target,wr=wr)
+        ## freeze stationary_set
+        self._start_operation_mode(test_set=[stationary_roll], operation_mode=OPMode.PROFILED_VELOCITY)
+        self._control_command(stationary_roll, 'target_velocity', 0.0)
+        ## align other sets with hand by rotating it for now
+        os.system('spd-say "rotate by hand"')
+        self._cali_recorder(align_time, wr)
+        ## torque mode only for rolling
+        for node_id in range(1,9):
+            if (node_id == stationary_roll or node_id == stationary_steer):
+                pass
+            else:
+                self._start_operation_mode(test_set=[node_id], operation_mode=OPMode.PROFILED_TORQUE)
+        ## speed up
+        mt_tor_s, mt_tor_r = self._from_desired_torque_to_motor_torque(0, st_tor_r)
+        self._cali_value_changer(mt_tor_s, mt_tor_r, stationary_set)
+        self._cali_recorder(speed_up_time, wr)
+        ## stop for time sync
+        self._cali_value_changer(0.0, 0.0, stationary_set)
+        self._cali_recorder(speed_up_time * 2, wr)
+        ## speed up
+        mt_tor_s, mt_tor_r = self._from_desired_torque_to_motor_torque(0, st_tor_r)
+        self._cali_value_changer(mt_tor_s, mt_tor_r, stationary_set)
+        self._cali_recorder(speed_up_time, wr)
+        ## main rotation
+        mt_tor_s, mt_tor_r = self._from_desired_torque_to_motor_torque(0, jt_tor_r)
+        self._cali_value_changer(mt_tor_s, mt_tor_r, stationary_set)
+        self._cali_recorder(play_time, wr)
+
+    ## set: (0 ~ 3)
+    @_try_except_decorator
+    def test_calibration(self, stationary_set, target_1=45.0, target_2=225.0, st_tor_r=1300, jt_tor_r=960):
+        pkg_path = rospkg.RosPack().get_path('dyros_pcv_canopen') + '/data/joint'
+        ymd = time.strftime('_%Y_%m_%d_', time.localtime())
+        file_number = 0
+        while(os.path.isfile(pkg_path + ymd + str(file_number) + '.csv')):
+            file_number += 1
+        qdb_ = open(pkg_path + ymd + str(file_number) + '.csv', 'w')
+        wr = csv.writer(qdb_, delimiter='\t')
+
+        align_time = 10
+        speed_up_time = 4
+        play_time = 40
+        stationary_steer = (stationary_set + 1) * 2
+        stationary_roll = stationary_set * 2 + 1
+
+        ## perform homing
+        self.homing()
+        ## move to first position
+        self._start_operation_mode(test_set=[stationary_steer], operation_mode=OPMode.PROFILED_VELOCITY)
+        self.network.sync.transmit()
+        self._cali_single_set(stationary_set=stationary_set, target=target_1, wr=wr,
+                              align_time=align_time, speed_up_time=speed_up_time, play_time=play_time,
+                              st_tor_r=st_tor_r, jt_tor_r=jt_tor_r)
+        ## move to second position
+        self._rpdo_controlword(controlword=CtrlWord.DISABLE_OPERATION, node_id=stationary_roll)
+        self.network[stationary_roll].rpdo['modes_of_operation'].raw = -1
+        self.network[stationary_roll].rpdo[1].transmit()
+        self._cali_single_set(stationary_set=stationary_set, target=target_2, wr=wr,
+                              align_time=align_time, speed_up_time=speed_up_time, play_time=play_time,
+                              st_tor_r=st_tor_r, jt_tor_r=jt_tor_r)
+        ## stop calibration
+        self._cali_value_changer(0.0, 0.0, stationary_set)
+        qdb_.close()
+        self._stop_operation()
+        self._disconnect_device()
 
     @_try_except_decorator
     def test_single_elmo(self, test_id, operation_mode, value, play_time=10.0):
@@ -912,303 +1084,6 @@ class TestElmo():
         self._switch_on_mode(test_set)
         self._print_value(sec=play_time, iter=play_time*2)
         self._stop_operation()
-
-    @_try_except_decorator
-    def perform_homing(self, test_set):
-        r = rospy.Rate(HZ)
-        tick = 0
-        work_done = False
-        work_each = []
-        for _ in range(len(test_set)):
-            work_each.append(False)
-
-        self._start_operation_mode(test_set=test_set, operation_mode=OPMode.HOMING)
-        for node_id_ in test_set:
-            self._rpdo_controlword(controlword=0b11111, node_id=node_id_, command='HOMING COMMAND') ## Operation command
-
-        while not rospy.is_shutdown():
-            self.network.sync.transmit()
-            self._pub_joint()
-            for i in range(len(test_set)):
-                statusword = bin(self.network[test_set[i]].tpdo['statusword'].raw)
-                try:
-                    statusword = statusword[2:]
-                    if statusword[-13] == '1':
-                        work_each[i] = True
-                except:
-                    pass
-
-            work_done = True
-            for work in work_each:
-                if work == False: work_done = False
-
-            tick += 1
-            if (tick % HZ == 0): self._read_and_print()
-            if work_done: break
-            r.sleep()
-
-        self._dprint('homing performing finished!')
-        self.network.sync.transmit()
-        self._read_and_print()
-        self._stop_operation()
-
-    ## set: (0 ~ 3)
-    @_try_except_decorator
-    def test_calibration(self, stationary_set, target_1=45.0, target_2=225.0, st_tor_r=1300, jt_tor_r=960):
-        half_hz_ = int(HZ/2)
-        r = rospy.Rate(HZ)
-        pkg_path = rospkg.RosPack().get_path('dyros_pcv_canopen') + '/data/joint'
-        ymd = time.strftime('_%Y_%m_%d_', time.localtime())
-        file_number = 0
-        while(os.path.isfile(pkg_path + ymd + str(file_number) + '.csv')):
-            file_number += 1
-        qdb_ = open(pkg_path + ymd + str(file_number) + '.csv', 'w')
-        wr = csv.writer(qdb_, delimiter='\t')
-
-        align_time = 20
-        speed_up_time = 3
-        play_time = 30
-        stop_time = 20
-
-        self.homing()
-
-        ## change steering angle of stationary_set by hand for now
-        stationary_steer = (stationary_set + 1) * 2
-        stationary_roll = stationary_set * 2 + 1
-
-        self._start_operation_mode(test_set=[stationary_steer], operation_mode=OPMode.PROFILED_VELOCITY)
-        self.network.sync.transmit()
-        set_s, _ = self._read_set(stationary_set)
-        jt_pos_s = RAD2DEG * set_s[1]
-        search_vel = 500
-        if (target_1 < jt_pos_s):
-            search_vel = -500
-        self._control_command(stationary_steer, 'target_velocity', search_vel)
-
-        tick = 0
-        changing_angle = True
-        while changing_angle:
-            self.network.sync.transmit()
-            self._make_debug_data()
-            wr.writerow(self.cali_)
-            tick += 1
-            if (tick % half_hz_ == 0):
-                self._dprint('changing angle')
-                self._read_and_print()
-            set_s, _ = self._read_set(stationary_set)
-            jt_pos_s = RAD2DEG * set_s[1]
-            if ((jt_pos_s < target_1 and search_vel < 0) or (jt_pos_s > target_1 and search_vel > 0)):
-                changing_angle = False
-                self._control_command(stationary_steer, 'target_velocity', 0.0)
-            r.sleep()
-
-        self._dprint("\n======================\nSTEER SETTING FINISHED\n======================")
-
-        ## freeze stationary_set
-        self._start_operation_mode(test_set=[stationary_roll], operation_mode=OPMode.PROFILED_VELOCITY)
-        self._control_command(stationary_roll, 'target_velocity', 0.0)
-
-        ## align other sets with hand by rotating it for now
-        while tick < align_time * HZ:
-            self.network.sync.transmit()
-            self._make_debug_data()
-            wr.writerow(self.cali_)
-            tick += 1
-            if (tick % half_hz_ == 0):
-                self._dprint('rotate it by hand')
-                self._read_and_print()
-            r.sleep()
-
-        self._dprint("\n======================\nALIGN SETTING FINISHED\n======================")
-
-        ## move moving_sets' rolling while freeing steering
-        mt_tor_s, mt_tor_r = self._from_desired_torque_to_motor_torque(0, st_tor_r)
-        for node_id in range(1,9):
-            if (node_id == stationary_roll or node_id == stationary_steer):
-                pass
-            else:
-                self._start_operation_mode(test_set=[node_id], operation_mode=OPMode.PROFILED_TORQUE)
-
-        for moving_set in range(4):
-            if (moving_set == stationary_set):
-                pass
-            else:
-                self._control_command((moving_set + 1) * 2, 'target_torque', mt_tor_s)
-                self._control_command(moving_set * 2 + 1, 'target_torque', mt_tor_r)
-
-        tick = 0
-        while tick < speed_up_time * HZ:
-            self.network.sync.transmit()
-            self._make_debug_data()
-            wr.writerow(self.cali_)
-            tick += 1
-            if (tick % half_hz_ == 0):
-                self._dprint('speed up')
-                self._read_and_print()
-            r.sleep()
-
-        self._dprint("\n=====================\nSTARTING SMALL TORQUE\n=====================\n")
-        mt_tor_s, mt_tor_r = self._from_desired_torque_to_motor_torque(0, jt_tor_r)
-        for moving_set in range(4):
-            if (moving_set == stationary_set):
-                pass
-            else:
-                self._control_command((moving_set + 1) * 2, 'target_torque', mt_tor_s)
-                self._control_command(moving_set * 2 + 1, 'target_torque', mt_tor_r)
-
-        tick = 0
-        while tick < play_time * HZ:
-            self.network.sync.transmit()
-            self._make_debug_data()
-            wr.writerow(self.cali_)
-            tick += 1
-            if (tick % half_hz_ == 0):
-                self._dprint('rotating')
-                self._read_and_print()
-            r.sleep()
-        self._dprint("\n=========================\nCALIBRATION TEST FINISHED\n=========================\n")
-
-        for moving_set in range(4):
-            if (moving_set == stationary_set):
-                pass
-            else:
-                self._control_command((moving_set + 1) * 2, 'target_torque', 0.0)
-                self._control_command(moving_set * 2 + 1, 'target_torque', 0.0)
-
-        tick = 0
-        while tick < stop_time * HZ:
-            self.network.sync.transmit()
-            self._make_debug_data()
-            wr.writerow(self.cali_)
-            tick += 1
-            if (tick % half_hz_ == 0):
-                self._dprint('rotating')
-                self._read_and_print()
-            r.sleep()
-
-
-
-        self._rpdo_controlword(controlword=CtrlWord.DISABLE_OPERATION, node_id=stationary_roll)
-        self.network[stationary_roll].rpdo['modes_of_operation'].raw = -1
-        self.network[stationary_roll].rpdo[1].transmit()
-
-        set_s, _ = self._read_set(stationary_set)
-        jt_pos_s = RAD2DEG * set_s[1]
-        search_vel = 500
-        if (target_2 < jt_pos_s):
-            search_vel = -500
-        self._control_command(stationary_steer, 'target_velocity', search_vel)
-
-        tick = 0
-        changing_angle = True
-        while changing_angle:
-            self.network.sync.transmit()
-            self._make_debug_data()
-            wr.writerow(self.cali_)
-            tick += 1
-            if (tick % half_hz_ == 0):
-                self._dprint('changing angle')
-                self._read_and_print()
-            set_s, _ = self._read_set(stationary_set)
-            jt_pos_s = RAD2DEG * set_s[1]
-            if ((jt_pos_s < target_2 and search_vel < 0) or (jt_pos_s > target_2 and search_vel > 0)):
-                changing_angle = False
-                self._control_command(stationary_steer, 'target_velocity', 0.0)
-            r.sleep()
-
-        self._dprint("\n======================\nSTEER SETTING FINISHED\n======================")
-
-        ## freeze stationary_set
-        self._start_operation_mode(test_set=[stationary_roll], operation_mode=OPMode.PROFILED_VELOCITY)
-        self._control_command(stationary_roll, 'target_velocity', 0.0)
-
-        ## align other sets with hand by rotating it for now
-        while tick < align_time * HZ:
-            self.network.sync.transmit()
-            self._make_debug_data()
-            wr.writerow(self.cali_)
-            tick += 1
-            if (tick % half_hz_ == 0):
-                self._dprint('rotate it by hand')
-                self._read_and_print()
-            r.sleep()
-
-        self._dprint("\n======================\nALIGN SETTING FINISHED\n======================")
-
-        ## move moving_sets' rolling while freeing steering
-        mt_tor_s, mt_tor_r = self._from_desired_torque_to_motor_torque(0, st_tor_r)
-        for node_id in range(1,9):
-            if (node_id == stationary_roll or node_id == stationary_steer):
-                pass
-            else:
-                self._start_operation_mode(test_set=[node_id], operation_mode=OPMode.PROFILED_TORQUE)
-
-        for moving_set in range(4):
-            if (moving_set == stationary_set):
-                pass
-            else:
-                self._control_command((moving_set + 1) * 2, 'target_torque', mt_tor_s)
-                self._control_command(moving_set * 2 + 1, 'target_torque', mt_tor_r)
-
-        tick = 0
-        while tick < speed_up_time * HZ:
-            self.network.sync.transmit()
-            self._make_debug_data()
-            wr.writerow(self.cali_)
-            tick += 1
-            if (tick % half_hz_ == 0):
-                self._dprint('speed up')
-                self._read_and_print()
-            r.sleep()
-
-        self._dprint("\n=====================\nSTARTING SMALL TORQUE\n=====================\n")
-        mt_tor_s, mt_tor_r = self._from_desired_torque_to_motor_torque(0, jt_tor_r)
-        for moving_set in range(4):
-            if (moving_set == stationary_set):
-                pass
-            else:
-                self._control_command((moving_set + 1) * 2, 'target_torque', mt_tor_s)
-                self._control_command(moving_set * 2 + 1, 'target_torque', mt_tor_r)
-
-        tick = 0
-        while tick < play_time * HZ:
-            self.network.sync.transmit()
-            self._make_debug_data()
-            wr.writerow(self.cali_)
-            tick += 1
-            if (tick % half_hz_ == 0):
-                self._dprint('rotating')
-                self._read_and_print()
-            r.sleep()
-        self._dprint("\n=========================\nCALIBRATION TEST FINISHED\n=========================\n")
-
-        for moving_set in range(4):
-            if (moving_set == stationary_set):
-                pass
-            else:
-                self._control_command((moving_set + 1) * 2, 'target_torque', 0.0)
-                self._control_command(moving_set * 2 + 1, 'target_torque', 0.0)
-        tick = 0
-        while tick < stop_time * HZ:
-            self.network.sync.transmit()
-            self._make_debug_data()
-            wr.writerow(self.cali_)
-            tick += 1
-            if (tick % half_hz_ == 0):
-                self._dprint('rotating')
-                self._read_and_print()
-            r.sleep()
-
-        qdb_.close()
-        self._stop_operation()
-        self._disconnect_device()
-
-    @_try_except_decorator
-    def finish_work(self):
-        self._disconnect_device()
-        self.cannot_test_ = True
-
-
 
 if __name__ == "__main__":
     ## operation mode for elmo(402.pdf)
