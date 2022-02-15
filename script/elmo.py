@@ -960,7 +960,7 @@ class TestElmo():
 
     ## set: (0 ~ 3)
     @_try_except_decorator
-    def test_calibration(self, stationary_set, target_1=45.0, target_2=225.0, st_tor_r=1300, jt_tor_r=960):
+    def mocap_calibration(self, stationary_set, target_1=45.0, target_2=225.0, st_tor_r=1300, jt_tor_r=960):
         pkg_path = rospkg.RosPack().get_path('dyros_pcv_canopen') + '/data/joint'
         ymd = time.strftime('_%Y_%m_%d_', time.localtime())
         file_number = 0
