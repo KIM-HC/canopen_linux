@@ -6,8 +6,6 @@ https://www.notion.so/kimms74/40dcc3a8ff054dc9994e5fc62de9bc30
 """
 import os
 import csv
-from tracemalloc import stop
-from turtle import speed
 import rospy
 import rospkg
 import time
@@ -539,7 +537,7 @@ class TestElmo():
     def _read_and_print(self):
         current_time = 'time:%-6.2f'%((rospy.Time.now() - self.start_time).to_sec())
         homing_satus = ' | homing_satus:{0}'.format(self.ready4control_)
-        print_status = ' | print_motor_val:{0}'.format(self.print_motor_status_)
+        print_status = ' | print_motor_val:{0} | in DEGREE'.format(self.print_motor_status_)
         self._dprint(current_time + homing_satus + print_status)
         if (self.node_list == [1,2,3,4,5,6,7,8]):
             for i in range(4):
