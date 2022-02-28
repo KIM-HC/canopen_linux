@@ -18,7 +18,7 @@ import yaml                                         #
 #####################################################
 
 class CalibratePCV():
-    def __init__(self, yaml_path='mocap_4.yaml'):
+    def __init__(self, yaml_path='mocap_1.yaml'):
         ## reads parameters, paths from yaml
         self.pkg_path = rospkg.RosPack().get_path('dyros_pcv_canopen')
         self.out_path = self.pkg_path + '/setting/output_' + yaml_path
@@ -204,7 +204,7 @@ class CalibratePCV():
             ])
             self.robot_steer_point.append(self.robot_rot_point[module][0] + self.wheel_offset[module] * np.dot(rot_p1p2, uvec_p1p2))
 
-            ## angle_error
+            ## angle_error (measured(ESTIMATED) - calculated(TRUE))
             vec_p1ps = self.robot_steer_point[module] - self.robot_rot_point[module][0]
             vec_p2ps = self.robot_steer_point[module] - self.robot_rot_point[module][1]
             angle_error_1 = self.measured_steer_angle[module][0] - math.atan2(vec_p1ps[1], vec_p1ps[0])
@@ -261,9 +261,11 @@ class CalibratePCV():
             dumper[module] = {}
             dumper[module]['angle_error_rad'] = float(self.angle_error[module])
             dumper[module]['angle_error_deg'] = float(self.angle_error[module] * 180.0 / math.pi)
+            self.robot_steer_point[module] /= 1000.0
             dumper[module]['steer_point'] = self.robot_steer_point[module].tolist()
-            dumper[module]['wheel_offset'] = float(self.wheel_offset[module])
-            dumper[module]['wheel_radius'] = float(self.wheel_radius[module])
+            ## negative value for offset
+            dumper[module]['wheel_offset'] = float(self.wheel_offset[module]) / -1000.0
+            dumper[module]['wheel_radius'] = float(self.wheel_radius[module]) / 1000.0
         with open(self.out_path, 'w') as f:
             yaml.dump(dumper, f)
 
