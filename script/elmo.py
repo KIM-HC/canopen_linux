@@ -958,6 +958,7 @@ class TestElmo():
         mt_tor_s, mt_tor_r = self._from_desired_torque_to_motor_torque(0, jt_tor_r)
         self._cali_value_changer(mt_tor_s, mt_tor_r, stationary_set)
         self._cali_recorder(play_time, wr)
+        self._cali_value_changer(0.0, 0.0, stationary_set)
         wrt.write('main rotation end time: {0}\n'.format((rospy.Time.now() - self.start_time).to_sec()))
         wrt.write('\n')
 
@@ -1004,15 +1005,17 @@ class TestElmo():
         qdb_ = open(pkg_path + ymd + str(file_number) + '.csv', 'w')
         wr = csv.writer(qdb_, delimiter='\t')
 
-        align_time = 10
+        align_time = 7
         speed_up_time = 3
-        play_time = 40
+        play_time = 30
         stationary_steer = (stationary_set + 1) * 2
         stationary_roll = stationary_set * 2 + 1
 
         wrt.write('stationary_set: {0}\n'.format(stationary_set))
         wrt.write('target_1: {0}\n'.format(target_1))
         wrt.write('target_2: {0}\n'.format(target_2))
+
+        os.system('spd-say "starting calibration"')
 
         ## perform homing
         self.homing()

@@ -1,0 +1,17 @@
+stationary_set: 1
+target_1: 45.0
+target_2: 165.0
+================= TARGET 1 =================
+speed up for time sync start time: 29.52941084
+stop for time sync start time: 32.531039715
+speed up start time: 38.535565854
+main rotation start time: 41.538320065
+main rotation end time: 71.540287018
+
+================= TARGET 2 =================
+speed up for time sync start time: 85.437278033
+stop for time sync start time: 88.438740254
+speed up start time: 94.439711571
+main rotation start time: 97.440564394
+main rotation end time: 127.442994118
+
