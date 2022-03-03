@@ -908,6 +908,13 @@ class TestElmo():
     def _cali_mocap_set(self, stationary_set, target, st_tor_r, jt_tor_r, align_time, speed_up_time, play_time, is_second=False):
         stationary_steer = (stationary_set + 1) * 2
         stationary_roll = stationary_set * 2 + 1
+        ## torque mode only for rolling
+        for node_id in range(1,9):
+            if (node_id == stationary_roll or node_id == stationary_steer):
+                pass
+            else:
+                self._start_operation_mode(test_set=[node_id], operation_mode=OPMode.PROFILED_TORQUE)
+        self._cali_value_changer(0.0, 0.0, stationary_set)
         ## set steer angle
         if is_second:
             self._cali_recorder(speed_up_time)
@@ -924,15 +931,10 @@ class TestElmo():
             self._cali_value_changer(0.0, 0.0, stationary_set)
             self._cali_recorder(speed_up_time)
         else:
+            self._cali_value_changer(0.0, 0.0, stationary_set)
             os.system('spd-say "rotate by hand"')
             self._cali_recorder(align_time)
 
-        ## torque mode only for rolling
-        for node_id in range(1,9):
-            if (node_id == stationary_roll or node_id == stationary_steer):
-                pass
-            else:
-                self._start_operation_mode(test_set=[node_id], operation_mode=OPMode.PROFILED_TORQUE)
         ## speed up
         self.wrdb.write('speed up for time sync start time: {0}\n'.format((rospy.Time.now() - self.start_time).to_sec()))
         mt_tor_s, mt_tor_r = self._from_desired_torque_to_motor_torque(0, st_tor_r)
