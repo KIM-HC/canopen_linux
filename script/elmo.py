@@ -138,14 +138,14 @@ class TestElmo():
         self.db_position_ = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
         self.db_velocity_ = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
 
-        pkg_path = rospkg.RosPack().get_path('dyros_pcv_canopen') + '/data/joint_raw/joint'
+        pkg_path_joint = rospkg.RosPack().get_path('dyros_pcv_canopen') + '/data/joint_raw/joint'
         ymd = time.strftime('_%Y_%m_%d_', time.localtime())
         file_number = 0
-        while(os.path.isfile(pkg_path + ymd + str(file_number) + '.csv')):
+        while(os.path.isfile(pkg_path_joint + ymd + str(file_number) + '.csv')):
             file_number += 1
-        self.wrdb = open(pkg_path + '_debug' + ymd + str(file_number) + '.txt', 'w')
-        self.qd_open = open(pkg_path + '_vel' + ymd + str(file_number) + '.csv', 'w')
-        self.q_open = open(pkg_path + ymd + str(file_number) + '.csv', 'w')
+        self.wrdb = open(pkg_path_joint + '_debug' + ymd + str(file_number) + '.txt', 'w')
+        self.qd_open = open(pkg_path_joint + '_vel' + ymd + str(file_number) + '.csv', 'w')
+        self.q_open = open(pkg_path_joint + ymd + str(file_number) + '.csv', 'w')
         self.wrqd = csv.writer(self.qd_open, delimiter='\t')
         self.wrq = csv.writer(self.q_open, delimiter='\t')
 
