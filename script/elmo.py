@@ -130,8 +130,8 @@ class TestElmo():
         self._dprint('\n\n\n' + two_bar + two_bar)
         self._dprint(ptime_ + '  ==' + two_bar)
         self._dprint(two_bar + two_bar + '\n')
-        self.cali_ = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
-        self.cali_qd = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+        self.db_position_ = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+        self.db_velocity_ = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
 
         pkg_path = rospkg.RosPack().get_path('dyros_pcv_canopen') + '/data/joint_raw/joint'
         ymd = time.strftime('_%Y_%m_%d_', time.localtime())
@@ -598,6 +598,8 @@ class TestElmo():
         self._dprint('')
 
     def _pub_joint(self):
+        self.db_position_[0] = (rospy.Time.now() - self.start_time).to_sec()
+        self.db_velocity_[0] = (rospy.Time.now() - self.start_time).to_sec()
         self.js_.header.stamp = rospy.Time.now()
         for i in range(4):
             set_s, set_r = self._read_set(i)
@@ -609,8 +611,15 @@ class TestElmo():
             self.js_.position[set_r[0] - 1] = set_r[1]
             self.js_.velocity[set_r[0] - 1] = set_r[2]
             self.js_.effort[set_r[0] - 1] = set_r[3]
+            ## DEBUG ##
+            self.db_position_[set_r[0]] = set_r[1]
+            self.db_position_[set_s[0]] = set_s[1]
+            self.db_velocity_[set_r[0]] = set_r[2]
+            self.db_velocity_[set_s[0]] = set_s[2]
 
         self.joint_pub.publish(self.js_)
+        self.wrq.writerow(self.db_position_)
+        self.wrqd.writerow(self.db_velocity_)
 
     @_try_except_decorator
     def _joint_callback(self, data):
@@ -657,7 +666,6 @@ class TestElmo():
             self.network.sync.transmit()
             self.lock_.release()
             self._pub_joint()
-            self._make_debug_data()
             if ((rospy.Time.now() - self.sub_time ).to_sec() > 0.1):
                 self.lock_.acquire()
                 for node_id_ in [1,2,3,4,5,6,7,8]:
@@ -834,60 +842,7 @@ class TestElmo():
         self._disconnect_device()
         self.cannot_test_ = True
 
-    @_try_except_decorator
-    def _make_debug_data(self):
-        self.cali_[0] = (rospy.Time.now() - self.start_time).to_sec()
-        self.cali_qd[0] = (rospy.Time.now() - self.start_time).to_sec()
-        for i in range(4):
-            set_s, set_r = self._read_set(i)
-            self.cali_[2*i + 1] = set_r[1]
-            self.cali_[2*(i+1)] = set_s[1]
-            self.cali_qd[2*i + 1] = set_r[2]
-            self.cali_qd[2*(i+1)] = set_s[2]
-        self.wrq.writerow(self.cali_)
-        self.wrqd.writerow(self.cali_)
-
     ##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##
-
-    @_try_except_decorator
-    def perform_homing(self, test_set):
-        r = rospy.Rate(HZ)
-        tick = 0
-        work_done = False
-        work_each = []
-        for _ in range(len(test_set)):
-            work_each.append(False)
-
-        self._start_operation_mode(test_set=test_set, operation_mode=OPMode.HOMING)
-        for node_id_ in test_set:
-            self._rpdo_controlword(controlword=0b11111, node_id=node_id_, command='HOMING COMMAND') ## Operation command
-
-        while not rospy.is_shutdown():
-            self.network.sync.transmit()
-            self._pub_joint()
-            for i in range(len(test_set)):
-                statusword = bin(self.network[test_set[i]].tpdo['statusword'].raw)
-                try:
-                    statusword = statusword[2:]
-                    if statusword[-13] == '1':
-                        work_each[i] = True
-                except:
-                    pass
-
-            work_done = True
-            for work in work_each:
-                if work == False: work_done = False
-
-            tick += 1
-            if (tick % HZ == 0): self._read_and_print()
-            if work_done: break
-            r.sleep()
-
-        self._dprint('homing performing finished!')
-        self.network.sync.transmit()
-        self._read_and_print()
-        self._stop_operation()
-
 
     @_try_except_decorator
     def _cali_value_changer(self, mt_tor_s, mt_tor_r, stationary_set):
@@ -905,7 +860,7 @@ class TestElmo():
         tick = 0
         while tick < time * HZ:
             self.network.sync.transmit()
-            self._make_debug_data()
+            self._pub_joint()
             tick += 1
             if (tick % half_hz_ == 0):
                 self._read_and_print()
@@ -928,7 +883,7 @@ class TestElmo():
         changing_angle = True
         while changing_angle:
             self.network.sync.transmit()
-            self._make_debug_data()
+            self._pub_joint()
             tick += 1
             if (tick % half_hz_ == 0):
                 self._dprint('changing angle')
@@ -1156,12 +1111,51 @@ class TestElmo():
         self._stop_operation()
 
     @_try_except_decorator
-    def test_homing(self, test_set, play_time=15.0):
+    def test_homing_version_1(self, test_set, play_time=15.0):
         self._start_operation_mode(test_set=test_set, operation_mode=OPMode.HOMING)
         for node_id_ in test_set:
             self._rpdo_controlword(controlword=0b11111, node_id=node_id_, command='HOMING COMMAND') ## Operation command
 
         self._print_value(sec=play_time, iter=play_time*2)
+        self._stop_operation()
+
+    @_try_except_decorator
+    def test_homing_version_2(self, test_set):
+        r = rospy.Rate(HZ)
+        tick = 0
+        work_done = False
+        work_each = []
+        for _ in range(len(test_set)):
+            work_each.append(False)
+
+        self._start_operation_mode(test_set=test_set, operation_mode=OPMode.HOMING)
+        for node_id_ in test_set:
+            self._rpdo_controlword(controlword=0b11111, node_id=node_id_, command='HOMING COMMAND') ## Operation command
+
+        while not rospy.is_shutdown():
+            self.network.sync.transmit()
+            self._pub_joint()
+            for i in range(len(test_set)):
+                statusword = bin(self.network[test_set[i]].tpdo['statusword'].raw)
+                try:
+                    statusword = statusword[2:]
+                    if statusword[-13] == '1':
+                        work_each[i] = True
+                except:
+                    pass
+
+            work_done = True
+            for work in work_each:
+                if work == False: work_done = False
+
+            tick += 1
+            if (tick % HZ == 0): self._read_and_print()
+            if work_done: break
+            r.sleep()
+
+        self._dprint('homing performing finished!')
+        self.network.sync.transmit()
+        self._read_and_print()
         self._stop_operation()
 
     @_try_except_decorator
@@ -1196,11 +1190,11 @@ if __name__ == "__main__":
     # tt_.test_odd_and_even_elmo(test_set=[7,8], operation_mode=OPMode.PROFILED_TORQUE, value=120)
     # tt_.test_odd_and_even_elmo(test_set=node_set, operation_mode=OPMode.PROFILED_VELOCITY, value=1000)
 
-    # tt_.test_homing(test_set=[2,4,6,8], play_time=10)
-    # tt_.test_homing(test_set=[1,3,5,7], play_time=10)
+    # tt_.test_homing_version_1(test_set=[2,4,6,8], play_time=10)
+    # tt_.test_homing_version_1(test_set=[1,3,5,7], play_time=10)
 
-    # tt_.perform_homing(test_set=[2,4,6,8])
-    # tt_.perform_homing(test_set=[1,3,5,7])
+    # tt_.test_homing_version_2(test_set=[2,4,6,8])
+    # tt_.test_homing_version_2(test_set=[1,3,5,7])
 
     # tt_.set_free_wheel(test_set=node_set, play_time=5)
 
