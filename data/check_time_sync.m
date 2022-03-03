@@ -1,7 +1,7 @@
 clc
 clear all
 
-%% load data
+% load data
 % Time center:X center:Y center:Z x_axis:X x_axis:Y x_axis:Z y_axis:X y_axis:Y y_axis:Z
 mv = load("mocap/mocap_2022_01_28_0.txt");
 jt = load("joint/joint_2022_01_28_0.csv");
@@ -40,7 +40,7 @@ while (jt(jt_ed,1) < compare_end_time)
     jt_ed = jt_ed + 1;
 end
 
-%% plot path
+% plot path
 figure(14)
 mv1 = subplot(2,1,1);
 plot(mv(mv_st:mv_ed,1),mv(mv_st:mv_ed,2), 'LineWidth',1)

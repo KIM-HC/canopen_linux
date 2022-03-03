@@ -28,3 +28,18 @@
     mv_file: 'mocap/mocap_2022_01_28_3.txt'
     jt_file: 'joint/joint_2022_01_28_3.csv'
 
+## mocap 2022-02-28
+-
+  set_0:
+    mv_file: 'mocap/mocap_2022_02_28_0.txt'
+    jt_file: 'joint/joint_2022_02_28_0.csv'
+  set_1:
+    mv_file: 'mocap/mocap_2022_02_28_1.txt'
+    jt_file: 'joint/joint_2022_02_28_1.csv'
+  set_2:
+    mv_file: 'mocap/mocap_2022_02_28_2.txt'
+    jt_file: 'joint/joint_2022_02_28_2.csv'
+  set_3:
+    mv_file: 'mocap/mocap_2022_02_28_3.txt'
+    jt_file: 'joint/joint_2022_02_28_3.csv'
+

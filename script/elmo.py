@@ -131,6 +131,18 @@ class TestElmo():
         self._dprint(ptime_ + '  ==' + two_bar)
         self._dprint(two_bar + two_bar + '\n')
         self.cali_ = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+        self.cali_qd = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+
+        pkg_path = rospkg.RosPack().get_path('dyros_pcv_canopen') + '/data/joint_raw/joint'
+        ymd = time.strftime('_%Y_%m_%d_', time.localtime())
+        file_number = 0
+        while(os.path.isfile(pkg_path + ymd + str(file_number) + '.csv')):
+            file_number += 1
+        self.wrdb = open(pkg_path + '_debug' + ymd + str(file_number) + '.txt', 'w')
+        self.qd_open = open(pkg_path + '_vel' + ymd + str(file_number) + '.csv', 'w')
+        self.q_open = open(pkg_path + ymd + str(file_number) + '.csv', 'w')
+        self.wrqd = csv.writer(self.qd_open, delimiter='\t')
+        self.wrq = csv.writer(self.q_open, delimiter='\t')
 
         ## -----------------------------------------------------------------
         ## path for eds file of elmo
@@ -634,16 +646,18 @@ class TestElmo():
                 for node_id_ in [1,2,3,4,5,6,7,8]:
                     self._control_command(node_id_, control_target, 0.0)
                 self._start_operation_mode(test_set=[1,2,3,4,5,6,7,8], operation_mode=operation_mode)
+                self.wrdb.write('homing end time: {0}\n'.format((rospy.Time.now() - self.start_time).to_sec()))
 
             if (self.stop_call_):
                 self._stop_operation()
-                self._disconnect_device()
+                self.finish_work()
                 return
 
             self.lock_.acquire()
             self.network.sync.transmit()
             self.lock_.release()
             self._pub_joint()
+            self._make_debug_data()
             if ((rospy.Time.now() - self.sub_time ).to_sec() > 0.1):
                 self.lock_.acquire()
                 for node_id_ in [1,2,3,4,5,6,7,8]:
@@ -814,17 +828,24 @@ class TestElmo():
 
     @_try_except_decorator
     def finish_work(self):
+        self.wrdb.close()
+        self.qd_open.close()
+        self.q_open.close()
         self._disconnect_device()
         self.cannot_test_ = True
 
     @_try_except_decorator
     def _make_debug_data(self):
         self.cali_[0] = (rospy.Time.now() - self.start_time).to_sec()
+        self.cali_qd[0] = (rospy.Time.now() - self.start_time).to_sec()
         for i in range(4):
             set_s, set_r = self._read_set(i)
             self.cali_[2*i + 1] = set_r[1]
             self.cali_[2*(i+1)] = set_s[1]
-
+            self.cali_qd[2*i + 1] = set_r[2]
+            self.cali_qd[2*(i+1)] = set_s[2]
+        self.wrq.writerow(self.cali_)
+        self.wrqd.writerow(self.cali_)
 
     ##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##--##
 
@@ -878,21 +899,20 @@ class TestElmo():
                 self._control_command(moving_set * 2 + 1, 'target_torque', mt_tor_r)
 
     @_try_except_decorator
-    def _cali_recorder(self, time, wr):
+    def _cali_recorder(self, time):
         half_hz_ = int(HZ/2)
         r = rospy.Rate(HZ)
         tick = 0
         while tick < time * HZ:
             self.network.sync.transmit()
             self._make_debug_data()
-            wr.writerow(self.cali_)
             tick += 1
             if (tick % half_hz_ == 0):
                 self._read_and_print()
             r.sleep()
 
     @_try_except_decorator
-    def _cali_set_steer_angle(self, stationary_set, target, wr):
+    def _cali_set_steer_angle(self, stationary_set, target):
         half_hz_ = int(HZ/2)
         r = rospy.Rate(HZ)
         stationary_steer = (stationary_set + 1) * 2
@@ -909,7 +929,6 @@ class TestElmo():
         while changing_angle:
             self.network.sync.transmit()
             self._make_debug_data()
-            wr.writerow(self.cali_)
             tick += 1
             if (tick % half_hz_ == 0):
                 self._dprint('changing angle')
@@ -922,17 +941,17 @@ class TestElmo():
             r.sleep()
 
     @_try_except_decorator
-    def _cali_mocap_set(self, stationary_set, target, st_tor_r, jt_tor_r, align_time, speed_up_time, play_time, wr, wrt):
+    def _cali_mocap_set(self, stationary_set, target, st_tor_r, jt_tor_r, align_time, speed_up_time, play_time):
         stationary_steer = (stationary_set + 1) * 2
         stationary_roll = stationary_set * 2 + 1
         ## set steer angle
-        self._cali_set_steer_angle(stationary_set=stationary_set,target=target,wr=wr)
+        self._cali_set_steer_angle(stationary_set=stationary_set,target=target)
         ## freeze stationary_set
         self._start_operation_mode(test_set=[stationary_roll], operation_mode=OPMode.PROFILED_VELOCITY)
         self._control_command(stationary_roll, 'target_velocity', 0.0)
         ## align other sets with hand by rotating it for now
         os.system('spd-say "rotate by hand"')
-        self._cali_recorder(align_time, wr)
+        self._cali_recorder(align_time)
         ## torque mode only for rolling
         for node_id in range(1,9):
             if (node_id == stationary_roll or node_id == stationary_steer):
@@ -940,40 +959,40 @@ class TestElmo():
             else:
                 self._start_operation_mode(test_set=[node_id], operation_mode=OPMode.PROFILED_TORQUE)
         ## speed up
-        wrt.write('speed up for time sync start time: {0}\n'.format((rospy.Time.now() - self.start_time).to_sec()))
+        self.wrdb.write('speed up for time sync start time: {0}\n'.format((rospy.Time.now() - self.start_time).to_sec()))
         mt_tor_s, mt_tor_r = self._from_desired_torque_to_motor_torque(0, st_tor_r)
         self._cali_value_changer(mt_tor_s, mt_tor_r, stationary_set)
-        self._cali_recorder(speed_up_time, wr)
+        self._cali_recorder(speed_up_time)
         ## stop for time sync
-        wrt.write('stop for time sync start time: {0}\n'.format((rospy.Time.now() - self.start_time).to_sec()))
+        self.wrdb.write('stop for time sync start time: {0}\n'.format((rospy.Time.now() - self.start_time).to_sec()))
         self._cali_value_changer(0.0, 0.0, stationary_set)
-        self._cali_recorder(speed_up_time * 2, wr)
+        self._cali_recorder(speed_up_time)
         ## speed up
-        wrt.write('speed up start time: {0}\n'.format((rospy.Time.now() - self.start_time).to_sec()))
+        self.wrdb.write('speed up start time: {0}\n'.format((rospy.Time.now() - self.start_time).to_sec()))
         mt_tor_s, mt_tor_r = self._from_desired_torque_to_motor_torque(0, st_tor_r)
         self._cali_value_changer(mt_tor_s, mt_tor_r, stationary_set)
-        self._cali_recorder(speed_up_time, wr)
+        self._cali_recorder(speed_up_time)
         ## main rotation
-        wrt.write('main rotation start time: {0}\n'.format((rospy.Time.now() - self.start_time).to_sec()))
+        self.wrdb.write('main rotation start time: {0}\n'.format((rospy.Time.now() - self.start_time).to_sec()))
         mt_tor_s, mt_tor_r = self._from_desired_torque_to_motor_torque(0, jt_tor_r)
         self._cali_value_changer(mt_tor_s, mt_tor_r, stationary_set)
-        self._cali_recorder(play_time, wr)
+        self._cali_recorder(play_time)
         self._cali_value_changer(0.0, 0.0, stationary_set)
-        wrt.write('main rotation end time: {0}\n'.format((rospy.Time.now() - self.start_time).to_sec()))
-        wrt.write('\n')
+        self.wrdb.write('main rotation end time: {0}\n'.format((rospy.Time.now() - self.start_time).to_sec()))
+        self.wrdb.write('\n')
 
     @_try_except_decorator
-    def _cali_aruco_set(self, stationary_set, target, st_tor_r, align_time, speed_up_time, wr, wrt):
+    def _cali_aruco_set(self, stationary_set, target, st_tor_r, align_time, speed_up_time):
         stationary_steer = (stationary_set + 1) * 2
         stationary_roll = stationary_set * 2 + 1
         ## set steer angle
-        self._cali_set_steer_angle(stationary_set=stationary_set,target=target,wr=wr)
+        self._cali_set_steer_angle(stationary_set=stationary_set,target=target)
         ## freeze stationary_set
         self._start_operation_mode(test_set=[stationary_roll], operation_mode=OPMode.PROFILED_VELOCITY)
         self._control_command(stationary_roll, 'target_velocity', 0.0)
         ## align other sets with hand by rotating it for now
         os.system('spd-say "rotate by hand"')
-        self._cali_recorder(align_time, wr)
+        self._cali_recorder(align_time)
         ## torque mode only for rolling
         for node_id in range(1,9):
             if (node_id == stationary_roll or node_id == stationary_steer):
@@ -985,35 +1004,26 @@ class TestElmo():
             ## speed up
             mt_tor_s, mt_tor_r = self._from_desired_torque_to_motor_torque(0, st_tor_r)
             self._cali_value_changer(mt_tor_s, mt_tor_r, stationary_set)
-            self._cali_recorder(speed_up_time, wr)
-            wrt.write('{0} detect start time: {1}\n'.format(i+1,(rospy.Time.now() - self.start_time).to_sec()))
+            self._cali_recorder(speed_up_time)
+            self.wrdb.write('{0} detect start time: {1}\n'.format(i+1,(rospy.Time.now() - self.start_time).to_sec()))
             ## stop for aruco detect
             self._cali_value_changer(0.0, 0.0, stationary_set)
-            self._cali_recorder(align_time, wr)
-            wrt.write('{0} detect end time:   {1}\n'.format(i+1,(rospy.Time.now() - self.start_time).to_sec()))
-        wrt.write('\n')
+            self._cali_recorder(align_time)
+            self.wrdb.write('{0} detect end time:   {1}\n'.format(i+1,(rospy.Time.now() - self.start_time).to_sec()))
+        self.wrdb.write('\n')
 
     ## set: (0 ~ 3)
     @_try_except_decorator
     def mocap_calibration(self, stationary_set, target_1=45.0, target_2=225.0, st_tor_r=1300, jt_tor_r=960):
-        pkg_path = rospkg.RosPack().get_path('dyros_pcv_canopen') + '/data/joint'
-        ymd = time.strftime('_%Y_%m_%d_', time.localtime())
-        file_number = 0
-        while(os.path.isfile(pkg_path + ymd + str(file_number) + '.csv')):
-            file_number += 1
-        wrt = open(pkg_path + '_debug' + ymd + str(file_number) + '.txt', 'w')
-        qdb_ = open(pkg_path + ymd + str(file_number) + '.csv', 'w')
-        wr = csv.writer(qdb_, delimiter='\t')
-
         align_time = 7
         speed_up_time = 3
-        play_time = 30
+        play_time = 45
         stationary_steer = (stationary_set + 1) * 2
         stationary_roll = stationary_set * 2 + 1
 
-        wrt.write('stationary_set: {0}\n'.format(stationary_set))
-        wrt.write('target_1: {0}\n'.format(target_1))
-        wrt.write('target_2: {0}\n'.format(target_2))
+        self.wrdb.write('stationary_set: {0}\n'.format(stationary_set))
+        self.wrdb.write('target_1: {0}\n'.format(target_1))
+        self.wrdb.write('target_2: {0}\n'.format(target_2))
 
         os.system('spd-say "starting calibration"')
 
@@ -1022,64 +1032,53 @@ class TestElmo():
         ## move to first position
         self._start_operation_mode(test_set=[stationary_steer], operation_mode=OPMode.PROFILED_VELOCITY)
         self.network.sync.transmit()
-        wrt.write('================= TARGET 1 =================\n')
-        self._cali_mocap_set(stationary_set=stationary_set, target=target_1, wr=wr, wrt=wrt,
+        self.wrdb.write('================= TARGET 1 =================\n')
+        self._cali_mocap_set(stationary_set=stationary_set, target=target_1,
                               align_time=align_time, speed_up_time=speed_up_time, play_time=play_time,
                               st_tor_r=st_tor_r, jt_tor_r=jt_tor_r)
         ## move to second position
         self._rpdo_controlword(controlword=CtrlWord.DISABLE_OPERATION, node_id=stationary_roll)
         self.network[stationary_roll].rpdo['modes_of_operation'].raw = -1
         self.network[stationary_roll].rpdo[1].transmit()
-        wrt.write('================= TARGET 2 =================\n')
-        self._cali_mocap_set(stationary_set=stationary_set, target=target_2, wr=wr, wrt=wrt,
+        self.wrdb.write('================= TARGET 2 =================\n')
+        self._cali_mocap_set(stationary_set=stationary_set, target=target_2,
                               align_time=align_time, speed_up_time=speed_up_time, play_time=play_time,
                               st_tor_r=st_tor_r, jt_tor_r=jt_tor_r)
         ## stop calibration
         self._cali_value_changer(0.0, 0.0, stationary_set)
-        qdb_.close()
         self._stop_operation()
         self._disconnect_device()
 
     ## set: (0 ~ 3)
     @_try_except_decorator
     def aruco_calibration(self, stationary_set, target_1=45.0, target_2=225.0, st_tor_r=1300, jt_tor_r=960):
-        pkg_path = rospkg.RosPack().get_path('dyros_pcv_canopen') + '/data/joint'
-        ymd = time.strftime('_%Y_%m_%d_', time.localtime())
-        file_number = 0
-        while(os.path.isfile(pkg_path + ymd + str(file_number) + '.csv')):
-            file_number += 1
-        wrt = open(pkg_path + '_debug' + ymd + str(file_number) + '.txt', 'w')
-        qdb_ = open(pkg_path + ymd + str(file_number) + '.csv', 'w')
-        wr = csv.writer(qdb_, delimiter='\t')
-
         align_time = 10
         speed_up_time = 3
         play_time = 40
         stationary_steer = (stationary_set + 1) * 2
         stationary_roll = stationary_set * 2 + 1
 
-        wrt.write('stationary_set: {0}\n'.format(stationary_set))
-        wrt.write('target_1: {0}\n'.format(target_1))
-        wrt.write('target_2: {0}\n'.format(target_2))
+        self.wrdb.write('stationary_set: {0}\n'.format(stationary_set))
+        self.wrdb.write('target_1: {0}\n'.format(target_1))
+        self.wrdb.write('target_2: {0}\n'.format(target_2))
 
         ## perform homing
         self.homing()
         ## move to first position
         self._start_operation_mode(test_set=[stationary_steer], operation_mode=OPMode.PROFILED_VELOCITY)
         self.network.sync.transmit()
-        wrt.write('================= TARGET 1 =================\n')
-        self._cali_aruco_set(stationary_set=stationary_set, target=target_1, wr=wr, wrt=wrt,
+        self.wrdb.write('================= TARGET 1 =================\n')
+        self._cali_aruco_set(stationary_set=stationary_set, target=target_1,
                               align_time=align_time, speed_up_time=speed_up_time, st_tor_r=st_tor_r)
         ## move to second position
         self._rpdo_controlword(controlword=CtrlWord.DISABLE_OPERATION, node_id=stationary_roll)
         self.network[stationary_roll].rpdo['modes_of_operation'].raw = -1
         self.network[stationary_roll].rpdo[1].transmit()
-        wrt.write('================= TARGET 2 =================\n')
-        self._cali_aruco_set(stationary_set=stationary_set, target=target_2, wr=wr, wrt=wrt,
+        self.wrdb.write('================= TARGET 2 =================\n')
+        self._cali_aruco_set(stationary_set=stationary_set, target=target_2,
                               align_time=align_time, speed_up_time=speed_up_time, st_tor_r=st_tor_r)
         ## stop calibration
         self._cali_value_changer(0.0, 0.0, stationary_set)
-        qdb_.close()
         self._stop_operation()
         self._disconnect_device()
 

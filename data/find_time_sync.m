@@ -1,12 +1,13 @@
 clc
 clear all
 
-%% load data
+% load data
 % Time center:X center:Y center:Z x_axis:X x_axis:Y x_axis:Z y_axis:X y_axis:Y y_axis:Z
-mv = load("mocap/mocap_2022_01_28_1.txt");
-jt = load("joint/joint_2022_01_28_1.csv");
+date_num = "2022_01_28_0";
+mv = load("mocap/mocap_" + date_num + ".txt");
+jt = load("joint/joint_" + date_num + ".csv");
 
-%% plot path
+% plot path
 figure(11)
 subplot(1,1,1)
 plot(mv(:,2), 'LineWidth',1)
@@ -14,7 +15,7 @@ hold on
 plot(mv(:,3), 'LineWidth',1)
 hold off
 legend({'X','Y'},'Location','best')
-title('mv data')
+title('mocap data')
 grid on
 
 figure(12)
