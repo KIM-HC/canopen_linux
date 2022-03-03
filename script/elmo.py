@@ -119,6 +119,10 @@ class TestElmo():
         self.ready4control_ = False
         self.print_motor_status_ = False
         self.is_disconnected_ = False
+        self.is_cali_move_mode_ = False
+        self.is_cali_mode_changed_ = True
+        self.is_cali_speed_compensation = False
+        self.is_cali_auto_second_steer = False
 
         ## -----------------------------------------------------------------
         ## for debug
@@ -637,6 +641,10 @@ class TestElmo():
                 receive_call = data.position[0]
                 # if (receive_call == 3.0): self.homing_call_ = True
                 if (receive_call == 9.0): self.stop_call_ = True
+                elif (receive_call == 95.0):
+                    if self.is_cali_move_mode_: self.is_cali_move_mode_ = False
+                    else: self.is_cali_move_mode_ = True
+                    self.is_cali_mode_changed_ = True
             self.lock_.release()
 
     @_try_except_decorator
@@ -897,17 +905,28 @@ class TestElmo():
             r.sleep()
 
     @_try_except_decorator
-    def _cali_mocap_set(self, stationary_set, target, st_tor_r, jt_tor_r, align_time, speed_up_time, play_time):
+    def _cali_mocap_set(self, stationary_set, target, st_tor_r, jt_tor_r, align_time, speed_up_time, play_time, is_second=False):
         stationary_steer = (stationary_set + 1) * 2
         stationary_roll = stationary_set * 2 + 1
         ## set steer angle
+        if is_second:
+            self._cali_recorder(speed_up_time)
+            mt_tor_s, mt_tor_r = self._from_desired_torque_to_motor_torque(0, jt_tor_r)
+            self._cali_value_changer(mt_tor_s, mt_tor_r, stationary_set)
+
         self._cali_set_steer_angle(stationary_set=stationary_set,target=target)
         ## freeze stationary_set
         self._start_operation_mode(test_set=[stationary_roll], operation_mode=OPMode.PROFILED_VELOCITY)
         self._control_command(stationary_roll, 'target_velocity', 0.0)
         ## align other sets with hand by rotating it for now
-        os.system('spd-say "rotate by hand"')
-        self._cali_recorder(align_time)
+        if is_second:
+            self._cali_recorder(speed_up_time / 2.0)
+            self._cali_value_changer(0.0, 0.0, stationary_set)
+            self._cali_recorder(speed_up_time)
+        else:
+            os.system('spd-say "rotate by hand"')
+            self._cali_recorder(align_time)
+
         ## torque mode only for rolling
         for node_id in range(1,9):
             if (node_id == stationary_roll or node_id == stationary_steer):
@@ -997,13 +1016,75 @@ class TestElmo():
         self.network[stationary_roll].rpdo['modes_of_operation'].raw = -1
         self.network[stationary_roll].rpdo[1].transmit()
         self.wrdb.write('================= TARGET 2 =================\n')
-        self._cali_mocap_set(stationary_set=stationary_set, target=target_2,
+        auto_cali = False
+        if self.is_cali_auto_second_steer: auto_cali = True
+        self._cali_mocap_set(stationary_set=stationary_set, target=target_2, is_second=auto_cali,
                               align_time=align_time, speed_up_time=speed_up_time, play_time=play_time,
                               st_tor_r=st_tor_r, jt_tor_r=jt_tor_r)
         ## stop calibration
         self._cali_value_changer(0.0, 0.0, stationary_set)
         self._stop_operation()
         self._disconnect_device()
+
+    ## set: (0 ~ 3)
+    @_try_except_decorator
+    def find_flat_ground(self, stationary_set, target_1=45.0, jt_tor_r=960):
+        speed_up_time = 3
+        r = rospy.Rate(HZ)
+        half_hz_ = int(HZ/2)
+        stationary_steer = (stationary_set + 1) * 2
+        stationary_roll = stationary_set * 2 + 1
+
+        ## perform homing
+        self.homing()
+        ## move stationary steer
+        self._start_operation_mode(test_set=[stationary_steer], operation_mode=OPMode.PROFILED_VELOCITY)
+        self._cali_set_steer_angle(stationary_set=stationary_set,target=target_1)
+
+        ## torque mode only for rolling
+        for node_id in range(1,9):
+            if (node_id == stationary_roll or node_id == stationary_steer):
+                pass
+            else:
+                self._start_operation_mode(test_set=[node_id], operation_mode=OPMode.PROFILED_TORQUE)
+        self._cali_value_changer(0.0, 0.0, stationary_set)
+
+        tick = 0
+        os.system('spd-say "find flat ground"')
+        while not rospy.is_shutdown():
+            ## IF CHANGE MODE CALL RECEIVED
+            if self.is_cali_mode_changed_:
+                self.is_cali_mode_changed_ = False
+
+                ## MOVE MODE: TURN OFF STATIONARY ROLL, SET 0 TORQUE
+                if self.is_cali_move_mode_:
+                    os.system('spd-say "find flat ground"')
+                    self._rpdo_controlword(controlword=CtrlWord.DISABLE_OPERATION, node_id=stationary_roll)
+                    self.network[stationary_roll].rpdo['modes_of_operation'].raw = -1
+                    self.network[stationary_roll].rpdo[1].transmit()
+                    self._cali_value_changer(0.0, 0.0, stationary_set)
+
+                ## ROTATE MODE: TURN ON STATIONARY ROLL AND SET 0 VELOCITY, SET TARGET_1 TORQUE
+                else:
+                    self._start_operation_mode(test_set=[stationary_roll], operation_mode=OPMode.PROFILED_VELOCITY)
+                    self._control_command(stationary_roll, 'target_velocity', 0.0)
+                    os.system('spd-say "rotate by hand"')
+                    self._cali_recorder(speed_up_time)
+                    mt_tor_s, mt_tor_r = self._from_desired_torque_to_motor_torque(0, jt_tor_r)
+                    self._cali_value_changer(mt_tor_s, mt_tor_r, stationary_set)
+
+            self.network.sync.transmit()
+            self._pub_joint()
+            tick += 1
+            if (tick % half_hz_ == 0):
+                self._read_and_print()
+            r.sleep()
+
+        ## STOP
+        self._cali_value_changer(0.0, 0.0, stationary_set)
+        self._stop_operation()
+        self._disconnect_device()
+
 
     ## set: (0 ~ 3)
     @_try_except_decorator

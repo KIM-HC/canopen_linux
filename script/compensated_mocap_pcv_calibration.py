@@ -11,13 +11,10 @@ if __name__ == "__main__":
     ## joint Torque value : in_air - 600    on_ground - 1200
     node_set = [1,2,3,4,5,6,7,8]
     tt_ = elmo.TestElmo(node_list=node_set)
-
-
+    tt_.is_cali_speed_compensation = True
 
     sset = 3
     tt_.is_cali_auto_second_steer = True
-
-
 
     tt_.mocap_calibration(stationary_set=sset, target_1=45.0, target_2=45.0 + 120, st_tor_r=1300, jt_tor_r=960)
 

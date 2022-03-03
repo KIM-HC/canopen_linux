@@ -21,7 +21,7 @@ import yaml                                         # READ SETTING DATA
 #####################################################
 
 class CalibratePCV():
-    def __init__(self, yaml_path='mocap_33.yaml'):
+    def __init__(self, yaml_path='mocap_36.yaml'):
         ## reads parameters, paths from yaml
         print('=== {0} ==='.format(yaml_path))
         self.pkg_path = rospkg.RosPack().get_path('dyros_pcv_canopen')
@@ -36,18 +36,19 @@ class CalibratePCV():
         self.debug_rot_point = True
         self.debug_rot_point_section = False
         self.debug_rot_point_plot = False
+        self.debug_rot_point_each_frame = False
         self.debug_axis_generation = False
         self.debug_rot_point_reult = [[[],[]],[[],[]],[[],[]],[[],[]]]
         self.plt_pos_map = ['y','r','g','b','k','m','k']
         self.plt_ori_map = ['s','^','o','*','+','x','2']
         self.test_error = 0             ## for 3 points on circle
         self.error_checker = 0.000001   ## for 3 points on circle
-        self.plot_num = 1               ## for plotting ellipse fitting
-        self.plot_num_p = 1             ## for plotting center in each point's frame - one section
+        self.plot_num = 0               ## for plotting ellipse fitting
+        self.plot_num_p = 0             ## for plotting center in each point's frame - one section
         self.plot_num_pp = 1            ## for plotting center in each point's frame - all section
-        self.debug_wheel_radius = False
+        self.debug_wheel_radius = True
         self.debug_wheel_radius_result = [[],[],[],[]]
-        self.debug_wheel_radius_list = [20.0, 30.0, 40.0, 60.0, 90.0, 100.0, 110.0, 120.0, 130.0, 140.0, 150.0, 160.0]
+        self.debug_wheel_radius_list = [90.0, 100.0, 110.0, 120.0, 130.0, 140.0, 150.0, 160.0]
 
         ## METHODS
         ## 0: 3 points on circle
@@ -158,7 +159,9 @@ class CalibratePCV():
             ## find reference transform for each rotation -> transform each data with each reference transform
             for pt in range(2):
                 tmp_rot_point = np.zeros(2)
+                tmp_rot_point2 = np.zeros(2)
                 tmp_rot_point_list = []
+                tmp_rot_point2_list = []
                 tmp_centers_list = []
                 ## find circle start and end tick(index) from time
                 cst = 0
@@ -253,53 +256,65 @@ class CalibratePCV():
                                 plt.legend()
                                 plt.show()
                             test_out = np.array(center)
-                        
-                        if self.debug_rot_point:
-                            print('=== set_' + str(module) + ' pt_' + str(pt+1) + ' section_' + str(cir+1) + ' center test ===')
-                            self.debug_rot_point_reult[module][pt].append([])
-                            og_p = np.dot(self.btf_from_idx(module=module, index=cur_st), np.array([test_out[0], test_out[1], 0.0, 1.0]))
-                            for pp in range(cur_st, cur_ed + 1):
-                                btf_inv_new = self.btf_inv_from_idx(module=module, index=pp)
-                                new_p = np.dot(btf_inv_new, og_p)
-                                self.debug_rot_point_reult[module][pt][cir].append(new_p[0:2])
-                            self.debug_rot_point_reult[module][pt][cir] = np.array(self.debug_rot_point_reult[module][pt][cir])
-                            print('center x diff: {0}'.format(abs(np.max(self.debug_rot_point_reult[module][pt][cir][:,0])-np.min(self.debug_rot_point_reult[module][pt][cir][:,0]))))
-                            print('center y diff: {0}'.format(abs(np.max(self.debug_rot_point_reult[module][pt][cir][:,1])-np.min(self.debug_rot_point_reult[module][pt][cir][:,1]))))
 
-                            if self.plot_num_p > 0:
-                                self.plot_num_p -= 1
-                                tmp_fig3 = plt.figure(17)
-                                tmp_ax = tmp_fig3.add_subplot(111)
-                                tmp_ax.plot(self.debug_rot_point_reult[module][pt][cir][:,0], self.debug_rot_point_reult[module][pt][cir][:,0],
-                                            'ro', markersize=3)
-                                tmp_ax.set_title('set_' + str(module) + ' pt_' + str(pt+1) + ' section_' + str(cir+1) + ' center')
-                                tmp_ax.axis('equal')
-                                plt.show()
+                        ## TODO: FOR TESTING
+                        self.debug_rot_point_reult[module][pt].append([])
+                        og_p = np.dot(self.btf_from_idx(module=module, index=cur_st), np.array([test_out[0], test_out[1], 0.0, 1.0]))
+                        for pp in range(cur_st, cur_ed + 1):
+                            btf_inv_new = self.btf_inv_from_idx(module=module, index=pp)
+                            new_p = np.dot(btf_inv_new, og_p)
+                            self.debug_rot_point_reult[module][pt][cir].append(new_p[0:2])
+                        self.debug_rot_point_reult[module][pt][cir] = np.array(self.debug_rot_point_reult[module][pt][cir])
+                        test_out2 = KMeans(n_clusters=1).fit(self.debug_rot_point_reult[module][pt][cir]).cluster_centers_[0]
+
+                        if self.debug_rot_point:
+                            if self.debug_rot_point_each_frame:
+                                print('===[EACH FRAME] set_' + str(module) + ' pt_' + str(pt+1) + ' section_' + str(cir+1) + ' center ===')
+                                print('center x diff: {0}'.format(abs(np.max(self.debug_rot_point_reult[module][pt][cir][:,0])-np.min(self.debug_rot_point_reult[module][pt][cir][:,0]))))
+                                print('center y diff: {0}'.format(abs(np.max(self.debug_rot_point_reult[module][pt][cir][:,1])-np.min(self.debug_rot_point_reult[module][pt][cir][:,1]))))
+
+                                if self.plot_num_p > 0 and self.debug_rot_point_plot:
+                                    self.plot_num_p -= 1
+                                    tmp_fig3 = plt.figure(17)
+                                    tmp_ax = tmp_fig3.add_subplot(111)
+                                    tmp_ax.plot(self.debug_rot_point_reult[module][pt][cir][:,0], self.debug_rot_point_reult[module][pt][cir][:,1],
+                                                'ro', markersize=3)
+                                    title_name = 'set_' + str(module) + ' pt_' + str(pt+1) + ' section_' + str(cir+1) + ' center'
+                                    tmp_ax.set_title(title_name)
+                                    tmp_ax.axis('equal')
+                                    self.animate_this(self.debug_rot_point_reult[module][pt][cir],
+                                                    idx_st=0, idx_ed=np.size(self.debug_rot_point_reult[module][pt][cir], 0)-1,
+                                                    title=title_name)
+                                    plt.show()
 
                         tmp_rot_point = tmp_rot_point + test_out
+                        tmp_rot_point2 = tmp_rot_point2 + test_out2
                         if self.debug_rot_point:
                             tmp_centers_list.append(tmp_centers)
                             tmp_rot_point_list.append(test_out)
+                            tmp_rot_point2_list.append(test_out2)
                             if self.debug_rot_point_section:
                                 print('=== set_' + str(module) + ' pt_' + str(pt+1) + ' section_' + str(cir+1) + ' center test ===')
                                 print('center x diff: {0}'.format(abs(np.max(tmp_centers[:,0])-np.min(tmp_centers[:,0]))))
                                 print('center y diff: {0}'.format(abs(np.max(tmp_centers[:,1])-np.min(tmp_centers[:,1]))))
-                    if self.plot_num_pp > 0:
-                        self.plot_num_pp -= 1
-                        tmp_fig3 = plt.figure(17)
-                        tmp_ax = tmp_fig3.add_subplot(111)
-                        for cir in range(self.num_section):
-                            tmp_ax.plot(self.debug_rot_point_reult[module][pt][cir][:,0], self.debug_rot_point_reult[module][pt][cir][:,0],
-                                        self.plt_pos_map[cir%5]+'o', markersize=1)
-                        tmp_ax.set_title('set_' + str(module) + ' pt_' + str(pt+1) + ' centers')
-                        tmp_ax.axis('equal')
-                        plt.show()
+                            if self.debug_rot_point_each_frame and self.debug_rot_point_plot and self.plot_num_pp > 0:
+                                self.plot_num_pp -= 1
+                                tmp_fig3 = plt.figure(17)
+                                tmp_ax = tmp_fig3.add_subplot(111)
+                                for cir in range(self.num_section):
+                                    tmp_ax.plot(self.debug_rot_point_reult[module][pt][cir][:,0], self.debug_rot_point_reult[module][pt][cir][:,1],
+                                                self.plt_pos_map[cir%5]+'o', markersize=1)
+                                tmp_ax.set_title('set_' + str(module) + ' pt_' + str(pt+1) + ' centers')
+                                tmp_ax.axis('equal')
+                                plt.show()
 
                     ## in robot center point
-                    self.robot_rot_point[module].append(tmp_rot_point / self.num_section)
+                    # self.robot_rot_point[module].append(tmp_rot_point / self.num_section)
+                    self.robot_rot_point[module].append(tmp_rot_point2 / self.num_section)
 
                     if self.debug_rot_point:
                         tmp_rot_point_list = np.array(tmp_rot_point_list)
+                        tmp_rot_point2_list = np.array(tmp_rot_point2_list)
                         print('=== set_' + str(module) + ' pt_' + str(pt+1) + ' center test ===')
                         print('center x diff: {0}'.format(abs(np.max(tmp_rot_point_list[:,0])-np.min(tmp_rot_point_list[:,0]))))
                         print('center y diff: {0}'.format(abs(np.max(tmp_rot_point_list[:,1])-np.min(tmp_rot_point_list[:,1]))))
@@ -330,7 +345,6 @@ class CalibratePCV():
                                 tmp_ax.set_title('set_' + str(module) + ' pt_' + str(pt+1) + ' center')
                                 tmp_ax.axis('equal')
                             elif self.section_plot_method == 1:
-                                tmp_rot_point_list = np.array(tmp_rot_point_list)
                                 tmp_fig = plt.figure(10)
                                 tmp_ax = tmp_fig.add_subplot(111)
 
@@ -339,9 +353,11 @@ class CalibratePCV():
                                         tmp_ax.plot(tmp_centers_list[cir][:,0], tmp_centers_list[cir][:,1],
                                                     self.plt_pos_map[cir%5+1]+'o', markersize=1)
                                     tmp_ax.plot(tmp_rot_point_list[cir,0], tmp_rot_point_list[cir,1],
-                                                self.plt_pos_map[cir%5+1]+'x', markersize=3)
+                                                self.plt_pos_map[cir%5+1]+'x', markersize=6)
+                                    tmp_ax.plot(tmp_rot_point2_list[cir,0], tmp_rot_point2_list[cir,1],
+                                                self.plt_pos_map[cir%5+1]+'s', markersize=6)
 
-                                tmp_ax.plot(self.robot_rot_point[module][pt][0], self.robot_rot_point[module][pt][1], 'y*', markersize=5)
+                                tmp_ax.plot(self.robot_rot_point[module][pt][0], self.robot_rot_point[module][pt][1], 'y*', markersize=9)
                                 tmp_ax.set_title('set_' + str(module) + ' pt_' + str(pt+1) + ' center')
                                 tmp_ax.axis('equal')
                             plt.show()
@@ -455,7 +471,8 @@ class CalibratePCV():
                                 calc_rad = dist_w * robot_rot_db[module][pt] / wheel_rot_db[module][pt][mv_set]
                                 self.debug_wheel_radius_result[mv_set][swp] += calc_rad / 6.0
 
-
+        test_mid_point = (self.robot_steer_point[0] + self.robot_steer_point[1] + self.robot_steer_point[2] + self.robot_steer_point[3]) / 4.0
+        print('test mid point: {0}'.format(test_mid_point))
         for module in range(4):
             print('=======\nset_{0}'.format(module))
             print('cali time: {0}'.format(self.cali_time[module]))
@@ -463,12 +480,16 @@ class CalibratePCV():
                 print('P_{0}: {1}'.format(pt+1, self.robot_rot_point[module][pt]))
             print('offset b: {0}'.format(self.wheel_offset[module]))
             print('steer point: {0}'.format(self.robot_steer_point[module]))
+            print('steer point_averaged: {0}'.format(self.robot_steer_point[module] - test_mid_point))
             print('angle error beta: {0} (radian)'.format(self.angle_error[module]))
             print('angle error beta: {0} (degree)'.format(self.angle_error[module] * 180.0 / math.pi))
             print('wheel radius: {0}'.format(self.wheel_radius[module]))
             if self.debug_wheel_radius:
+                full_ = len(self.debug_wheel_radius_list)
+                half_ = int(full_/2)
                 print('==== sweep angle test ====')
-                print('== min max diff: {0}'.format(np.max(self.debug_wheel_radius_result[module]) - np.min(self.debug_wheel_radius_result[module])))
+                print('== min max diff:   {0}'.format(np.max(self.debug_wheel_radius_result[module]) - np.min(self.debug_wheel_radius_result[module])))
+                print('== {1} ~ {2} diff: {0}'.format(np.max(self.debug_wheel_radius_result[module][half_:full_]) - np.min(self.debug_wheel_radius_result[module][half_:full_]),half_,full_))
                 for swp in range(len(self.debug_wheel_radius_list)):
                     print('{0} DEG: {1}'.format(self.debug_wheel_radius_list[swp], self.debug_wheel_radius_result[module][swp]))
 
@@ -722,6 +743,34 @@ class CalibratePCV():
         ax.set_aspect('equal')
         ax.set_title(set_name)
         ani = FuncAnimation(fig, update, frames=np.linspace(st, ed, ed - st + 1), interval=interval, repeat=True)
+        plt.show()
+
+    def animate_this(self, data_2d, idx_st, idx_ed, title='animation'):
+        fig = plt.figure(95)
+        ax = fig.add_subplot(111)
+        x, y = [], []
+        line, = ax.plot([],[],'bo', linewidth=1.0, markersize=2)
+
+        def update(idx):
+            idx = int(idx)
+            if idx == idx_st:
+                x.clear()
+                y.clear()
+            x.append(data_2d[idx,0])
+            y.append(data_2d[idx,1])
+            line.set_data(x, y)
+            return line
+
+        max_x, min_x = np.max(data_2d[idx_st:idx_ed+1,0]), np.min(data_2d[idx_st:idx_ed+1,0])
+        max_y, min_y = np.max(data_2d[idx_st:idx_ed+1,1]), np.min(data_2d[idx_st:idx_ed+1,1])
+        mid_x, mid_y = (max_x + min_x) / 2.0, (max_y + min_y) / 2.0
+        len_x, len_y = abs(max_x - min_x), abs(max_y - min_y)
+        len_val = max(len_x, len_y)
+        ax.set_xlim(mid_x - len_val * 0.55, mid_x + len_val * 0.55)
+        ax.set_ylim(mid_y - len_val * 0.55, mid_y + len_val * 0.55)
+        ax.set_aspect('equal')
+        ax.set_title(title)
+        ani = FuncAnimation(fig, update, frames=np.linspace(idx_st, idx_ed, idx_ed - idx_st + 1), interval=1, repeat=True)
         plt.show()
 
     ## this function is from https://stackoverflow.com/a/31364297
