@@ -32,7 +32,8 @@ CNT2REV2 = 1.0 / REV2CNT2
 RAD2CNT2 = REV2CNT2 / (2.0 * math.pi)
 CNT2RAD2 = (2.0 * math.pi) / REV2CNT2
 
-C2R = [CNT2RAD, CNT2RAD, CNT2RAD, CNT2RAD2]
+##      SET0-R   SET0-S   SET1-R   SET1-S   SET2-R   SET2-S   SET3-R    SET3-S
+C2R = [CNT2RAD, CNT2RAD, CNT2RAD, CNT2RAD, CNT2RAD, CNT2RAD, CNT2RAD2, CNT2RAD2]
 
 ##### GEAR RATIO ####
 NS = 4.0            ## steer , 96.0/24.0
@@ -532,11 +533,11 @@ class TestElmo():
         mt_vel_r = self.network[id_r].tpdo['velocity_actual_value'].raw
         mt_tor_r = self.network[id_r].tpdo['torque_actual_value'].raw  ## testing
 
-        jt_pos_s = C2R[set_num] *  NI00 * mt_pos_s
-        jt_pos_r = C2R[set_num] * (NI10 * mt_pos_s + NI11 * mt_pos_r)
+        jt_pos_s = C2R[id_s - 1] *  NI00 * mt_pos_s
+        jt_pos_r = C2R[id_r - 1] * (NI10 * mt_pos_s + NI11 * mt_pos_r)
 
-        jt_vel_s = C2R[set_num] *  NI00 * mt_vel_s
-        jt_vel_r = C2R[set_num] * (NI10 * mt_vel_s + NI11 * mt_vel_r)
+        jt_vel_s = C2R[id_s - 1] *  NI00 * mt_vel_s
+        jt_vel_r = C2R[id_r - 1] * (NI10 * mt_vel_s + NI11 * mt_vel_r)
 
         jt_tor_s = N00 * mt_tor_s + N10 * mt_tor_r
         jt_tor_r =                  N11 * mt_tor_r
