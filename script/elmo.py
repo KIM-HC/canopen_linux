@@ -908,16 +908,9 @@ class TestElmo():
     def _cali_mocap_set(self, stationary_set, target, st_tor_r, jt_tor_r, align_time, speed_up_time, play_time, is_second=False):
         stationary_steer = (stationary_set + 1) * 2
         stationary_roll = stationary_set * 2 + 1
-        ## torque mode only for rolling
-        for node_id in range(1,9):
-            if (node_id == stationary_roll or node_id == stationary_steer):
-                pass
-            else:
-                self._start_operation_mode(test_set=[node_id], operation_mode=OPMode.PROFILED_TORQUE)
-        self._cali_value_changer(0.0, 0.0, stationary_set)
         ## set steer angle
         if is_second:
-            self._cali_recorder(speed_up_time)
+            self._cali_recorder(2.0)
             mt_tor_s, mt_tor_r = self._from_desired_torque_to_motor_torque(0, jt_tor_r)
             self._cali_value_changer(mt_tor_s, mt_tor_r, stationary_set)
 
@@ -927,7 +920,7 @@ class TestElmo():
         self._control_command(stationary_roll, 'target_velocity', 0.0)
         ## align other sets with hand by rotating it for now
         if is_second:
-            self._cali_recorder(speed_up_time / 2.0)
+            self._cali_recorder(1.0)
             self._cali_value_changer(0.0, 0.0, stationary_set)
             self._cali_recorder(speed_up_time)
         else:
@@ -992,7 +985,7 @@ class TestElmo():
     ## set: (0 ~ 3)
     @_try_except_decorator
     def mocap_calibration(self, stationary_set, target_1=45.0, target_2=225.0, st_tor_r=1300, jt_tor_r=960):
-        align_time = 7
+        align_time = 4
         speed_up_time = 3
         play_time = 45
         stationary_steer = (stationary_set + 1) * 2
@@ -1006,6 +999,13 @@ class TestElmo():
 
         ## perform homing
         self.homing()
+        ## torque mode only for rolling
+        for node_id in range(1,9):
+            if (node_id == stationary_roll or node_id == stationary_steer):
+                pass
+            else:
+                self._start_operation_mode(test_set=[node_id], operation_mode=OPMode.PROFILED_TORQUE)
+        self._cali_value_changer(0.0, 0.0, stationary_set)
         ## move to first position
         self._start_operation_mode(test_set=[stationary_steer], operation_mode=OPMode.PROFILED_VELOCITY)
         self.network.sync.transmit()

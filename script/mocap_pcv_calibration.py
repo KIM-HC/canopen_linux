@@ -14,7 +14,7 @@ if __name__ == "__main__":
 
 
 
-    sset = 3
+    sset = 0
     tt_.is_cali_auto_second_steer = True
 
 
