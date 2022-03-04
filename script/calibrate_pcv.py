@@ -35,17 +35,18 @@ class CalibratePCV():
         ## DEBUGGING
         self.debug_rot_point = True
         self.debug_rot_point_section = False
-        self.debug_rot_point_plot = False
-        self.debug_rot_point_each_frame = False
+        self.debug_rot_point_plot = True
+        self.debug_rot_point_each_frame = True
         self.debug_axis_generation = False
         self.debug_rot_point_reult = [[[],[]],[[],[]],[[],[]],[[],[]]]
-        self.plt_pos_map = ['y','r','g','b','k','m','k']
+        self.plt_pos_map = ['y','r','g','b','c','m','k']
         self.plt_ori_map = ['s','^','o','*','+','x','2']
         self.test_error = 0             ## for 3 points on circle
         self.error_checker = 0.000001   ## for 3 points on circle
-        self.plot_num = 0               ## for plotting ellipse fitting
+        self.plot_num_ellipse_fit = 1   ## for plotting ellipse fitting
         self.plot_num_p = 0             ## for plotting center in each point's frame - one section
-        self.plot_num_pp = 1            ## for plotting center in each point's frame - all section
+        self.plot_num_pp = 0            ## for plotting center in each point's frame - all section
+        self.plot_num_centers = 4       ## for plotting all center information
         self.debug_wheel_radius = True
         self.debug_wheel_radius_result = [[],[],[],[]]
         self.debug_wheel_radius_list = [90.0, 100.0, 110.0, 120.0, 130.0, 140.0, 150.0, 160.0]
@@ -230,13 +231,13 @@ class CalibratePCV():
                             # print('+height index: {0}'.format(idxs[2]))
                             # print('-height index: {0}'.format(idxs[3]))
 
-                            if (self.plot_num > 0):
+                            if self.plot_num_ellipse_fit > 0 and self.debug_rot_point_plot:
                                 print('center: {0}, {1}'.format(center[0],center[1]))
                                 print('width: {0}'.format(width))
                                 print('height: {0}'.format(height))
                                 print('phi: {0} RAD'.format(phi))
                                 print('phi: {0} DEG'.format(phi * 180.0 / math.pi))
-                                self.plot_num -= 1
+                                self.plot_num_ellipse_fit -= 1
                                 fig = plt.figure(figsize=(6,6))
                                 ax = fig.add_subplot(111)
                                 ax.axis('equal')
@@ -297,16 +298,16 @@ class CalibratePCV():
                                 print('=== set_' + str(module) + ' pt_' + str(pt+1) + ' section_' + str(cir+1) + ' center test ===')
                                 print('center x diff: {0}'.format(abs(np.max(tmp_centers[:,0])-np.min(tmp_centers[:,0]))))
                                 print('center y diff: {0}'.format(abs(np.max(tmp_centers[:,1])-np.min(tmp_centers[:,1]))))
-                            if self.debug_rot_point_each_frame and self.debug_rot_point_plot and self.plot_num_pp > 0:
-                                self.plot_num_pp -= 1
-                                tmp_fig3 = plt.figure(17)
-                                tmp_ax = tmp_fig3.add_subplot(111)
-                                for cir in range(self.num_section):
-                                    tmp_ax.plot(self.debug_rot_point_reult[module][pt][cir][:,0], self.debug_rot_point_reult[module][pt][cir][:,1],
-                                                self.plt_pos_map[cir%5]+'o', markersize=1)
-                                tmp_ax.set_title('set_' + str(module) + ' pt_' + str(pt+1) + ' centers')
-                                tmp_ax.axis('equal')
-                                plt.show()
+                    if self.plot_num_pp > 0 and self.debug_rot_point_each_frame and self.debug_rot_point_plot and self.debug_rot_point:
+                        self.plot_num_pp -= 1
+                        tmp_fig3 = plt.figure(17)
+                        tmp_ax = tmp_fig3.add_subplot(111)
+                        for cir in range(self.num_section):
+                            tmp_ax.plot(self.debug_rot_point_reult[module][pt][cir][:,0], self.debug_rot_point_reult[module][pt][cir][:,1],
+                                        self.plt_pos_map[cir%7]+'o', markersize=1)
+                        tmp_ax.set_title('set_' + str(module) + ' pt_' + str(pt+1) + ' centers')
+                        tmp_ax.axis('equal')
+                        plt.show()
 
                     ## in robot center point
                     # self.robot_rot_point[module].append(tmp_rot_point / self.num_section)
@@ -318,7 +319,8 @@ class CalibratePCV():
                         print('=== set_' + str(module) + ' pt_' + str(pt+1) + ' center test ===')
                         print('center x diff: {0}'.format(abs(np.max(tmp_rot_point_list[:,0])-np.min(tmp_rot_point_list[:,0]))))
                         print('center y diff: {0}'.format(abs(np.max(tmp_rot_point_list[:,1])-np.min(tmp_rot_point_list[:,1]))))
-                        if self.debug_rot_point_plot:
+                        if self.plot_num_centers > 0 and self.debug_rot_point_plot:
+                            self.plot_num_centers -= 1
                             if self.section_plot_method == 0:
                                 if self.debug_rot_point_section:
                                     tmp_fig1 = plt.figure(13)
@@ -353,9 +355,9 @@ class CalibratePCV():
                                         tmp_ax.plot(tmp_centers_list[cir][:,0], tmp_centers_list[cir][:,1],
                                                     self.plt_pos_map[cir%5+1]+'o', markersize=1)
                                     tmp_ax.plot(tmp_rot_point_list[cir,0], tmp_rot_point_list[cir,1],
-                                                self.plt_pos_map[cir%5+1]+'x', markersize=6)
+                                                self.plt_pos_map[cir%6+1]+'x', markersize=6)
                                     tmp_ax.plot(tmp_rot_point2_list[cir,0], tmp_rot_point2_list[cir,1],
-                                                self.plt_pos_map[cir%5+1]+'s', markersize=6)
+                                                self.plt_pos_map[cir%6+1]+'s', markersize=6)
 
                                 tmp_ax.plot(self.robot_rot_point[module][pt][0], self.robot_rot_point[module][pt][1], 'y*', markersize=9)
                                 tmp_ax.set_title('set_' + str(module) + ' pt_' + str(pt+1) + ' center')

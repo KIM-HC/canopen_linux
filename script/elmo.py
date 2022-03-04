@@ -123,6 +123,10 @@ class TestElmo():
         self.is_cali_mode_changed_ = True
         self.is_cali_speed_compensation = False
         self.is_cali_auto_second_steer = False
+        self.is_cali_constant_torque = True
+        self.cali_target_speed = 0.0
+        self.cali_gain_kp = 0.0
+        self.cali_lpf_sensitivity = 0.0
 
         ## -----------------------------------------------------------------
         ## for debug
@@ -937,16 +941,32 @@ class TestElmo():
         self.wrdb.write('stop for time sync start time: {0}\n'.format((rospy.Time.now() - self.start_time).to_sec()))
         self._cali_value_changer(0.0, 0.0, stationary_set)
         self._cali_recorder(speed_up_time)
-        ## speed up
-        self.wrdb.write('speed up start time: {0}\n'.format((rospy.Time.now() - self.start_time).to_sec()))
-        mt_tor_s, mt_tor_r = self._from_desired_torque_to_motor_torque(0, st_tor_r)
-        self._cali_value_changer(mt_tor_s, mt_tor_r, stationary_set)
-        self._cali_recorder(speed_up_time)
         ## main rotation
         self.wrdb.write('main rotation start time: {0}\n'.format((rospy.Time.now() - self.start_time).to_sec()))
-        mt_tor_s, mt_tor_r = self._from_desired_torque_to_motor_torque(0, jt_tor_r)
-        self._cali_value_changer(mt_tor_s, mt_tor_r, stationary_set)
-        self._cali_recorder(play_time)
+        if self.is_cali_constant_torque:
+            mt_tor_s, mt_tor_r = self._from_desired_torque_to_motor_torque(0, jt_tor_r)
+            self._cali_value_changer(mt_tor_s, mt_tor_r, stationary_set)
+            self._cali_recorder(play_time)
+        else:
+            ## P controller
+            half_hz_ = int(HZ/2)
+            r = rospy.Rate(HZ)
+            tick = 0
+            refer_set = int((stationary_set + 2) % 4)
+            lpf = self.db_velocity_[(refer_set+1) * 2]
+            a = self.cali_lpf_sensitivity
+            while tick < play_time * HZ:
+                self.network.sync.transmit()
+                self._pub_joint()
+                lpf = a*lpf + (1-a)*self.db_velocity_[(refer_set+1) * 2]
+                target_torque = jt_tor_r + self.cali_gain_kp * (self.cali_target_speed - lpf)
+                mt_tor_s, mt_tor_r = self._from_desired_torque_to_motor_torque(0, target_torque)
+                self._cali_value_changer(mt_tor_s, mt_tor_r, stationary_set)
+                tick += 1
+                if (tick % half_hz_ == 0):
+                    self._read_and_print()
+                r.sleep()
+
         self._cali_value_changer(0.0, 0.0, stationary_set)
         self.wrdb.write('main rotation end time: {0}\n'.format((rospy.Time.now() - self.start_time).to_sec()))
         self.wrdb.write('\n')
@@ -1039,17 +1059,14 @@ class TestElmo():
 
         ## perform homing
         self.homing()
+        ## torque mode only for rolling
+        for node_id in range(1,9):
+            if (node_id == stationary_roll or node_id == stationary_steer): pass
+            else: self._start_operation_mode(test_set=[node_id], operation_mode=OPMode.PROFILED_TORQUE)
+        self._cali_value_changer(0.0, 0.0, stationary_set)
         ## move stationary steer
         self._start_operation_mode(test_set=[stationary_steer], operation_mode=OPMode.PROFILED_VELOCITY)
         self._cali_set_steer_angle(stationary_set=stationary_set,target=target_1)
-
-        ## torque mode only for rolling
-        for node_id in range(1,9):
-            if (node_id == stationary_roll or node_id == stationary_steer):
-                pass
-            else:
-                self._start_operation_mode(test_set=[node_id], operation_mode=OPMode.PROFILED_TORQUE)
-        self._cali_value_changer(0.0, 0.0, stationary_set)
 
         tick = 0
         os.system('spd-say "find flat ground"')
@@ -1060,7 +1077,7 @@ class TestElmo():
 
                 ## MOVE MODE: TURN OFF STATIONARY ROLL, SET 0 TORQUE
                 if self.is_cali_move_mode_:
-                    os.system('spd-say "find flat ground"')
+                    os.system('spd-say "move mode"')
                     self._rpdo_controlword(controlword=CtrlWord.DISABLE_OPERATION, node_id=stationary_roll)
                     self.network[stationary_roll].rpdo['modes_of_operation'].raw = -1
                     self.network[stationary_roll].rpdo[1].transmit()
