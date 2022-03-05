@@ -30,7 +30,7 @@ print('space: {0} mm'.format(space))
 
 for file_name in file_names:
     sp_max = 0.0
-    with open(pkg_path + '/setting/original_mocap_data.yaml', 'r') as stream:
+    with open(pkg_path + '/setting/basic/original_mocap_data.yaml', 'r') as stream:
                 yam = yaml.safe_load(stream)
                 idx_c = yam[file_name]['center_index']
                 idx_f = yam[file_name]['front_index']

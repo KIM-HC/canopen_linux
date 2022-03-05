@@ -2,9 +2,10 @@ clc
 clear all
 
 % load data
-date_num = "2022_01_28_";
-set_num = 3;
-mv = load("mocap/mocap_" + date_num + set_num + ".txt");
+date_num = "2022_03_04_";
+set_num = 1;
+% mv = load("mocap/mocap_" + date_num + set_num + ".txt");
+mv = load("simulation/mocap_" + date_num + set_num + ".csv");
 
 dot = zeros(length(mv),2);
 dt = mv(2,1) - mv(1,1);

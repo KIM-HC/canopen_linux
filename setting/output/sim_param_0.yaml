@@ -1,0 +1,24 @@
+0:
+  angle_error_deg: 0.0
+  angle_error_rad: 0.0
+  steer_point: [0.215, 0.125]
+  wheel_offset: -0.02
+  wheel_radius: 0.055
+1:
+  angle_error_deg: 0.0
+  angle_error_rad: 0.0
+  steer_point: [0.215, -0.125]
+  wheel_offset: -0.02
+  wheel_radius: 0.055
+2:
+  angle_error_deg: 0.0
+  angle_error_rad: 0.0
+  steer_point: [-0.215, -0.125]
+  wheel_offset: -0.02
+  wheel_radius: 0.055
+3:
+  angle_error_deg: 0.0
+  angle_error_rad: 0.0
+  steer_point: [-0.215, 0.125]
+  wheel_offset: -0.02
+  wheel_radius: 0.055

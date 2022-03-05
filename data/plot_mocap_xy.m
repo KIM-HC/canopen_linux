@@ -3,10 +3,11 @@ clear all
 
 % load data
 % Time center:X center:Y center:Z x_axis:X x_axis:Y x_axis:Z y_axis:X y_axis:Y y_axis:Z
-date_num = "2022_01_28_";
-set_num = 3;
+date_num = "2022_03_04_";
+set_num = 1;
 % mv = load("mocap/equal_mocap_" + date_num + set_num + ".txt");
-mv = load("mocap/mocap_" + date_num + set_num + ".txt");
+% mv = load("mocap/mocap_" + date_num + set_num + ".txt");
+mv = load("simulation/mocap_" + date_num + set_num + ".csv");
 
 % plot path
 figure(11)

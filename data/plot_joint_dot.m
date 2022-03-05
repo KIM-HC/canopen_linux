@@ -3,7 +3,7 @@ clear all
 
 % load data
 date_num = "2022_03_04_";
-set_num = 6;
+set_num = 5;
 jt = load("joint/joint_vel_" + date_num + set_num + ".csv");
 
 dot = zeros(length(jt),9);
@@ -18,7 +18,6 @@ for tick=2:length(jt)
         dot(tick,idx) = a*dot(tick-1,idx) + (1-a)*jt(tick,idx);
     end
 end
-
 
 
 % plot path

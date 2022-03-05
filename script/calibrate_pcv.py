@@ -19,13 +19,15 @@ import rospkg                                       #
 import math                                         #
 import yaml                                         # READ SETTING DATA
 #####################################################
+RAD2DEG = 180.0 / math.pi
+DEG2RAD = math.pi / 180.0
 
 class CalibratePCV():
-    def __init__(self, yaml_path='mocap_36.yaml'):
+    def __init__(self, yaml_path='simulation_2.yaml'):
         ## reads parameters, paths from yaml
         print('=== {0} ==='.format(yaml_path))
         self.pkg_path = rospkg.RosPack().get_path('dyros_pcv_canopen')
-        self.out_path = self.pkg_path + '/setting/output_' + yaml_path
+        self.out_path = self.pkg_path + '/setting/output/output_' + yaml_path
 
         with open(self.pkg_path + '/setting/' + yaml_path, 'r') as stream:
             self.yam = yaml.safe_load(stream)
@@ -33,23 +35,23 @@ class CalibratePCV():
             yam_bas = yaml.safe_load(stream)
 
         ## DEBUGGING
-        self.debug_rot_point = True
+        self.debug_rot_point = False
         self.debug_rot_point_section = False
         self.debug_rot_point_plot = True
-        self.debug_rot_point_each_frame = True
+        self.debug_rot_point_each_frame = False
         self.debug_axis_generation = False
         self.debug_rot_point_reult = [[[],[]],[[],[]],[[],[]],[[],[]]]
         self.plt_pos_map = ['y','r','g','b','c','m','k']
         self.plt_ori_map = ['s','^','o','*','+','x','2']
         self.test_error = 0             ## for 3 points on circle
         self.error_checker = 0.000001   ## for 3 points on circle
-        self.plot_num_ellipse_fit = 1   ## for plotting ellipse fitting
-        self.plot_num_p = 0             ## for plotting center in each point's frame - one section
-        self.plot_num_pp = 0            ## for plotting center in each point's frame - all section
-        self.plot_num_centers = 4       ## for plotting all center information
+        self.plot_num_ellipse_fit = 0   ## for plotting ellipse fitting
+        self.plot_num_p = 1             ## for plotting center in each point's frame - one section
+        self.plot_num_pp = 1            ## for plotting center in each point's frame - all section
+        self.plot_num_centers = 1       ## for plotting all center information
         self.debug_wheel_radius = True
         self.debug_wheel_radius_result = [[],[],[],[]]
-        self.debug_wheel_radius_list = [90.0, 100.0, 110.0, 120.0, 130.0, 140.0, 150.0, 160.0]
+        self.debug_wheel_radius_list = []
 
         ## METHODS
         ## 0: 3 points on circle
@@ -97,9 +99,16 @@ class CalibratePCV():
         self.mv_cali = []
         self.jt_cali = []
         self.num_section = self.yam['num_section']
-        self.sweep_angle = self.yam['sweep_angle'] * math.pi / 180.0
+        self.sweep_angle = self.yam['sweep_angle'] * DEG2RAD
         self.is_mocap = yam_bas['is_mocap']
+        self.is_simulation = yam_bas['is_simulation']
+        if self.is_simulation:
+            self.param_path = self.pkg_path + yam_bas['parameter_file']
         loop_index = self.yam['loop_index']
+
+        num_list = 30
+        for i in range(num_list):
+            self.debug_wheel_radius_list.append((self.yam['sweep_angle'] + (i - num_list/2)))
 
         for module in range(4):
             set_name = 'set_' + str(module)
@@ -131,6 +140,9 @@ class CalibratePCV():
 
         self.make_data()
         self.save_data()
+
+        if self.is_simulation:
+            self.do_sim_checking()
 
         # self.plot_animation(module=3, pt=1, interval=1, plot_what='circle', plot_original=True)
         # self.plot_animation(module=1, pt=0)
@@ -236,7 +248,7 @@ class CalibratePCV():
                                 print('width: {0}'.format(width))
                                 print('height: {0}'.format(height))
                                 print('phi: {0} RAD'.format(phi))
-                                print('phi: {0} DEG'.format(phi * 180.0 / math.pi))
+                                print('phi: {0} DEG'.format(phi * RAD2DEG))
                                 self.plot_num_ellipse_fit -= 1
                                 fig = plt.figure(figsize=(6,6))
                                 ax = fig.add_subplot(111)
@@ -396,10 +408,10 @@ class CalibratePCV():
                 ## find sweep st,ed index with sweep_angle
                 mv_st = self.circle_start_tick[module][pt]
                 mv_ed = mv_st
-                vec_start = self.mv[module][mv_st,0:2] - self.robot_steer_point[module]
+                vec_start = self.mv[module][mv_st,0:2] - self.robot_rot_point[module][pt]
                 angle_start = math.atan2(vec_start[1], vec_start[0])
                 while(True):
-                    vec_current = self.mv[module][mv_ed,0:2] - self.robot_steer_point[module]
+                    vec_current = self.mv[module][mv_ed,0:2] - self.robot_rot_point[module][pt]
                     angle_current = math.atan2(vec_current[1], vec_current[0])
                     abs_rot = abs(angle_start - angle_current)
                     if (abs_rot > math.pi):
@@ -410,31 +422,47 @@ class CalibratePCV():
                     mv_ed += 1
                 self.sweep_end_tick[module].append(mv_ed)
                 jt_st = 0
-                while(jt[jt_st,0] < self.eqmv[module][mv_st,0]):
+                while(self.jt[module][jt_st,0] < self.eqmv[module][mv_st,0]):
                     jt_st += 1
                 jt_ed = jt_st
-                while(jt[jt_ed,0] < self.eqmv[module][mv_ed,0]):
+                while(self.jt[module][jt_ed,0] < self.eqmv[module][mv_ed,0]):
                     jt_ed += 1
                 wheel_rot = []
+                # print('jt st:{0}, ed:{1}'.format(jt_st, jt_ed))
+                # print('jt st:{0}, ed:{1}'.format(jt[jt_st,0], jt[jt_ed,0]))
+                # print('self jt st:{0}, ed:{1}'.format(self.jt[module][jt_st,0], self.jt[module][jt_ed,0]))
+                
+                # print('mv st:{0}, ed:{1}'.format(mv_st, mv_ed))
+                # print('mv st:{0}, ed:{1}'.format(self.eqmv[module][mv_st,0], self.eqmv[module][mv_ed,0]))
                 for wheel_mod in range(4):
+                    ## t r0 s0 r1 s1 r2 s2 r3 s3
                     wheel_rot.append(abs(jt[jt_st, 2 * wheel_mod + 1] - jt[jt_ed, 2 * wheel_mod + 1]))
                 self.wheel_rot_theta[module].append(wheel_rot)
 
+        # for i in range(len(self.wheel_rot_theta)):
+        #     print('{0} wheel_rot_theta: {1}'.format(i, self.wheel_rot_theta[i]))
+
         ## radius of caster wheel
         for module in range(4):
+            # print('stationary_set: {0}'.format(module))
             for pt in range(2):
+                # print('pt: {0}'.format(pt+1))
                 robot_rot = self.robot_rot_theta[module][pt]
                 for mv_set in range(4):
                     if mv_set != module:
                         wheel_rot = self.wheel_rot_theta[module][pt][mv_set]
                         dist_d = np.linalg.norm(self.robot_rot_point[module][pt] - self.robot_steer_point[mv_set])
-                        dist_w = math.sqrt(dist_d**2 - self.wheel_offset[mv_set])
+                        dist_w = math.sqrt(dist_d**2 - self.wheel_offset[mv_set]**2)
                         calc_rad = dist_w * robot_rot / wheel_rot
                         self.wheel_radius[mv_set] += calc_rad / 6.0
+                        # print('set{0} dist_from_rrp: {1}'.format(mv_set, dist_w))
+                        # print('set{0} robot_rot: {1}'.format(mv_set, robot_rot))
+                        # print('set{0} wheel_rot: {1}'.format(mv_set, wheel_rot))
+                        # print('set{0} calc_rad: {1}'.format(mv_set, calc_rad))
 
         if self.debug_wheel_radius:
             for swp in range(len(self.debug_wheel_radius_list)):
-                sweep_angle_db = self.debug_wheel_radius_list[swp] * math.pi / 180.0
+                sweep_angle_db = self.debug_wheel_radius_list[swp] * DEG2RAD
                 robot_rot_db = [[0,0],[0,0],[0,0],[0,0]]
                 wheel_rot_db = [[[0,0,0,0],[0,0,0,0]],[[0,0,0,0],[0,0,0,0]],[[0,0,0,0],[0,0,0,0]],[[0,0,0,0],[0,0,0,0]]]
                 for module in range(4):
@@ -444,10 +472,10 @@ class CalibratePCV():
                         ## find sweep st,ed index with sweep_angle
                         mv_st = self.circle_start_tick[module][pt]
                         mv_ed = mv_st
-                        vec_start = self.mv[module][mv_st,0:2] - self.robot_steer_point[module]
+                        vec_start = self.mv[module][mv_st,0:2] - self.robot_rot_point[module][pt]
                         angle_start = math.atan2(vec_start[1], vec_start[0])
                         while(True):
-                            vec_current = self.mv[module][mv_ed,0:2] - self.robot_steer_point[module]
+                            vec_current = self.mv[module][mv_ed,0:2] - self.robot_rot_point[module][pt]
                             angle_current = math.atan2(vec_current[1], vec_current[0])
                             abs_rot = abs(angle_start - angle_current)
                             if (abs_rot > math.pi):
@@ -469,7 +497,7 @@ class CalibratePCV():
                         for mv_set in range(4):
                             if mv_set != module:
                                 dist_d = np.linalg.norm(self.robot_rot_point[module][pt] - self.robot_steer_point[mv_set])
-                                dist_w = math.sqrt(dist_d**2 - self.wheel_offset[mv_set])
+                                dist_w = math.sqrt(dist_d**2 - self.wheel_offset[mv_set]**2)
                                 calc_rad = dist_w * robot_rot_db[module][pt] / wheel_rot_db[module][pt][mv_set]
                                 self.debug_wheel_radius_result[mv_set][swp] += calc_rad / 6.0
 
@@ -484,25 +512,46 @@ class CalibratePCV():
             print('steer point: {0}'.format(self.robot_steer_point[module]))
             print('steer point_averaged: {0}'.format(self.robot_steer_point[module] - test_mid_point))
             print('angle error beta: {0} (radian)'.format(self.angle_error[module]))
-            print('angle error beta: {0} (degree)'.format(self.angle_error[module] * 180.0 / math.pi))
+            print('angle error beta: {0} (degree)'.format(self.angle_error[module] * RAD2DEG))
             print('wheel radius: {0}'.format(self.wheel_radius[module]))
             if self.debug_wheel_radius:
                 full_ = len(self.debug_wheel_radius_list)
                 half_ = int(full_/2)
+                avg = 0.0
+                for swp in range(full_):
+                    avg += self.debug_wheel_radius_result[module][swp] / full_
                 print('==== sweep angle test ====')
+                print('== sweep angle from {0} to {1} with total {2} angles'.format(
+                    self.debug_wheel_radius_list[0],self.debug_wheel_radius_list[-1],full_))
+                print('==      average:   {0}'.format(avg))
                 print('== min max diff:   {0}'.format(np.max(self.debug_wheel_radius_result[module]) - np.min(self.debug_wheel_radius_result[module])))
                 print('== {1} ~ {2} diff: {0}'.format(np.max(self.debug_wheel_radius_result[module][half_:full_]) - np.min(self.debug_wheel_radius_result[module][half_:full_]),half_,full_))
-                for swp in range(len(self.debug_wheel_radius_list)):
-                    print('{0} DEG: {1}'.format(self.debug_wheel_radius_list[swp], self.debug_wheel_radius_result[module][swp]))
+                # for swp in range(full_):
+                #     print('{0} DEG: {1}'.format(self.debug_wheel_radius_list[swp], self.debug_wheel_radius_result[module][swp]))
+
+    def do_sim_checking(self):
+        print('checking proposed method')
+        with open(self.param_path, 'r') as stream:
+            param_true = yaml.safe_load(stream)
+        for module in range(4):
+            e_angle_error = self.angle_error[module] - param_true[module]['angle_error_rad']
+            e_point_error = np.linalg.norm(self.robot_steer_point[module] - np.array(param_true[module]['steer_point']) * 1000.0)
+            e_offset_error = self.wheel_offset[module] + param_true[module]['wheel_offset'] * 1000.0 #param: negative value
+            e_radius_error = self.wheel_radius[module] - param_true[module]['wheel_radius'] * 1000.0
+            print('\nSET {0}'.format(module))
+            print('angle_error(deg): {0}'.format(e_angle_error * RAD2DEG))
+            print('angle_error(rad): {0}'.format(e_angle_error))
+            print(' point_error(mm): {0}'.format(e_point_error))
+            print('offset_error(mm): {0}'.format(e_offset_error))
+            print('radius_error(mm): {0}'.format(e_radius_error))
 
     def save_data(self):
         dumper = {}
         for module in range(4):
             dumper[module] = {}
             dumper[module]['angle_error_rad'] = float(self.angle_error[module])
-            dumper[module]['angle_error_deg'] = float(self.angle_error[module] * 180.0 / math.pi)
-            self.robot_steer_point[module] /= 1000.0
-            dumper[module]['steer_point'] = self.robot_steer_point[module].tolist()
+            dumper[module]['angle_error_deg'] = float(self.angle_error[module] * RAD2DEG)
+            dumper[module]['steer_point'] = (self.robot_steer_point[module] / 1000.0).tolist()
             ## negative value for offset
             dumper[module]['wheel_offset'] = float(self.wheel_offset[module]) / -1000.0
             dumper[module]['wheel_radius'] = float(self.wheel_radius[module]) / 1000.0
@@ -604,6 +653,7 @@ class CalibratePCV():
         p2 = 1
         x = 1
         y = 0
+
         if (plot_in_one):
             ax = fig.add_subplot(111)
             ax.plot([125, -125, -125, 125, 125], [215, 215, -215, -215, 215], 'k--', linewidth=0.8)
