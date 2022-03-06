@@ -2,10 +2,10 @@ clc
 clear all
 
 % load data
-date_num = "2022_03_04_";
+date_num = "2022_03_06_";
 set_num = 1;
 % jt = load("joint/joint_" + date_num + set_num + ".csv");
-jt = load("simulation/joint_" + date_num + set_num + ".csv");
+jt = load("joint_raw/joint_" + date_num + set_num + ".csv");
 
 % plot path
 figure(13)
@@ -17,4 +17,5 @@ for module=2:4
 end
 hold off
 title('jt data steer')
+legend({'0','1','2','3'})
 grid on
