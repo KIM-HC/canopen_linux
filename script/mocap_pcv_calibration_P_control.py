@@ -14,9 +14,10 @@ if __name__ == "__main__":
     tt_.is_cali_speed_compensation = True
 
     sset = 0
-    tt_.is_cali_auto_second_steer = True
-    tt_.cali_target_speed = 4.0
-    tt_.cali_gain_kp = 30.0
+    tt_.is_cali_auto_second_steer = False
+    tt_.is_cali_use_fixer = True
+    tt_.cali_target_speed = 3.0
+    tt_.cali_gain_kp = 300.0
     tt_.cali_lpf_sensitivity = 0.995
 
-    tt_.mocap_calibration(stationary_set=sset, target_1=45.0, target_2=45.0 + 120, st_tor_r=1300, jt_tor_r=900)
+    tt_.mocap_calibration(stationary_set=sset, target_1=45.0, target_2=45.0 + 120, st_tor_r=1300, jt_tor_r=950)

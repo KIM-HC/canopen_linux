@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """
+for canopen communication with PCV(elmo controller)
 Kim Hyoung Cheol
 https://github.com/KIM-HC/dyros_pcv_canopen
 https://www.notion.so/kimms74/40dcc3a8ff054dc9994e5fc62de9bc30
@@ -34,6 +35,7 @@ CNT2RAD2 = (2.0 * math.pi) / REV2CNT2
 
 ##      SET0-R   SET0-S   SET1-R   SET1-S   SET2-R   SET2-S   SET3-R    SET3-S
 C2R = [CNT2RAD, CNT2RAD, CNT2RAD, CNT2RAD, CNT2RAD, CNT2RAD, CNT2RAD2, CNT2RAD2]
+R2C = [RAD2CNT, RAD2CNT, RAD2CNT, RAD2CNT, RAD2CNT, RAD2CNT, RAD2CNT2, RAD2CNT2]
 
 ##### GEAR RATIO ####
 NS = 4.0            ## steer , 96.0/24.0
@@ -57,6 +59,7 @@ OFF4 =  45.0  * REV2CNT2 * N00 / 360.0
 HOME_OFFSET = [OFF1, OFF2, OFF3, OFF4]
 
 RAD2DEG = 180.0 / math.pi
+DEG2RAD = math.pi / 180.0
 
 class OPMode():
     NO_MODE =              -1
@@ -124,6 +127,7 @@ class TestElmo():
         self.is_cali_speed_compensation = False
         self.is_cali_auto_second_steer = False
         self.is_cali_constant_torque = True
+        self.is_cali_use_fixer = False
         self.cali_target_speed = 0.0
         self.cali_gain_kp = 0.0
         self.cali_lpf_sensitivity = 0.0
@@ -913,7 +917,7 @@ class TestElmo():
         stationary_steer = (stationary_set + 1) * 2
         stationary_roll = stationary_set * 2 + 1
         ## set steer angle
-        if is_second:
+        if is_second and self.is_cali_use_fixer == False:
             self._cali_recorder(2.0)
             mt_tor_s, mt_tor_r = self._from_desired_torque_to_motor_torque(0, jt_tor_r)
             self._cali_value_changer(mt_tor_s, mt_tor_r, stationary_set)
@@ -923,12 +927,15 @@ class TestElmo():
         self._start_operation_mode(test_set=[stationary_roll], operation_mode=OPMode.PROFILED_VELOCITY)
         self._control_command(stationary_roll, 'target_velocity', 0.0)
         ## align other sets with hand by rotating it for now
-        if is_second:
+        if is_second and self.is_cali_use_fixer == False:
             self._cali_recorder(1.0)
             self._cali_value_changer(0.0, 0.0, stationary_set)
             self._cali_recorder(speed_up_time)
         else:
             self._cali_value_changer(0.0, 0.0, stationary_set)
+            if self.is_cali_use_fixer:
+                os.system('spd-say "press enter after fixing"')
+                a = input()
             os.system('spd-say "rotate by hand"')
             self._cali_recorder(align_time)
 
@@ -944,6 +951,9 @@ class TestElmo():
         ## main rotation
         self.wrdb.write('main rotation start time: {0}\n'.format((rospy.Time.now() - self.start_time).to_sec()))
         if self.is_cali_constant_torque:
+            mt_tor_s, mt_tor_r = self._from_desired_torque_to_motor_torque(0, st_tor_r)
+            self._cali_value_changer(mt_tor_s, mt_tor_r, stationary_set)
+            self._cali_recorder(speed_up_time)
             mt_tor_s, mt_tor_r = self._from_desired_torque_to_motor_torque(0, jt_tor_r)
             self._cali_value_changer(mt_tor_s, mt_tor_r, stationary_set)
             self._cali_recorder(play_time)
@@ -969,37 +979,6 @@ class TestElmo():
 
         self._cali_value_changer(0.0, 0.0, stationary_set)
         self.wrdb.write('main rotation end time: {0}\n'.format((rospy.Time.now() - self.start_time).to_sec()))
-        self.wrdb.write('\n')
-
-    @_try_except_decorator
-    def _cali_aruco_set(self, stationary_set, target, st_tor_r, align_time, speed_up_time):
-        stationary_steer = (stationary_set + 1) * 2
-        stationary_roll = stationary_set * 2 + 1
-        ## set steer angle
-        self._cali_set_steer_angle(stationary_set=stationary_set,target=target)
-        ## freeze stationary_set
-        self._start_operation_mode(test_set=[stationary_roll], operation_mode=OPMode.PROFILED_VELOCITY)
-        self._control_command(stationary_roll, 'target_velocity', 0.0)
-        ## align other sets with hand by rotating it for now
-        os.system('spd-say "rotate by hand"')
-        self._cali_recorder(align_time)
-        ## torque mode only for rolling
-        for node_id in range(1,9):
-            if (node_id == stationary_roll or node_id == stationary_steer):
-                pass
-            else:
-                self._start_operation_mode(test_set=[node_id], operation_mode=OPMode.PROFILED_TORQUE)
-
-        for i in range(6):
-            ## speed up
-            mt_tor_s, mt_tor_r = self._from_desired_torque_to_motor_torque(0, st_tor_r)
-            self._cali_value_changer(mt_tor_s, mt_tor_r, stationary_set)
-            self._cali_recorder(speed_up_time)
-            self.wrdb.write('{0} detect start time: {1}\n'.format(i+1,(rospy.Time.now() - self.start_time).to_sec()))
-            ## stop for aruco detect
-            self._cali_value_changer(0.0, 0.0, stationary_set)
-            self._cali_recorder(align_time)
-            self.wrdb.write('{0} detect end time:   {1}\n'.format(i+1,(rospy.Time.now() - self.start_time).to_sec()))
         self.wrdb.write('\n')
 
     ## set: (0 ~ 3)
@@ -1104,39 +1083,57 @@ class TestElmo():
         self._stop_operation()
         self._disconnect_device()
 
-
-    ## set: (0 ~ 3)
     @_try_except_decorator
-    def aruco_calibration(self, stationary_set, target_1=45.0, target_2=225.0, st_tor_r=1300, jt_tor_r=960):
-        align_time = 10
-        speed_up_time = 3
-        play_time = 40
-        stationary_steer = (stationary_set + 1) * 2
-        stationary_roll = stationary_set * 2 + 1
-
-        self.wrdb.write('stationary_set: {0}\n'.format(stationary_set))
-        self.wrdb.write('target_1: {0}\n'.format(target_1))
-        self.wrdb.write('target_2: {0}\n'.format(target_2))
-
-        ## perform homing
+    def test_position_control_fail(self, test_id, goal_angle):
         self.homing()
-        ## move to first position
-        self._start_operation_mode(test_set=[stationary_steer], operation_mode=OPMode.PROFILED_VELOCITY)
+
+        half_hz_ = int(HZ/2)
+        r = rospy.Rate(HZ)
+
+        _,control_target = self._check_test_availability([test_id], OPMode.INTERPOLATED_POSITION)
+
+        self._start_operation_mode(test_set=[test_id], operation_mode=OPMode.INTERPOLATED_POSITION)
         self.network.sync.transmit()
-        self.wrdb.write('================= TARGET 1 =================\n')
-        self._cali_aruco_set(stationary_set=stationary_set, target=target_1,
-                              align_time=align_time, speed_up_time=speed_up_time, st_tor_r=st_tor_r)
-        ## move to second position
-        self._rpdo_controlword(controlword=CtrlWord.DISABLE_OPERATION, node_id=stationary_roll)
-        self.network[stationary_roll].rpdo['modes_of_operation'].raw = -1
-        self.network[stationary_roll].rpdo[1].transmit()
-        self.wrdb.write('================= TARGET 2 =================\n')
-        self._cali_aruco_set(stationary_set=stationary_set, target=target_2,
-                              align_time=align_time, speed_up_time=speed_up_time, st_tor_r=st_tor_r)
-        ## stop calibration
-        self._cali_value_changer(0.0, 0.0, stationary_set)
+
+        ## SETTING FOR INTERPOLATED_POSITION
+        self._rpdo_controlword(controlword=0b000011111, node_id=test_id)
+        ##
+
+        goal_angle *= DEG2RAD
+        rot_per_sec = 5 # DEGREE
+        init_motor = self.network[test_id].tpdo['position_actual_value'].raw
+        init_angle = C2R[test_id - 1] *  NI00 * init_motor
+        tick_move = rot_per_sec * DEG2RAD * R2C[test_id - 1] / HZ
+        if (goal_angle < init_angle): tick_move *= -1
+
+        # self._control_command(test_id, control_target, 0.0)
+
+        test_integrator = 0.0
+        tick = 0
+        while not rospy.is_shutdown():
+            self.network.sync.transmit()
+            self._pub_joint()
+            tick += 1
+
+            curr_motor = self.network[test_id].tpdo['position_actual_value'].raw
+            curr_angle = C2R[test_id - 1] *  NI00 * curr_motor
+            test_integrator += tick_move
+            self._control_command(test_id, control_target, init_motor + test_integrator)
+
+            if (tick % half_hz_ == 0):
+                print('rotation per second: {0} DEG'.format(rot_per_sec))
+                print('rotation per tick: {0} encoder count'.format(tick_move))
+                print('diff curr - goal: {0} encoder count'.format(curr_motor - init_motor - test_integrator))
+                self._dprint('changing angle')
+                self._read_and_print()
+            if ((curr_angle < goal_angle and tick_move < 0) or (curr_angle > goal_angle and tick_move > 0)):
+                break
+            r.sleep()
+
+        print('FINISHED!!!')
+        self._cali_recorder(30.0)
+
         self._stop_operation()
-        self._disconnect_device()
 
     @_try_except_decorator
     def test_single_elmo(self, test_id, operation_mode, value, play_time=10.0):

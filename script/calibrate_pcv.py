@@ -23,7 +23,7 @@ RAD2DEG = 180.0 / math.pi
 DEG2RAD = math.pi / 180.0
 
 class CalibratePCV():
-    def __init__(self, yaml_path='simulation_2.yaml'):
+    def __init__(self, yaml_path='simulation_0.yaml'):
         ## reads parameters, paths from yaml
         print('=== {0} ==='.format(yaml_path))
         self.pkg_path = rospkg.RosPack().get_path('dyros_pcv_canopen')
@@ -146,7 +146,8 @@ class CalibratePCV():
 
         # self.plot_animation(module=3, pt=1, interval=1, plot_what='circle', plot_original=True)
         # self.plot_animation(module=1, pt=0)
-        # self.plot_data(plot_in_one=True, plot_what='circle')
+
+        self.plot_data(plot_in_one=True, plot_what='circle')
 
 
     def make_data(self):
