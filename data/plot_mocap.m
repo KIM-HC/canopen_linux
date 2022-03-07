@@ -3,10 +3,10 @@ clear all
 
 % load data
 % ar = load("mocap/equal_mocap_2022_01_28_0.txt");
-% ar = load("mocap/equal_mocap_2022_01_28_1.txt");
-ar = load("simulation/mocap_2022_03_04_1.csv");
+ar = load("mocap/set1.txt");
+% ar = load("simulation/mocap_2022_03_04_1.csv");
 
-center_index = 2;
+center_index = 5;
 
 tot_tick = length(ar);
 

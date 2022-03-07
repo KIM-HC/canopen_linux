@@ -2,8 +2,8 @@ clc
 clear all
 
 % load data
-date_num = "2022_03_06_";
-set_num = 1;
+date_num = "2022_03_07_";
+set_num = 11;
 jt = load("joint_raw/joint_vel_" + date_num + set_num + ".csv");
 
 dot = zeros(length(jt),9);

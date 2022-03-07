@@ -917,10 +917,14 @@ class TestElmo():
         stationary_steer = (stationary_set + 1) * 2
         stationary_roll = stationary_set * 2 + 1
         ## set steer angle
-        if is_second and self.is_cali_use_fixer == False:
-            self._cali_recorder(2.0)
-            mt_tor_s, mt_tor_r = self._from_desired_torque_to_motor_torque(0, jt_tor_r)
-            self._cali_value_changer(mt_tor_s, mt_tor_r, stationary_set)
+        if is_second:
+            if self.is_cali_use_fixer == False:
+                self._cali_recorder(2.0)
+                mt_tor_s, mt_tor_r = self._from_desired_torque_to_motor_torque(0, jt_tor_r)
+                self._cali_value_changer(mt_tor_s, mt_tor_r, stationary_set)
+            else:
+                os.system('spd-say "press enter after fixing"')
+                a = input()
 
         self._cali_set_steer_angle(stationary_set=stationary_set,target=target)
         ## freeze stationary_set
@@ -1017,9 +1021,7 @@ class TestElmo():
         self.network[stationary_roll].rpdo['modes_of_operation'].raw = -1
         self.network[stationary_roll].rpdo[1].transmit()
         self.wrdb.write('================= TARGET 2 =================\n')
-        auto_cali = False
-        if self.is_cali_auto_second_steer: auto_cali = True
-        self._cali_mocap_set(stationary_set=stationary_set, target=target_2, is_second=auto_cali,
+        self._cali_mocap_set(stationary_set=stationary_set, target=target_2, is_second=self.is_cali_auto_second_steer,
                               align_time=align_time, speed_up_time=speed_up_time, play_time=play_time,
                               st_tor_r=st_tor_r, jt_tor_r=jt_tor_r)
         ## stop calibration
