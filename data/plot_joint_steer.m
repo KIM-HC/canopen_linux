@@ -11,8 +11,8 @@ clear all
 % load data
 date_num = "2022_03_07_";
 set_num = 25;
-% jt = load("joint/joint_" + date_num + set_num + ".csv");
-jt = load("joint_raw/joint_" + date_num + set_num + ".csv");
+jt = load("joint/joint_" + date_num + set_num + ".csv");
+% jt = load("joint_raw/joint_" + date_num + set_num + ".csv");
 
 % plot path
 figure(13)

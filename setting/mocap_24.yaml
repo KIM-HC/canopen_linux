@@ -1,0 +1,9 @@
+### Kim Hyoung Cheol ###
+## 2 LOOP
+##  set_N: information of each set as a stationary set
+## circle: [[p1 start, p1 end], [p2 start, pt end]] (equal_mv_file index)
+##  sweep: [[p1 start, p1 end], [p2 start, pt end]] (equal_mv_file index)
+basic_file: 'basic/mocap_basic_2.yaml'
+num_section: 2
+sweep_angle: 120.0 # DEGREE
+loop_index: 1

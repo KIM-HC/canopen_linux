@@ -20,12 +20,10 @@ import csv
 
 pkg_path = rospkg.RosPack().get_path('dyros_pcv_canopen')
 
-file_names = ['mocap_2022_02_28_0', 'mocap_2022_02_28_1',
-              'mocap_2022_02_28_2', 'mocap_2022_02_28_3',
-              'mocap_2022_01_28_0', 'mocap_2022_01_28_1',
-              'mocap_2022_01_28_2', 'mocap_2022_01_28_3']
+file_names = ['mocap_2022_03_07_0', 'mocap_2022_03_07_1',
+              'mocap_2022_03_07_2', 'mocap_2022_03_07_3']
 
-space = 4  # mm
+space = 2  # mm
 print('space: {0} mm'.format(space))
 
 for file_name in file_names:
@@ -42,7 +40,7 @@ for file_name in file_names:
 
     prev_point = mv[0, idx_c:idx_c+3]
     equal_spaced = [np.concatenate((np.array([mv[0,0]]),mv[0,idx_c:idx_c+3],mv[0,idx_f:idx_f+3],mv[0,idx_l:idx_l+3]), axis=0)]
-    wr.writerow(mv[0])
+    wr.writerow(equal_spaced[0])
     for i in range(np.size(mv, 0)):
         curr_point = mv[i, idx_c:idx_c+3]
         if i != 0:
@@ -53,7 +51,7 @@ for file_name in file_names:
             prev_point = curr_point
             ## rearrange: time center front left
             equal_spaced.append(np.concatenate((np.array([mv[i,0]]),mv[i,idx_c:idx_c+3],mv[i,idx_f:idx_f+3],mv[i,idx_l:idx_l+3]), axis=0))
-            wr.writerow(mv[i])
+            wr.writerow(equal_spaced[-1])
     save_path.close()
     equal_spaced = np.array(equal_spaced)
 

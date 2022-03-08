@@ -26,7 +26,7 @@ RAD2DEG = 180.0 / math.pi
 class PCVSimulator:
     def __init__(self, stationary_set, param_set):
         target_1 = (45.0) * DEG2RAD
-        target_2 = (45.0 + 100.0) * DEG2RAD
+        target_2 = (45.0 + 120.0) * DEG2RAD
         self.debug_rot = []
         self.lap = 3.03
         self.tick = 0

@@ -23,7 +23,7 @@ RAD2DEG = 180.0 / math.pi
 DEG2RAD = math.pi / 180.0
 
 class CalibratePCV():
-    def __init__(self, yaml_path='simulation_0.yaml'):
+    def __init__(self, yaml_path='mocap_25.yaml'):
         ## reads parameters, paths from yaml
         print('=== {0} ==='.format(yaml_path))
         self.pkg_path = rospkg.RosPack().get_path('dyros_pcv_canopen')
@@ -35,18 +35,18 @@ class CalibratePCV():
             yam_bas = yaml.safe_load(stream)
 
         ## DEBUGGING
+        self.debug_cali_time = False
         self.debug_rot_point = False
         self.debug_rot_point_section = False
-        self.debug_rot_point_plot = True
+        self.debug_rot_point_plot = False
         self.debug_rot_point_each_frame = False
-        self.debug_axis_generation = False
         self.debug_rot_point_reult = [[[],[]],[[],[]],[[],[]],[[],[]]]
         self.plt_pos_map = ['y','r','g','b','c','m','k']
         self.plt_ori_map = ['s','^','o','*','+','x','2']
         self.test_error = 0             ## for 3 points on circle
         self.error_checker = 0.000001   ## for 3 points on circle
         self.plot_num_ellipse_fit = 0   ## for plotting ellipse fitting
-        self.plot_num_p = 1             ## for plotting center in each point's frame - one section
+        self.plot_num_p = 0             ## for plotting center in each point's frame - one section
         self.plot_num_pp = 1            ## for plotting center in each point's frame - all section
         self.plot_num_centers = 1       ## for plotting all center information
         self.debug_wheel_radius = True
@@ -58,12 +58,12 @@ class CalibratePCV():
         ## 1: NUMERICALLY STABLE DIRECT LEAST SQUARES FITTING OF ELLIPSES
         ##    http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.1.7559&rep=rep1&type=pdf
         ##    https://github.com/bdhammel/least-squares-ellipse-fitting
-        self.circle_fitting_method = 0
+        self.circle_fitting_method = 1
         print('=== CIRCLE FITTING METHOD: {0}'.format(self.circle_fitting_method))
 
         ## 0: plot all sections in each sub_plot
         ## 1: plot all in one
-        self.section_plot_method = 1
+        self.section_plot_method = 0
 
         ## 0: both had no difference in content,
         ## 1: just a different way of coding
@@ -106,7 +106,7 @@ class CalibratePCV():
             self.param_path = self.pkg_path + yam_bas['parameter_file']
         loop_index = self.yam['loop_index']
 
-        num_list = 30
+        num_list = 20
         for i in range(num_list):
             self.debug_wheel_radius_list.append((self.yam['sweep_angle'] + (i - num_list/2)))
 
@@ -165,8 +165,11 @@ class CalibratePCV():
             ## sync jt time with mv time
             self.cali_time.append(0.0)
             tot_cali_index = len(self.mv_cali[module])
+            if self.debug_cali_time: print('SET {0} time cali'.format(module))
             for idx in range(tot_cali_index):
-                self.cali_time[module] += (mv_for_time_cali[self.mv_cali[module][idx],0] - jt[self.jt_cali[module][idx],0]) / tot_cali_index
+                cali_time = (mv_for_time_cali[self.mv_cali[module][idx],0] - jt[self.jt_cali[module][idx],0])
+                if self.debug_cali_time: print('{0} cali time: {1}'.format(idx, cali_time))
+                self.cali_time[module] += cali_time / tot_cali_index
             jt[:, 0] += np.full(np.size(jt, 0), self.cali_time[module])
             self.jt[module] = jt
 
@@ -349,13 +352,13 @@ class CalibratePCV():
                                     for cir in range(self.num_section):
                                         tmp_ax1 = tmp_fig1.add_subplot(mm, nn, cir+1)
                                         tmp_ax1.plot(tmp_centers_list[cir][:,0], tmp_centers_list[cir][:,1], 'bo', markersize=1)
-                                        tmp_ax1.plot(tmp_rot_point_list[cir,0], tmp_rot_point_list[cir,1], 'ro', markersize=5)
+                                        tmp_ax1.plot(tmp_rot_point2_list[cir,0], tmp_rot_point2_list[cir,1], 'ro', markersize=5)
                                         tmp_ax1.set_title('set_' + str(module) + ' pt_' + str(pt+1) + ' section_' + str(cir+1) + ' center')
                                         tmp_ax1.axis('equal')
 
                                 tmp_fig = plt.figure(10)
                                 tmp_ax = tmp_fig.add_subplot(111)
-                                tmp_ax.plot(tmp_rot_point_list[:,0], tmp_rot_point_list[:,1], 'bo', markersize=1)
+                                tmp_ax.plot(tmp_rot_point2_list[:,0], tmp_rot_point2_list[:,1], 'bo', markersize=1)
                                 tmp_ax.plot(self.robot_rot_point[module][pt][0], self.robot_rot_point[module][pt][1], 'ro', markersize=5)
                                 tmp_ax.set_title('set_' + str(module) + ' pt_' + str(pt+1) + ' center')
                                 tmp_ax.axis('equal')

@@ -4,6 +4,7 @@
 ##          is_mocap: if false, data is aruco
 ##             set_N: information of each set as a stationary set
 is_mocap: True
+is_simulation: False
 
 set_0:
   mv_file: 'mocap/mocap_2022_01_28_0.txt'

@@ -3,9 +3,10 @@ clear all
 
 % load data
 % Time center:X center:Y center:Z x_axis:X x_axis:Y x_axis:Z y_axis:X y_axis:Y y_axis:Z
-date_num = "2022_01_28_0";
-mv = load("mocap/mocap_" + date_num + ".txt");
-jt = load("joint/joint_" + date_num + ".csv");
+date_num_mv = "2022_03_07_3";
+date_num_jt = "2022_03_07_25";
+mv = load("mocap/mocap_" + date_num_mv + ".txt");
+jt = load("joint/joint_" + date_num_jt + ".csv");
 
 % plot path
 figure(11)
