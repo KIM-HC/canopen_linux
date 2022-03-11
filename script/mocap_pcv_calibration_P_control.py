@@ -29,3 +29,5 @@ if __name__ == "__main__":
 
 
     tt_.mocap_calibration(stationary_set=sset, target_1=45.0, target_2=45.0 + 120, st_tor_r=st_tor_r, jt_tor_r=jt_tor_r)
+
+## CHANGING TORQUE MAKES MORE BAD DATA

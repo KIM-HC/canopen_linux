@@ -1,9 +1,0 @@
-### Kim Hyoung Cheol ###
-## 3 LOOP
-##  set_N: information of each set as a stationary set
-## circle: [[p1 start, p1 end], [p2 start, pt end]] (equal_mv_file index)
-##  sweep: [[p1 start, p1 end], [p2 start, pt end]] (equal_mv_file index)
-basic_file: 'simulation/simulation_basic_1.yaml'
-num_section: 3
-sweep_angle: 110.0 # DEGREE
-loop_index: 0
