@@ -21,21 +21,22 @@ import threading
 HZ = 300
 
 #### ENCODER INFORMATION ####
-####  ELMO 1 2 3 4 5 6   ####
+####  ELMO 1 3 4 5 6   ####
 REV2CNT = 2048.0
 CNT2REV = 1.0 / REV2CNT
 RAD2CNT = REV2CNT / (2.0 * math.pi)
 CNT2RAD = (2.0 * math.pi) / REV2CNT
 
-####      ELMO 7 8       ####
+####      ELMO 2 7 8       ####
 REV2CNT2 = 8192.0
 CNT2REV2 = 1.0 / REV2CNT2
 RAD2CNT2 = REV2CNT2 / (2.0 * math.pi)
 CNT2RAD2 = (2.0 * math.pi) / REV2CNT2
 
-##      SET0-R   SET0-S   SET1-R   SET1-S   SET2-R   SET2-S   SET3-R    SET3-S
-C2R = [CNT2RAD, CNT2RAD, CNT2RAD, CNT2RAD, CNT2RAD, CNT2RAD, CNT2RAD2, CNT2RAD2]
-R2C = [RAD2CNT, RAD2CNT, RAD2CNT, RAD2CNT, RAD2CNT, RAD2CNT, RAD2CNT2, RAD2CNT2]
+##        SET0-R   SET0-S   SET1-R   SET1-S   SET2-R   SET2-S   SET3-R    SET3-S
+C2R   = [CNT2RAD, CNT2RAD2, CNT2RAD, CNT2RAD, CNT2RAD, CNT2RAD, CNT2RAD2, CNT2RAD2]
+R2C   = [RAD2CNT, RAD2CNT2, RAD2CNT, RAD2CNT, RAD2CNT, RAD2CNT, RAD2CNT2, RAD2CNT2]
+REV2C = [REV2CNT, REV2CNT2, REV2CNT, REV2CNT, REV2CNT, REV2CNT, REV2CNT2, REV2CNT2]
 
 ##### GEAR RATIO ####
 NS = 4.0            ## steer , 96.0/24.0
@@ -51,10 +52,10 @@ NI00 = 1.0 / NS
 NI10 = 1.0 / (NS * NW)
 NI11 = -1.0 / (NR * NW)
 
-OFF1 =  135.0 * REV2CNT  * N00 / 360.0
-OFF2 = -135.0 * REV2CNT  * N00 / 360.0
-OFF3 = -45.0  * REV2CNT  * N00 / 360.0
-OFF4 =  45.0  * REV2CNT2 * N00 / 360.0
+OFF1 =  135.0 * REV2C[1]  * N00 / 360.0
+OFF2 = -135.0 * REV2C[3]  * N00 / 360.0
+OFF3 = -45.0  * REV2C[5]  * N00 / 360.0
+OFF4 =  45.0  * REV2C[7] * N00 / 360.0
 
 HOME_OFFSET = [OFF1, OFF2, OFF3, OFF4]
 
@@ -276,7 +277,7 @@ class TestElmo():
                 self.network[node_id_].sdo['home_offset'].raw = HOME_OFFSET[(node_id_ // 2) - 1]
                 self.network[node_id_].sdo['homing_speeds'][1].raw = 500
                 self.network[node_id_].sdo['homing_speeds'][2].raw = 900
-                if (node_id_ == 8):
+                if (C2R[node_id_ - 1] == CNT2RAD2):
                     self.network[node_id_].sdo['homing_speeds'][1].raw = 500  * 4
                     self.network[node_id_].sdo['homing_speeds'][2].raw = 900 * 4
                 self.network[node_id_].sdo['homing_acceleration'].raw = self.network[node_id_].sdo['profile_acceleration'].raw
@@ -420,7 +421,7 @@ class TestElmo():
 
     def _control_command(self, node_id, control_method, value, print_this=""):
         if (print_this != ""): self._dprint(print_this)
-        if (node_id in [7,8] and control_method is "target_velocity"):
+        if (C2R[node_id - 1] == CNT2RAD2 and control_method is "target_velocity"):
             value = value * 4
         self.network[node_id].rpdo[control_method].raw = value
         self.network[node_id].rpdo[CtrlPDO()[control_method]].transmit()
@@ -679,7 +680,7 @@ class TestElmo():
                 self.finish_work()
                 return
 
-            self.lock_.acquire()
+            self.lock_.acquire() ## I am not sure if this works or helps
             self.network.sync.transmit()
             self.lock_.release()
             self._pub_joint()
