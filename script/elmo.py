@@ -532,34 +532,6 @@ class TestElmo():
         mt_tor_r =                   NI11 * jt_tor_r
         return mt_tor_s, mt_tor_r
 
-    ## set_num (0 ~ 3)
-    ## from motor to joint
-    def _read_set(self, set_num):
-        id_s = (set_num+1) * 2  ## steering node
-        id_r = id_s - 1         ## rolling node
-
-        mt_pos_s = self.network[id_s].tpdo['position_actual_value'].raw
-        mt_vel_s = self.network[id_s].tpdo['velocity_actual_value'].raw
-        mt_tor_s = self.network[id_s].tpdo['torque_actual_value'].raw  ## testing
-
-        mt_pos_r = self.network[id_r].tpdo['position_actual_value'].raw
-        mt_vel_r = self.network[id_r].tpdo['velocity_actual_value'].raw
-        mt_tor_r = self.network[id_r].tpdo['torque_actual_value'].raw  ## testing
-
-        jt_pos_s = C2R[id_s - 1] *  NI00 * mt_pos_s
-        jt_pos_r = C2R[id_r - 1] * (NI10 * mt_pos_s + NI11 * mt_pos_r)
-
-        jt_vel_s = C2R[id_s - 1] *  NI00 * mt_vel_s
-        jt_vel_r = C2R[id_r - 1] * (NI10 * mt_vel_s + NI11 * mt_vel_r)
-
-        jt_tor_s = N00 * mt_tor_s + N10 * mt_tor_r
-        jt_tor_r =                  N11 * mt_tor_r
-
-        if (self.print_motor_status_):
-            return [id_s, mt_pos_s, mt_vel_s, mt_tor_s, jt_tor_s], [id_r, mt_pos_r, mt_vel_r, mt_tor_r, jt_tor_r]
-        else:
-            return [id_s, jt_pos_s, jt_vel_s, jt_tor_s, mt_tor_s], [id_r, jt_pos_r, jt_vel_r, jt_tor_r, mt_tor_r]
-
     def _read_and_print(self):
         current_time = 'time:%-6.2f'%((rospy.Time.now() - self.start_time).to_sec())
         homing_satus = ' | homing_satus:{0}'.format(self.ready4control_)
@@ -610,6 +582,34 @@ class TestElmo():
                 print_string = id_ + pos_ + vel_ + tor_ + statusword_ + di_
                 self._dprint(print_string)
         self._dprint('')
+
+    ## set_num (0 ~ 3)
+    ## from motor to joint
+    def _read_set(self, set_num):
+        id_s = (set_num+1) * 2  ## steering node
+        id_r = id_s - 1         ## rolling node
+
+        mt_pos_s = self.network[id_s].tpdo['position_actual_value'].raw
+        mt_vel_s = self.network[id_s].tpdo['velocity_actual_value'].raw
+        mt_tor_s = self.network[id_s].tpdo['torque_actual_value'].raw  ## testing
+
+        mt_pos_r = self.network[id_r].tpdo['position_actual_value'].raw
+        mt_vel_r = self.network[id_r].tpdo['velocity_actual_value'].raw
+        mt_tor_r = self.network[id_r].tpdo['torque_actual_value'].raw  ## testing
+
+        jt_pos_s = C2R[id_s - 1] *  NI00 * mt_pos_s
+        jt_pos_r = C2R[id_r - 1] * (NI10 * mt_pos_s + NI11 * mt_pos_r)
+
+        jt_vel_s = C2R[id_s - 1] *  NI00 * mt_vel_s
+        jt_vel_r = C2R[id_r - 1] * (NI10 * mt_vel_s + NI11 * mt_vel_r)
+
+        jt_tor_s = N00 * mt_tor_s + N10 * mt_tor_r
+        jt_tor_r =                  N11 * mt_tor_r
+
+        if (self.print_motor_status_):
+            return [id_s, mt_pos_s, mt_vel_s, mt_tor_s, jt_tor_s], [id_r, mt_pos_r, mt_vel_r, mt_tor_r, jt_tor_r]
+        else:
+            return [id_s, jt_pos_s, jt_vel_s, jt_tor_s, mt_tor_s], [id_r, jt_pos_r, jt_vel_r, jt_tor_r, mt_tor_r]
 
     def _pub_joint(self):
         self.db_position_[0] = (rospy.Time.now() - self.start_time).to_sec()
