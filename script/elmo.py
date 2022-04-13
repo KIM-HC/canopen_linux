@@ -612,9 +612,9 @@ class TestElmo():
             return [id_s, jt_pos_s, jt_vel_s, jt_tor_s, mt_tor_s], [id_r, jt_pos_r, jt_vel_r, jt_tor_r, mt_tor_r]
 
     def _pub_joint(self):
-        self.db_position_[0] = (rospy.Time.now() - self.start_time).to_sec()
-        self.db_velocity_[0] = (rospy.Time.now() - self.start_time).to_sec()
         self.js_.header.stamp = rospy.Time.now()
+        self.db_position_[0] = (self.js_.header.stamp - self.start_time).to_sec()
+        self.db_velocity_[0] = self.db_position_[0]
         for i in range(4):
             set_s, set_r = self._read_set(i)
             ## STEERING ##
