@@ -97,7 +97,11 @@ class CtrlPDO(dict):
         self['target_position'] =    2
 
 class TestElmo():
-    def __init__(self, node_list):
+    def __init__(self, node_list, operation_mode=OPMode.PROFILED_TORQUE):
+        self.operation_mode = operation_mode
+        self.control_target = 'target_torque'
+        if (self.operation_mode == OPMode.PROFILED_VELOCITY): self.control_target = 'target_velocity'
+        
         self.js_ = JointState(
             name = ['m1','m2','m3','m4','m5','m6','m7','m8'],
             velocity = [0,0,0,0,0,0,0,0],
@@ -108,6 +112,7 @@ class TestElmo():
         self.joint_pub = rospy.Publisher('dyros_mobile/joint_state', JointState, queue_size=5)
         self.joint_sub = rospy.Subscriber('dyros_mobile/desired_joint', JointState, self._joint_callback)
         rospy.on_shutdown(self.finish_work)
+        rospy.set_param('is_torque_control',True)
 
         ## -----------------------------------------------------------------
         ## basic setting
@@ -526,11 +531,43 @@ class TestElmo():
         except:
             self._dprint('')
 
-    ## from joint to motor
-    def _from_desired_torque_to_motor_torque(self, jt_tor_s, jt_tor_r):
+    def _from_joint_torque_to_motor_torque(self, jt_tor_s, jt_tor_r):
         mt_tor_s = NI00 * jt_tor_s + NI10 * jt_tor_r
         mt_tor_r =                   NI11 * jt_tor_r
         return mt_tor_s, mt_tor_r
+
+    def _from_joint_velocity_to_motor_velocity(self, jt_vel_s, jt_vel_r, id_s, id_r):
+        mt_vel_s = R2C[id_s - 1] * (N00 * jt_vel_s)
+        mt_vel_r = R2C[id_r - 1] * (N10 * jt_vel_s + N11 * jt_vel_r)
+        return mt_vel_s, mt_vel_r
+
+    ## set_num (0 ~ 3)
+    ## from motor to joint
+    def _read_set(self, set_num):
+        id_s = (set_num+1) * 2  ## steering node
+        id_r = id_s - 1         ## rolling node
+
+        mt_pos_s = self.network[id_s].tpdo['position_actual_value'].raw
+        mt_vel_s = self.network[id_s].tpdo['velocity_actual_value'].raw
+        mt_tor_s = self.network[id_s].tpdo['torque_actual_value'].raw  ## testing
+
+        mt_pos_r = self.network[id_r].tpdo['position_actual_value'].raw
+        mt_vel_r = self.network[id_r].tpdo['velocity_actual_value'].raw
+        mt_tor_r = self.network[id_r].tpdo['torque_actual_value'].raw  ## testing
+
+        jt_pos_s = C2R[id_s - 1] *  NI00 * mt_pos_s
+        jt_pos_r = C2R[id_r - 1] * (NI10 * mt_pos_s + NI11 * mt_pos_r)
+
+        jt_vel_s = C2R[id_s - 1] *  NI00 * mt_vel_s
+        jt_vel_r = C2R[id_r - 1] * (NI10 * mt_vel_s + NI11 * mt_vel_r)
+
+        jt_tor_s = N00 * mt_tor_s + N10 * mt_tor_r
+        jt_tor_r =                  N11 * mt_tor_r
+
+        if (self.print_motor_status_):
+            return [id_s, mt_pos_s, mt_vel_s, mt_tor_s, jt_tor_s], [id_r, mt_pos_r, mt_vel_r, mt_tor_r, jt_tor_r]
+        else:
+            return [id_s, jt_pos_s, jt_vel_s, jt_tor_s, mt_tor_s], [id_r, jt_pos_r, jt_vel_r, jt_tor_r, mt_tor_r]
 
     def _read_and_print(self):
         current_time = 'time:%-6.2f'%((rospy.Time.now() - self.start_time).to_sec())
@@ -583,34 +620,6 @@ class TestElmo():
                 self._dprint(print_string)
         self._dprint('')
 
-    ## set_num (0 ~ 3)
-    ## from motor to joint
-    def _read_set(self, set_num):
-        id_s = (set_num+1) * 2  ## steering node
-        id_r = id_s - 1         ## rolling node
-
-        mt_pos_s = self.network[id_s].tpdo['position_actual_value'].raw
-        mt_vel_s = self.network[id_s].tpdo['velocity_actual_value'].raw
-        mt_tor_s = self.network[id_s].tpdo['torque_actual_value'].raw  ## testing
-
-        mt_pos_r = self.network[id_r].tpdo['position_actual_value'].raw
-        mt_vel_r = self.network[id_r].tpdo['velocity_actual_value'].raw
-        mt_tor_r = self.network[id_r].tpdo['torque_actual_value'].raw  ## testing
-
-        jt_pos_s = C2R[id_s - 1] *  NI00 * mt_pos_s
-        jt_pos_r = C2R[id_r - 1] * (NI10 * mt_pos_s + NI11 * mt_pos_r)
-
-        jt_vel_s = C2R[id_s - 1] *  NI00 * mt_vel_s
-        jt_vel_r = C2R[id_r - 1] * (NI10 * mt_vel_s + NI11 * mt_vel_r)
-
-        jt_tor_s = N00 * mt_tor_s + N10 * mt_tor_r
-        jt_tor_r =                  N11 * mt_tor_r
-
-        if (self.print_motor_status_):
-            return [id_s, mt_pos_s, mt_vel_s, mt_tor_s, jt_tor_s], [id_r, mt_pos_r, mt_vel_r, mt_tor_r, jt_tor_r]
-        else:
-            return [id_s, jt_pos_s, jt_vel_s, jt_tor_s, mt_tor_s], [id_r, jt_pos_r, jt_vel_r, jt_tor_r, mt_tor_r]
-
     def _pub_joint(self):
         self.js_.header.stamp = rospy.Time.now()
         self.db_position_[0] = (self.js_.header.stamp - self.start_time).to_sec()
@@ -644,9 +653,12 @@ class TestElmo():
                 for i in range(4):
                     id_s = (i+1)*2   ## node_id
                     id_r = id_s - 1  ## node_id
-                    mt_tor_s, mt_tor_r = self._from_desired_torque_to_motor_torque(data.effort[id_s - 1], data.effort[id_r - 1])
-                    self._control_command(id_s, 'target_torque', mt_tor_s)
-                    self._control_command(id_r, 'target_torque', mt_tor_r)
+                    if (self.control_target == 'target_torque'):
+                        mt_val_s, mt_val_r = self._from_joint_torque_to_motor_torque(data.effort[id_s - 1], data.effort[id_r - 1])
+                    elif (self.control_target == 'target_velocity'):
+                        mt_val_s, mt_val_r = self._from_joint_velocity_to_motor_velocity(data.velocity[id_s - 1], data.velocity[id_r - 1], id_s, id_r)
+                    self._control_command(id_s, self.control_target, mt_val_s)
+                    self._control_command(id_r, self.control_target, mt_val_r)
                 receive_call = data.position[0]
                 # if (receive_call == 3.0): self.homing_call_ = True
                 if (receive_call == 9.0): self.stop_call_ = True
@@ -671,7 +683,7 @@ class TestElmo():
                 self._stop_operation()
                 self.homing()
                 for node_id_ in [1,2,3,4,5,6,7,8]:
-                    self._control_command(node_id_, control_target, 0.0)
+                    self._control_command(node_id_, 'target_torque', 0.0)
                 self._start_operation_mode(test_set=[1,2,3,4,5,6,7,8], operation_mode=operation_mode)
                 self.wrdb.write('homing end time: {0}\n'.format((rospy.Time.now() - self.start_time).to_sec()))
 
