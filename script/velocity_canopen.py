@@ -11,4 +11,4 @@ import elmo
 if __name__ == "__main__":
     node_set = [1,2,3,4,5,6,7,8]
     tt_ = elmo.TestElmo(node_list=node_set, operation_mode=elmo.OPMode.PROFILED_VELOCITY)
-    tt_.start_joint_publisher()
+    tt_.start_joint_publisher(operation_mode = elmo.OPMode.PROFILED_VELOCITY)

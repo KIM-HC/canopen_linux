@@ -18,16 +18,20 @@ if __name__ == "__main__":
     r = rospy.Rate(HZ)
     play_time = 5.0
 
-    value_steer = 800
-    value_roll  = 0
+    tor_steer = 800
+    tor_roll  = 0
+    vel_steer = 0.1
+    vel_roll = 0
 
     for i in range(4):
         s = (i+1)*2  ## steering node
         idx_s = s-1  ## steering index
         ## STEERING ##
-        js_.effort[idx_s] = value_steer
+        js_.effort[idx_s] = tor_steer
+        js_.velocity[idx_s] = vel_steer
         ## ROLLING ##
-        js_.effort[idx_s - 1] = value_roll
+        js_.effort[idx_s - 1] = tor_roll
+        js_.velocity[idx_s - 1] = vel_roll
 
     # js_.effort = [0, 0, 0, 0, 0, 0, -100, -100]
 

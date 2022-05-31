@@ -112,7 +112,8 @@ class TestElmo():
         self.joint_pub = rospy.Publisher('dyros_mobile/joint_state', JointState, queue_size=5)
         self.joint_sub = rospy.Subscriber('dyros_mobile/desired_joint', JointState, self._joint_callback)
         rospy.on_shutdown(self.finish_work)
-        rospy.set_param('is_torque_control',True)
+        if (operation_mode == OPMode.PROFILED_TORQUE): rospy.set_param('is_torque_control',True)
+        else: rospy.set_param('is_torque_control',False)
 
         ## -----------------------------------------------------------------
         ## basic setting
@@ -620,6 +621,7 @@ class TestElmo():
                 self._dprint(print_string)
         self._dprint('')
 
+    ## Publishes current joint state
     def _pub_joint(self):
         self.js_.header.stamp = rospy.Time.now()
         self.db_position_[0] = (self.js_.header.stamp - self.start_time).to_sec()
@@ -659,6 +661,8 @@ class TestElmo():
                         mt_val_s, mt_val_r = self._from_joint_velocity_to_motor_velocity(data.velocity[id_s - 1], data.velocity[id_r - 1], id_s, id_r)
                     self._control_command(id_s, self.control_target, mt_val_s)
                     self._control_command(id_r, self.control_target, mt_val_r)
+                    self._dprint("s: {0}".format(mt_val_s))
+                    self._dprint("r: {0}".format(mt_val_r))
                 receive_call = data.position[0]
                 # if (receive_call == 3.0): self.homing_call_ = True
                 if (receive_call == 9.0): self.stop_call_ = True
